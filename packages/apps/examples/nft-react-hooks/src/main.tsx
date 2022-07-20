@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { IcyProvider } from '@quicknode/nft-react-hooks';
 
-import './index.css';
+import './styles.css';
 
 import App from './app/app';
 import Home from './app/scenes/Home';

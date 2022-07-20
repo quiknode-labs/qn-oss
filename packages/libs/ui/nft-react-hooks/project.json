@@ -1,0 +1,45 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/libs/ui/nft-react-hooks/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/libs/ui/nft-react-hooks",
+        "tsConfig": "packages/libs/ui/nft-react-hooks/tsconfig.lib.json",
+        "project": "packages/libs/ui/nft-react-hooks/package.json",
+        "entryFile": "packages/libs/ui/nft-react-hooks/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "packages/libs/ui/nft-react-hooks/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/libs/ui/nft-react-hooks/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/libs/ui/nft-react-hooks"],
+      "options": {
+        "jestConfig": "packages/libs/ui/nft-react-hooks/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

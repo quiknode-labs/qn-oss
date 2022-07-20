@@ -1,5 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
-  "projects": {}
+  "projects": {
+    "apps-examples-nft-react-hooks": "packages/apps/examples/nft-react-hooks",
+    "apps-examples-nft-react-hooks-e2e": "packages/apps/examples/nft-react-hooks-e2e",
+    "libs-ui-nft-react-hooks": "packages/libs/ui/nft-react-hooks"
+  }
 }

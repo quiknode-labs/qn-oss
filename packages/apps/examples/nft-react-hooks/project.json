@@ -1,0 +1,85 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/apps/examples/nft-react-hooks/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/packages/apps/examples/nft-react-hooks",
+        "index": "packages/apps/examples/nft-react-hooks/src/index.html",
+        "baseHref": "/",
+        "main": "packages/apps/examples/nft-react-hooks/src/main.tsx",
+        "polyfills": "packages/apps/examples/nft-react-hooks/src/polyfills.ts",
+        "tsConfig": "packages/apps/examples/nft-react-hooks/tsconfig.app.json",
+        "assets": [
+          "packages/apps/examples/nft-react-hooks/src/favicon.ico",
+          "packages/apps/examples/nft-react-hooks/src/assets"
+        ],
+        "styles": ["packages/apps/examples/nft-react-hooks/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "packages/apps/examples/nft-react-hooks/src/environments/environment.ts",
+              "with": "packages/apps/examples/nft-react-hooks/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "apps-examples-nft-react-hooks:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "apps-examples-nft-react-hooks:build:development"
+        },
+        "production": {
+          "buildTarget": "apps-examples-nft-react-hooks:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/apps/examples/nft-react-hooks/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/apps/examples/nft-react-hooks"],
+      "options": {
+        "jestConfig": "packages/apps/examples/nft-react-hooks/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

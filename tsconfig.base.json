@@ -18,7 +18,14 @@
       "@quicknode/nft-react-hooks": [
         "packages/libs/ui/nft-react-hooks/src/index.ts"
       ]
-    }
+    },
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "strict": true
   },
   "exclude": ["node_modules", "tmp"]
 }

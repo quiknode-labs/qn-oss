@@ -1,0 +1,161 @@
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: black;
+  color: white;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.nav {
+  display: flex;
+  min-width: 600px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav a {
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  transition: all 150ms ease-out;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  opacity: .75;
+}
+.nav .links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.nav a:hover {
+  opacity: 1;
+  background: #292A2B;
+}
+
+.search {
+  display: inline-flex;
+  margin: 16px auto;
+
+}
+.search button {
+  background: #434445;
+  border: none;
+  color: white;
+  height: 40px;
+  padding: 0 16px;
+  font-weight: 600;
+    transition: all 150ms ease-out;
+
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 0 8px 8px 0;
+}
+
+.search button:hover {
+  background: #656667;
+}
+
+.search input {
+  padding: 0 12px;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px 0 0 8px;
+}
+
+.empty {
+  padding: 32px;
+  background: #292A2B;
+  border-radius: 6px;
+  color: #AEAEB2;
+  text-align: center;
+}
+
+.mono {
+  text-align: right;
+  font-family: 'Roboto Mono', monospace;
+  opacity: .75;
+}
+
+:root {
+  --mono: 'Roboto Mono', monospace;
+}
+
+.card {
+  background: #292A2B;
+  padding: 16px;
+  margin: 32px;
+  border-radius: 12px;
+}
+
+.card h1 {
+  margin-top: 0;
+}
+
+.card p:last-child {
+  margin-bottom: 0;
+}
+.card .val {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.card h1,
+.card h2 {
+  margin: 0;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card .img {
+  height: 120px;
+  width: 120px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.card .img img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.top div:first-child {
+  width: 50%;
+}
+
+.top h2 {
+  opacity: .5;
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+.val span {
+  font-family: var(--mono);
+  text-align: right;
+}
+
+.wallet-address {
+  font-size: 21px;
+  text-align: center;
+  font-weight: 600;
+}

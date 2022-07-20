@@ -24,6 +24,7 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
     "jsx": "react-jsx",
     "strict": true
   },

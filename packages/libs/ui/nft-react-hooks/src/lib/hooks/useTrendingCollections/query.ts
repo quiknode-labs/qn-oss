@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { Connection } from '~/types';
+import { Connection } from '../../types';
 
 export const trendingCollectionsQuery = gql`
   query TrendingCollections {

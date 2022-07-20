@@ -1,0 +1,8 @@
+thead td {
+    padding: 8px 12px;
+    font-weight: 600;
+}
+
+tbody td {
+    padding: 2px 12px;
+}

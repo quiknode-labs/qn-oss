@@ -2,7 +2,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/libs/ui/nft-react-hooks/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["scope:ui"],
   "targets": {
     "build": {
       "executor": "@nrwl/web:rollup",

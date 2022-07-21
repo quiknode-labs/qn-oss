@@ -25,6 +25,6 @@
       }
     }
   },
-  "tags": [],
+  "tags": ["scope:ui"],
   "implicitDependencies": ["apps-examples-nft-react-hooks"]
 }

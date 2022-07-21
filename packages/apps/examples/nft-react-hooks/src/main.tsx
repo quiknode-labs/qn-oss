@@ -5,7 +5,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { IcyProvider } from '@quicknode/nft-react-hooks';
+import { IcyProvider } from '@quiknode-labs/nft-react-hooks';
 
 import './styles.css';
 

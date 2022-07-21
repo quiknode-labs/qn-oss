@@ -1,4 +1,4 @@
-import { useWalletNFTs } from '@quicknode/nft-react-hooks';
+import { useWalletNFTs } from '@quiknode-labs/nft-react-hooks';
 import { useState } from 'react';
 
 import './Wallets.css';

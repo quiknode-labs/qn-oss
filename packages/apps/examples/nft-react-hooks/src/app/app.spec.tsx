@@ -22,6 +22,7 @@ describe('App', () => {
       </BrowserRouter>
     );
 
-    expect(getByText(/Welcome apps-examples-nft-react-hooks/gi)).toBeTruthy();
+    expect(getByText(/Wallet/gi)).toBeTruthy();
+    expect(getByText(/Collections/gi)).toBeTruthy();
   });
 });

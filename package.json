@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "serve:app:nft:hooks": "nx serve apps-examples-nft-react-hooks",
+    "test:app:nft:hooks": "nx test apps-ui-nft-react-hooks",
+    "test:lib:nft:hooks": "nx test libs-ui-nft-react-hooks",
     "build:lib:nft:hooks": "nx build libs-ui-nft-react-hooks"
   },
   "private": true,

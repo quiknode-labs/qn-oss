@@ -14,7 +14,7 @@
             "depConstraints": [
               {
                 "sourceTag": "scope:ui",
-                "onlyDependOnLibsWithTags": ["scope:util", "scope:ui"]
+                "onlyDependOnLibsWithTags": ["scope:util", "scope:ui:util", "scope:ui"]
               },
               {
                 "sourceTag": "*",

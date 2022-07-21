@@ -4,6 +4,18 @@
 
 ## What is this 
 
+### Nx workspace
+#### libs & apps
+
+### scripting shorthand
+
+```bash
+yarn build:lib:nft:hooks
+```
+```bash
+yarn serve:app:nft:hooks
+```
+
 ## Packages
 
 ### nft-react-hooks

@@ -1,0 +1,12 @@
+.editorconfig
+.eslintrc.json
+.prettierignore
+.prettierrc
+.vscode
+babel.config.json
+*.ts
+node_modules
+nx.json
+tsconfig.*json
+workspace.json
+yarn.lock

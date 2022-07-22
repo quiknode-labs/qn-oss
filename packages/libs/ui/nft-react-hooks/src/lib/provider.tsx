@@ -2,14 +2,13 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  ApolloLink,
   HttpLink,
-  concat,
+  from,
 } from '@apollo/client';
+import { ErrorLink } from '@apollo/client/link/error';
+import { setContext } from '@apollo/client/link/context';
 import React, { useEffect } from 'react';
 import create from 'zustand';
-
-console.log('hi?');
 
 interface TokenStore {
   token: string | null;
@@ -22,24 +21,53 @@ const useTokenStore = create<TokenStore>((set) => ({
 }));
 
 const httpLink = new HttpLink({
-  uri: 'https://graphql.icy.tools/graphql',
+  // uri: 'https://graphql.icy.tools/graphql',
+  uri: 'http://localhost:1339/graphql',
 });
 
-const authLink = new ApolloLink((operation, forward) => {
-  console.log('token is: ', useTokenStore.getState().token);
-  // add the authorization to the headers
-  operation.setContext(({ headers = {} }) => ({
+function fetchToken() {
+  const poll = (resolve: (value: string) => void) => {
+    const token = useTokenStore.getState().token;
+
+    if(token) resolve(token);
+    else setTimeout(() => poll(resolve), 50);
+  }
+
+  return new Promise(poll);
+}
+
+const authLink = setContext(async (_, { headers }) => {
+
+ const token = await fetchToken();
+
+ return {
     headers: {
       ...headers,
-      'x-api-key': useTokenStore.getState().token,
-    },
-  }));
-
-  return forward(operation);
+      'x-api-key': token,
+    }
+  }
 });
 
+const errorLink = new ErrorLink(({ networkError, forward, operation }) => {
+  if (networkError && 'statusCode' in networkError) {
+    const token = useTokenStore.getState().token;
+    if (token) {
+      operation.setContext({
+        headers: {
+          ...operation.getContext()['headers'],
+          'x-api-key': token,
+        }
+      })
+
+      return forward(operation);
+    }
+  }
+
+  return;
+})
+
 const client = new ApolloClient({
-  link: concat(authLink, httpLink),
+  link: from([authLink, errorLink, httpLink]),
   cache: new InMemoryCache({
     typePolicies: {
       ERC721Token: {
@@ -64,7 +92,11 @@ function IcyProvider(props: IcyProviderProps) {
   const tokenStore = useTokenStore();
 
   useEffect(() => {
+    if (typeof props.apiKey !== 'string') {
+      throw new Error('You must pass a valid API key into <IcyProvider>');
+    }
     tokenStore.setToken(props.apiKey);
+    client.refetchQueries({});
   }, [props.apiKey]);
 
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>;

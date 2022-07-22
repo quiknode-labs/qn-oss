@@ -20,7 +20,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <IcyProvider apiKey="{NFT_API_KEY}">
+    <IcyProvider apiKey="{ICY_API_KEY}">
       <Router>
         <Routes>
           <Route path="/" element={<App />}>

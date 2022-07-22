@@ -5,7 +5,8 @@ import './Wallets.css';
 
 function Wallets() {
   const [ensName, setEnsName] = useState('');
-  const { nfts, isSearchValid } = useWalletNFTs({ ensName });
+  const [cursor, setCursor] = useState<string | undefined>(undefined);
+  const { nfts, isSearchValid, pageInfo } = useWalletNFTs({ ensName, first: 10, after: cursor });
 
   return (
     <div className="Wallets">
@@ -21,10 +22,6 @@ function Wallets() {
           />
         </div>
       </div>
-
-      {/* <p className={data?.wallet?.address ? 'wallet-address' : 'empty'}>
-        {data?.wallet?.address ?? 'Not found'}
-      </p> */}
 
       {nfts.map((nft) => {
         const contract = nft.contract;
@@ -51,6 +48,14 @@ function Wallets() {
           </div>
         );
       })}
+
+      {pageInfo?.hasNextPage && (
+        <div style={{ alignItems: 'flex-end', width: '100%', justifyContent: 'flex-end', display: 'flex' }}>
+          <button onClick={() => {
+            setCursor(pageInfo.endCursor ?? undefined)
+          }}>Next</button>
+        </div>
+      )}
     </div>
   );
 }

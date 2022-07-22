@@ -4,15 +4,15 @@ export const nftOwnerQuery = gql`
   query NFTOwner($contractAddress: String!, $tokenId: String!) {
     token(contractAddress: $contractAddress, tokenId: $tokenId) {
       tokenId
-      #   contract {
-      #     address
-      #   }
-      #   ... on ERC721Token {
-      #     owner {
-      #       address
-      #       ensName
-      #     }
-      #   }
+      contract {
+        address
+      }
+      ... on ERC721Token {
+        owner {
+          address
+          ensName
+        }
+      }
     }
   }
 `;

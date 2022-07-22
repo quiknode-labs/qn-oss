@@ -1,13 +1,25 @@
 import { gql } from '@apollo/client';
 
-import { Connection } from '../../types';
+import { Connection, PaginationArgs } from '../../types';
 
 export const walletNFTsQuery = gql`
-  query WalletNFTs($ensName: String!) {
-    wallet(ensName: $ensName) {
+  query WalletNFTs(
+    $address: String,
+    $ensName: String,
+    $first: Int,
+    $after: String
+  ) {
+    wallet(
+      address: $address,
+      ensName: $ensName
+    ) {
       ensName
       address
-      tokens {
+      tokens(first: $first, after: $after) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
         edges {
           node {
             tokenId
@@ -50,11 +62,11 @@ export interface WalletNFTsQuery {
   } | null;
 }
 
-interface WalletNFTsQueryAddressVariables {
+interface WalletNFTsQueryAddressVariables extends PaginationArgs {
   address: string;
 }
 
-interface WalletNFTsQueryENSVariables {
+interface WalletNFTsQueryENSVariables extends PaginationArgs {
   ensName: string;
 }
 

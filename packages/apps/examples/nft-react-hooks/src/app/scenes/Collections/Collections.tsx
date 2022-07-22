@@ -1,9 +1,17 @@
-import { useTrendingCollections } from '@quicknode/icy-nft-hooks';
+import { useTrendingCollections, TrendingCollectionsTimePeriod } from '@quicknode/icy-nft-hooks';
+import { useState } from 'react';
 
 import './Collections.css';
  
 function Collections() {
-  const { collections } = useTrendingCollections({ orderBy: 'SALES', orderDirection: 'DESC' });
+  const [cursor, setCursor] = useState<string | undefined>(undefined);
+  const { collections, pageInfo } = useTrendingCollections({
+    orderBy: 'SALES',
+    orderDirection: 'DESC',
+    timePeriod: TrendingCollectionsTimePeriod.ONE_HOUR,
+    first: 5,
+    after: cursor
+  });
 
   return (
     <div className="App">
@@ -12,11 +20,11 @@ function Collections() {
       </div>
       <table>
         <thead>
-          <td>Collection</td>
-          <td style={{ textAlign: "right" }}>Floor</td>
-          <td style={{ textAlign: "right" }}>Volume</td>
-          <td style={{ textAlign: "right" }}>Total Sales</td>
-          <td style={{ textAlign: "right" }}>Average</td>
+          <th style={{ textAlign: "left" }}>Collection</th>
+          <th style={{ textAlign: "right" }}>Floor</th>
+          <th style={{ textAlign: "right" }}>Volume</th>
+          <th style={{ textAlign: "right" }}>Total Sales</th>
+          <th style={{ textAlign: "right" }}>Average</th>
         </thead>
         <tbody>
           {collections.map(
@@ -34,6 +42,13 @@ function Collections() {
           )}
         </tbody>
       </table>
+      {pageInfo?.hasNextPage && (
+        <div style={{ alignItems: 'flex-end', width: '100%', justifyContent: 'flex-end', display: 'flex' }}>
+          <button onClick={() => {
+            setCursor(pageInfo.endCursor ?? undefined)
+          }}>Next</button>
+        </div>
+      )}
     </div>
   );
 }

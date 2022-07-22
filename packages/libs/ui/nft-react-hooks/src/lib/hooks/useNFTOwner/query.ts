@@ -17,16 +17,18 @@ export const nftOwnerQuery = gql`
   }
 `;
 
+interface Owner {
+  address: string;
+  ensName: string | null;
+}
+
 export interface NFTOwnerQuery {
   token: {
     tokenId: string;
     contract: {
       address: string;
     };
-    owner: {
-      address: string;
-      ensName: string | null;
-    } | null;
+    owner: Owner | null;
   } | null;
 }
 

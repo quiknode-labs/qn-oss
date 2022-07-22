@@ -17,7 +17,7 @@
     "paths": {
       "@qn-oss/libs/ui/util": ["packages/libs/ui/util/src/index.ts"],
       "@qn-oss/libs/util": ["packages/libs/util/src/index.ts"],
-      "@quicknode/nft-react-hooks": [
+      "@quicknode/icy-nft-hooks": [
         "packages/libs/ui/nft-react-hooks/src/index.ts"
       ]
     },

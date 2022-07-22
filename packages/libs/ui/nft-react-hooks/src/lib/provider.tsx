@@ -48,26 +48,8 @@ const authLink = setContext(async (_, { headers }) => {
   }
 });
 
-const errorLink = new ErrorLink(({ networkError, forward, operation }) => {
-  if (networkError && 'statusCode' in networkError) {
-    const token = useTokenStore.getState().token;
-    if (token) {
-      operation.setContext({
-        headers: {
-          ...operation.getContext()['headers'],
-          'x-api-key': token,
-        }
-      })
-
-      return forward(operation);
-    }
-  }
-
-  return;
-})
-
 const client = new ApolloClient({
-  link: from([authLink, errorLink, httpLink]),
+  link: from([authLink, httpLink]),
   cache: new InMemoryCache({
     typePolicies: {
       ERC721Token: {
@@ -96,7 +78,6 @@ function IcyProvider(props: IcyProviderProps) {
       throw new Error('You must pass a valid API key into <IcyProvider>');
     }
     tokenStore.setToken(props.apiKey);
-    client.refetchQueries({});
   }, [props.apiKey]);
 
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>;

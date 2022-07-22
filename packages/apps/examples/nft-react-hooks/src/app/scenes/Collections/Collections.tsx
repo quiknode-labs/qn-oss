@@ -1,4 +1,4 @@
-import { useTrendingCollections } from '@quiknode-labs/nft-react-hooks';
+import { useTrendingCollections } from '@quicknode/nft-react-hooks';
 
 import './Collections.css';
  

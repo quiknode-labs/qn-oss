@@ -21,8 +21,7 @@ const useTokenStore = create<TokenStore>((set) => ({
 }));
 
 const httpLink = new HttpLink({
-  // uri: 'https://graphql.icy.tools/graphql',
-  uri: 'http://localhost:1339/graphql',
+  uri: 'https://graphql.icy.tools/graphql',
 });
 
 function fetchToken() {

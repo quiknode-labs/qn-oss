@@ -25,15 +25,15 @@ This is a react hook library that serves as a wrapper to the [icy.tools GraphQL 
 
 #### Installation
 
-Install the icy-nft-hooks package from npm
+Install the @quicknode/icy-nft-hooks package from npm
 
 ```bash
-  yarn add icy-nft-hooks
+  yarn add @quicknode/icy-nft-hooks
 ```
 or 
 
 ```bash
-  npm install icy-nft-hooks
+  npm install @quicknode/icy-nft-hooks
 ```
 
 #### Usage/Examples
@@ -41,7 +41,7 @@ or
 Start by wrapping your app in the `IcyProvider` component and provide your apiKey which you can get from the [icy.tools Developer Website](https://developers.icy.tools).
 
 ```typescript
-import { IcyProvider } from 'icy-nft-hooks';
+import { IcyProvider } from '@quicknode/icy-nft-hooks';
 
 function App() {
   return (
@@ -55,7 +55,7 @@ function App() {
 Once done, just use any hook anywhere in your application.
 
 ```typescript
-import { useWalletNFTs } from 'icy-nft-hooks';
+import { useWalletNFTs } from '@quicknode/icy-nft-hooks';
 
 function WalletComponent({ ensName }: { ensName: string }) {
     const { nfts } = useWalletNFTs({ ensName });

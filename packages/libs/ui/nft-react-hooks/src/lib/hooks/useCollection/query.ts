@@ -5,20 +5,19 @@ export const collectionQuery = gql`
     contract(address: $address) {
       ... on ERC721Contract {
         address
-        # name
-        # symbol
-        # stats(
-        #   timeRange: {
-        #     gte: "2022-01-01T00:00:00.000Z"
-        #     lt: "2022-01-07T00:00:00.000Z"
-        #   }
-        # ) {
-        #   floor
-        #   volume
-        # } @include(if: $includeStats)
-        # unsafeOpenseaBannerImageUrl
-        # unsafeOpenseaImageUrl
-        # unsafeOpenseaSlug
+        name
+        symbol
+        stats @include(if: $includeStats) {
+          average
+          ceiling
+          floor
+          totalSales
+          volume
+        } 
+        unsafeOpenseaBannerImageUrl
+        unsafeOpenseaImageUrl
+        unsafeOpenseaSlug
+        unsafeOpenseaExternalUrl
       }
     }
   }
@@ -31,11 +30,15 @@ export interface Collection {
   unsafeOpenseaBannerImageUrl: string | null;
   unsafeOpenseaImageUrl: string | null;
   unsafeOpenseaSlug: string | null;
+  unsafeOpenseaExternalUrl: string | null;
 }
 
 export interface CollectionWithStats extends Collection {
   stats: {
-    floor: number;
+    average: number | null;
+    ceiling: number | null;
+    floor: number | null;
+    totalSales: number;
     volume: number;
   };
 }
@@ -50,5 +53,5 @@ export interface CollectionWithStatsQuery {
 
 export interface CollectionQueryVariables {
   address: string;
-  includeStats: boolean;
+  includeStats?: boolean;
 }

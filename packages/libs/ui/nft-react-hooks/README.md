@@ -76,28 +76,48 @@ function WalletComponent({ ensName }: { ensName: string }) {
 ```
 #### API Reference
 
+##### Shared types
+
+```ts
+export interface PageInfo {
+  hasNextPage: boolean;
+  endCursor: string | null;
+}
+
+export interface PaginationArgs {
+  first?: number;
+  after?: string;
+}
+```
+
 ##### useWalletNFTs
 
 ```ts
+  // Example
   const { nfts, loading, isSearchValid } = useWalletNFTs({
       address: '0x....',
       ensName: 'vitalk.eth',
   });
 ```
 
+###### args:
 
 - `args: Args`
   ```ts
-    interface AddressArgs {
+    interface WalletNFTsQueryAddressVariables extends PaginationArgs {
       address: string;
     }
 
-    interface EnsArgs {
+    interface WalletNFTsQueryENSVariables extends PaginationArgs {
       ensName: string;
     }
 
-    type Args = AddressArgs | EnsArgs;
+    export type WalletNFTsQueryVariables =
+      | WalletNFTsQueryAddressVariables
+      | WalletNFTsQueryENSVariables;
   ```
+
+###### returns:
 
 - `nfts: NFT[]` The list of NFTs belonging to a given wallet
     ```ts
@@ -116,5 +136,142 @@ function WalletComponent({ ensName }: { ensName: string }) {
 
 - `loading: boolean` The loading state of the query
 - `isSearchValid: boolean` Returns true if a valid 42 char ethereum address or a valid ENS name is provided. Query will skip unless this field is true in order to preserve rate limits.
+- `pageInfo: PageInfo` Used for pagination. Type declared above.
+
+
+##### useTrendingCollections
+
+```ts
+  // Example
+  const { collections, pageInfo } = useTrendingCollections({
+    orderBy: 'SALES',
+    orderDirection: 'DESC',
+    timePeriod: TrendingCollectionsTimePeriod.ONE_HOUR,
+    first: 5,
+    after: cursor
+  });
+```
+
+###### args:
+
+- `args: Args`
+  ```ts
+    export interface TrendingCollectionsQueryVariables extends PaginationArgs {
+      orderBy: 'SALES' | 'AVERAGE' | 'VOLUME';
+      orderDirection: 'DESC' | 'ASC';
+      timePeriod?: TrendingCollectionsTimePeriod;
+    }
+
+    export enum TrendingCollectionsTimePeriod {
+      ONE_HOUR = 'ONE_HOUR',
+      TWELVE_HOURS = 'TWELVE_HOURS',
+      ONE_DAY = 'ONE_DAY',
+      SEVEN_DAYS = 'SEVEN_DAYS'
+    }
+  ```
+
+###### returns:
+
+- `collections: Collection[]` The list of NFTs belonging to a given wallet
+    ```ts
+      export interface Collection {
+        address: string;
+        name: string;
+        stats: {
+          totalSales: number;
+          average: number;
+          ceiling: number;
+          floor: number;
+          volume: number;
+        };
+        symbol: number;
+      }
+    ```
+
+- `loading: boolean` The loading state of the query
+- `pageInfo: PageInfo` Used for pagination. Type declared above.
+
+##### useNFTOwner
+
+```ts
+  // Example
+  const { owner, loading } = useNFTOwner({
+    ensName: 'mevcollector.eth',
+  });
+```
+
+###### args:
+
+- `args: Args`
+  ```ts
+    interface Args {
+      contractAddress: string;
+      tokenId: string;
+    }
+  ```
+###### returns:
+
+- `owner: Owner | null` The list of NFTs belonging to a given wallet
+    ```ts
+      interface Owner {
+        address: string;
+        ensName: string | null;
+      }
+    ```
+
+- `loading: boolean` The loading state of the query
+
+##### useCollection
+
+```ts
+  // Example
+  const { collections, pageInfo } = useCollection({
+    contractAddress: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+    includeStats: true,
+  });
+```
+
+###### args:
+
+- `args: Args`
+  ```ts
+    interface WithStatsArgs {
+      address: string;
+      includeStats: true;
+    }
+
+    interface WithoutStatsArgs {
+      address: string;
+      includeStats?: false;
+    }
+
+    type Args = WithStatsArgs | WithoutStatsArgs;
+  ```
+###### returns:
+
+- `collection: Collection | null` The list of NFTs belonging to a given wallet
+    ```ts
+        export interface Collection {
+          address: string;
+          name: string;
+          symbol: string;
+          unsafeOpenseaBannerImageUrl: string | null;
+          unsafeOpenseaImageUrl: string | null;
+          unsafeOpenseaSlug: string | null;
+        }
+
+        export interface CollectionWithStats extends Collection {
+          stats: {
+          average: number | null;
+          ceiling: number | null;
+          floor: number | null;
+          totalSales: number;
+          volume: number;
+          };
+        }
+    ```
+
+- `loading: boolean` The loading state of the query
+
 
 

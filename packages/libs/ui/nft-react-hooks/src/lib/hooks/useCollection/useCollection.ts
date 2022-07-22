@@ -14,7 +14,7 @@ interface WithStatsArgs {
 
 interface WithoutStatsArgs {
   address: string;
-  includeStats: false;
+  includeStats?: false;
 }
 
 type Args = WithStatsArgs | WithoutStatsArgs;
@@ -24,7 +24,10 @@ function useCollection<T extends Args>(args: T) {
     T extends WithStatsArgs ? CollectionWithStatsQuery : CollectionQuery,
     CollectionQueryVariables
   >(collectionQuery, {
-    variables: args,
+    variables: {
+      ...args,
+      includeStats: args.includeStats ?? false,
+    },
   });
 
   return {

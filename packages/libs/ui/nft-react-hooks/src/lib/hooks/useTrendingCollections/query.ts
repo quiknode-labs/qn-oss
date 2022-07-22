@@ -1,10 +1,28 @@
 import { gql } from '@apollo/client';
 
-import { Connection } from '../../types';
+import { Connection, PaginationArgs } from '../../types';
 
 export const trendingCollectionsQuery = gql`
-  query TrendingCollections {
-    contracts(orderBy: SALES, orderDirection: DESC) {
+  query TrendingCollections(
+    $first: Int,
+    $after: String,
+    $orderBy: TrendingCollectionsOrderByEnum,
+    $orderDirection: OrderDirectionEnum,
+    $timePeriod: TrendingCollectionsTimePeriodEnum
+  ) {
+    trendingCollections(
+      first: $first,
+      after: $after,
+      orderBy: $orderBy,
+      orderDirection: $orderDirection,
+      timePeriod: $timePeriod
+    ) {
+      pageInfo {
+        endCursor
+        startCursor
+        hasNextPage
+        hasPreviousPage
+      }
       edges {
         node {
           address
@@ -39,10 +57,18 @@ export interface Collection {
 }
 
 export interface TrendingCollectionsQuery {
-  contracts: Connection<Collection>;
+  trendingCollections: Connection<Collection>;
 }
 
-export interface TrendingCollectionsQueryVariables {
-  orderBy: 'SALES' | 'NAME' | 'VOLUME';
+export enum TrendingCollectionsTimePeriod {
+  ONE_HOUR = 'ONE_HOUR',
+  TWELVE_HOURS = 'TWELVE_HOURS',
+  ONE_DAY = 'ONE_DAY',
+  SEVEN_DAYS = 'SEVEN_DAYS'
+}
+
+export interface TrendingCollectionsQueryVariables extends PaginationArgs {
+  orderBy: 'SALES' | 'AVERAGE' | 'VOLUME';
   orderDirection: 'DESC' | 'ASC';
+  timePeriod?: TrendingCollectionsTimePeriod;
 }

@@ -6,15 +6,7 @@ import {
   WalletNFTsQueryVariables,
 } from './query';
 
-interface AddressArgs {
-  address: string;
-}
-
-interface EnsArgs {
-  ensName: string;
-}
-
-type Args = AddressArgs | EnsArgs;
+type Args = WalletNFTsQueryVariables;
 
 const ENS_REGEX = /[a-z]+(.eth)/;
 const ADDRESS_REGEX = /^0x[[:alnum:]]{40}$/;
@@ -41,6 +33,7 @@ function useWalletNFTs(args: Args) {
   return {
     isSearchValid,
     loading,
+    pageInfo: data?.wallet?.tokens.pageInfo,
     nfts,
   };
 }

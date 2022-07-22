@@ -1,8 +1,8 @@
-thead td {
+thead td th {
     padding: 8px 12px;
     font-weight: 600;
 }
 
-tbody td {
+tbody td th {
     padding: 2px 12px;
 }

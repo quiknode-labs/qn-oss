@@ -45,7 +45,7 @@ import { IcyProvider } from 'icy-nft-hooks';
 
 function App() {
   return (
-      <IcyProvider apiKey={MY_API_KEY}>
+      <IcyProvider apiKey={NFT_API_KEY}>
         ...
       </IcyProvider>
   );

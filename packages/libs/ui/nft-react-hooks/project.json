@@ -40,6 +40,12 @@
         "jestConfig": "packages/libs/ui/nft-react-hooks/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
+      }
     }
   }
 }

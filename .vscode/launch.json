@@ -1,17 +1,43 @@
 {
-    // Use IntelliSense to learn about possible attributes.
+  // https://stackoverflow.com/a/60488372
+  // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${file}"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+    "type": "pwa-node",
+    "request": "launch",
+    "name": "Launch Program",
+    "skipFiles": [
+      "<node_internals>/**"
+    ],
+    "program": "${file}"
+  },
+    {
+    "name": "debug-app-nft-hooks",
+    "type": "node",
+    "request": "launch",
+    "runtimeExecutable": "yarn",
+    "runtimeArgs": [
+      "run",
+      "nx",
+      "run",
+      "apps-examples-nft-react-hooks:serve:development",
+      "-r",
+      "ts-node/register",
+      "-r",
+      "tsconfig-paths/register"
+    ],
+    "protocol": "inspector",
+    "outputCapture": "std",
+    "internalConsoleOptions": "openOnSessionStart",
+    "console": "internalConsole",
+    "env": {
+      "TS_NODE_IGNORE": "false",
+      "TS_NODE_PROJECT": "${workspaceFolder}/packages/apps/examples/nft-react-hooks/tsconfig.json"
+    },
+    "cwd": "${workspaceFolder}/packages/apps/examples/nft-react-hooks/"
+  }
+  ]
 }

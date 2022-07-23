@@ -1,4 +1,8 @@
 {
   "name": "@quicknode/icy-nft-hooks",
-  "version": "0.0.4"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quiknode-labs/qn-oss.git"
+  },
+  "version": "0.0.6"
 }

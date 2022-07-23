@@ -6,7 +6,7 @@
     "serve:app:nft:hooks": "nx serve apps-examples-nft-react-hooks",
     "test:app:nft:hooks": "nx test apps-examples-nft-react-hooks",
     "test:lib:nft:hooks": "nx test libs-ui-nft-react-hooks",
-    "build:lib:nft:hooks": "nx build libs-ui-nft-react-hooks --buildableProjectDepsInPackageJsonType=dependencies",
+    "build:lib:nft:hooks": "nx build libs-ui-nft-react-hooks",
     "npm:publish:lib:nft:hooks": "yarn build:lib:nft:hooks && cd dist/packages/libs/ui/nft-react-hooks && npm publish --access public",
     "npm:deploy:lib:nft:hooks": "nx deploy libs-ui-nft-react-hooks --no-build --access public"
   },

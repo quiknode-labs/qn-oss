@@ -17,7 +17,7 @@ export const nftOwnerQuery = gql`
   }
 `;
 
-interface Owner {
+export interface Owner {
   address: string;
   ensName: string | null;
 }

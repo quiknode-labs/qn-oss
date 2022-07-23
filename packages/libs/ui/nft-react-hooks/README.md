@@ -1,24 +1,6 @@
 
 
-# QuickNode OSS Repository
-
-## What is this 
-
-### Nx workspace
-#### libs & apps
-
-### scripting shorthand
-
-```bash
-yarn build:lib:nft:hooks
-```
-```bash
-yarn serve:app:nft:hooks
-```
-
-## Packages
-
-### nft-react-hooks
+# Icy NFT hooks
 
 This is a react hook library that serves as a wrapper to the [icy.tools GraphQL API](https://developers.icy.tools).
 

@@ -18,9 +18,11 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const apiKey = process.env['NX_ICY_API_KEY'] || ''
+
 root.render(
   <React.StrictMode>
-    <IcyProvider apiKey="{ICY_API_KEY}">
+    <IcyProvider apiKey={apiKey}>
       <Router>
         <Routes>
           <Route path="/" element={<App />}>

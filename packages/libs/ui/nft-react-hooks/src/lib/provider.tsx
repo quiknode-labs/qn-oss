@@ -20,7 +20,7 @@ const useTokenStore = create<TokenStore>((set) => ({
 }));
 
 const httpLink = new HttpLink({
-  uri: 'https://graphql.icy.tools/graphql',
+  uri: 'http://localhost:1339/graphql',
 });
 
 function fetchToken() {
@@ -72,10 +72,11 @@ function IcyProvider(props: IcyProviderProps) {
   const tokenStore = useTokenStore();
 
   useEffect(() => {
-    if (typeof props.apiKey !== 'string') {
+    const apiKey = props.apiKey
+    if (typeof apiKey !== 'string' || apiKey.length === 0) {
       throw new Error('You must pass a valid API key into <IcyProvider>');
     }
-    tokenStore.setToken(props.apiKey);
+    tokenStore.setToken(apiKey);
   }, [props.apiKey]);
 
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>;

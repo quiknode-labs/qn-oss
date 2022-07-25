@@ -2,9 +2,21 @@
   "name": "@quicknode/icy-nft-hooks",
   "repository": {
     "type": "git",
-    "url": "https://github.com/quiknode-labs/qn-oss.git",
+    "url": "https://github.com/quiknode-labs/qn-ox2ss.git",
     "directory": "packages/libs/ui/nft-react-hooks"
   },
   "license": "MIT",
-  "version": "0.0.7"
+  "version": "0.0.8",
+  "module": "./index.js",
+  "main": "./index.js",
+  "type": "module",
+  "types": "./index.d.ts",
+  "dependencies": {
+    "zustand": "^4.0.0-rc.3"
+  },
+  "peerDependencies": {
+    "graphql": "^16.5.0",
+    "@apollo/client": "^3.6.9",
+    "react": "^18.2.0"
+  }
 }

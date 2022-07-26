@@ -6,7 +6,7 @@
     "directory": "packages/libs/ui/nft-react-hooks"
   },
   "license": "MIT",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "module": "./index.js",
   "main": "./index.js",
   "type": "module",

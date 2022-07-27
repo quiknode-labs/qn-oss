@@ -35,6 +35,8 @@ delete packageJson.scripts;
 delete packageJson.bundlesize;
 delete packageJson.engines;
 
+packageJson.main = './main.cjs'
+
 // The root package.json points to the CJS/ESM source in "dist", to support
 // on-going package development (e.g. running tests, supporting npm link, etc.).
 // When publishing from "dist" however, we need to update the package.json

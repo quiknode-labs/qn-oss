@@ -6,10 +6,9 @@
     "directory": "packages/libs/ui/nft-react-hooks"
   },
   "license": "MIT",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "module": "./index.js",
-  "main": "./index.js",
-  "type": "module",
+  "main": "./main.cjs",
   "types": "./index.d.ts",
   "dependencies": {
     "zustand": "^4.0.0-rc.3"
@@ -18,5 +17,11 @@
     "graphql": "^16.5.0",
     "@apollo/client": "^3.6.9",
     "react": "^18.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "npm": "^7.20.3 || ^8.0.0"
   }
 }

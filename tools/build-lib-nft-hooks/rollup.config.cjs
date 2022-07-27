@@ -1,15 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+const nrwlConfig = require('@nrwl/react/plugins/bundle-rollup')
+const commonjs = require('@rollup/plugin-commonjs')
 
-// This file merges @apollo/client/rollup.config.js and @nrwl bundle-rollup.js
+const path = require('path');
+const fs = require('fs');
 
-import path from 'path';
-import { promises as fs } from "fs";
+// import nodeResolve from '@rollup/plugin-node-resolve';
+const minify = require('rollup-plugin-terser')
 
-import nodeResolve from '@rollup/plugin-node-resolve';
-import { terser as minify } from 'rollup-plugin-terser';
-
-const distDir = './dist/packages/libs/ui/nft-react-hooks/';
+const distDir = './dist';
 
 // Adapted from https://github.com/meteor/meteor/blob/devel/tools/static-assets/server/mini-files.ts
 function toPosixPath(p) {
@@ -70,21 +68,13 @@ function prepareCJSMinified(input) {
   };
 }
 
-function getRollupOptions(options) {
-  const extraGlobals = {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    'styled-components': 'styled',
-    '@emotion/react': 'emotionReact',
-    '@emotion/styled': 'emotionStyled',
-  };
-  options.output = Object.assign(Object.assign({}, options.output), {
-    globals: Object.assign(Object.assign({}, options.output.globals),
-                           extraGlobals)
-  });
-  fs.writeFileSync(`/tmp/options.json`, JSON.stringify(options,null,2));
-  // console.log(`options = ${JSON.stringify(options,null,2)}`);
-  return options;
+
+module.exports = (config) => {
+    console.log(`config = ${JSON.stringify(config, null, 2)}`);
+    const nxConfig = nrwlConfig(config);
+    nxConfig.output.name = 'Icy NFT Hooks';
+    console.log(`nxConfig = ${JSON.stringify(nxConfig, null, 2)}`);
+
+    return nxConfig;
 }
 
-module.exports = getRollupOptions;

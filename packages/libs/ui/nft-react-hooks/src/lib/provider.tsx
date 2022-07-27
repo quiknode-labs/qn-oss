@@ -5,7 +5,7 @@ import {
   HttpLink,
   from,
 } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context/index.js';
+import { setContext } from '@apollo/client/link/context';
 import React, { useEffect } from 'react';
 import create from 'zustand';
 

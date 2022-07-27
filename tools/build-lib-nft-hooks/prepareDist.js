@@ -47,6 +47,6 @@ fs.unlinkSync(`${__dirname}/package.json`);
 
 // Copy supporting files into "dist"
 const topDir = `${__dirname}/../..`;
-fs.copyFileSync(`${topDir}/${libPath}/README.md`,  `${distRoot}/README.md`);
+// fs.copyFileSync(`${topDir}/${libPath}/README.md`,  `${distRoot}/README.md`);
 fs.copyFileSync(`${topDir}/LICENSE.txt`,  `${distRoot}/LICENSE.txt`);
 

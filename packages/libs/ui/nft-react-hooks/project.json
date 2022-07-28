@@ -14,7 +14,7 @@
         "entryFile": "packages/libs/ui/nft-react-hooks/src/index.ts",
         "format": ["esm"],
         "external": ["react/jsx-runtime"],
-        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "rollupConfig": "tools/build-lib-nft-hooks/rollup.config.cjs",
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "compiler": "babel",
         "assets": [

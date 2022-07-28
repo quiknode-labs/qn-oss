@@ -9,7 +9,7 @@
     "build:lib:nft:hooks:dist:prep": "node ./tools/build-lib-nft-hooks/prepareDist.js",
     "build:lib:nft:hooks:dist:cjs:make": "node ./tools/build-lib-nft-hooks/makeMainCjs.js",
     "build:lib:nft:hooks:dist:cjs:cp": "node ./tools/build-lib-nft-hooks/cpMainCjs.js",
-    "build:lib:nft:hooks": "FORMAT=cjs nx build libs-ui-nft-react-hooks --updateBuildableProjectDepsInPackageJson=false --skip-nx-cache && node tools/build-lib-nft-hooks/makeMainCjs.js && FORMAT=esm nx build libs-ui-nft-react-hooks --updateBuildableProjectDepsInPackageJson=false  --skip-nx-cache && node tools/build-lib-nft-hooks/cpMainCjs.js && yarn build:lib:nft:hooks:dist:prep",
+    "build:lib:nft:hooks": "bash tools/build-lib-nft-hooks/build-lib-nft-hooks.bash",
     "pack:lib:nft:hooks": "yarn build:lib:nft:hooks && cd dist/packages/libs/ui/nft-react-hooks && npm pack",
     "pub:lib:nft:hooks": "yarn build:lib:nft:hooks && cd dist/packages/libs/ui/nft-react-hooks && npm publish --access public"
   },

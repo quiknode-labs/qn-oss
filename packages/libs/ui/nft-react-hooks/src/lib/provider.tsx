@@ -10,40 +10,39 @@ import React, { useEffect } from 'react';
 import create from 'zustand';
 
 interface TokenStore {
-  token: string | null;
-  setToken: (token: string) => void;
+  token?: string | null;
+  setToken: (token: string | null) => void;
 }
 
 const useTokenStore = create<TokenStore>((set) => ({
-  token: null,
+  token: undefined,
   setToken: (token) => set({ token }),
 }));
 
 const httpLink = new HttpLink({
-  uri: 'https://graphql.icy.tools/graphql'
+  uri: 'https://graphql.icy.tools/graphql',
 });
 
 function fetchToken() {
-  const poll = (resolve: (value: string) => void) => {
+  const poll = (resolve: (value: string | null) => void) => {
     const token = useTokenStore.getState().token;
 
-    if(token) resolve(token);
+    if (token !== undefined) resolve(token);
     else setTimeout(() => poll(resolve), 50);
-  }
+  };
 
   return new Promise(poll);
 }
 
 const authLink = setContext(async (_, { headers }) => {
+  const token = await fetchToken();
 
- const token = await fetchToken();
-
- return {
+  return {
     headers: {
       ...headers,
-      'x-api-key': token,
-    }
-  }
+      ...(token && { 'x-api-key': token }),
+    },
+  };
 });
 
 const client = new ApolloClient({
@@ -64,7 +63,7 @@ const client = new ApolloClient({
 });
 
 interface IcyProviderProps {
-  apiKey: string;
+  apiKey?: string;
   children: React.ReactNode;
 }
 
@@ -72,11 +71,13 @@ function IcyProvider(props: IcyProviderProps) {
   const tokenStore = useTokenStore();
 
   useEffect(() => {
-    const apiKey = props.apiKey
+    const { apiKey } = props;
     if (typeof apiKey !== 'string' || apiKey.length === 0) {
-      throw new Error('You must pass a valid API key into <IcyProvider>');
+      console.warn(
+        'nft-react-hooks warning: no apiKey provided, significant rate limits will be applied'
+      );
     }
-    tokenStore.setToken(apiKey);
+    tokenStore.setToken(apiKey ?? null);
   }, [props.apiKey]);
 
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>;

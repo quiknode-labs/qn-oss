@@ -12,6 +12,10 @@
       "configurations": {
         "production": {
           "devServerTarget": "apps-examples-nft-react-hooks:serve:production"
+        },
+        "development": {
+          "devServerTarget": "apps-examples-nft-react-hooks:serve:production",
+          "headed": true
         }
       }
     },

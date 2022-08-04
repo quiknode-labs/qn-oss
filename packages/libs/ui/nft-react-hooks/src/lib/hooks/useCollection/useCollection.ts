@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useCustomQuery } from '../../utils/useCustomQuery';
 
 import {
   collectionQuery,
@@ -20,7 +20,7 @@ interface WithoutStatsArgs {
 type Args = WithStatsArgs | WithoutStatsArgs;
 
 function useCollection<T extends Args>(args: T) {
-  const { data, loading } = useQuery<
+  const { data, loading } = useCustomQuery<
     T extends WithStatsArgs ? CollectionWithStatsQuery : CollectionQuery,
     CollectionQueryVariables
   >(collectionQuery, {

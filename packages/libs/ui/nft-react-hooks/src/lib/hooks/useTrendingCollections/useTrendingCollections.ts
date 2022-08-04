@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useCustomQuery } from '../../utils/useCustomQuery';
 
 import {
   trendingCollectionsQuery,
@@ -10,14 +10,16 @@ import {
 type Args = TrendingCollectionsQueryVariables;
 
 function useTrendingCollections(args: Args) {
-  const { data, loading } = useQuery<
+  const { data, loading } = useCustomQuery<
     TrendingCollectionsQuery,
     TrendingCollectionsQueryVariables
   >(trendingCollectionsQuery, {
     variables: args,
   });
 
-  const collections = (data?.trendingCollections?.edges ?? []).map((e) => e.node);
+  const collections = (data?.trendingCollections?.edges ?? []).map(
+    (e) => e.node
+  );
 
   return {
     loading,

@@ -74,7 +74,7 @@ function IcyProvider(props: IcyProviderProps) {
     const { apiKey } = props;
     if (typeof apiKey !== 'string' || apiKey.length === 0) {
       console.warn(
-        'nft-react-hooks warning: no apiKey provided, significant rate limits will be applied'
+        'nft-react-hooks warning: no apiKey provided, this is only intended for development. For production usage create an account on https://developers.icy.tools/'
       );
     }
     tokenStore.setToken(apiKey ?? null);

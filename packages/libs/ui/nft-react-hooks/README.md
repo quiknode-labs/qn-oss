@@ -1,4 +1,10 @@
-
+![npm peer dependency version](https://img.shields.io/npm/dependency-version/@quicknode/icy-nft-hooks/peer/react)
+![npm](https://img.shields.io/npm/dm/@quicknode/icy-nft-hooks)
+![npm](https://img.shields.io/npm/v/@quicknode/icy-nft-hooks?color=g)
+![Maintenance](https://img.shields.io/maintenance/yes/2022?color=g)
+![NPM](https://img.shields.io/npm/l/@quicknode/icy-nft-hooks?color=g)
+![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)
+![Discord](https://img.shields.io/discord/880505845090250794?color=g)
 
 # Icy NFT hooks
 

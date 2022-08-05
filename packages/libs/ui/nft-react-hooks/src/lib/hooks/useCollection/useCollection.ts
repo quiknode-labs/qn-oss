@@ -1,4 +1,4 @@
-import { useCustomQuery } from '../../utils/useCustomQuery';
+import { useCustomQuery } from 'lib/utils/useCustomQuery';
 
 import {
   collectionQuery,

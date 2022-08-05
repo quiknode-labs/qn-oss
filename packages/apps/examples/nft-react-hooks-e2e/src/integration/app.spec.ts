@@ -10,41 +10,4 @@ describe('apps-examples-nft-react-hooks', () => {
     // Function helper example, see `../support/app.po.ts` file
     getGreeting().contains('Welcome to GraphHack NFT App!');
   });
-
-  it('should get rate limited', () => {
-    cy.visit('/collections');
-    cy.intercept('/graphql').as('gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-    cy.get('button').click();
-    cy.wait('@gqlRequest');
-  });
 });

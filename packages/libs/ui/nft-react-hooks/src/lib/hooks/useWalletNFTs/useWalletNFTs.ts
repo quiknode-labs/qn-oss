@@ -1,4 +1,4 @@
-import { useCustomQuery } from 'lib/utils/useCustomQuery';
+import { useQuery } from '@apollo/client';
 
 import {
   walletNFTsQuery,
@@ -20,13 +20,13 @@ function useWalletNFTs(args: Args) {
     isSearchValid = ADDRESS_REGEX.test(args.address);
   }
 
-  const { data, loading } = useCustomQuery<
-    WalletNFTsQuery,
-    WalletNFTsQueryVariables
-  >(walletNFTsQuery, {
-    skip: !isSearchValid, // We don't want to run invalid queries and waste rate limits
-    variables: args,
-  });
+  const { data, loading } = useQuery<WalletNFTsQuery, WalletNFTsQueryVariables>(
+    walletNFTsQuery,
+    {
+      skip: !isSearchValid, // We don't want to run invalid queries and waste rate limits
+      variables: args,
+    }
+  );
 
   const nfts = (data?.wallet?.tokens.edges ?? []).map((e) => e.node);
 

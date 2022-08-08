@@ -1,11 +1,12 @@
 import {
   ApolloClient,
-  InMemoryCache,
   ApolloProvider,
-  HttpLink,
   from,
+  HttpLink,
+  InMemoryCache,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
 import React, { useEffect } from 'react';
 import create from 'zustand';
 
@@ -34,6 +35,18 @@ function fetchToken() {
   return new Promise(poll);
 }
 
+const errorLink = onError(({ networkError }) => {
+  if (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore typing is not correct from apollo client, statusCode can be included in networkError
+    networkError?.statusCode === 429
+  ) {
+    console.warn(
+      'Rate limit reached, head over to https://developers.icy.tools/ to upgrade your account'
+    );
+  }
+});
+
 const authLink = setContext(async (_, { headers }) => {
   const token = await fetchToken();
 
@@ -46,7 +59,7 @@ const authLink = setContext(async (_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: from([authLink, httpLink]),
+  link: from([authLink, errorLink, httpLink]),
   cache: new InMemoryCache({
     typePolicies: {
       ERC721Token: {

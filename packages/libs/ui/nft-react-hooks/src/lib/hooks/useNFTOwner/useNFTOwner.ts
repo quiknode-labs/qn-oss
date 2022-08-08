@@ -1,4 +1,4 @@
-import { useCustomQuery } from 'lib/utils/useCustomQuery';
+import { useQuery } from '@apollo/client';
 
 import { nftOwnerQuery, NFTOwnerQuery, NFTOwnerQueryVariables } from './query';
 
@@ -8,12 +8,12 @@ interface Args {
 }
 
 function useNFTOwner(args: Args) {
-  const { data, loading } = useCustomQuery<
-    NFTOwnerQuery,
-    NFTOwnerQueryVariables
-  >(nftOwnerQuery, {
-    variables: args,
-  });
+  const { data, loading } = useQuery<NFTOwnerQuery, NFTOwnerQueryVariables>(
+    nftOwnerQuery,
+    {
+      variables: args,
+    }
+  );
 
   return {
     loading,

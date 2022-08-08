@@ -1,4 +1,4 @@
-import { useCustomQuery } from 'lib/utils/useCustomQuery';
+import { useQuery } from '@apollo/client';
 
 import {
   trendingCollectionsQuery,
@@ -10,7 +10,7 @@ import {
 type Args = TrendingCollectionsQueryVariables;
 
 function useTrendingCollections(args: Args) {
-  const { data, loading } = useCustomQuery<
+  const { data, loading } = useQuery<
     TrendingCollectionsQuery,
     TrendingCollectionsQueryVariables
   >(trendingCollectionsQuery, {

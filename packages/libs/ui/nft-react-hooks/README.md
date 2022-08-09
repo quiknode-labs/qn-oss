@@ -26,9 +26,23 @@ or
 
 #### Usage/Examples
 
-Start by wrapping your app in the `IcyProvider` component and provide your apiKey which you can get from the [icy.tools Developer Website](https://developers.icy.tools).
+Start by wrapping your app in the `IcyProvider` component.
 
 ```typescript
+import { IcyProvider } from '@quicknode/icy-nft-hooks';
+
+function App() {
+  return (
+      <IcyProvider>
+        ...
+      </IcyProvider>
+  );
+}
+```
+
+ Passing an apiKey to the provider is initially optional, without it you'll be heavily rate limited and it is only meant for test driving our services. When you are ready to, you can sign up and get your apiKey from the [icy.tools Developer Website](https://developers.icy.tools)). Then you can forward it to the provider like:
+
+ ```typescript
 import { IcyProvider } from '@quicknode/icy-nft-hooks';
 
 function App() {

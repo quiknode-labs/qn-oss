@@ -1,53 +1,65 @@
 import {
   ApolloClient,
-  InMemoryCache,
   ApolloProvider,
-  HttpLink,
   from,
+  HttpLink,
+  InMemoryCache,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
 import React, { useEffect } from 'react';
 import create from 'zustand';
 
 interface TokenStore {
-  token: string | null;
-  setToken: (token: string) => void;
+  token?: string | null;
+  setToken: (token: string | null) => void;
 }
 
 const useTokenStore = create<TokenStore>((set) => ({
-  token: null,
+  token: undefined,
   setToken: (token) => set({ token }),
 }));
 
 const httpLink = new HttpLink({
-  uri: 'https://graphql.icy.tools/graphql'
+  uri: 'https://graphql.icy.tools/graphql',
 });
 
 function fetchToken() {
-  const poll = (resolve: (value: string) => void) => {
+  const poll = (resolve: (value: string | null) => void) => {
     const token = useTokenStore.getState().token;
 
-    if(token) resolve(token);
+    if (token !== undefined) resolve(token);
     else setTimeout(() => poll(resolve), 50);
-  }
+  };
 
   return new Promise(poll);
 }
 
-const authLink = setContext(async (_, { headers }) => {
-
- const token = await fetchToken();
-
- return {
-    headers: {
-      ...headers,
-      'x-api-key': token,
-    }
+const errorLink = onError(({ networkError }) => {
+  if (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore typing is not correct from apollo client, statusCode can be included in networkError
+    networkError?.statusCode === 429
+  ) {
+    console.warn(
+      'Rate limit reached, head over to https://developers.icy.tools/ to upgrade your account'
+    );
   }
 });
 
+const authLink = setContext(async (_, { headers }) => {
+  const token = await fetchToken();
+
+  return {
+    headers: {
+      ...headers,
+      ...(token && { 'x-api-key': token }),
+    },
+  };
+});
+
 const client = new ApolloClient({
-  link: from([authLink, httpLink]),
+  link: from([authLink, errorLink, httpLink]),
   cache: new InMemoryCache({
     typePolicies: {
       ERC721Token: {
@@ -64,7 +76,7 @@ const client = new ApolloClient({
 });
 
 interface IcyProviderProps {
-  apiKey: string;
+  apiKey?: string;
   children: React.ReactNode;
 }
 
@@ -72,11 +84,13 @@ function IcyProvider(props: IcyProviderProps) {
   const tokenStore = useTokenStore();
 
   useEffect(() => {
-    const apiKey = props.apiKey
+    const { apiKey } = props;
     if (typeof apiKey !== 'string' || apiKey.length === 0) {
-      throw new Error('You must pass a valid API key into <IcyProvider>');
+      console.warn(
+        'nft-react-hooks warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://developers.icy.tools/'
+      );
     }
-    tokenStore.setToken(apiKey);
+    tokenStore.setToken(apiKey ?? null);
   }, [props.apiKey]);
 
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>;

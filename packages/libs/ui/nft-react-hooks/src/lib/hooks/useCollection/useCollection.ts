@@ -3,8 +3,8 @@ import { useQuery } from '@apollo/client';
 import {
   collectionQuery,
   CollectionQuery,
-  CollectionWithStatsQuery,
   CollectionQueryVariables,
+  CollectionWithStatsQuery,
 } from './query';
 
 interface WithStatsArgs {

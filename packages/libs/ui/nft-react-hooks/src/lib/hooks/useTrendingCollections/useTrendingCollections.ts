@@ -17,7 +17,9 @@ function useTrendingCollections(args: Args) {
     variables: args,
   });
 
-  const collections = (data?.trendingCollections?.edges ?? []).map((e) => e.node);
+  const collections = (data?.trendingCollections?.edges ?? []).map(
+    (e) => e.node
+  );
 
   return {
     loading,

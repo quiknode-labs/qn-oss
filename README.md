@@ -132,3 +132,9 @@ function WalletComponent({ ensName }: { ensName: string }) {
 - `isSearchValid: boolean` Returns true if a valid 42 char ethereum address or a valid ENS name is provided. Query will skip unless this field is true in order to preserve rate limits.
 
 
+## Deploying
+1. Update version in library package.json file 
+1. Run tests
+1. [Login to npmjs.com](https://docs.npmjs.com/cli/v8/commands/npm-adduser)
+1. `yarn pub:lib:nft:hooks`
+

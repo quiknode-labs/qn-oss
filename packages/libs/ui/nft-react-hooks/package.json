@@ -2,11 +2,11 @@
   "name": "@quicknode/icy-nft-hooks",
   "repository": {
     "type": "git",
-    "url": "https://github.com/quiknode-labs/qn-ox2ss.git",
+    "url": "https://github.com/quiknode-labs/qn-oss.git",
     "directory": "packages/libs/ui/nft-react-hooks"
   },
   "license": "MIT",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "module": "./index.js",
   "main": "./main.cjs",
   "types": "./index.d.ts",

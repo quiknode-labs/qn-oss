@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@qn-oss/libs/api/icy-graphql-client": [
+        "packages/libs/api/icy-graphql-client/src/index.ts"
+      ],
       "@qn-oss/libs/ui/util": ["packages/libs/ui/util/src/index.ts"],
       "@qn-oss/libs/util": ["packages/libs/util/src/index.ts"],
       "@quicknode/icy-nft-hooks": [

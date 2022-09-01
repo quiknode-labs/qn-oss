@@ -3,6 +3,16 @@
   "sourceRoot": "packages/libs/api/icy-graphql-client/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/libs/api/icy-graphql-client",
+        "main": "packages/libs/api/icy-graphql-client/src/index.ts",
+        "tsConfig": "packages/libs/api/icy-graphql-client/tsconfig.lib.json",
+        "assets": ["packages/libs/api/icy-graphql-client/*.md"]
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

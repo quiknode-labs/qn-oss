@@ -10,6 +10,10 @@ TBD
 
 TBD
 
+## Building
+
+Run `nx build libs-api-icy-graphql-client` to build the library.
+
 ## Running unit tests
 
 Run `nx test libs-api-icy-graphql-client` to execute the unit tests via [Jest](https://jestjs.io).

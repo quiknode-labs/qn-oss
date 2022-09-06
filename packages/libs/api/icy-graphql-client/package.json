@@ -7,9 +7,8 @@
   },
   "license": "MIT",
   "version": "0.0.1",
-  "module": "./index.js",
-  "main": "./main.cjs",
-  "types": "./index.d.ts",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "graphql": "^16.5.0",

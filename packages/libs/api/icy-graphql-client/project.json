@@ -4,13 +4,18 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/libs/api/icy-graphql-client",
         "main": "packages/libs/api/icy-graphql-client/src/index.ts",
         "tsConfig": "packages/libs/api/icy-graphql-client/tsconfig.lib.json",
-        "assets": ["packages/libs/api/icy-graphql-client/*.md"]
+        "compiler": "babel",
+        "outputPath": "dist/packages/libs/api/icy-graphql-client",
+        "deleteOutputPath": true,
+
+        "optimization": false,
+        "extractLicenses": false,
+        "webpackConfig": "packages/libs/api/icy-graphql-client/webpack.config.ts"
       }
     },
     "publish": {

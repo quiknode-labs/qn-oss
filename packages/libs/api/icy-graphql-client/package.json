@@ -6,7 +6,7 @@
     "directory": "packages/libs/api/icy-graphql-client"
   },
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {

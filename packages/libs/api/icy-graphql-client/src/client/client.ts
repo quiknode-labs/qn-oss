@@ -1,4 +1,9 @@
-import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  from,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { getNFTsRawQuery } from '../queries/getNFTsByWallet/getNFTsByWallet';

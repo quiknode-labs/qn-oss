@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client/core';
 import { Connection, PaginationArgs } from '../../types';
 
 export const getNFTsRawQuery = gql`

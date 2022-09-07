@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "apps-examples-icy-graphql-client": "packages/apps/examples/icy-graphql-client",
     "apps-examples-nft-react-hooks": "packages/apps/examples/nft-react-hooks",
     "apps-examples-nft-react-hooks-e2e": "packages/apps/examples/nft-react-hooks-e2e",
     "libs-api-icy-graphql-client": "packages/libs/api/icy-graphql-client",

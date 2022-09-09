@@ -3,10 +3,12 @@ import {
   from,
   HttpLink,
   InMemoryCache,
+  NormalizedCacheObject,
 } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
-import { getNFTsRawQuery } from '../queries/getNFTsByWallet/getNFTsByWallet';
+import { NFTQueries } from '../queries/nft/nftQueries';
+import { IcyGraphqlClient } from './icyGraphqlClient';
 
 export interface IcyClientArguments {
   apiKey?: string;
@@ -31,25 +33,38 @@ const errorLink = onError(({ networkError }) => {
   }
 });
 
-export const IcyGraphQLClient = ({ apiKey }: IcyClientArguments = {}) => {
-  if (!apiKey) {
-    console.warn(
-      'icy-graphql-client warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://developers.icy.tools/'
-    );
+export class IcyGraphqlSDK {
+  readonly apolloClient: ApolloClient<NormalizedCacheObject>;
+  readonly icyClient: IcyGraphqlClient;
+  readonly apiKey?: string;
+  readonly nft: NFTQueries;
+
+  constructor({ apiKey }: IcyClientArguments = {}) {
+    if (!apiKey) {
+      console.warn(
+        'icy-graphql-client warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://developers.icy.tools/'
+      );
+    }
+
+    this.apiKey = apiKey;
+    this.apolloClient = this.createApolloClient({ apiKey });
+    this.icyClient = new IcyGraphqlClient(this.apolloClient);
+    this.nft = new NFTQueries(this.icyClient);
   }
 
-  const authLink = setContext(async (_, { headers }) => {
-    return {
-      headers: {
-        ...headers,
-        ...(apiKey && { 'x-api-key': apiKey }),
-      },
-    };
-  });
+  private createApolloClient({
+    apiKey,
+  }: IcyClientArguments): ApolloClient<NormalizedCacheObject> {
+    const authLink = setContext(async (_, { headers }) => {
+      return {
+        headers: {
+          ...headers,
+          ...(apiKey && { 'x-api-key': apiKey }),
+        },
+      };
+    });
 
-  const rawClient = new ApolloClient({
-    link: from([authLink, errorLink, httpLink]),
-    cache: new InMemoryCache({
+    const cacheStructure = new InMemoryCache({
       typePolicies: {
         ERC721Token: {
           keyFields: ['tokenId', 'contract', ['address']],
@@ -61,12 +76,12 @@ export const IcyGraphQLClient = ({ apiKey }: IcyClientArguments = {}) => {
           keyFields: ['address'],
         },
       },
-    }),
-  });
+    });
 
-  return {
-    rawClient,
-    getNFTsByWallet: (variables: any) =>
-      rawClient.query({ query: getNFTsRawQuery, variables }),
-  };
-};
+    const rawClient = new ApolloClient({
+      link: from([authLink, errorLink, httpLink]),
+      cache: cacheStructure,
+    });
+    return rawClient;
+  }
+}

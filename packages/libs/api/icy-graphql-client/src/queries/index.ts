@@ -1,1 +1,1 @@
-export * from './getNFTsByWallet/getNFTsByWallet';
+export * from './nft';

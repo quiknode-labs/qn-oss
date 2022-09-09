@@ -1,7 +1,7 @@
-import { IcyGraphqlSDK } from 'client';
+import { IcyGraphQLSDK } from 'client';
 import withPolly from '../../../../testSetup/pollyTestSetup';
 
-const client = new IcyGraphqlSDK();
+const client = new IcyGraphQLSDK();
 
 describe('getNFTsByWallet', () => {
   it('executes correctly', async () => {

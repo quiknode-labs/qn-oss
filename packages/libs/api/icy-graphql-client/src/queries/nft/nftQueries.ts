@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client';
-import { IcyGraphqlClient } from 'client/icyGraphqlClient';
+import { IcyGraphQLClient } from 'client/icyGraphQLClient';
 import {
   getNFTsRawQuery,
   WalletNFTsQueryResponse,
@@ -7,7 +7,7 @@ import {
 } from './getNFTsByWallet/getNFTsByWallet';
 
 export class NFTQueries {
-  constructor(private client: IcyGraphqlClient) {}
+  constructor(private client: IcyGraphQLClient) {}
 
   async getNFTsByWallet(
     variables: WalletNFTsQueryVariables

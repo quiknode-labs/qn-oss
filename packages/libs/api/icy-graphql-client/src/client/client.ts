@@ -8,7 +8,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { NFTQueries } from '../queries/nft/nftQueries';
-import { IcyGraphqlClient } from './icyGraphqlClient';
+import { IcyGraphQLClient } from './icyGraphQLClient';
 
 export interface IcyClientArguments {
   apiKey?: string;
@@ -33,9 +33,9 @@ const errorLink = onError(({ networkError }) => {
   }
 });
 
-export class IcyGraphqlSDK {
+export class IcyGraphQLSDK {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
-  readonly icyClient: IcyGraphqlClient;
+  readonly icyClient: IcyGraphQLClient;
   readonly apiKey?: string;
   readonly nft: NFTQueries;
 
@@ -48,7 +48,7 @@ export class IcyGraphqlSDK {
 
     this.apiKey = apiKey;
     this.apolloClient = this.createApolloClient({ apiKey });
-    this.icyClient = new IcyGraphqlClient(this.apolloClient);
+    this.icyClient = new IcyGraphQLClient(this.apolloClient);
     this.nft = new NFTQueries(this.icyClient);
   }
 

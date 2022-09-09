@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { Connection, PaginationArgs } from '../../types';
+import { Connection, PaginationArgs } from '../../../types';
 
 export const getNFTsRawQuery = gql`
   query WalletNFTs(
@@ -50,7 +50,7 @@ export interface NFT {
   }[];
 }
 
-export interface WalletNFTsQuery {
+export interface WalletNFTsQueryResponse {
   wallet: {
     ensName: string;
     address: string;

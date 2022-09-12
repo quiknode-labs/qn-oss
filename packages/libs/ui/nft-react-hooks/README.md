@@ -6,7 +6,7 @@
 ![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)
 ![Discord](https://img.shields.io/discord/880505845090250794?color=g)
 
-# Icy NFT hooks
+# nft-react-hooks
 
 This is a react hook library that serves as a wrapper to the [icy.tools GraphQL API](https://developers.icy.tools).
 
@@ -275,5 +275,17 @@ export interface PaginationArgs {
 
 - `loading: boolean` The loading state of the query
 
+## Deploying
+1. Update version in library package.json file 
+1. Run tests
+1. [Login to npmjs.com](https://docs.npmjs.com/cli/v8/commands/npm-adduser)
+1. `yarn pub:lib:nft:hooks`
 
+### scripting shorthand
 
+```bash
+yarn build:lib:nft:hooks
+```
+```bash
+yarn serve:app:nft:hooks
+```

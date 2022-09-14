@@ -1,49 +1,27 @@
-export interface NonScalarNode {
-  [key: string]: any;
-  edges?: {
-    node: {
-      [key: string]: NonScalarNode | string | number | boolean;
-    };
-  }[];
-}
+/**
+ * @todo implement generic typing
+ */
+export const removeNodesAndEdges = (data: any): any | any[] => {
+  const keys = Object.keys(data);
+  const output: { [key: string]: any } = {};
 
-export const removeNodesAndEdges = (
-  data: NonScalarNode
-): Record<string, any> => {
-  if (
-    typeof data === 'object' &&
-    !Array.isArray(data) &&
-    !(data instanceof Function)
-  ) {
-    if (data?.edges) {
-      return data.edges.map((item) => {
-        if (item.node) {
-          const obj: {
-            [key: string]: NonScalarNode | string | number | boolean;
-          } = {};
-          Object.keys(item.node).forEach((o) => {
-            const nodeParam = item.node[o];
-            if (
-              typeof nodeParam === 'string' ||
-              typeof nodeParam === 'boolean' ||
-              typeof nodeParam === 'number'
-            ) {
-              obj[o] = nodeParam;
-            } else {
-              obj[o] = removeNodesAndEdges(nodeParam);
-            }
-          });
-          return obj;
-        }
-        return item;
-      });
-    }
-
-    const keys = Object.keys(data);
-    const output: { [key: string]: any } = {};
-    keys.forEach((key) => {
+  keys
+    .filter((key) => key !== '__typename')
+    .forEach((key) => {
       const value = data[key];
-      if (key === '__typename') return;
+      if (
+        typeof value === 'string' ||
+        typeof value === 'boolean' ||
+        typeof value === 'number' ||
+        value === null
+      ) {
+        return (output[key] = value);
+      }
+
+      if (Array.isArray(value)) {
+        return (output[key] = value.map((item) => removeNodesAndEdges(item)));
+      }
+
       if (
         value &&
         (value.edges || value.total || value.pageInfo || value.breadcrumbs)
@@ -62,16 +40,9 @@ export const removeNodesAndEdges = (
           return item;
         });
       } else {
-        output[key] = removeNodesAndEdges(value);
+        output[key] = value === null ? null : removeNodesAndEdges(value);
       }
     });
 
-    return output;
-  }
-
-  if (Array.isArray(data)) {
-    return data.map((item) => removeNodesAndEdges(item));
-  }
-
-  return data;
+  return output;
 };

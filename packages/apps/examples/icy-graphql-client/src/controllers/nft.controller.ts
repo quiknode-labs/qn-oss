@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 export default {
   getNFTsByEns: async (req: Request, res: Response) => {
     const client = new IcyGraphQLSDK();
-    const NFTs = await client.nft.getNFTsByWallet({
+    const NFTs = await client.nft.getNFTsByWalletENS({
       ensName: req.params.ensResource,
       first: 5,
     });

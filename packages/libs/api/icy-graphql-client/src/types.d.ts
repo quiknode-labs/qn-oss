@@ -14,3 +14,5 @@ export interface PaginationArgs {
   first?: number;
   after?: string;
 }
+
+export type Scalar = string | number | boolean;

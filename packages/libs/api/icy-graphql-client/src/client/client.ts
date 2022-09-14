@@ -14,6 +14,11 @@ export interface IcyClientArguments {
   apiKey?: string;
 }
 
+const ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  process.env.ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS === 'true' ? true : false;
+
 const httpLink = new HttpLink({
   uri: 'https://graphql.icy.tools/graphql',
 });
@@ -25,7 +30,8 @@ const errorLink = onError(({ networkError }) => {
      */
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore typing is not correct from apollo client, statusCode can be included in networkError
-    networkError?.statusCode === 429
+    networkError?.statusCode === 429 &&
+    !ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS
   ) {
     console.warn(
       'Rate limit reached, head over to https://developers.icy.tools/ to upgrade your account'
@@ -40,7 +46,7 @@ export class IcyGraphQLSDK {
   readonly nft: NFTQueries;
 
   constructor({ apiKey }: IcyClientArguments = {}) {
-    if (!apiKey) {
+    if (!apiKey && !ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
       console.warn(
         'icy-graphql-client warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://developers.icy.tools/'
       );

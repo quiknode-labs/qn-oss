@@ -15,7 +15,9 @@ export interface IcyClientArguments {
 }
 
 const ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  /**
+   * @todo set unified config util
+   */
   // @ts-ignore
   process.env.ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS === 'true' ? true : false;
 
@@ -28,7 +30,6 @@ const errorLink = onError(({ networkError }) => {
     /**
      * @todo fix this type by overriding
      */
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore typing is not correct from apollo client, statusCode can be included in networkError
     networkError?.statusCode === 429 &&
     !ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS

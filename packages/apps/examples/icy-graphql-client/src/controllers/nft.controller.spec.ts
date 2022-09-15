@@ -4,7 +4,7 @@ import { app } from '../app';
 
 describe('nft controller', () => {
   it('works', async () => {
-    await withPolly({ recordingName: 'query-getNFTsByWallet' }, async () => {
+    await withPolly({ recordingName: 'query-getNFTsByWalletENS' }, async () => {
       const response = await request(app)
         .get('/api/nftsByEns/vitalik.eth')
         .set('Accept', 'application/json')
@@ -19,112 +19,64 @@ describe('nft controller', () => {
             tokens: [
               {
                 contract: {
-                  address: '0xaa462106da447c0440a4be29614c19387a59a331',
-                  name: 'ENS Maxis',
-                  symbol: 'ENSMAXIS',
+                  address: '0xa1f92f70dce96c7cd32aafd93cd4bff7debdf853',
+                  name: 'Cosmic Corpse Society V2',
+                  symbol: 'CCS',
                 },
                 images: [
                   {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xa1f92f70dce96c7cd32aafd93cd4bff7debdf853/tokens/9e4260ceae4f53a5c1ee1ef2bf53dea2',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xa1f92f70dce96c7cd32aafd93cd4bff7debdf853/tokens/9e4260ceae4f53a5c1ee1ef2bf53dea2',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/md/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/md/collections/0xa1f92f70dce96c7cd32aafd93cd4bff7debdf853/tokens/9e4260ceae4f53a5c1ee1ef2bf53dea2',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xa1f92f70dce96c7cd32aafd93cd4bff7debdf853/tokens/9e4260ceae4f53a5c1ee1ef2bf53dea2',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xa1f92f70dce96c7cd32aafd93cd4bff7debdf853/tokens/9e4260ceae4f53a5c1ee1ef2bf53dea2',
                   },
                 ],
-                tokenId: '3859',
+                tokenId: '162',
               },
               {
                 contract: {
-                  address: '0x22871b977aae43d44fe50df03f632134c3e3e490',
-                  name: 'UDID Network Genesis Pass Card',
-                  symbol: 'UFPC',
-                },
-                images: [
-                  {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/md/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
-                  },
-                ],
-                tokenId: '481',
-              },
-              {
-                contract: {
-                  address: '0x04c87b76b73ed706d4aac567e3adccb994591b1b',
-                  name: 'A3S Protocol (Ethereum)',
-                  symbol: 'A3S',
+                  address: '0x451a0d4c5f834dc45459b47e18ecdbc2b6ff5d6e',
+                  name: 'Merge Your NFT',
+                  symbol: 'SETMERGE',
                 },
                 images: [],
-                tokenId: '9',
+                tokenId: '431',
               },
               {
                 contract: {
-                  address: '0x6c0f9679de42ca516e0aaeb3a661d3acc1fc04a8',
-                  name: 'Dickenzas',
-                  symbol: 'DKNZA',
+                  address: '0x451a0d4c5f834dc45459b47e18ecdbc2b6ff5d6e',
+                  name: 'Merge Your NFT',
+                  symbol: 'SETMERGE',
                 },
-                images: [
-                  {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0x6c0f9679de42ca516e0aaeb3a661d3acc1fc04a8/tokens/970196b9ad7dea85b9aa14f7fec1c5bb',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0x6c0f9679de42ca516e0aaeb3a661d3acc1fc04a8/tokens/970196b9ad7dea85b9aa14f7fec1c5bb',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/md/collections/0x6c0f9679de42ca516e0aaeb3a661d3acc1fc04a8/tokens/970196b9ad7dea85b9aa14f7fec1c5bb',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0x6c0f9679de42ca516e0aaeb3a661d3acc1fc04a8/tokens/970196b9ad7dea85b9aa14f7fec1c5bb',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0x6c0f9679de42ca516e0aaeb3a661d3acc1fc04a8/tokens/970196b9ad7dea85b9aa14f7fec1c5bb',
-                  },
-                ],
-                tokenId: '1598',
+                images: [],
+                tokenId: '432',
               },
               {
                 contract: {
-                  address: '0x7afc0d1432ccc262ff44337b9567f4ea4dfbd31d',
-                  name: 'Best Friend - OfficaI',
-                  symbol: 'BF',
+                  address: '0x451a0d4c5f834dc45459b47e18ecdbc2b6ff5d6e',
+                  name: 'Merge Your NFT',
+                  symbol: 'SETMERGE',
                 },
-                images: [
-                  {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0x7afc0d1432ccc262ff44337b9567f4ea4dfbd31d/tokens/53c5e02a7cba1cfba21d98c8b8882535',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0x7afc0d1432ccc262ff44337b9567f4ea4dfbd31d/tokens/53c5e02a7cba1cfba21d98c8b8882535',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/md/collections/0x7afc0d1432ccc262ff44337b9567f4ea4dfbd31d/tokens/53c5e02a7cba1cfba21d98c8b8882535',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0x7afc0d1432ccc262ff44337b9567f4ea4dfbd31d/tokens/53c5e02a7cba1cfba21d98c8b8882535',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0x7afc0d1432ccc262ff44337b9567f4ea4dfbd31d/tokens/53c5e02a7cba1cfba21d98c8b8882535',
-                  },
-                ],
-                tokenId: '3224',
+                images: [],
+                tokenId: '433',
+              },
+              {
+                contract: {
+                  address: '0x451a0d4c5f834dc45459b47e18ecdbc2b6ff5d6e',
+                  name: 'Merge Your NFT',
+                  symbol: 'SETMERGE',
+                },
+                images: [],
+                tokenId: '434',
               },
             ],
             tokensPageInfo: {

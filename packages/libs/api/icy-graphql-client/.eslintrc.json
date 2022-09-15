@@ -4,7 +4,9 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "off"
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

@@ -1,4 +1,3 @@
-/* eslint @typescript-eslint/ban-ts-comment: "off" */
 import NodeHttpAdapter from '@pollyjs/adapter-node-http';
 import { Polly } from '@pollyjs/core';
 import FileSystemPersister from '@pollyjs/persister-fs';

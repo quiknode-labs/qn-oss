@@ -1,5 +1,3 @@
-
-
 # QuickNode OSS Repository
 
 ## Apps

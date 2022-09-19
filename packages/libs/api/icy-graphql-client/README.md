@@ -18,7 +18,7 @@ const client = new IcyGraphQLSDK();
 
 client.nft
   .getNFTsByWallet({
-    ensName: "vitalik.eth",
+    ensName: 'vitalik.eth',
     first: 5,
   })
   .then((response) => console.log(response));
@@ -34,30 +34,28 @@ Full example implementation [here](https://github.com/user/repo/blob/branch/othe
 import { IcyGraphQLSDK } from '@quicknode/icy-graphql-client';
 
 const client = new IcyGraphQLSDK({
-  apiKey: "my-api-key" // which is obtained by signing up on https://developers.icy.tools/
+  apiKey: 'my-api-key', // which is obtained by signing up on https://developers.icy.tools/
 });
 ```
 
 ### Client config API
 
-| Property | Values | Example |
-| ---- | -------- | ---- |
-| apiKey | string | 1c1t00ls-4p10-k3y0-lu21-43405e3310 |
-
+| Property | Values | Example                            |
+| -------- | ------ | ---------------------------------- |
+| apiKey   | string | 1c1t00ls-4p10-k3y0-lu21-43405e3310 |
 
 <br>
 
 ## Methods
 
-
 ### nft.getNFTsByWallet
 
-| Argument | Values | Optional | Example |
-| ---- | -------- | ---- |  ---- |
-| address | string | ❌ | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 |
-| ensName | string | ❌ | vitalik.eth |
-| first | number | ✅ | 10 |
-| after | string | ✅ | YXJyYXljb25uZWN0aW9uOjUwNQ== |
+| Argument | Values | Optional | Example                                    |
+| -------- | ------ | -------- | ------------------------------------------ |
+| address  | string | ❌       | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 |
+| ensName  | string | ❌       | vitalik.eth                                |
+| first    | number | ✅       | 10                                         |
+| after    | string | ✅       | YXJyYXljb25uZWN0aW9uOjUwNQ==               |
 
 On this method you can provide either address or ensName as arguments
 
@@ -68,9 +66,9 @@ const client = new IcyGraphQLSDK();
 
 client.nft
   .getNFTsByWallet({
-    ensName: "vitalik.eth",
+    ensName: 'vitalik.eth',
     first: 5,
-    after: "YXJyYXljb25uZWN0aW9uOjUwNQ=="
+    after: 'YXJyYXljb25uZWN0aW9uOjUwNQ==',
   })
   .then((response) => console.log(response));
 ```
@@ -84,9 +82,9 @@ const client = new IcyGraphQLSDK();
 
 client.nft
   .getNFTsByWallet({
-    address: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+    address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
     first: 5,
-    after: "YXJyYXljb25uZWN0aW9uOjUwNQ=="
+    after: 'YXJyYXljb25uZWN0aW9uOjUwNQ==',
   })
   .then((response) => console.log(response));
 ```

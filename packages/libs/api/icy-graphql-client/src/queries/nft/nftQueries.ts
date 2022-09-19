@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client';
-import { IcyGraphQLClient } from '../../client/icyGraphQLClient';
+import { IcyGraphQLClient } from '../../client/icyGraphqlClient';
 import {
   getWalletAddressNFTsRawQuery,
   WalletAddressNFTsQueryVariables,

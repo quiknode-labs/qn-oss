@@ -8,7 +8,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { NFTQueries } from '../queries/nft/nftQueries';
-import { IcyGraphQLClient } from './icyGraphQLClient';
+import { IcyGraphQLClient } from './icyGraphqlClient';
 
 export interface IcyClientArguments {
   apiKey?: string;

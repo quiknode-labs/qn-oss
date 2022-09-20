@@ -1,9 +1,9 @@
 {
-  "name": "@quicknode/icy-graphql-client",
+  "name": "@quicknode/sdk",
   "repository": {
     "type": "git",
     "url": "https://github.com/quiknode-labs/qn-oss.git",
-    "directory": "packages/libs/api/icy-graphql-client"
+    "directory": "packages/libs/api/sdk"
   },
   "license": "MIT",
   "version": "0.0.2",

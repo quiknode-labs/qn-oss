@@ -1,9 +1,9 @@
-import { IcyGraphQLSDK } from '@quicknode/icy-graphql-client';
+import { QuickNodeSDK } from '@quicknode/sdk';
 import { Request, Response } from 'express';
 
 export default {
   getNFTsByEns: async (req: Request, res: Response) => {
-    const client = new IcyGraphQLSDK();
+    const client = new QuickNodeSDK();
     const NFTs = await client.nft.getNFTsByWalletENS({
       ensName: req.params.ensResource,
       first: 5,

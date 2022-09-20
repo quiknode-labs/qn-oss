@@ -1,20 +1,20 @@
-![npm](https://img.shields.io/npm/dm/@quicknode/icy-graphql-client)
-![npm](https://img.shields.io/npm/v/@quicknode/icy-graphql-client?color=g)
+![npm](https://img.shields.io/npm/dm/@quicknode/sdk)
+![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g)
 ![Maintenance](https://img.shields.io/maintenance/yes/2022?color=g)
-![NPM](https://img.shields.io/npm/l/@quicknode/icy-graphql-client?color=g)
+![NPM](https://img.shields.io/npm/l/@quicknode/sdk?color=g)
 ![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)
 ![Discord](https://img.shields.io/discord/880505845090250794?color=g)
 
-# icy-graphql-client
+# QuickNode SDK
 
-Get started with [Icy Tools GraphQL API](https://developers.icy.tools/) in a blink!
+Currently has support for getting started with [Icy Tools GraphQL API](https://developers.icy.tools/) in a blink!
 
 ## Quick Start
 
 ```ts
-import { IcyGraphQLSDK } from '@quicknode/icy-graphql-client';
+import { QuickNodeSDK } from '@quicknode/sdk';
 
-const client = new IcyGraphQLSDK();
+const client = new QuickNodeSDK();
 
 client.nft
   .getNFTsByWallet({
@@ -28,21 +28,21 @@ Full example implementation [here](https://github.com/user/repo/blob/branch/othe
 
 ## Providing a config object to the client
 
-> :warning: This client (and the underlying API) can be used without an apiKey, but its usage will be heavily rate limited, intended for trial and development purposes only.
+> :warning: This client (and the underlying API) can be used without an icyApiKey, but its usage will be heavily rate limited, intended for trial and development purposes only.
 
 ```ts
-import { IcyGraphQLSDK } from '@quicknode/icy-graphql-client';
+import { QuickNodeSDK } from '@quicknode/sdk';
 
-const client = new IcyGraphQLSDK({
-  apiKey: 'my-api-key', // which is obtained by signing up on https://developers.icy.tools/
+const client = new QuickNodeSDK({
+  icyApiKey: 'my-api-key', // which is obtained by signing up on https://developers.icy.tools/
 });
 ```
 
 ### Client config API
 
-| Property | Values | Example                            |
-| -------- | ------ | ---------------------------------- |
-| apiKey   | string | 1c1t00ls-4p10-k3y0-lu21-43405e3310 |
+| Property  | Values | Example                            |
+| --------- | ------ | ---------------------------------- |
+| icyApiKey | string | 1c1t00ls-4p10-k3y0-lu21-43405e3310 |
 
 <br>
 
@@ -60,9 +60,9 @@ const client = new IcyGraphQLSDK({
 On this method you can provide either address or ensName as arguments
 
 ```ts
-import { IcyGraphQLSDK } from '@quicknode/icy-graphql-client';
+import { QuickNodeSDK } from '@quicknode/sdk';
 
-const client = new IcyGraphQLSDK();
+const client = new QuickNodeSDK();
 
 client.nft
   .getNFTsByWallet({
@@ -76,9 +76,9 @@ client.nft
 or
 
 ```ts
-import { IcyGraphQLSDK } from '@quicknode/icy-graphql-client';
+import { QuickNodeSDK } from '@quicknode/sdk';
 
-const client = new IcyGraphQLSDK();
+const client = new QuickNodeSDK();
 
 client.nft
   .getNFTsByWallet({
@@ -93,12 +93,12 @@ client.nft
 
 ## Building
 
-Run `nx build libs-api-icy-graphql-client` to build the library.
+Run `nx build libs-api-sdk` to build the library.
 
 ## Running unit tests
 
-Run `nx test libs-api-icy-graphql-client` to execute the unit tests via [Jest](https://jestjs.io).
+Run `nx test libs-api-sdk` to execute the unit tests via [Jest](https://jestjs.io).
 
 ## Running lint
 
-Run `nx lint libs-api-icy-graphql-client` to execute the lint via [ESLint](https://eslint.org/).
+Run `nx lint libs-api-sdk` to execute the lint via [ESLint](https://eslint.org/).

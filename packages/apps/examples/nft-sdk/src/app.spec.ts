@@ -10,7 +10,7 @@ describe('main', () => {
       .expect(200);
 
     expect(response.body).toStrictEqual({
-      message: 'Welcome to icy-graphql-client example!',
+      message: "Welcome to QuickNode's nft-sdk example!",
     });
   });
 });

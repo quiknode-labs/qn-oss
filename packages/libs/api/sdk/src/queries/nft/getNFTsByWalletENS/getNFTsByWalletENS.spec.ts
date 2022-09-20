@@ -1,15 +1,15 @@
-import { IcyGraphQLSDK } from 'client';
+import { QuickNodeSDK } from 'client';
 import withPolly from '../../../../testSetup/pollyTestSetup';
 
-const client = new IcyGraphQLSDK();
+const client = new QuickNodeSDK();
 
-describe('getNFTsByWalletAddress', () => {
+describe('getNFTsByWalletENS', () => {
   it('executes correctly', async () => {
     await withPolly(
-      { recordingName: 'query-getNFTsByWalletAddress-base' },
+      { recordingName: 'query-getNFTsByWalletENS-base' },
       async () => {
-        const { data } = await client.nft.getNFTsByWalletAddress({
-          address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+        const { data } = await client.nft.getNFTsByWalletENS({
+          ensName: 'vitalik.eth',
           first: 5,
         });
         expect(data).toStrictEqual({
@@ -140,22 +140,19 @@ describe('getNFTsByWalletAddress', () => {
 
   it('can iterate tokens', async () => {
     await withPolly(
-      { recordingName: 'query-getNFTsByWalletAddress-iterates' },
+      { recordingName: 'query-getNFTsByWalletENS-iterates' },
       async () => {
-        const { data: firstResponse } = await client.nft.getNFTsByWalletAddress(
-          {
-            address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
-            first: 5,
-          }
-        );
-        const { data: secondResponse } =
-          await client.nft.getNFTsByWalletAddress({
-            address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
-            first: 5,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            after: firstResponse.wallet.tokensPageInfo.endCursor,
-          });
+        const { data: firstResponse } = await client.nft.getNFTsByWalletENS({
+          ensName: 'vitalik.eth',
+          first: 5,
+        });
+        const { data: secondResponse } = await client.nft.getNFTsByWalletENS({
+          ensName: 'vitalik.eth',
+          first: 5,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          after: firstResponse.wallet.tokensPageInfo.endCursor,
+        });
         expect(firstResponse).toStrictEqual({
           wallet: {
             address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',

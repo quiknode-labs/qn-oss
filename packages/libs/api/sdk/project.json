@@ -1,27 +1,27 @@
 {
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/libs/api/icy-graphql-client/src",
+  "sourceRoot": "packages/libs/api/sdk/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "main": "packages/libs/api/icy-graphql-client/src/index.ts",
-        "tsConfig": "packages/libs/api/icy-graphql-client/tsconfig.lib.json",
+        "main": "packages/libs/api/sdk/src/index.ts",
+        "tsConfig": "packages/libs/api/sdk/tsconfig.lib.json",
         "compiler": "babel",
-        "outputPath": "dist/packages/libs/api/icy-graphql-client",
+        "outputPath": "dist/packages/libs/api/sdk",
         "deleteOutputPath": true,
 
         "optimization": false,
         "extractLicenses": false,
-        "webpackConfig": "packages/libs/api/icy-graphql-client/webpack.config.ts"
+        "webpackConfig": "packages/libs/api/sdk/webpack.config.ts"
       }
     },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs libs-api-icy-graphql-client {args.ver} {args.otp} {args.tag}"
+        "command": "node tools/scripts/publish.mjs libs-api-sdk {args.ver} {args.otp} {args.tag}"
       },
       "dependsOn": [
         {
@@ -34,14 +34,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/libs/api/icy-graphql-client/**/*.ts"]
+        "lintFilePatterns": ["packages/libs/api/sdk/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/libs/api/icy-graphql-client"],
+      "outputs": ["coverage/packages/libs/api/sdk"],
       "options": {
-        "jestConfig": "packages/libs/api/icy-graphql-client/jest.config.ts",
+        "jestConfig": "packages/libs/api/sdk/jest.config.ts",
         "passWithNoTests": true
       }
     }

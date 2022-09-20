@@ -21,15 +21,12 @@ module.exports = (config: unknown, _: any) => {
   //@ts-ignore
   const mergedConfig = merge(config, {
     entry: {
-      main: ['./packages/libs/api/icy-graphql-client/src/index.ts'],
+      main: ['./packages/libs/api/sdk/src/index.ts'],
     },
     output: {
       filename: 'index.js',
       libraryTarget: 'commonjs',
-      path: path.resolve(
-        rootDir,
-        '../../../../dist/packages/libs/api/icy-graphql-client/src'
-      ),
+      path: path.resolve(rootDir, '../../../../dist/packages/libs/api/sdk/src'),
     },
     devtool: 'inline-source-map',
     externals: [nodeExternals()],
@@ -57,12 +54,13 @@ module.exports = (config: unknown, _: any) => {
     },
     {
       test: /\.([jt])sx?$/,
-      loader:
-        '/Users/alejandro/quicknode/qn-oss/node_modules/ts-loader/index.js',
+      loader: path.resolve(
+        rootDir,
+        '../../../../node_modules/ts-loader/index.js'
+      ),
       exclude: /node_modules/,
       options: {
-        configFile:
-          '/Users/alejandro/quicknode/qn-oss/packages/libs/api/icy-graphql-client/tsconfig.lib.json',
+        configFile: path.resolve(rootDir, 'tsconfig.lib.json'),
         transpileOnly: false,
       },
     },

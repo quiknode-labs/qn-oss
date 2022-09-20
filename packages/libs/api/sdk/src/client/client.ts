@@ -8,18 +8,20 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { NFTQueries } from '../queries/nft/nftQueries';
-import { IcyGraphQLClient } from './icyGraphqlClient';
+import { CustomGraphQLClient } from './CustomGraphqlClient';
 
-export interface IcyClientArguments {
-  apiKey?: string;
+export interface QuickNodeSDKArguments {
+  icyApiKey?: string;
 }
 
-const ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
+const QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
   /**
    * @todo set unified config util
    */
   // @ts-ignore
-  process.env.ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS === 'true' ? true : false;
+  process.env.QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS === 'true'
+    ? true
+    : false;
 
 const httpLink = new HttpLink({
   uri: 'https://graphql.icy.tools/graphql',
@@ -32,41 +34,41 @@ const errorLink = onError(({ networkError }) => {
      */
     // @ts-ignore typing is not correct from apollo client, statusCode can be included in networkError
     networkError?.statusCode === 429 &&
-    !ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS
+    !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS
   ) {
     console.warn(
-      'Rate limit reached, head over to https://developers.icy.tools/ to upgrade your account'
+      'QuickNode SDK warning: rate limit reached, head over to https://developers.icy.tools/ to upgrade your account'
     );
   }
 });
 
-export class IcyGraphQLSDK {
+export class QuickNodeSDK {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
-  readonly icyClient: IcyGraphQLClient;
-  readonly apiKey?: string;
+  private CustomGraphQLClient: CustomGraphQLClient;
+  readonly icyApiKey?: string;
   readonly nft: NFTQueries;
 
-  constructor({ apiKey }: IcyClientArguments = {}) {
-    if (!apiKey && !ICY_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
+  constructor({ icyApiKey }: QuickNodeSDKArguments = {}) {
+    if (!icyApiKey && !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
       console.warn(
-        'icy-graphql-client warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://developers.icy.tools/'
+        'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://developers.icy.tools/'
       );
     }
 
-    this.apiKey = apiKey;
-    this.apolloClient = this.createApolloClient({ apiKey });
-    this.icyClient = new IcyGraphQLClient(this.apolloClient);
-    this.nft = new NFTQueries(this.icyClient);
+    this.icyApiKey = icyApiKey;
+    this.apolloClient = this.createApolloClient({ icyApiKey });
+    this.CustomGraphQLClient = new CustomGraphQLClient(this.apolloClient);
+    this.nft = new NFTQueries(this.CustomGraphQLClient);
   }
 
   private createApolloClient({
-    apiKey,
-  }: IcyClientArguments): ApolloClient<NormalizedCacheObject> {
+    icyApiKey,
+  }: QuickNodeSDKArguments): ApolloClient<NormalizedCacheObject> {
     const authLink = setContext(async (_, { headers }) => {
       return {
         headers: {
           ...headers,
-          ...(apiKey && { 'x-api-key': apiKey }),
+          ...(icyApiKey && { 'x-api-key': icyApiKey }),
         },
       };
     });

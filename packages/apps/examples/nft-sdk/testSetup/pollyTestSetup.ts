@@ -50,7 +50,9 @@ export default async function withPolly(
   });
   polly.configure({
     persisterOptions: {
-      fs: { recordingsDir: 'packages/libs/api/icy-graphql-client/recordings' },
+      fs: {
+        recordingsDir: 'packages/apps/examples/nft-sdk/recordings',
+      },
     },
   });
   try {

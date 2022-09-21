@@ -5,7 +5,7 @@ import {
 } from '@apollo/client';
 import { removeNodesAndEdges } from '../utils/removeNodesAndEdges';
 
-export class CustomGraphQLClient {
+export class CustomApolloClient {
   constructor(public apolloClient: ApolloClient<NormalizedCacheObject>) {}
 
   /**

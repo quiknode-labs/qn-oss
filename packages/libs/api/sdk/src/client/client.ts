@@ -8,7 +8,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { NFTQueries } from '../queries/nft/nftQueries';
-import { CustomGraphQLClient } from './CustomGraphqlClient';
+import { CustomApolloClient } from './customApolloClient';
 
 export interface QuickNodeSDKArguments {
   icyApiKey?: string;
@@ -44,7 +44,7 @@ const errorLink = onError(({ networkError }) => {
 
 export class QuickNodeSDK {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
-  private CustomGraphQLClient: CustomGraphQLClient;
+  private customApolloClient: CustomApolloClient;
   readonly icyApiKey?: string;
   readonly nft: NFTQueries;
 
@@ -57,8 +57,8 @@ export class QuickNodeSDK {
 
     this.icyApiKey = icyApiKey;
     this.apolloClient = this.createApolloClient({ icyApiKey });
-    this.CustomGraphQLClient = new CustomGraphQLClient(this.apolloClient);
-    this.nft = new NFTQueries(this.CustomGraphQLClient);
+    this.customApolloClient = new CustomApolloClient(this.apolloClient);
+    this.nft = new NFTQueries(this.customApolloClient);
   }
 
   private createApolloClient({

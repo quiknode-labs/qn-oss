@@ -17,7 +17,7 @@ import { QuickNodeSDK } from '@quicknode/sdk';
 const client = new QuickNodeSDK();
 
 client.nft
-  .getNFTsByWallet({
+  .getNFTsByWalletENS({
     ensName: 'vitalik.eth',
     first: 5,
   })
@@ -48,16 +48,13 @@ const client = new QuickNodeSDK({
 
 ## Methods
 
-### nft.getNFTsByWallet
+### nft.getNFTsByWalletENS
 
-| Argument | Values | Optional | Example                                    |
-| -------- | ------ | -------- | ------------------------------------------ |
-| address  | string | ❌       | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 |
-| ensName  | string | ❌       | vitalik.eth                                |
-| first    | number | ✅       | 10                                         |
-| after    | string | ✅       | YXJyYXljb25uZWN0aW9uOjUwNQ==               |
-
-On this method you can provide either address or ensName as arguments
+| Argument | Values | Optional | Example                      |
+| -------- | ------ | -------- | ---------------------------- |
+| ensName  | string | ❌       | vitalik.eth                  |
+| first    | number | ✅       | 10                           |
+| after    | string | ✅       | YXJyYXljb25uZWN0aW9uOjUwNQ== |
 
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';
@@ -65,7 +62,7 @@ import { QuickNodeSDK } from '@quicknode/sdk';
 const client = new QuickNodeSDK();
 
 client.nft
-  .getNFTsByWallet({
+  .getNFTsByWalletENS({
     ensName: 'vitalik.eth',
     first: 5,
     after: 'YXJyYXljb25uZWN0aW9uOjUwNQ==',
@@ -73,7 +70,13 @@ client.nft
   .then((response) => console.log(response));
 ```
 
-or
+### nft.getNFTsByWalletAddress
+
+| Argument | Values | Optional | Example                                    |
+| -------- | ------ | -------- | ------------------------------------------ |
+| address  | string | ❌       | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 |
+| first    | number | ✅       | 10                                         |
+| after    | string | ✅       | YXJyYXljb25uZWN0aW9uOjUwNQ==               |
 
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';
@@ -81,7 +84,7 @@ import { QuickNodeSDK } from '@quicknode/sdk';
 const client = new QuickNodeSDK();
 
 client.nft
-  .getNFTsByWallet({
+  .getNFTsByWalletAddress({
     address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
     first: 5,
     after: 'YXJyYXljb25uZWN0aW9uOjUwNQ==',

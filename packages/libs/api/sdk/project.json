@@ -1,0 +1,50 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/libs/api/sdk/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "main": "packages/libs/api/sdk/src/index.ts",
+        "tsConfig": "packages/libs/api/sdk/tsconfig.lib.json",
+        "compiler": "babel",
+        "outputPath": "dist/packages/libs/api/sdk",
+        "deleteOutputPath": true,
+
+        "optimization": false,
+        "extractLicenses": false,
+        "webpackConfig": "packages/libs/api/sdk/webpack.config.ts"
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs libs-api-sdk {args.ver} {args.otp} {args.tag}"
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/libs/api/sdk/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/libs/api/sdk"],
+      "options": {
+        "jestConfig": "packages/libs/api/sdk/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

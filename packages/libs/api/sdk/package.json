@@ -1,0 +1,25 @@
+{
+  "name": "@quicknode/sdk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quiknode-labs/qn-oss.git",
+    "directory": "packages/libs/api/sdk"
+  },
+  "license": "MIT",
+  "version": "0.0.2",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "graphql": "^16.5.0",
+    "cross-fetch": "^3.1.5"
+  },
+  "devDependencies": {
+    "@pollyjs/adapter-node-http": "^6.0.5",
+    "@pollyjs/core": "^6.0.5",
+    "@pollyjs/persister-fs": "^6.0.5",
+    "@types/supertest": "^2.0.12",
+    "@types/node": "16.11.7",
+    "supertest": "^6.2.4"
+  }
+}

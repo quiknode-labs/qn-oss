@@ -4,18 +4,14 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "main": "packages/libs/api/sdk/src/index.ts",
-        "tsConfig": "packages/libs/api/sdk/tsconfig.lib.json",
-        "compiler": "babel",
-        "outputPath": "dist/packages/libs/api/sdk",
-        "deleteOutputPath": true,
-
-        "optimization": false,
-        "extractLicenses": false,
-        "webpackConfig": "packages/libs/api/sdk/webpack.config.ts"
+        "commands": [
+          "rm -rf ./dist/packages/libs/api/sdk",
+          "./node_modules/rollup/dist/bin/rollup --config packages/libs/api/sdk/rollup.config.js",
+          "yarn tsc --project packages/libs/api/sdk/tsconfig.lib.json --declarationDir dist --emitDeclarationOnly"
+        ],
+        "outputPath": "dist/packages/libs/api/sdk"
       }
     },
     "publish": {

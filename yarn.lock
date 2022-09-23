@@ -2313,6 +2313,19 @@
     magic-string "^0.25.7"
     resolve "^1.17.0"
 
+"@rollup/plugin-commonjs@^22.0.2":
+  version "22.0.2"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-22.0.2.tgz#ee8ca8415cda30d383b4096aad5222435b4b69b6"
+  integrity sha512-//NdP6iIwPbMTcazYsiBMbJW7gfmpHom33u1beiIoHDEM0Q9clvtQB1T0efvMqHeKsGohiHo97BCPCkBXdscwg==
+  dependencies:
+    "@rollup/pluginutils" "^3.1.0"
+    commondir "^1.0.1"
+    estree-walker "^2.0.1"
+    glob "^7.1.6"
+    is-reference "^1.2.1"
+    magic-string "^0.25.7"
+    resolve "^1.17.0"
+
 "@rollup/plugin-image@^2.1.0":
   version "2.1.1"
   resolved "https://registry.npmjs.org/@rollup/plugin-image/-/plugin-image-2.1.1.tgz"
@@ -2352,6 +2365,18 @@
     is-module "^1.0.0"
     resolve "^1.19.0"
 
+"@rollup/plugin-node-resolve@^14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-14.1.0.tgz#f2fa475405cd7fed6420bf438fe393f988a9bc96"
+  integrity sha512-5G2niJroNCz/1zqwXtk0t9+twOSDlG00k1Wfd7bkbbXmwg8H8dvgHdIWAun53Ps/rckfvOC7scDBjuGFg5OaWw==
+  dependencies:
+    "@rollup/pluginutils" "^3.1.0"
+    "@types/resolve" "1.17.1"
+    deepmerge "^4.2.2"
+    is-builtin-module "^3.1.0"
+    is-module "^1.0.0"
+    resolve "^1.19.0"
+
 "@rollup/plugin-replace@^2.4.1":
   version "2.4.2"
   resolved "https://registry.npmjs.org/@rollup/plugin-replace/-/plugin-replace-2.4.2.tgz"
@@ -2359,6 +2384,14 @@
   dependencies:
     "@rollup/pluginutils" "^3.1.0"
     magic-string "^0.25.7"
+
+"@rollup/plugin-typescript@^8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-typescript/-/plugin-typescript-8.5.0.tgz#7ea11599a15b0a30fa7ea69ce3b791d41b862515"
+  integrity sha512-wMv1/scv0m/rXx21wD2IsBbJFba8wGF3ErJIr6IKRfRj49S85Lszbxb4DCo8iILpluTjk2GAAu9CoZt4G3ppgQ==
+  dependencies:
+    "@rollup/pluginutils" "^3.1.0"
+    resolve "^1.17.0"
 
 "@rollup/pluginutils@^3.0.8", "@rollup/pluginutils@^3.1.0":
   version "3.1.0"
@@ -10183,7 +10216,7 @@ rimraf@^3.0.0, rimraf@^3.0.2:
 
 rollup-plugin-copy@^3.4.0:
   version "3.4.0"
-  resolved "https://registry.npmjs.org/rollup-plugin-copy/-/rollup-plugin-copy-3.4.0.tgz"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-copy/-/rollup-plugin-copy-3.4.0.tgz#f1228a3ffb66ffad8606e2f3fb7ff23141ed3286"
   integrity sha512-rGUmYYsYsceRJRqLVlE9FivJMxJ7X6jDlP79fmFkL8sJs7VVMSVyA2yfyL+PGyO/vJs4A87hwhgVfz61njI+uQ==
   dependencies:
     "@types/fs-extra" "^8.0.1"
@@ -10249,6 +10282,13 @@ rollup@^2.43.1, rollup@^2.56.2:
   version "2.77.0"
   resolved "https://registry.npmjs.org/rollup/-/rollup-2.77.0.tgz"
   integrity sha512-vL8xjY4yOQEw79DvyXLijhnhh+R/O9zpF/LEgkCebZFtb6ELeN9H3/2T0r8+mp+fFTBHZ5qGpOpW2ela2zRt3g==
+  optionalDependencies:
+    fsevents "~2.3.2"
+
+rollup@^2.79.1:
+  version "2.79.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.79.1.tgz#bedee8faef7c9f93a2647ac0108748f497f081c7"
+  integrity sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==
   optionalDependencies:
     fsevents "~2.3.2"
 

@@ -7,6 +7,7 @@ import {
 } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
+import fetch from 'cross-fetch';
 import { NFTQueries } from '../queries/nft/nftQueries';
 import { CustomApolloClient } from './customApolloClient';
 
@@ -25,6 +26,7 @@ const QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
 
 const httpLink = new HttpLink({
   uri: 'https://graphql.icy.tools/graphql',
+  fetch,
 });
 
 const errorLink = onError(({ networkError }) => {

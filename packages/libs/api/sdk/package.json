@@ -6,8 +6,9 @@
     "directory": "packages/libs/api/sdk"
   },
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "main": "./src/index.js",
+  "module": "./src/index.esm.js",
   "types": "./src/index.d.ts",
   "dependencies": {
     "@apollo/client": "^3.6.9",

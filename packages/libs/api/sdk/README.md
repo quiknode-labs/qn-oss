@@ -50,11 +50,11 @@ const client = new QuickNodeSDK({
 
 ### nft.getNFTsByWalletENS
 
-| Argument | Values | Optional | Description                               | Example     |
-| -------- | ------ | -------- | ----------------------------------------- | ----------- |
-| ensName  | string | ❌       | Wallet ENS address                        | vitalik.eth |
-| first    | number | ✅       | Number of results to return per page      | 10          |
-| after    | string | ✅       | Return results after specified end cursor | ==          |
+| Argument | Values | Optional | Description                               | Example                     |
+| -------- | ------ | -------- | ----------------------------------------- | --------------------------- |
+| ensName  | string | ❌       | Wallet ENS address                        | vitalik.eth                 |
+| first    | number | ✅       | Number of results to return per page      | 10                          |
+| after    | string | ✅       | Return results after specified end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
 
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';
@@ -75,7 +75,7 @@ client.nft
 | -------- | ------ | -------- | ----------------------------------------- | ------------------------------------------ |
 | address  | string | ❌       | Wallet address                            | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 |
 | first    | number | ✅       | Number of results to return per page      | 10                                         |
-| after    | string | ✅       | Return results after specified end cursor | ==                                         |
+| after    | string | ✅       | Return results after specified end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
 
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';

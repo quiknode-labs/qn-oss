@@ -50,11 +50,11 @@ const client = new QuickNodeSDK({
 
 ### nft.getNFTsByWalletENS
 
-| Argument | Values | Optional | Example                      |
-| -------- | ------ | -------- | ---------------------------- |
-| ensName  | string | ❌       | vitalik.eth                  |
-| first    | number | ✅       | 10                           |
-| after    | string | ✅       | YXJyYXljb25uZWN0aW9uOjUwNQ== |
+| Argument | Values | Optional | Description                               | Example     |
+| -------- | ------ | -------- | ----------------------------------------- | ----------- |
+| ensName  | string | ❌       | Wallet ENS address                        | vitalik.eth |
+| first    | number | ✅       | Number of results to return per page      | 10          |
+| after    | string | ✅       | Return results after specified end cursor | ==          |
 
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';
@@ -65,18 +65,17 @@ client.nft
   .getNFTsByWalletENS({
     ensName: 'vitalik.eth',
     first: 5,
-    after: 'YXJyYXljb25uZWN0aW9uOjUwNQ==',
   })
   .then((response) => console.log(response));
 ```
 
 ### nft.getNFTsByWalletAddress
 
-| Argument | Values | Optional | Example                                    |
-| -------- | ------ | -------- | ------------------------------------------ |
-| address  | string | ❌       | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 |
-| first    | number | ✅       | 10                                         |
-| after    | string | ✅       | YXJyYXljb25uZWN0aW9uOjUwNQ==               |
+| Argument | Values | Optional | Description                               | Example                                    |
+| -------- | ------ | -------- | ----------------------------------------- | ------------------------------------------ |
+| address  | string | ❌       | Wallet address                            | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 |
+| first    | number | ✅       | Number of results to return per page      | 10                                         |
+| after    | string | ✅       | Return results after specified end cursor | ==                                         |
 
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';
@@ -87,9 +86,38 @@ client.nft
   .getNFTsByWalletAddress({
     address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
     first: 5,
-    after: 'YXJyYXljb25uZWN0aW9uOjUwNQ==',
   })
   .then((response) => console.log(response));
+```
+
+## Pagination
+
+For functions that support pagination, use the `first` property to specify the initial amount of results to return.
+
+From there, the `endCursor` and can be used to access subsequent pages. This value can be passed in to the `after` property and will return the results after that `endCursor`.
+
+`hasNextPage` can be used to determine the end of the results, where it will be `false`
+
+For example, if a response contains:
+
+```json
+"data: {
+  "tokensPageInfo": {
+    "hasNextPage": true,
+    "endCursor": 'YXJyYXljb25uZWN0aW9uOlk='
+    }
+  }
+}
+```
+
+calling the following will get the next page of results
+
+```typescript
+client.nft.getNFTsByWalletENS({
+  ensName: 'vitalik.eth',
+  first: 5,
+  after: 'YXJyYXljb25uZWN0aW9uOlk=', // from data.tokensPageInfo.endCursor in response
+});
 ```
 
 # Contributing corner

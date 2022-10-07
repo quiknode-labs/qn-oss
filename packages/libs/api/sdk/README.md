@@ -98,7 +98,7 @@ The returned `data.tokensPageInfo.endCursor` property in the response can be use
 
 For example, if a response contains:
 
-```json
+```
 "data: {
   "tokensPageInfo": {
     "hasNextPage": true,

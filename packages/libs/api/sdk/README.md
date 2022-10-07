@@ -92,11 +92,11 @@ client.nft
 
 ## Pagination
 
-For functions that support pagination, use the `first` property to specify the initial amount of results to return.
+For functions that support pagination, use the `first` property to specify the amount of results to return.
 
-From there, the `endCursor` and can be used to access subsequent pages. This value can be passed in to the `after` property and will return the results after that `endCursor`.
+The returned `data.tokensPageInfo.endCursor` property in the response can be used to access subsequent results. This value can be passed in to the `after` property and will return the results after that `endCursor`.
 
-`hasNextPage` can be used to determine the end of the results, where it will be `false`
+`hasNextPage` can be used to determine the end of the results, where it will be `false`.
 
 For example, if a response contains:
 

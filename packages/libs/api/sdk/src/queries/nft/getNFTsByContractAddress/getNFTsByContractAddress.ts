@@ -2,7 +2,7 @@ import { gql } from '@apollo/client/core';
 import { PaginationArgs } from '../../../types';
 
 export const getContractAddressNFTsRawQuery = gql`
-  query ContractNFTs($address: String, $first: Int, $after: String) {
+  query ContractNFTs($address: String!, $first: Int, $after: String) {
     contract(address: $address) {
       address
       isVerified

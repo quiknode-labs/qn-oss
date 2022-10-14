@@ -8,4 +8,9 @@ router.get('/api', (req, res) => {
 
 router.get('/api/nftsByEns/:ensResource', nftController.getNFTsByEns);
 
+router.get(
+  '/api/nftsByWalletAddress/:walletAddress/:after?',
+  nftController.getNFTsByWalletAddress
+);
+
 export default router;

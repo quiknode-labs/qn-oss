@@ -2,8 +2,6 @@
  * @todo replace this with graphql automatic schema generation
  */
 
-import { Connection } from 'net';
-
 export interface Wallet {
   ensName: string;
   address: string;

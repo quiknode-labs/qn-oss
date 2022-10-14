@@ -18,10 +18,9 @@ export const getContractAddressNFTsRawQuery = gql`
             images {
               url
             }
-            # I had to include this because of Invariant Violation: Missing field 'contract.address' while extracting keyFields from {"tokenId":"0","images":[{
             ... on ERC721Token {
               contract {
-                address
+                address # Included key field for caching
               }
             }
           }

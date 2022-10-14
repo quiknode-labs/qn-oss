@@ -12,4 +12,9 @@ router.get(
   nftController.getNFTsByContractAddress
 );
 
+router.get(
+  '/api/nftsByWalletAddress/:walletAddress/:after?',
+  nftController.getNFTsByWalletAddress
+);
+
 export default router;

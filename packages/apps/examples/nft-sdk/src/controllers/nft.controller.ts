@@ -19,4 +19,13 @@ export default {
     });
     res.status(200).send(NFTs);
   },
+
+  getNFTsByWalletAddress: async (req: Request, res: Response) => {
+    const NFTs = await client.nft.getNFTsByWalletAddress({
+      address: req.params.walletAddress,
+      first: 2,
+      after: req.params?.after,
+    });
+    res.status(200).send(NFTs);
+  },
 };

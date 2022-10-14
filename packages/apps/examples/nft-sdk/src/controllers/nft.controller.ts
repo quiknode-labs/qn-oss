@@ -13,9 +13,13 @@ export default {
   },
 
   getNFTsByContractAddress: async (req: Request, res: Response) => {
+    const after =
+      typeof req.query?.after === 'string' ? req.query.after : undefined;
+
     const NFTs = await client.nft.getNFTsByContractAddress({
       address: req.params.address,
       first: 5,
+      after,
     });
     res.status(200).send(NFTs);
   },
@@ -23,7 +27,7 @@ export default {
   getNFTsByWalletAddress: async (req: Request, res: Response) => {
     const NFTs = await client.nft.getNFTsByWalletAddress({
       address: req.params.walletAddress,
-      first: 2,
+      first: 5,
       after: req.params?.after,
     });
     res.status(200).send(NFTs);

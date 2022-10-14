@@ -90,6 +90,27 @@ client.nft
   .then((response) => console.log(response));
 ```
 
+### nft.getNFTsByContractAddress
+
+| Argument | Values | Optional | Description                     | Example                                    |
+| -------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
+| address  | string | ❌       | Contract address of NFT         | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| first    | number | ✅       | Number of results to return     | 10                                         |
+| after    | string | ✅       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+
+```ts
+import { QuickNodeSDK } from '@quicknode/sdk';
+
+const client = new QuickNodeSDK();
+
+client.nft
+  .getNFTsByWalletAddress({
+    address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
 ## Pagination
 
 For functions that support pagination, use the `first` property to specify the amount of results to return.

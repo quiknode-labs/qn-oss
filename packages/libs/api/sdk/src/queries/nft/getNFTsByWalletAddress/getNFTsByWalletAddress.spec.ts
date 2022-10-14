@@ -6,9 +6,7 @@ const client = new QuickNodeSDK();
 describe('getNFTsByWalletAddress', () => {
   it('executes correctly', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getNFTsByWalletAddress-base',
-      },
+      { recordingName: 'query-getNFTsByWalletAddress-base' },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAddress({
           address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',

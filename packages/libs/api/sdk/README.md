@@ -24,6 +24,8 @@ client.nft
   .then((response) => console.log(response));
 ```
 
+Full example implementation [here](https://github.com/quiknode-labs/qn-oss/tree/main/packages/apps/examples/nft-sdk)
+
 ## Providing a config object to the client
 
 > :warning: This client (and the underlying API) can be used without an icyApiKey, but its usage will be heavily rate limited, intended for trial and development purposes only.

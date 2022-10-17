@@ -3,11 +3,28 @@ import { Request, Response } from 'express';
 
 const client = new QuickNodeSDK();
 
+const getQueryParam = (req: Request, param: string): string | undefined => {
+  let typedParam = undefined;
+  if (typeof req.query?.[param] === 'string')
+    typedParam = String(req.query[param]);
+  return typedParam;
+};
+
 export default {
   getNFTsByEns: async (req: Request, res: Response) => {
     const NFTs = await client.nft.getNFTsByWalletENS({
       ensName: req.params.ensResource,
       first: 5,
+      after: getQueryParam(req, 'after'),
+    });
+    res.status(200).send(NFTs);
+  },
+
+  getNFTsByContractAddress: async (req: Request, res: Response) => {
+    const NFTs = await client.nft.getNFTsByContractAddress({
+      address: req.params.address,
+      first: 5,
+      after: getQueryParam(req, 'after'),
     });
     res.status(200).send(NFTs);
   },
@@ -15,8 +32,8 @@ export default {
   getNFTsByWalletAddress: async (req: Request, res: Response) => {
     const NFTs = await client.nft.getNFTsByWalletAddress({
       address: req.params.walletAddress,
-      first: 2,
-      after: req.params?.after,
+      first: 5,
+      after: getQueryParam(req, 'after'),
     });
     res.status(200).send(NFTs);
   },

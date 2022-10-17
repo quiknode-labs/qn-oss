@@ -7,6 +7,10 @@ router.get('/api', (req, res) => {
 });
 
 router.get('/api/nftsByEns/:ensResource', nftController.getNFTsByEns);
+router.get(
+  '/api/nftsByContractAddress/:address',
+  nftController.getNFTsByContractAddress
+);
 
 router.get(
   '/api/nftsByWalletAddress/:walletAddress/:after?',

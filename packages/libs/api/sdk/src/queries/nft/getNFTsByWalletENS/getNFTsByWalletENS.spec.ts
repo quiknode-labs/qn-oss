@@ -149,9 +149,7 @@ describe('getNFTsByWalletENS', () => {
         const { data: secondResponse } = await client.nft.getNFTsByWalletENS({
           ensName: 'vitalik.eth',
           first: 5,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          after: firstResponse.wallet.tokensPageInfo.endCursor,
+          after: firstResponse?.wallet?.tokensPageInfo.endCursor,
         });
         expect(firstResponse).toStrictEqual({
           wallet: {
@@ -400,6 +398,21 @@ describe('getNFTsByWalletENS', () => {
               hasNextPage: true,
             },
           },
+        });
+      }
+    );
+  });
+
+  it('can handle no response', async () => {
+    await withPolly(
+      { recordingName: 'query-getNFTsByWalletENS-null' },
+      async () => {
+        const { data } = await client.nft.getNFTsByWalletENS({
+          ensName: 'fakefakefakedoesnotexist.eth',
+          first: 5,
+        });
+        expect(data).toStrictEqual({
+          wallet: null,
         });
       }
     );

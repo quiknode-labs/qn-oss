@@ -165,9 +165,7 @@ describe('getNFTsByContractAddress', () => {
           await client.nft.getNFTsByContractAddress({
             address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
             first: 5,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            after: firstResponse.contract.tokensPageInfo.endCursor,
+            after: firstResponse?.contract?.tokensPageInfo.endCursor,
           });
 
         expect(firstResponse).toStrictEqual({

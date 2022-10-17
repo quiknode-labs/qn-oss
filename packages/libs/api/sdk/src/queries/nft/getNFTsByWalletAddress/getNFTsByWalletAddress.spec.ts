@@ -152,9 +152,7 @@ describe('getNFTsByWalletAddress', () => {
           await client.nft.getNFTsByWalletAddress({
             address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
             first: 5,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            after: firstResponse.wallet.tokensPageInfo.endCursor,
+            after: firstResponse?.wallet?.tokensPageInfo.endCursor,
           });
         expect(firstResponse).toStrictEqual({
           wallet: {

@@ -6,7 +6,6 @@ export interface Wallet {
   ensName: string;
   address: string;
   tokens: Connection<NFT>;
-  tokensPageInfo: PaginationDetails;
 }
 
 export interface Contract {
@@ -17,7 +16,6 @@ export interface Contract {
   name: string;
   symbol: string;
   tokens: Connection<NFTBase>;
-  tokensPageInfo: PaginationDetails;
 }
 
 export interface NFT extends NFTBase {
@@ -40,10 +38,14 @@ export interface PaginationDetails {
   hasNextPage: string;
 }
 
+export interface TokenPaginationInfo {
+  tokensPageInfo: PaginationDetails;
+}
+
 export interface WalletNFTsQueryResponse {
-  wallet: Wallet | null;
+  wallet: Wallet & TokenPaginationInfo;
 }
 
 export interface ContractNFTsQueryResponse {
-  contract: Contract | null;
+  contract: Contract & TokenPaginationInfo;
 }

@@ -43,9 +43,9 @@ export interface TokenPaginationInfo {
 }
 
 export interface WalletNFTsQueryResponse {
-  wallet: Wallet & TokenPaginationInfo;
+  wallet: (Wallet & TokenPaginationInfo) | null;
 }
 
 export interface ContractNFTsQueryResponse {
-  contract: Contract & TokenPaginationInfo;
+  contract: (Contract & TokenPaginationInfo) | null;
 }

@@ -402,4 +402,19 @@ describe('getNFTsByWalletENS', () => {
       }
     );
   });
+
+  it('can handle no response', async () => {
+    await withPolly(
+      { recordingName: 'query-getNFTsByWalletENS-null' },
+      async () => {
+        const { data } = await client.nft.getNFTsByWalletENS({
+          ensName: 'fakefakefakedoesnotexist.eth',
+          first: 5,
+        });
+        expect(data).toStrictEqual({
+          wallet: null,
+        });
+      }
+    );
+  });
 });

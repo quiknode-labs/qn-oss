@@ -405,4 +405,19 @@ describe('getNFTsByWalletAddress', () => {
       }
     );
   });
+
+  it('can handle no response', async () => {
+    await withPolly(
+      { recordingName: 'query-getNFTsByWalletAddress-null' },
+      async () => {
+        const { data } = await client.nft.getNFTsByWalletAddress({
+          address: '0x11111111111110thisisnotanaddress01111111',
+          first: 5,
+        });
+        expect(data).toStrictEqual({
+          wallet: null,
+        });
+      }
+    );
+  });
 });

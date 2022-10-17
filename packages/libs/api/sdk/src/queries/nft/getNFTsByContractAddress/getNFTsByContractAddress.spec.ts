@@ -151,10 +151,7 @@ describe('getNFTsByContractAddress', () => {
 
   it('can iterate tokens', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getNFTsByContractAddress-iterates',
-        recordIfMissing: true,
-      },
+      { recordingName: 'query-getNFTsByContractAddress-iterates' },
       async () => {
         const { data: firstResponse } =
           await client.nft.getNFTsByContractAddress({
@@ -453,6 +450,21 @@ describe('getNFTsByContractAddress', () => {
             name: 'Loopy Donuts',
             symbol: 'DONUT',
           },
+        });
+      }
+    );
+  });
+
+  it('can handle no response', async () => {
+    await withPolly(
+      { recordingName: 'query-getNFTsByContractAddress-null' },
+      async () => {
+        const { data } = await client.nft.getNFTsByContractAddress({
+          address: '0x11111111111110thisisnotanaddress01111111',
+          first: 5,
+        });
+        expect(data).toStrictEqual({
+          contract: null,
         });
       }
     );

@@ -104,7 +104,7 @@ import { QuickNodeSDK } from '@quicknode/sdk';
 const client = new QuickNodeSDK();
 
 client.nft
-  .getNFTsByWalletAddress({
+  .getNFTsByContractAddress({
     address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
     first: 5,
   })

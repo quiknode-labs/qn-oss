@@ -44,4 +44,14 @@ export default {
     });
     res.status(200).send(details);
   },
+
+  getEventLogs: async (req: Request, res: Response) => {
+    const events = await client.nft.getEventLogs({
+      address: req.params.address,
+      tokenId: req.params.tokenId,
+      first: 2,
+      after: getQueryParam(req, 'after'),
+    });
+    res.status(200).send(events);
+  },
 };

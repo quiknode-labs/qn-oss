@@ -63,6 +63,32 @@ export interface NFTBase {
   }[];
 }
 
+/*** Logs ***/
+
+interface TokenEventLogs {
+  contract: {
+    address: string;
+  };
+  token: {
+    tokenId: string;
+    logs: BaseEventLog | OrderEventLog;
+  };
+}
+
+interface OrderEventLog extends BaseEventLog {
+  marketplace: string;
+  priceInEth: number;
+}
+
+interface BaseEventLog {
+  blockNumber: number;
+  type: string;
+  fromAddress: string;
+  toAddress: string;
+  estimatedConfirmedAt: string;
+  transactionHash: string;
+}
+
 /*** Pagination ***/
 
 export interface PaginationDetails {
@@ -72,6 +98,10 @@ export interface PaginationDetails {
 
 export interface TokenPaginationInfo {
   tokensPageInfo: PaginationDetails;
+}
+
+export interface LogPainationInfo {
+  logsPageInfo: PaginationDetails;
 }
 
 /*** Query Responses ***/
@@ -86,4 +116,8 @@ export interface ContractNFTsQueryResponse {
 
 export interface CollectionDetailsQueryResponse {
   contract: ContractDetails | null;
+}
+
+export interface EventLogsQueryResponse {
+  Token: (TokenEventLogs & LogPainationInfo) | null;
 }

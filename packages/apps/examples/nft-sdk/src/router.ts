@@ -22,4 +22,6 @@ router.get(
   nftController.getCollectionDetails
 );
 
+router.get('/api/getEventLogs/:address/:tokenId', nftController.getEventLogs);
+
 export default router;

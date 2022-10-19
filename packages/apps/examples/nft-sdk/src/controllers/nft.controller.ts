@@ -37,4 +37,11 @@ export default {
     });
     res.status(200).send(NFTs);
   },
+
+  getCollectionDetails: async (req: Request, res: Response) => {
+    const details = await client.nft.getCollectionDetails({
+      address: req.params.address,
+    });
+    res.status(200).send(details);
+  },
 };

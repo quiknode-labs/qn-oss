@@ -2,21 +2,51 @@
  * @todo replace this with graphql automatic schema generation
  */
 
+/*** Wallet ***/
+
 export interface Wallet {
   ensName: string;
   address: string;
   tokens: Connection<NFT>;
 }
 
-export interface Contract {
+/*** Contracts ***/
+
+export interface ContractWithTokens extends ContractBase {
+  tokenSupply: number;
+  tokens: Connection<NFTBase>;
+}
+
+export interface ContractDetails extends ContractBase {
+  circulatingBase: number;
+  stats: ContractStats;
+  attributes: ContractAttribute[];
+}
+
+interface ContractAttribute {
+  name: string;
+  rarity: number;
+  value: string;
+  valueCount: number;
+}
+
+interface ContractStats {
+  average: number;
+  ceiling: number;
+  floor: number;
+  totalSales: number;
+  volume: number;
+}
+
+export interface ContractBase {
   address: string;
   isVerified: boolean;
   tokenStandard: string;
-  tokenSupply: number;
   name: string;
   symbol: string;
-  tokens: Connection<NFTBase>;
 }
+
+/*** NFT/Tokens ***/
 
 export interface NFT extends NFTBase {
   contract: {
@@ -33,6 +63,8 @@ export interface NFTBase {
   }[];
 }
 
+/*** Pagination ***/
+
 export interface PaginationDetails {
   endCursor: string;
   hasNextPage: string;
@@ -42,10 +74,16 @@ export interface TokenPaginationInfo {
   tokensPageInfo: PaginationDetails;
 }
 
+/*** Query Responses ***/
+
 export interface WalletNFTsQueryResponse {
   wallet: (Wallet & TokenPaginationInfo) | null;
 }
 
 export interface ContractNFTsQueryResponse {
-  contract: (Contract & TokenPaginationInfo) | null;
+  contract: (ContractWithTokens & TokenPaginationInfo) | null;
+}
+
+export interface CollectionDetailsQueryResponse {
+  contract: ContractDetails | null;
 }

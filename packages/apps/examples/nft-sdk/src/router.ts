@@ -17,4 +17,9 @@ router.get(
   nftController.getNFTsByWalletAddress
 );
 
+router.get(
+  '/api/getCollectionDetails/:address',
+  nftController.getCollectionDetails
+);
+
 export default router;

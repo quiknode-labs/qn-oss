@@ -13,8 +13,13 @@ import {
   ContractAddressNFTsQueryVariables,
 } from './getNFTsByContractAddress/getNFTsByContractAddress';
 import {
+  getCollectionDetailsRawQuery,
+  CollectionDetailsQueryVariables,
+} from './getCollectionDetails/getCollectionDetails';
+import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
+  CollectionDetailsQueryResponse,
 } from './sharedTypes';
 
 export class NFTQueries {
@@ -43,6 +48,15 @@ export class NFTQueries {
   ): Promise<ApolloQueryResult<ContractNFTsQueryResponse>> {
     return await this.client.query({
       query: getContractAddressNFTsRawQuery,
+      variables,
+    });
+  }
+
+  async getCollectionDetails(
+    variables: CollectionDetailsQueryVariables
+  ): Promise<ApolloQueryResult<CollectionDetailsQueryResponse>> {
+    return await this.client.query({
+      query: getCollectionDetailsRawQuery,
       variables,
     });
   }

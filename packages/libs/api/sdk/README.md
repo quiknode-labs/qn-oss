@@ -111,6 +111,24 @@ client.nft
   .then((response) => console.log(response));
 ```
 
+### nft.getCollectionDetails
+
+| Argument | Values | Optional | Description             | Example                                    |
+| -------- | ------ | -------- | ----------------------- | ------------------------------------------ |
+| address  | string | ❌       | Contract address of NFT | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+
+```ts
+import { QuickNodeSDK } from '@quicknode/sdk';
+
+const client = new QuickNodeSDK();
+
+client.nft
+  .getCollectionDetails({
+    address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+  })
+  .then((response) => console.log(response));
+```
+
 ## Pagination
 
 For functions that support pagination, use the `first` property to specify the amount of results to return.

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client/core';
 import { PaginationArgs } from '../../../types';
 
-export const getEventLogsRawQuery = gql`
+export const getNFTEventLogsRawQuery = gql`
   query NFTEvents(
     $address: String!
     $tokenId: String!

@@ -3,7 +3,7 @@ import withPolly from '../../../../testSetup/pollyTestSetup';
 
 const client = new QuickNodeSDK();
 
-describe('getEventLogs', () => {
+describe('getNFTEventLogs', () => {
   it('executes correctly with all types', async () => {
     await withPolly(
       {
@@ -11,7 +11,7 @@ describe('getEventLogs', () => {
         recordIfMissing: true,
       },
       async () => {
-        const { data } = await client.nft.getEventLogs({
+        const { data } = await client.nft.getNFTEventLogs({
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
           tokenId: '100',
           first: 2,
@@ -61,7 +61,7 @@ describe('getEventLogs', () => {
         recordIfMissing: true,
       },
       async () => {
-        const { data } = await client.nft.getEventLogs({
+        const { data } = await client.nft.getNFTEventLogs({
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
           tokenId: '100',
           types: ['MINT'],
@@ -99,7 +99,7 @@ describe('getEventLogs', () => {
         recordIfMissing: true,
       },
       async () => {
-        const { data } = await client.nft.getEventLogs({
+        const { data } = await client.nft.getNFTEventLogs({
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
           first: 2,
           tokenId: '100',
@@ -148,12 +148,12 @@ describe('getEventLogs', () => {
         recordIfMissing: true,
       },
       async () => {
-        const { data: firstResponse } = await client.nft.getEventLogs({
+        const { data: firstResponse } = await client.nft.getNFTEventLogs({
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
           first: 2,
           tokenId: '100',
         });
-        const { data: secondResponse } = await client.nft.getEventLogs({
+        const { data: secondResponse } = await client.nft.getNFTEventLogs({
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
           first: 2,
           tokenId: '100',
@@ -236,7 +236,7 @@ describe('getEventLogs', () => {
         recordIfMissing: true,
       },
       async () => {
-        const { data } = await client.nft.getEventLogs({
+        const { data } = await client.nft.getNFTEventLogs({
           address: '0x11111111111110thisisnotanaddress01111111',
           first: 2,
           tokenId: '100',

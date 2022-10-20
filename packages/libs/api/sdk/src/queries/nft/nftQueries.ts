@@ -18,8 +18,8 @@ import {
 } from './getCollectionDetails/getCollectionDetails';
 import {
   EventLogsQueryVariables,
-  getEventLogsRawQuery,
-} from './getEventLogs/getEventLogs';
+  getNFTEventLogsRawQuery,
+} from './getNFTEventLogs/getNFTEventLogs';
 import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
@@ -66,13 +66,13 @@ export class NFTQueries {
     });
   }
 
-  async getEventLogs(
+  async getNFTEventLogs(
     variables: EventLogsQueryVariables
   ): Promise<ApolloQueryResult<EventLogsQueryResponse>> {
     const { types = ['TRANSFER', 'ORDER', 'MINT'], ...otherVariables } =
       variables;
     return await this.client.query({
-      query: getEventLogsRawQuery,
+      query: getNFTEventLogsRawQuery,
       variables: {
         ...otherVariables,
         filter: {

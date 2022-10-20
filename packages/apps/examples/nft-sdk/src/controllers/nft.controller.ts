@@ -45,8 +45,8 @@ export default {
     res.status(200).send(details);
   },
 
-  getEventLogs: async (req: Request, res: Response) => {
-    const events = await client.nft.getEventLogs({
+  getNFTEventLogs: async (req: Request, res: Response) => {
+    const events = await client.nft.getNFTEventLogs({
       address: req.params.address,
       tokenId: req.params.tokenId,
       first: 2,

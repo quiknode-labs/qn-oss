@@ -137,7 +137,7 @@ client.nft
 | walletAddress   | string | ❌       | Wallet address to check ownership | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 |
 | tokenId         | string | ❌       | NFT ID                            | 5020                                       |
 
-Returns boolean, which will be `true ` if specified `walletAddress` owns `tokenId` of `contractAddress`.
+Returns boolean, which will be `true` if specified `walletAddress` owns `tokenId` of `contractAddress`.
 
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';

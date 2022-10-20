@@ -77,7 +77,6 @@ export class NFTQueries {
       variables: queryVariables,
     });
 
-    console.log({ token });
     return token?.owner?.address?.toLowerCase() == walletAddress.toLowerCase();
   }
 }

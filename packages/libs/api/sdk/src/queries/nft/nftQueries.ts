@@ -17,9 +17,14 @@ import {
   CollectionDetailsQueryVariables,
 } from './getCollectionDetails/getCollectionDetails';
 import {
+  verifyNFTOwnerRawQuery,
+  verifyNFTOwnerQueryVariables,
+} from './verifyNFTOwner/verifyNFTOwner';
+import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
   CollectionDetailsQueryResponse,
+  TokenOwnerQueryResponse,
 } from './sharedTypes';
 
 export class NFTQueries {
@@ -59,5 +64,20 @@ export class NFTQueries {
       query: getCollectionDetailsRawQuery,
       variables,
     });
+  }
+
+  async verifyNFTOwner(
+    variables: verifyNFTOwnerQueryVariables & { walletAddress: string }
+  ): Promise<boolean> {
+    const { walletAddress, ...queryVariables } = variables;
+    const {
+      data: { token },
+    }: ApolloQueryResult<TokenOwnerQueryResponse> = await this.client.query({
+      query: verifyNFTOwnerRawQuery,
+      variables: queryVariables,
+    });
+
+    console.log({ token });
+    return token?.owner?.address?.toLowerCase() == walletAddress.toLowerCase();
   }
 }

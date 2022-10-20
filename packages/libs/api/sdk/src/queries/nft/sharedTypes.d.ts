@@ -87,3 +87,12 @@ export interface ContractNFTsQueryResponse {
 export interface CollectionDetailsQueryResponse {
   contract: ContractDetails | null;
 }
+
+export interface TokenOwnerQueryResponse {
+  token: {
+    owner: {
+      address: string;
+    };
+    tokenId: string;
+  };
+}

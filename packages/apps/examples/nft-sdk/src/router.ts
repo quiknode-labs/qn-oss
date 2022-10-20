@@ -22,4 +22,9 @@ router.get(
   nftController.getCollectionDetails
 );
 
+router.get(
+  '/api/verifyNFTOwner/:contractAddress/:tokenId/:walletAddress',
+  nftController.verifyNFTOwner
+);
+
 export default router;

@@ -129,6 +129,30 @@ client.nft
   .then((response) => console.log(response));
 ```
 
+### nft.verifyNFTOwner
+
+| Argument        | Values | Optional | Description                       | Example                                    |
+| --------------- | ------ | -------- | --------------------------------- | ------------------------------------------ |
+| contractAddress | string | ❌       | Contract address of NFT           | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| walletAddress   | string | ❌       | Wallet address to check ownership | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 |
+| tokenId         | string | ❌       | NFT ID                            | 5020                                       |
+
+Returns boolean, which will be `true ` if specified `walletAddress` owns `tokenId` of `contractAddress`.
+
+```ts
+import { QuickNodeSDK } from '@quicknode/sdk';
+
+const client = new QuickNodeSDK();
+
+client.nft
+  .verifyNFTOwner({
+    contractAddress: '0xbea02fb6351351bc25dddf296920e90a4a6d6319',
+    walletAddress: '0x122b19a4Be93d7c2b4522ebF7EB3F1b5B0343b2f',
+    tokenId: '5020',
+  })
+  .then((owned) => console.log(owned));
+```
+
 ## Pagination
 
 For functions that support pagination, use the `first` property to specify the amount of results to return.

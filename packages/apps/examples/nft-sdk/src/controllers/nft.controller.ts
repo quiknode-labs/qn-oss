@@ -44,4 +44,13 @@ export default {
     });
     res.status(200).send(details);
   },
+
+  verifyNFTOwner: async (req: Request, res: Response) => {
+    const owned = await client.nft.verifyNFTOwner({
+      contractAddress: req.params.contractAddress,
+      walletAddress: req.params.walletAddress,
+      tokenId: req.params.tokenId,
+    });
+    res.status(200).send({ verified: owned });
+  },
 };

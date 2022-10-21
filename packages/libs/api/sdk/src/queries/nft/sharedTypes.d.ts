@@ -102,6 +102,18 @@ interface NFTMetadata {
 }
 
 /*** Logs ***/
+interface ContracEventLogs {
+  contract: {
+    address: string;
+  };
+  logs: ContracEventLogs | (ContracEventLogs & OrderEvents);
+}
+
+interface ContractEventLog extends BaseEventLog {
+  token: {
+    tokenId: string;
+  };
+}
 
 interface TokenEventLogs {
   contract: {
@@ -109,11 +121,11 @@ interface TokenEventLogs {
   };
   token: {
     tokenId: string;
-    logs: BaseEventLog | OrderEventLog;
+    logs: BaseEventLog | (BaseEventLog & OrderEvents);
   };
 }
 
-interface OrderEventLog extends BaseEventLog {
+interface OrderEvents {
   marketplace: string;
   priceInEth: number;
 }
@@ -162,4 +174,8 @@ export interface EventLogsQueryResponse {
 
 export interface NFTDetailsQueryResponse {
   token: NFTDetails | null;
+}
+
+export interface ContractEventLogsQueryResponse {
+  contract: (ContractEventLogs & LogPaginationInfo) | null;
 }

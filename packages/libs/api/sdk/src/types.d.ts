@@ -16,3 +16,5 @@ export interface PaginationArgs {
 }
 
 export type Scalar = string | number | boolean;
+
+export type LogEvents = 'TRANSFER' | 'ORDER' | 'MINT';

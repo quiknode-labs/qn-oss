@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { PaginationArgs } from '../../../types';
+import { PaginationArgs, LogEvents } from '../../../types';
 
 export const getNFTEventLogsRawQuery = gql`
   query NFTEvents(
@@ -39,8 +39,6 @@ export const getNFTEventLogsRawQuery = gql`
     }
   }
 `;
-
-type LogEvents = 'TRANSFER' | 'ORDER' | 'MINT';
 
 export interface EventLogsQueryVariables extends PaginationArgs {
   address: string;

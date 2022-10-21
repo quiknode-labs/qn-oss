@@ -25,12 +25,19 @@ import {
   NFTDetailsQueryVariables,
 } from './getNFTDetails/getNFTDetails';
 import {
+  getContractEventLogsRawQuery,
+  ContractEventLogQueryVariables,
+} from './getContractEventLogs/getContractEventLogs';
+import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
   CollectionDetailsQueryResponse,
   EventLogsQueryResponse,
   NFTDetailsQueryResponse,
+  ContractEventLogsQueryResponse,
 } from './sharedTypes';
+
+const LOG_FILTER_TYPES = ['TRANSFER', 'ORDER', 'MINT'];
 
 export class NFTQueries {
   constructor(private client: CustomApolloClient) {}
@@ -74,8 +81,7 @@ export class NFTQueries {
   async getNFTEventLogs(
     variables: EventLogsQueryVariables
   ): Promise<ApolloQueryResult<EventLogsQueryResponse>> {
-    const { types = ['TRANSFER', 'ORDER', 'MINT'], ...otherVariables } =
-      variables;
+    const { types = LOG_FILTER_TYPES, ...otherVariables } = variables;
     return await this.client.query({
       query: getNFTEventLogsRawQuery,
       variables: {
@@ -93,6 +99,21 @@ export class NFTQueries {
     return await this.client.query({
       query: getNFTDetailsRawQuery,
       variables,
+    });
+  }
+
+  async getContractEventLogs(
+    variables: ContractEventLogQueryVariables
+  ): Promise<ApolloQueryResult<ContractEventLogsQueryResponse>> {
+    const { types = LOG_FILTER_TYPES, ...otherVariables } = variables;
+    return await this.client.query({
+      query: getContractEventLogsRawQuery,
+      variables: {
+        ...otherVariables,
+        filter: {
+          typeIn: types,
+        },
+      },
     });
   }
 }

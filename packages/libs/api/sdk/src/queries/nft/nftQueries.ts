@@ -17,9 +17,14 @@ import {
   CollectionDetailsQueryVariables,
 } from './getCollectionDetails/getCollectionDetails';
 import {
+  getNFTDetailsRawQuery,
+  NFTDetailsQueryVariables,
+} from './getNFTDetails/getNFTDetails';
+import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
   CollectionDetailsQueryResponse,
+  NFTDetailsQueryResponse,
 } from './sharedTypes';
 
 export class NFTQueries {
@@ -57,6 +62,15 @@ export class NFTQueries {
   ): Promise<ApolloQueryResult<CollectionDetailsQueryResponse>> {
     return await this.client.query({
       query: getCollectionDetailsRawQuery,
+      variables,
+    });
+  }
+
+  async getNFTDetails(
+    variables: NFTDetailsQueryVariables
+  ): Promise<ApolloQueryResult<NFTDetailsQueryResponse>> {
+    return await this.client.query({
+      query: getNFTDetailsRawQuery,
       variables,
     });
   }

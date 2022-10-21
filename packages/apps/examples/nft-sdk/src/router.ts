@@ -22,4 +22,6 @@ router.get(
   nftController.getCollectionDetails
 );
 
+router.get('/api/getNFTDetails/:address/:tokenId', nftController.getNFTDetails);
+
 export default router;

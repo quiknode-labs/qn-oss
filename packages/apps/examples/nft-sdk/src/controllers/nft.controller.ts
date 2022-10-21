@@ -44,4 +44,12 @@ export default {
     });
     res.status(200).send(details);
   },
+
+  getNFTDetails: async (req: Request, res: Response) => {
+    const details = await client.nft.getNFTDetails({
+      contractAddress: req.params.address,
+      tokenId: req.params.tokenId,
+    });
+    res.status(200).send(details);
+  },
 };

@@ -17,6 +17,10 @@ import {
   CollectionDetailsQueryVariables,
 } from './getCollectionDetails/getCollectionDetails';
 import {
+  EventLogsQueryVariables,
+  getNFTEventLogsRawQuery,
+} from './getNFTEventLogs/getNFTEventLogs';
+import {
   getNFTDetailsRawQuery,
   NFTDetailsQueryVariables,
 } from './getNFTDetails/getNFTDetails';
@@ -24,6 +28,7 @@ import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
   CollectionDetailsQueryResponse,
+  EventLogsQueryResponse,
   NFTDetailsQueryResponse,
 } from './sharedTypes';
 
@@ -63,6 +68,22 @@ export class NFTQueries {
     return await this.client.query({
       query: getCollectionDetailsRawQuery,
       variables,
+    });
+  }
+
+  async getNFTEventLogs(
+    variables: EventLogsQueryVariables
+  ): Promise<ApolloQueryResult<EventLogsQueryResponse>> {
+    const { types = ['TRANSFER', 'ORDER', 'MINT'], ...otherVariables } =
+      variables;
+    return await this.client.query({
+      query: getNFTEventLogsRawQuery,
+      variables: {
+        ...otherVariables,
+        filter: {
+          typeIn: types,
+        },
+      },
     });
   }
 

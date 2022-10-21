@@ -129,6 +129,30 @@ client.nft
   .then((response) => console.log(response));
 ```
 
+### nft.getNFTEventLogs
+
+| Argument | Values | Optional | Description                                                                       | Example                                    |
+| -------- | ------ | -------- | --------------------------------------------------------------------------------- | ------------------------------------------ |
+| address  | string | ❌       | Contract address of NFT                                                           | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| tokenId  | string | ❌       | NFT ID                                                                            | 100                                        |
+| types    | array  | ✅       | An array of event types 'TRANSFER', 'ORDER', and/or 'MINT'. Defaults to all types | ['TRANSFER', 'ORDER', 'MINT]               |
+| first    | number | ✅       | Number of results to return                                                       | 10                                         |
+| after    | string | ✅       | Return results after end cursor                                                   | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+
+```ts
+import { QuickNodeSDK } from '@quicknode/sdk';
+
+const client = new QuickNodeSDK();
+
+client.nft
+  .getNFTEventLogs({
+    address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
+    tokenId: '100',
+    types: ['TRANSFER', 'ORDER'],
+  })
+  .then((response) => console.log(response));
+```
+
 ### nft.getNFTDetails
 
 Returns the details for a single NFT

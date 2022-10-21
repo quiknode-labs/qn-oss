@@ -45,6 +45,16 @@ export default {
     res.status(200).send(details);
   },
 
+  getNFTEventLogs: async (req: Request, res: Response) => {
+    const events = await client.nft.getNFTEventLogs({
+      address: req.params.address,
+      tokenId: req.params.tokenId,
+      first: 2,
+      after: getQueryParam(req, 'after'),
+    });
+    res.status(200).send(events);
+  },
+
   getNFTDetails: async (req: Request, res: Response) => {
     const details = await client.nft.getNFTDetails({
       contractAddress: req.params.address,

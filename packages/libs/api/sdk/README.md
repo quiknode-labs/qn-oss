@@ -153,6 +153,27 @@ client.nft
   .then((response) => console.log(response));
 ```
 
+### nft.getNFTDetails
+
+Returns the details for a single NFT
+| Argument | Values | Optional | Description | Example |
+| --------------- | ------ | -------- | --------------------------------- | ------------------------------------------ |
+| contractAddress | string | ❌ | Contract address of NFT Collection | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| tokenId | string | ❌ | NFT ID | 5020 |
+
+```ts
+import { QuickNodeSDK } from '@quicknode/sdk';
+
+const client = new QuickNodeSDK();
+
+client.nft
+  .getNFTDetails({
+    contractAddress: '0x23581767a106ae21c074b2276D25e5C3e136a68b',
+    tokenId: '400',
+  })
+  .then((response) => console.log(response));
+```
+
 ## Pagination
 
 For functions that support pagination, use the `first` property to specify the amount of results to return.

@@ -21,10 +21,15 @@ import {
   getNFTEventLogsRawQuery,
 } from './getNFTEventLogs/getNFTEventLogs';
 import {
+  getNFTDetailsRawQuery,
+  NFTDetailsQueryVariables,
+} from './getNFTDetails/getNFTDetails';
+import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
   CollectionDetailsQueryResponse,
   EventLogsQueryResponse,
+  NFTDetailsQueryResponse,
 } from './sharedTypes';
 
 export class NFTQueries {
@@ -79,6 +84,15 @@ export class NFTQueries {
           typeIn: types,
         },
       },
+    });
+  }
+
+  async getNFTDetails(
+    variables: NFTDetailsQueryVariables
+  ): Promise<ApolloQueryResult<NFTDetailsQueryResponse>> {
+    return await this.client.query({
+      query: getNFTDetailsRawQuery,
+      variables,
     });
   }
 }

@@ -14,7 +14,7 @@ export interface Wallet {
 
 export interface ContractWithTokens extends ContractBase {
   tokenSupply: number;
-  tokens: Connection<NFTBase>;
+  tokens: Connection<NFTWithBasicImages>;
 }
 
 export interface ContractDetails extends ContractBase {
@@ -48,7 +48,17 @@ export interface ContractBase {
 
 /*** NFT/Tokens ***/
 
-export interface NFT extends NFTBase {
+interface NFTDetails extends NFTBase {
+  tokenId: string;
+  attributes?: NFTAttribute[];
+  images?: NFTImageFull[];
+  contract: ContractBase;
+  name: string;
+  symbol: string;
+  metadata?: NFTMetadata;
+}
+
+export interface NFT extends NFTWithBasicImages {
   contract: {
     address: string;
     symbol: string;
@@ -56,11 +66,46 @@ export interface NFT extends NFTBase {
   };
 }
 
+export interface NFTWithBasicImages extends NFTBase {
+  images: NFTImageBase[];
+}
+
 export interface NFTBase {
   tokenId: string;
-  images: {
-    url: string;
-  }[];
+}
+
+interface NFTAttribute {
+  name: string;
+  value: string;
+}
+
+interface NFTImageFull extends NFTImageBase {
+  height: number;
+  width: number;
+  mimeType: string;
+  url: string;
+}
+
+interface NFTImageBase {
+  url: string;
+}
+
+interface NFTMetadata {
+  animation_url: string;
+  attributes: NFTMetadataAttributes[];
+  background_color: string;
+  description: string;
+  external_url: string;
+  image: string;
+  image_data: string;
+  name: string;
+  youtube_url: string;
+}
+
+interface NFTMetadataAttributes {
+  display_type: string;
+  trait_type: string;
+  value: string;
 }
 
 /*** Pagination ***/
@@ -86,4 +131,8 @@ export interface ContractNFTsQueryResponse {
 
 export interface CollectionDetailsQueryResponse {
   contract: ContractDetails | null;
+}
+
+export interface NFTDetailsQueryResponse {
+  token: NFTDetails | null;
 }

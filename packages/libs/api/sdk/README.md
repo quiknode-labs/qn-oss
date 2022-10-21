@@ -136,9 +136,6 @@ Returns the details for a single NFT
 | --------------- | ------ | -------- | --------------------------------- | ------------------------------------------ |
 | contractAddress | string | ❌ | Contract address of NFT Collection | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
 | tokenId | string | ❌ | NFT ID | 5020 |
-| includeAttributes | boolean | ✅ | Include NFT Attributes, default to `true` | false |
-| includeImages | boolean | ✅ | Include NFT Image data, defaults to `true` | false |
-| includeMetadata | boolean |✅ | Include NFT Metadata, defaults to `true` | false |
 
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';
@@ -149,7 +146,6 @@ client.nft
   .getNFTDetails({
     contractAddress: '0x23581767a106ae21c074b2276D25e5C3e136a68b',
     tokenId: '400',
-    includeMetadata: false,
   })
   .then((response) => console.log(response));
 ```

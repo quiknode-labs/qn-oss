@@ -1,17 +1,11 @@
 import { gql } from '@apollo/client/core';
 
 export const getNFTDetailsRawQuery = gql`
-  query Token(
-    $contractAddress: String!
-    $tokenId: String!
-    $includeImages: Boolean! = true
-    $includeAttributes: Boolean! = true
-    $includeMetadata: Boolean! = true
-  ) {
+  query Token($contractAddress: String!, $tokenId: String!) {
     token(contractAddress: $contractAddress, tokenId: $tokenId) {
       ... on ERC721Token {
         tokenId
-        attributes @include(if: $includeAttributes) {
+        attributes {
           name
           value
         }
@@ -23,7 +17,7 @@ export const getNFTDetailsRawQuery = gql`
             name
           }
         }
-        images @include(if: $includeImages) {
+        images {
           height
           mimeType
           url
@@ -31,7 +25,7 @@ export const getNFTDetailsRawQuery = gql`
         }
         name
         symbol
-        metadata @include(if: $includeMetadata) {
+        metadata {
           animation_url
           background_color
           description
@@ -49,7 +43,4 @@ export const getNFTDetailsRawQuery = gql`
 export interface NFTDetailsQueryVariables {
   contractAddress: string;
   tokenId: string;
-  includeImages?: boolean;
-  includeAttributes?: boolean;
-  includeMetadata?: boolean;
 }

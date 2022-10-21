@@ -100,7 +100,7 @@ export interface TokenPaginationInfo {
   tokensPageInfo: PaginationDetails;
 }
 
-export interface LogPainationInfo {
+export interface LogPaginationInfo {
   logsPageInfo: PaginationDetails;
 }
 
@@ -119,5 +119,5 @@ export interface CollectionDetailsQueryResponse {
 }
 
 export interface EventLogsQueryResponse {
-  Token: (TokenEventLogs & LogPainationInfo) | null;
+  Token: (TokenEventLogs & LogPaginationInfo) | null;
 }

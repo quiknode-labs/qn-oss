@@ -88,38 +88,6 @@ describe('getNFTDetails', () => {
             image_data: null,
             name: '#400',
             youtube_url: null,
-            attributes: [
-              {
-                display_type: null,
-                trait_type: 'Eyes',
-                value: 'Discerning',
-              },
-              {
-                display_type: null,
-                trait_type: 'Headwear',
-                value: 'Flower',
-              },
-              {
-                display_type: null,
-                trait_type: 'Body',
-                value: 'Guardian',
-              },
-              {
-                display_type: null,
-                trait_type: 'Feathers',
-                value: 'Purple',
-              },
-              {
-                display_type: null,
-                trait_type: 'Background',
-                value: 'Yellow',
-              },
-              {
-                display_type: null,
-                trait_type: 'Beak',
-                value: 'Small',
-              },
-            ],
           },
         },
       });
@@ -264,38 +232,6 @@ describe('getNFTDetails', () => {
               image_data: null,
               name: '#400',
               youtube_url: null,
-              attributes: [
-                {
-                  display_type: null,
-                  trait_type: 'Eyes',
-                  value: 'Discerning',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Headwear',
-                  value: 'Flower',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Body',
-                  value: 'Guardian',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Feathers',
-                  value: 'Purple',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Background',
-                  value: 'Yellow',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Beak',
-                  value: 'Small',
-                },
-              ],
             },
           },
         });
@@ -364,38 +300,6 @@ describe('getNFTDetails', () => {
               image_data: null,
               name: '#400',
               youtube_url: null,
-              attributes: [
-                {
-                  display_type: null,
-                  trait_type: 'Eyes',
-                  value: 'Discerning',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Headwear',
-                  value: 'Flower',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Body',
-                  value: 'Guardian',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Feathers',
-                  value: 'Purple',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Background',
-                  value: 'Yellow',
-                },
-                {
-                  display_type: null,
-                  trait_type: 'Beak',
-                  value: 'Small',
-                },
-              ],
             },
           },
         });

@@ -40,11 +40,6 @@ export const getNFTDetailsRawQuery = gql`
           image_data
           name
           youtube_url
-          attributes {
-            display_type
-            trait_type
-            value
-          }
         }
       }
     }

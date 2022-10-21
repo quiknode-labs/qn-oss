@@ -92,7 +92,6 @@ interface NFTImageBase {
 
 interface NFTMetadata {
   animation_url: string;
-  attributes: NFTMetadataAttributes[];
   background_color: string;
   description: string;
   external_url: string;
@@ -100,12 +99,6 @@ interface NFTMetadata {
   image_data: string;
   name: string;
   youtube_url: string;
-}
-
-interface NFTMetadataAttributes {
-  display_type: string;
-  trait_type: string;
-  value: string;
 }
 
 /*** Pagination ***/

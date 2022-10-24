@@ -71,4 +71,12 @@ export default {
     });
     res.status(200).send(details);
   },
+
+  getNFTsByWalletAndContracts: async (req: Request, res: Response) => {
+    const details = await client.nft.getNFTsByWalletAndContracts({
+      address: req.params.address,
+      contracts: [req.params.contractOne, req.params.contractTwo],
+    });
+    res.status(200).send(details);
+  },
 };

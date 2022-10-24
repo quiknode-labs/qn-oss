@@ -37,7 +37,7 @@ import {
   ContractEventLogsQueryResponse,
 } from './sharedTypes';
 
-const LOG_FILTER_TYPES = ['TRANSFER', 'ORDER', 'MINT'];
+const DEFAULT_LOG_FILTER_TYPES = ['TRANSFER', 'ORDER', 'MINT'];
 
 export class NFTQueries {
   constructor(private client: CustomApolloClient) {}
@@ -81,7 +81,7 @@ export class NFTQueries {
   async getNFTEventLogs(
     variables: EventLogsQueryVariables
   ): Promise<ApolloQueryResult<EventLogsQueryResponse>> {
-    const { types = LOG_FILTER_TYPES, ...otherVariables } = variables;
+    const { types = DEFAULT_LOG_FILTER_TYPES, ...otherVariables } = variables;
     return await this.client.query({
       query: getNFTEventLogsRawQuery,
       variables: {
@@ -105,7 +105,7 @@ export class NFTQueries {
   async getContractEventLogs(
     variables: ContractEventLogQueryVariables
   ): Promise<ApolloQueryResult<ContractEventLogsQueryResponse>> {
-    const { types = LOG_FILTER_TYPES, ...otherVariables } = variables;
+    const { types = DEFAULT_LOG_FILTER_TYPES, ...otherVariables } = variables;
     return await this.client.query({
       query: getContractEventLogsRawQuery,
       variables: {

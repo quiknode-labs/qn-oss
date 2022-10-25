@@ -6,7 +6,7 @@
     "directory": "packages/libs/api/sdk"
   },
   "license": "MIT",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "main": "./src/index.js",
   "module": "./src/index.esm.js",
   "types": "./src/index.d.ts",

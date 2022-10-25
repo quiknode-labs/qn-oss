@@ -193,7 +193,6 @@ const client = new QuickNodeSDK();
 client.nft
   .getContractEventLogs({
     address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
-    tokenId: '100',
     types: ['TRANSFER', 'ORDER'],
   })
   .then((response) => console.log(response));

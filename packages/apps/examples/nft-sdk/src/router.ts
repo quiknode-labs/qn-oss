@@ -29,4 +29,9 @@ router.get(
 
 router.get('/api/getNFTDetails/:address/:tokenId', nftController.getNFTDetails);
 
+router.get(
+  '/api/getContractEventLogs/:address',
+  nftController.getContractEventLogs
+);
+
 export default router;

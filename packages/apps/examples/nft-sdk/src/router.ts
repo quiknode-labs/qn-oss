@@ -35,7 +35,7 @@ router.get(
 );
 
 router.get(
-  '/api/getNFTsByWalletAndContracts/:address/:contractOne',
+  '/api/getNFTsByWalletAndContracts/:address',
   nftController.getNFTsByWalletAndContracts
 );
 

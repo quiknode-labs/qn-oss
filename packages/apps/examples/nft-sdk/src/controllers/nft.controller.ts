@@ -75,7 +75,9 @@ export default {
   getNFTsByWalletAndContracts: async (req: Request, res: Response) => {
     const details = await client.nft.getNFTsByWalletAndContracts({
       address: req.params.address,
-      contracts: [req.params.contractOne, req.params.contractTwo],
+      contracts: [req.params.contractOne],
+      first: 2,
+      after: getQueryParam(req, 'after'),
     });
     res.status(200).send(details);
   },

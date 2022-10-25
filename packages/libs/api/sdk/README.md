@@ -198,6 +198,33 @@ client.nft
   .then((response) => console.log(response));
 ```
 
+### nft.getNFTsByWalletAndContracts
+
+Gets NFTs from specified collections held by a wallet
+
+| Argument  | Values           | Optional | Description                     | Example                                        |
+| --------- | ---------------- | -------- | ------------------------------- | ---------------------------------------------- |
+| address   | string           | ❌       | Wallet address                  | 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045     |
+| contracts | array of strings | ❌       | NFT contracts                   | ['0xba30e5f9bb24caa003e9f2f0497ad287fdf95623'] |
+| first     | number           | ✅       | Number of results to return     | 10                                             |
+| after     | string           | ✅       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                    |
+
+```ts
+import { QuickNodeSDK } from '@quicknode/sdk';
+
+const client = new QuickNodeSDK();
+
+client.nft
+  .getNFTsByWalletAndContracts({
+    address: '0x13928eb9a86c8278a45b6ff2935c7730b58ac675',
+    contracts: [
+      '0xba30e5f9bb24caa003e9f2f0497ad287fdf95623',
+      '0xbce3781ae7ca1a5e050bd9c4c77369867ebc307e',
+    ],
+  })
+  .then((response) => console.log(response));
+```
+
 ## Pagination
 
 For functions that support pagination, use the `first` property to specify the amount of results to return.

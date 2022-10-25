@@ -10,6 +10,19 @@ const getQueryParam = (req: Request, param: string): string | undefined => {
   return typedParam;
 };
 
+const getArrayQueryParam = (
+  req: Request,
+  param: string
+): string[] | undefined => {
+  function arrayOrUndefined(arr: any): undefined | string[] {
+    if (arr && !!arr.length && arr.every((el: any) => typeof el === 'string'))
+      return arr;
+
+    return undefined;
+  }
+  return arrayOrUndefined(req.query?.[param]);
+};
+
 export default {
   getNFTsByEns: async (req: Request, res: Response) => {
     const NFTs = await client.nft.getNFTsByWalletENS({
@@ -66,6 +79,17 @@ export default {
   getContractEventLogs: async (req: Request, res: Response) => {
     const details = await client.nft.getContractEventLogs({
       address: req.params.address,
+      first: 2,
+      after: getQueryParam(req, 'after'),
+    });
+    res.status(200).send(details);
+  },
+
+  getNFTsByWalletAndContracts: async (req: Request, res: Response) => {
+    console.log(getArrayQueryParam(req, 'contracts'));
+    const details = await client.nft.getNFTsByWalletAndContracts({
+      address: req.params.address,
+      contracts: getArrayQueryParam(req, 'contracts') || [],
       first: 2,
       after: getQueryParam(req, 'after'),
     });

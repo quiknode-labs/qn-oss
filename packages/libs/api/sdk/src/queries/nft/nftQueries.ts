@@ -29,6 +29,10 @@ import {
   ContractEventLogQueryVariables,
 } from './getContractEventLogs/getContractEventLogs';
 import {
+  getNFTsWalletAndContractsRawQuery,
+  NFTWalletAndContractQueryVariables,
+} from './getNFTsByWalletAndContracts/getNFTsByWalletAndContracts';
+import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
   CollectionDetailsQueryResponse,
@@ -115,5 +119,19 @@ export class NFTQueries {
         },
       },
     });
+  }
+
+  async getNFTsByWalletAndContracts(
+    variables: NFTWalletAndContractQueryVariables
+  ): Promise<ApolloQueryResult<WalletNFTsQueryResponse>> {
+    const { contracts, ...otherVariables } = variables;
+    const response = await this.client.query({
+      query: getNFTsWalletAndContractsRawQuery,
+      variables: {
+        ...otherVariables,
+        filter: { contractAddressIn: contracts },
+      },
+    });
+    return response;
   }
 }

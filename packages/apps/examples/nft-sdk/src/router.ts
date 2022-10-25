@@ -34,4 +34,9 @@ router.get(
   nftController.getContractEventLogs
 );
 
+router.get(
+  '/api/getNFTsByWalletAndContracts/:address',
+  nftController.getNFTsByWalletAndContracts
+);
+
 export default router;

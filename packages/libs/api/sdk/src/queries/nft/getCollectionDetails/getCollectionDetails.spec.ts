@@ -6,7 +6,9 @@ const client = new QuickNodeSDK();
 describe('getCollectionDetails', () => {
   it('executes correctly', async () => {
     await withPolly(
-      { recordingName: 'query-getCollectionDetails-base' },
+      {
+        recordingName: 'query-getCollectionDetails-base',
+      },
       async () => {
         const { data } = await client.nft.getCollectionDetails({
           address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
@@ -42,16 +44,10 @@ describe('getCollectionDetails', () => {
                 valueCount: 20,
               },
               {
-                name: 'Mouth',
-                rarity: 0.77007700770077,
-                value: 'Kinky',
-                valueCount: 77,
-              },
-              {
                 name: 'Back-accessory',
-                rarity: 1.5001500150015001,
+                rarity: 1.51015101510151,
                 value: 'King',
-                valueCount: 150,
+                valueCount: 151,
               },
               {
                 name: 'Headgear',
@@ -70,12 +66,6 @@ describe('getCollectionDetails', () => {
                 rarity: 1.3201320132013201,
                 value: 'Sleeping',
                 valueCount: 132,
-              },
-              {
-                name: 'Eyes',
-                rarity: 2.24022402240224,
-                value: 'Purple Party Glasses',
-                valueCount: 224,
               },
               {
                 name: 'Accessory',
@@ -120,6 +110,24 @@ describe('getCollectionDetails', () => {
                 valueCount: 190,
               },
               {
+                name: 'Accessory',
+                rarity: 0.53005300530053,
+                value: 'Diaper',
+                valueCount: 53,
+              },
+              {
+                name: 'Eyes',
+                rarity: 2.1702170217021703,
+                value: 'Surprised',
+                valueCount: 217,
+              },
+              {
+                name: 'Glaze',
+                rarity: 2.4002400240024,
+                value: 'Purple Candy',
+                valueCount: 240,
+              },
+              {
                 name: 'Headgear',
                 rarity: 1.5801580158015802,
                 value: 'Cat',
@@ -142,12 +150,6 @@ describe('getCollectionDetails', () => {
                 rarity: 1.7301730173017302,
                 value: 'Donut Inflatable',
                 valueCount: 173,
-              },
-              {
-                name: 'Glaze',
-                rarity: 3.26032603260326,
-                value: 'Galaxy',
-                valueCount: 326,
               },
               {
                 name: 'Headgear',
@@ -180,22 +182,10 @@ describe('getCollectionDetails', () => {
                 valueCount: 20,
               },
               {
-                name: 'Headgear',
-                rarity: 1.33013301330133,
-                value: 'Goose',
-                valueCount: 133,
-              },
-              {
                 name: 'Accessory',
                 rarity: 0.71007100710071,
                 value: 'Chastity Belt',
                 valueCount: 71,
-              },
-              {
-                name: 'Accessory',
-                rarity: 0.5200520052005201,
-                value: 'Diaper',
-                valueCount: 52,
               },
               {
                 name: 'Accessory',
@@ -211,39 +201,21 @@ describe('getCollectionDetails', () => {
               },
               {
                 name: 'Accessory',
-                rarity: 0.28002800280028,
-                value: 'Red Skirt',
-                valueCount: 28,
-              },
-              {
-                name: 'Accessory',
                 rarity: 0.15001500150015,
                 value: 'Green Pouch',
                 valueCount: 15,
               },
               {
                 name: 'Eyes',
-                rarity: 2.15021502150215,
-                value: 'Surprised',
-                valueCount: 215,
-              },
-              {
-                name: 'Eyes',
-                rarity: 2.6802680268026804,
-                value: 'Sunglasses',
-                valueCount: 268,
+                rarity: 2.25022502250225,
+                value: 'Purple Party Glasses',
+                valueCount: 225,
               },
               {
                 name: 'Headgear',
-                rarity: 1.24012401240124,
-                value: 'Pink Hat',
-                valueCount: 124,
-              },
-              {
-                name: 'Headgear',
-                rarity: 0.5800580058005801,
+                rarity: 0.59005900590059,
                 value: 'Donut Nest',
-                valueCount: 58,
+                valueCount: 59,
               },
               {
                 name: 'Headgear',
@@ -360,6 +332,24 @@ describe('getCollectionDetails', () => {
                 valueCount: 22,
               },
               {
+                name: 'Accessory',
+                rarity: 0.29002900290029004,
+                value: 'Red Skirt',
+                valueCount: 29,
+              },
+              {
+                name: 'Glaze',
+                rarity: 3.2703270327032703,
+                value: 'Galaxy',
+                valueCount: 327,
+              },
+              {
+                name: 'Headgear',
+                rarity: 1.3401340134013402,
+                value: 'Goose',
+                valueCount: 134,
+              },
+              {
                 name: 'Headgear',
                 rarity: 1.12011201120112,
                 value: 'Red Frog',
@@ -424,12 +414,6 @@ describe('getCollectionDetails', () => {
                 rarity: 3.6603660366036603,
                 value: 'Pink Candy',
                 valueCount: 366,
-              },
-              {
-                name: 'Glaze',
-                rarity: 1.0701070107010702,
-                value: 'Elegant Fuchsia',
-                valueCount: 107,
               },
               {
                 name: 'Headgear',
@@ -511,15 +495,15 @@ describe('getCollectionDetails', () => {
               },
               {
                 name: 'Background',
-                rarity: 4.130413041304131,
+                rarity: 4.14041404140414,
                 value: 'Green',
-                valueCount: 413,
+                valueCount: 414,
               },
               {
                 name: 'Eyes',
-                rarity: 3.53035303530353,
+                rarity: 3.5403540354035403,
                 value: 'Cool',
-                valueCount: 353,
+                valueCount: 354,
               },
               {
                 name: 'Glaze',
@@ -541,9 +525,9 @@ describe('getCollectionDetails', () => {
               },
               {
                 name: 'Background',
-                rarity: 4.490449044904491,
+                rarity: 4.5004500450045,
                 value: 'Jade',
-                valueCount: 449,
+                valueCount: 450,
               },
               {
                 name: 'Headgear',
@@ -553,9 +537,9 @@ describe('getCollectionDetails', () => {
               },
               {
                 name: 'Background',
-                rarity: 4.06040604060406,
+                rarity: 4.070407040704071,
                 value: 'Pink',
-                valueCount: 406,
+                valueCount: 407,
               },
               {
                 name: 'Headgear',
@@ -589,51 +573,57 @@ describe('getCollectionDetails', () => {
               },
               {
                 name: 'Mouth',
-                rarity: 0.9400940094009401,
+                rarity: 0.95009500950095,
                 value: 'Rainbow Beam',
-                valueCount: 94,
+                valueCount: 95,
               },
               {
                 name: 'Back-accessory',
-                rarity: 1.5901590159015901,
+                rarity: 1.6001600160016,
                 value: 'Superman',
-                valueCount: 159,
+                valueCount: 160,
               },
               {
                 name: 'Background',
-                rarity: 4.21042104210421,
+                rarity: 4.220422042204221,
                 value: 'Blue',
-                valueCount: 421,
+                valueCount: 422,
+              },
+              {
+                name: 'Eyes',
+                rarity: 2.69026902690269,
+                value: 'Sunglasses',
+                valueCount: 269,
+              },
+              {
+                name: 'Glaze',
+                rarity: 1.08010801080108,
+                value: 'Elegant Fuchsia',
+                valueCount: 108,
               },
               {
                 name: 'Headgear',
-                rarity: 0.7200720072007201,
+                rarity: 0.74007400740074,
                 value: 'Crown',
-                valueCount: 72,
+                valueCount: 74,
+              },
+              {
+                name: 'Mouth',
+                rarity: 0.7800780078007801,
+                value: 'Kinky',
+                valueCount: 78,
               },
               {
                 name: 'Background',
-                rarity: 4.48044804480448,
+                rarity: 4.490449044904491,
                 value: 'Purple',
-                valueCount: 448,
-              },
-              {
-                name: 'Base',
-                rarity: 29.732973297329732,
-                value: 'Donut Body',
-                valueCount: 2973,
+                valueCount: 449,
               },
               {
                 name: 'Eyes',
                 rarity: 1.39013901390139,
                 value: 'Green Party Glasses',
                 valueCount: 139,
-              },
-              {
-                name: 'Glaze',
-                rarity: 2.39023902390239,
-                value: 'Purple Candy',
-                valueCount: 239,
               },
               {
                 name: 'Headgear',
@@ -661,21 +651,15 @@ describe('getCollectionDetails', () => {
               },
               {
                 name: 'Accessory',
-                rarity: 1.7301730173017302,
+                rarity: 1.7401740174017402,
                 value: 'Babypink Pouch',
-                valueCount: 173,
+                valueCount: 174,
               },
               {
                 name: 'Glaze',
-                rarity: 0.89008900890089,
-                value: 'Rainbow',
-                valueCount: 89,
-              },
-              {
-                name: 'Glaze',
-                rarity: 3.77037703770377,
+                rarity: 3.7803780378037803,
                 value: 'Starcandy',
-                valueCount: 377,
+                valueCount: 378,
               },
               {
                 name: 'Headgear',
@@ -708,52 +692,70 @@ describe('getCollectionDetails', () => {
                 valueCount: 374,
               },
               {
-                name: 'Headgear',
-                rarity: 70.20702070207021,
-                value: null,
-                valueCount: 7020,
-              },
-              {
-                name: 'Eyes',
-                rarity: 70.20702070207021,
-                value: null,
-                valueCount: 7020,
-              },
-              {
-                name: 'Accessory',
-                rarity: 82.88828882888289,
-                value: null,
-                valueCount: 8288,
-              },
-              {
-                name: 'Mouth',
-                rarity: 87.31873187318732,
-                value: null,
-                valueCount: 8731,
-              },
-              {
-                name: 'Back-accessory',
-                rarity: 96.90969096909691,
-                value: null,
-                valueCount: 9690,
-              },
-              {
                 name: 'Base',
-                rarity: 70.22702270227023,
-                value: null,
-                valueCount: 7022,
+                rarity: 29.782978297829782,
+                value: 'Donut Body',
+                valueCount: 2978,
               },
               {
                 name: 'Glaze',
-                rarity: 70.21702170217021,
-                value: null,
-                valueCount: 7021,
+                rarity: 0.9000900090009001,
+                value: 'Rainbow',
+                valueCount: 90,
               },
               {
-                name: 'Background',
+                name: 'Headgear',
+                rarity: 1.2501250125012502,
+                value: 'Pink Hat',
+                valueCount: 125,
+              },
+              {
+                name: 'Headgear',
+                rarity: 70.15701570157016,
+                value: null,
+                valueCount: 7015,
+              },
+              {
+                name: 'Eyes',
+                rarity: 70.15701570157016,
+                value: null,
+                valueCount: 7015,
+              },
+              {
+                name: 'Accessory',
+                rarity: 82.85828582858286,
+                value: null,
+                valueCount: 8285,
+              },
+              {
+                name: 'Back-accessory',
+                rarity: 96.88968896889689,
+                value: null,
+                valueCount: 9688,
+              },
+              {
+                name: 'Base',
+                rarity: 70.17701770177018,
+                value: null,
+                valueCount: 7017,
+              },
+              {
+                name: 'Glaze',
                 rarity: 70.16701670167016,
                 value: null,
                 valueCount: 7016,
+              },
+              {
+                name: 'Mouth',
+                rarity: 87.2987298729873,
+                value: null,
+                valueCount: 8729,
+              },
+              {
+                name: 'Background',
+                rarity: 70.11701170117011,
+                value: null,
+                valueCount: 7011,
               },
             ],
             circulatingSupply: 9999,
@@ -774,7 +776,9 @@ describe('getCollectionDetails', () => {
 
   it('handles empty response', async () => {
     await withPolly(
-      { recordingName: 'query-getCollectionDetails-empty' },
+      {
+        recordingName: 'query-getCollectionDetails-empty',
+      },
       async () => {
         const { data } = await client.nft.getCollectionDetails({
           address: '0x11111111111110thisisnotanaddress01111111',

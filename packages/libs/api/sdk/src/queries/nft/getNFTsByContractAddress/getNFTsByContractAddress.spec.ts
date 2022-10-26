@@ -6,9 +6,7 @@ const client = new QuickNodeSDK();
 describe('getNFTsByContractAddress', () => {
   it('executes correctly', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getNFTsByContractAddress-base',
-      },
+      { recordingName: 'query-getNFTsByContractAddress-base' },
       async () => {
         const { data } = await client.nft.getNFTsByContractAddress({
           address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',

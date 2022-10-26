@@ -6,13 +6,11 @@ const client = new QuickNodeSDK();
 describe('getNFTsByWalletAndContracts', () => {
   it('can query one contract', async () => {
     await withPolly(
-      {
-        recordingName: 'query-NFTbyWalletAndContract-base',
-      },
+      { recordingName: 'query-NFTbyWalletAndContract-base' },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAndContracts({
-          address: '0x13928eb9a86c8278a45b6ff2935c7730b58ac675',
-          contracts: ['0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'],
+          address: '0x13928eB9A86c8278a45B6fF2935c7730b58AC675',
+          contracts: ['0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D'],
           first: 2,
         });
 
@@ -84,15 +82,13 @@ describe('getNFTsByWalletAndContracts', () => {
 
   it('can query multiple contracts', async () => {
     await withPolly(
-      {
-        recordingName: 'query-NFTbyWalletAndContract-multiple',
-      },
+      { recordingName: 'query-NFTbyWalletAndContract-multiple' },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAndContracts({
-          address: '0x13928eb9a86c8278a45b6ff2935c7730b58ac675',
+          address: '0x13928eB9A86c8278a45B6fF2935c7730b58AC675',
           contracts: [
-            '0xba30e5f9bb24caa003e9f2f0497ad287fdf95623',
-            '0xbce3781ae7ca1a5e050bd9c4c77369867ebc307e',
+            '0xba30E5F9Bb24caa003E9f2f0497Ad287FDF95623',
+            '0xbCe3781ae7Ca1a5e050Bd9C4c77369867eBc307e',
           ],
           first: 2,
         });
@@ -165,21 +161,19 @@ describe('getNFTsByWalletAndContracts', () => {
 
   it('can iterate results', async () => {
     await withPolly(
-      {
-        recordingName: 'query-NFTByWalletAndContract-iterate',
-      },
+      { recordingName: 'query-NFTByWalletAndContract-iterate' },
       async () => {
         const { data: firstResult } =
           await client.nft.getNFTsByWalletAndContracts({
-            address: '0x13928eb9a86c8278a45b6ff2935c7730b58ac675',
-            contracts: ['0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'],
+            address: '0x13928eB9A86c8278a45B6fF2935c7730b58AC675',
+            contracts: ['0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D'],
             first: 2,
           });
 
         const { data: secondResult } =
           await client.nft.getNFTsByWalletAndContracts({
-            address: '0x13928eb9a86c8278a45b6ff2935c7730b58ac675',
-            contracts: ['0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'],
+            address: '0x13928eB9A86c8278a45B6fF2935c7730b58AC675',
+            contracts: ['0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D'],
             first: 2,
             after: 'YXJyYXljb25uZWN0aW9uOjE=',
           });
@@ -315,9 +309,7 @@ describe('getNFTsByWalletAndContracts', () => {
 
   it('can handle null result', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getByWalletAndContract-null',
-      },
+      { recordingName: 'query-getByWalletAndContract-null' },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAndContracts({
           address: '0x11111111111110thisisnotanaddress01111111',

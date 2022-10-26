@@ -49,9 +49,13 @@ export class NFTQueries {
   async getNFTsByWalletAddress(
     variables: WalletAddressNFTsQueryVariables
   ): Promise<ApolloQueryResult<WalletNFTsQueryResponse>> {
+    const { address, ...otherVariables } = variables;
     return await this.client.query({
       query: getWalletAddressNFTsRawQuery,
-      variables,
+      variables: {
+        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        ...otherVariables,
+      },
     });
   }
 
@@ -67,29 +71,42 @@ export class NFTQueries {
   async getNFTsByContractAddress(
     variables: ContractAddressNFTsQueryVariables
   ): Promise<ApolloQueryResult<ContractNFTsQueryResponse>> {
+    const { address, ...otherVariables } = variables;
     return await this.client.query({
       query: getContractAddressNFTsRawQuery,
-      variables,
+      variables: {
+        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        ...otherVariables,
+      },
     });
   }
 
   async getCollectionDetails(
     variables: CollectionDetailsQueryVariables
   ): Promise<ApolloQueryResult<CollectionDetailsQueryResponse>> {
+    const { address, ...otherVariables } = variables;
     return await this.client.query({
       query: getCollectionDetailsRawQuery,
-      variables,
+      variables: {
+        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        ...otherVariables,
+      },
     });
   }
 
   async getNFTEventLogs(
     variables: EventLogsQueryVariables
   ): Promise<ApolloQueryResult<EventLogsQueryResponse>> {
-    const { types = DEFAULT_LOG_FILTER_TYPES, ...otherVariables } = variables;
+    const {
+      address,
+      types = DEFAULT_LOG_FILTER_TYPES,
+      ...otherVariables
+    } = variables;
     return await this.client.query({
       query: getNFTEventLogsRawQuery,
       variables: {
         ...otherVariables,
+        address: address.toLowerCase(), // handling an icy API case-sensitive bug
         filter: {
           typeIn: types,
         },
@@ -100,20 +117,29 @@ export class NFTQueries {
   async getNFTDetails(
     variables: NFTDetailsQueryVariables
   ): Promise<ApolloQueryResult<NFTDetailsQueryResponse>> {
+    const { contractAddress, ...otherVariables } = variables;
     return await this.client.query({
       query: getNFTDetailsRawQuery,
-      variables,
+      variables: {
+        contractAddress: contractAddress.toLowerCase(), // handling an icy API case-sensitive bug
+        ...otherVariables,
+      },
     });
   }
 
   async getContractEventLogs(
     variables: ContractEventLogQueryVariables
   ): Promise<ApolloQueryResult<ContractEventLogsQueryResponse>> {
-    const { types = DEFAULT_LOG_FILTER_TYPES, ...otherVariables } = variables;
+    const {
+      address,
+      types = DEFAULT_LOG_FILTER_TYPES,
+      ...otherVariables
+    } = variables;
     return await this.client.query({
       query: getContractEventLogsRawQuery,
       variables: {
         ...otherVariables,
+        address: address.toLowerCase(), // handling an icy API case-sensitive bug
         filter: {
           typeIn: types,
         },
@@ -124,12 +150,16 @@ export class NFTQueries {
   async getNFTsByWalletAndContracts(
     variables: NFTWalletAndContractQueryVariables
   ): Promise<ApolloQueryResult<WalletNFTsQueryResponse>> {
-    const { contracts, ...otherVariables } = variables;
+    const { address, contracts, ...otherVariables } = variables;
+    const normalizedContracts = contracts.map(
+      (contract) => contract.toLowerCase() // handling an icy API case-sensitive bug
+    );
     const response = await this.client.query({
       query: getNFTsWalletAndContractsRawQuery,
       variables: {
         ...otherVariables,
-        filter: { contractAddressIn: contracts },
+        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        filter: { contractAddressIn: normalizedContracts },
       },
     });
     return response;

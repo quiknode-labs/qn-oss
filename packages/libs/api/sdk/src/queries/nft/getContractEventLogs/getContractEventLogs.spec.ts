@@ -6,9 +6,7 @@ const client = new QuickNodeSDK();
 describe('getContractEventLogs', () => {
   it('executes correctly with all types', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getContractEventLogs-alltypes',
-      },
+      { recordingName: 'query-getContractEventLogs-alltypes' },
       async () => {
         const { data } = await client.nft.getContractEventLogs({
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
@@ -25,34 +23,36 @@ describe('getContractEventLogs', () => {
             },
             logs: [
               {
-                blockNumber: 15818499,
+                blockNumber: 15832459,
                 type: 'TRANSFER',
-                fromAddress: '0xf6cbddd9c1fd75a7760937a320f1da0fac1e58b9',
-                toAddress: '0xdd687258cfb63a8774738d75ae3cc13e79107026',
-                estimatedConfirmedAt: '2022-10-24T14:16:59.000Z',
+                fromAddress: '0xc0df18d3c0dff4580a96c1a2f046c9dcca7aa704',
+                toAddress: '0x8252df1d8b29057d1afe3062bf5a64d503152bc8',
+                estimatedConfirmedAt: '2022-10-26T13:10:47.000Z',
                 transactionHash:
-                  '0x66e4a48938f0772aa68f09c504c8b95b65bdde6936d9d0ad46caa4348debbb2e',
+                  '0x8a8de0aeb429dda58b357d6e68ebf15ba45cc7e430967ac4a6984f0dacfe9cb1',
                 token: {
                   contract: {
                     address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
                   },
-                  tokenId: '3191',
+                  tokenId: '20898',
                 },
               },
               {
-                blockNumber: 15818432,
-                type: 'TRANSFER',
-                fromAddress: '0xfb279520641bb50d7e8d6be12d790e6e4e00843e',
-                toAddress: '0x8da42a17bece2d99172d04f65b6bc4ab29a492f0',
-                estimatedConfirmedAt: '2022-10-24T14:02:59.000Z',
+                blockNumber: 15832456,
+                type: 'ORDER',
+                fromAddress: '0x32c8b7563e69b57ef29d1c44616bc340848174fd',
+                toAddress: '0x42f61c5f5504807b18e9ba30a6535848627b7a5b',
+                estimatedConfirmedAt: '2022-10-26T13:10:11.000Z',
                 transactionHash:
-                  '0xbc520f82de2c7b6c5e75dd85d85d3174545af979e4dd0b53b78c1041801e0946',
+                  '0x891d2be2509da6e01e36cd13ae164f4788c20e95e624e77bf7d8ca048592a914',
                 token: {
                   contract: {
                     address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
                   },
-                  tokenId: '7414',
+                  tokenId: '14008',
                 },
+                marketplace: 'OPENSEA',
+                priceInEth: 15,
               },
             ],
           },
@@ -63,9 +63,7 @@ describe('getContractEventLogs', () => {
 
   it('executes correctly with one type', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getContractEventLogs-onetype',
-      },
+      { recordingName: 'query-getContractEventLogs-onetype' },
       async () => {
         const { data } = await client.nft.getContractEventLogs({
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
@@ -118,9 +116,7 @@ describe('getContractEventLogs', () => {
   });
   it('executes correctly with default types', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getContractEventLogs-default',
-      },
+      { recordingName: 'query-getContractEventLogs-default' },
       async () => {
         const { data } = await client.nft.getContractEventLogs({
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
@@ -135,34 +131,36 @@ describe('getContractEventLogs', () => {
             },
             logs: [
               {
-                blockNumber: 15818499,
+                blockNumber: 15832459,
                 type: 'TRANSFER',
-                fromAddress: '0xf6cbddd9c1fd75a7760937a320f1da0fac1e58b9',
-                toAddress: '0xdd687258cfb63a8774738d75ae3cc13e79107026',
-                estimatedConfirmedAt: '2022-10-24T14:16:59.000Z',
+                fromAddress: '0xc0df18d3c0dff4580a96c1a2f046c9dcca7aa704',
+                toAddress: '0x8252df1d8b29057d1afe3062bf5a64d503152bc8',
+                estimatedConfirmedAt: '2022-10-26T13:10:47.000Z',
                 transactionHash:
-                  '0x66e4a48938f0772aa68f09c504c8b95b65bdde6936d9d0ad46caa4348debbb2e',
+                  '0x8a8de0aeb429dda58b357d6e68ebf15ba45cc7e430967ac4a6984f0dacfe9cb1',
                 token: {
                   contract: {
                     address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
                   },
-                  tokenId: '3191',
+                  tokenId: '20898',
                 },
               },
               {
-                blockNumber: 15818432,
-                type: 'TRANSFER',
-                fromAddress: '0xfb279520641bb50d7e8d6be12d790e6e4e00843e',
-                toAddress: '0x8da42a17bece2d99172d04f65b6bc4ab29a492f0',
-                estimatedConfirmedAt: '2022-10-24T14:02:59.000Z',
+                blockNumber: 15832456,
+                type: 'ORDER',
+                fromAddress: '0x32c8b7563e69b57ef29d1c44616bc340848174fd',
+                toAddress: '0x42f61c5f5504807b18e9ba30a6535848627b7a5b',
+                estimatedConfirmedAt: '2022-10-26T13:10:11.000Z',
                 transactionHash:
-                  '0xbc520f82de2c7b6c5e75dd85d85d3174545af979e4dd0b53b78c1041801e0946',
+                  '0x891d2be2509da6e01e36cd13ae164f4788c20e95e624e77bf7d8ca048592a914',
                 token: {
                   contract: {
                     address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
                   },
-                  tokenId: '7414',
+                  tokenId: '14008',
                 },
+                marketplace: 'OPENSEA',
+                priceInEth: 15,
               },
             ],
           },
@@ -173,9 +171,7 @@ describe('getContractEventLogs', () => {
 
   it('can iterate logs', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getContractEventLogs-iterate',
-      },
+      { recordingName: 'query-getContractEventLogs-iterate' },
       async () => {
         const { data: firstResponse } = await client.nft.getContractEventLogs({
           address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
@@ -195,6 +191,23 @@ describe('getContractEventLogs', () => {
             },
             logs: [
               {
+                blockNumber: 15819560,
+                type: 'ORDER',
+                fromAddress: '0x3082a2dd0028231423a5fb470407a89c024b308d',
+                toAddress: '0x3f64317f0ed628bce5575892f96d9cd52f1c30ba',
+                estimatedConfirmedAt: '2022-10-24T17:52:47.000Z',
+                transactionHash:
+                  '0xaeb625b739248780d60250eb76fbce3a3a494c0e64a61d3636ad4575106fdc92',
+                token: {
+                  contract: {
+                    address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
+                  },
+                  tokenId: '6531',
+                },
+                marketplace: 'OPENSEA',
+                priceInEth: 0.01,
+              },
+              {
                 blockNumber: 15804550,
                 type: 'ORDER',
                 fromAddress: '0x30879cf3c26a5abc9fc7fc82e39bd47dd5daeb54',
@@ -211,6 +224,17 @@ describe('getContractEventLogs', () => {
                 marketplace: 'OPENSEA',
                 priceInEth: 0.0095,
               },
+            ],
+          },
+        });
+        expect(secondResponse).toStrictEqual({
+          contract: {
+            address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
+            logsPageInfo: {
+              hasNextPage: true,
+              endCursor: 'YXJyYXljb25uZWN0aW9uOjM=',
+            },
+            logs: [
               {
                 blockNumber: 15803813,
                 type: 'TRANSFER',
@@ -226,17 +250,6 @@ describe('getContractEventLogs', () => {
                   tokenId: '8845',
                 },
               },
-            ],
-          },
-        });
-        expect(secondResponse).toStrictEqual({
-          contract: {
-            address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
-            logsPageInfo: {
-              hasNextPage: true,
-              endCursor: 'YXJyYXljb25uZWN0aW9uOjM=',
-            },
-            logs: [
               {
                 blockNumber: 15794055,
                 type: 'TRANSFER',
@@ -252,23 +265,6 @@ describe('getContractEventLogs', () => {
                   tokenId: '8981',
                 },
               },
-              {
-                blockNumber: 15790053,
-                type: 'ORDER',
-                fromAddress: '0xc6eab1b834647bbdc18f42d33a791fb1fac73e58',
-                toAddress: '0xf4367ed4dbd13e5348b11436d3805ac8db20d9ce',
-                estimatedConfirmedAt: '2022-10-20T14:58:11.000Z',
-                transactionHash:
-                  '0x6c509fe0c92208ac60bdf8fec20e4054005e19bc85702d6ec3d421719b0c0bb6',
-                token: {
-                  contract: {
-                    address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
-                  },
-                  tokenId: '766',
-                },
-                marketplace: 'OPENSEA',
-                priceInEth: 0.01,
-              },
             ],
           },
         });
@@ -278,9 +274,7 @@ describe('getContractEventLogs', () => {
 
   it('can handle null response', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getContractEventLogs-null',
-      },
+      { recordingName: 'query-getContractEventLogs-null' },
       async () => {
         const { data } = await client.nft.getContractEventLogs({
           address: '0x11111111111110thisisnotanaddress01111111',

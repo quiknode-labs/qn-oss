@@ -53,7 +53,7 @@ export class NFTQueries {
     return await this.client.query({
       query: getWalletAddressNFTsRawQuery,
       variables: {
-        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        address: address.toLowerCase(),
         ...otherVariables,
       },
     });
@@ -75,7 +75,7 @@ export class NFTQueries {
     return await this.client.query({
       query: getContractAddressNFTsRawQuery,
       variables: {
-        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        address: address.toLowerCase(),
         ...otherVariables,
       },
     });
@@ -88,7 +88,7 @@ export class NFTQueries {
     return await this.client.query({
       query: getCollectionDetailsRawQuery,
       variables: {
-        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        address: address.toLowerCase(),
         ...otherVariables,
       },
     });
@@ -106,7 +106,7 @@ export class NFTQueries {
       query: getNFTEventLogsRawQuery,
       variables: {
         ...otherVariables,
-        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        address: address.toLowerCase(),
         filter: {
           typeIn: types,
         },
@@ -121,7 +121,7 @@ export class NFTQueries {
     return await this.client.query({
       query: getNFTDetailsRawQuery,
       variables: {
-        contractAddress: contractAddress.toLowerCase(), // handling an icy API case-sensitive bug
+        contractAddress: contractAddress.toLowerCase(),
         ...otherVariables,
       },
     });
@@ -139,7 +139,7 @@ export class NFTQueries {
       query: getContractEventLogsRawQuery,
       variables: {
         ...otherVariables,
-        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        address: address.toLowerCase(),
         filter: {
           typeIn: types,
         },
@@ -151,14 +151,14 @@ export class NFTQueries {
     variables: NFTWalletAndContractQueryVariables
   ): Promise<ApolloQueryResult<WalletNFTsQueryResponse>> {
     const { address, contracts, ...otherVariables } = variables;
-    const normalizedContracts = contracts.map(
-      (contract) => contract.toLowerCase() // handling an icy API case-sensitive bug
+    const normalizedContracts = contracts.map((contract) =>
+      contract.toLowerCase()
     );
     const response = await this.client.query({
       query: getNFTsWalletAndContractsRawQuery,
       variables: {
         ...otherVariables,
-        address: address.toLowerCase(), // handling an icy API case-sensitive bug
+        address: address.toLowerCase(),
         filter: { contractAddressIn: normalizedContracts },
       },
     });

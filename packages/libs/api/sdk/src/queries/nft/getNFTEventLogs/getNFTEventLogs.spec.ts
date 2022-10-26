@@ -8,6 +8,7 @@ describe('getNFTEventLogs', () => {
     await withPolly(
       {
         recordingName: 'query-getEventLogs-alltypes',
+        recordIfMissing: true,
       },
       async () => {
         const { data } = await client.nft.getNFTEventLogs({
@@ -57,6 +58,7 @@ describe('getNFTEventLogs', () => {
     await withPolly(
       {
         recordingName: 'query-getEventLogs-onetype',
+        recordIfMissing: true,
       },
       async () => {
         const { data } = await client.nft.getNFTEventLogs({
@@ -94,6 +96,7 @@ describe('getNFTEventLogs', () => {
     await withPolly(
       {
         recordingName: 'query-getEventLogs-notypes',
+        recordIfMissing: true,
       },
       async () => {
         const { data } = await client.nft.getNFTEventLogs({
@@ -142,6 +145,7 @@ describe('getNFTEventLogs', () => {
     await withPolly(
       {
         recordingName: 'query-getEventLogs-iterate',
+        recordIfMissing: true,
       },
       async () => {
         const { data: firstResponse } = await client.nft.getNFTEventLogs({
@@ -229,6 +233,7 @@ describe('getNFTEventLogs', () => {
     await withPolly(
       {
         recordingName: 'query-getEventLogs-null',
+        recordIfMissing: true,
       },
       async () => {
         const { data } = await client.nft.getNFTEventLogs({

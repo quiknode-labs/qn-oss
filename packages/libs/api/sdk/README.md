@@ -1,13 +1,15 @@
-![npm](https://img.shields.io/npm/dm/@quicknode/sdk)
-![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g)
-![Maintenance](https://img.shields.io/maintenance/yes/2022?color=g)
-![NPM](https://img.shields.io/npm/l/@quicknode/sdk?color=g)
-![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)
-![Discord](https://img.shields.io/discord/880505845090250794?color=g)
-
 # QuickNode SDK
 
-Currently has support for getting started with [Icy Tools GraphQL API](https://developers.icy.tools/) in a blink!
+An SDK from [QuickNode](https://www.quicknode.com/) making it easy for developers to interact with the blockchain.
+
+Currently supports getting started with [Icy Tools GraphQL API](https://developers.icy.tools/) in a blink!
+
+[![npm](https://img.shields.io/npm/dm/@quicknode/sdk)](https://www.npmjs.com/package/@quicknode/sdk)
+[![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g)](https://www.npmjs.com/package/@quicknode/sdk)
+![Maintenance](https://img.shields.io/maintenance/yes/2022?color=g)
+[![License](https://img.shields.io/npm/l/@quicknode/sdk?color=g)](https://github.com/quiknode-labs/qn-oss/blob/main/LICENSE.txt)
+[![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)](https://github.com/quiknode-labs/qn-oss/issues)
+[![Discord](https://img.shields.io/discord/880505845090250794?color=g)](https://discord.gg/DkdgEqE)
 
 ## Quick Start
 
@@ -255,6 +257,10 @@ client.nft.getNFTsByWalletENS({
 ```
 
 # Contributing corner
+
+## Issues
+
+Please submit any questions, issues, or feedback as an [issue in Github](https://github.com/quiknode-labs/qn-oss/issues).
 
 ## Building
 

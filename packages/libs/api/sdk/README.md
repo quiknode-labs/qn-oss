@@ -4,12 +4,12 @@ An SDK from [QuickNode](https://www.quicknode.com/) making it easy for developer
 
 Currently this has support for getting started with [Icy Tools GraphQL API](https://developers.icy.tools/) in a blink!
 
-[![npm](https://img.shields.io/npm/dm/@quicknode/sdk?style=flat-square)](https://www.npmjs.com/package/@quicknode/sdk)
-[![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g&style=flat-square)](https://www.npmjs.com/package/@quicknode/sdk)
-![Maintenance](https://img.shields.io/maintenance/yes/2022?color=g&style=flat-square)
-[![License](https://img.shields.io/npm/l/@quicknode/sdk?color=g&style=flat-square)](https://github.com/quiknode-labs/qn-oss/blob/main/LICENSE.txt)
-[![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g&style=flat-square)](https://github.com/quiknode-labs/qn-oss/issues)
-[![Discord](https://img.shields.io/discord/880505845090250794?color=g&style=flat-square)](https://discord.gg/DkdgEqE)
+[![npm](https://img.shields.io/npm/dm/@quicknode/sdk)](https://www.npmjs.com/package/@quicknode/sdk)
+[![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g)](https://www.npmjs.com/package/@quicknode/sdk)
+![Maintenance](https://img.shields.io/maintenance/yes/2022?color=g)
+[![License](https://img.shields.io/npm/l/@quicknode/sdk?color=g)](https://github.com/quiknode-labs/qn-oss/blob/main/LICENSE.txt)
+[![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)](https://github.com/quiknode-labs/qn-oss/issues)
+[![Discord](https://img.shields.io/discord/880505845090250794?color=g)](https://discord.gg/DkdgEqE)
 
 ## Quick Start
 

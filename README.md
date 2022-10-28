@@ -1,5 +1,7 @@
 # QuickNode OSS Repository
 
+[QuickNode](https://www.quicknode.com/)'s open-source monorepo
+
 ## Packages
 
 - [QuickNode SDK](./packages/libs/api/sdk/README.md): Framework agnostic library that serves as a wrapper to QuickNode's APIs, currently supports [icy.tools GraphQL API](https://developers.icy.tools).

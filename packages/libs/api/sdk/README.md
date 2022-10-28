@@ -2,7 +2,7 @@
 
 An SDK from [QuickNode](https://www.quicknode.com/) making it easy for developers to interact with the blockchain.
 
-Currently this has support for getting started with [Icy Tools GraphQL API](https://developers.icy.tools/) in a blink!
+Currently supports getting started with [Icy Tools GraphQL API](https://developers.icy.tools/) in a blink!
 
 [![npm](https://img.shields.io/npm/dm/@quicknode/sdk)](https://www.npmjs.com/package/@quicknode/sdk)
 [![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g)](https://www.npmjs.com/package/@quicknode/sdk)

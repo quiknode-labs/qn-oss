@@ -2,3 +2,4 @@
 
 /dist
 /coverage
+/packages/libs/api/sdk/src/remote/graphql/index.ts

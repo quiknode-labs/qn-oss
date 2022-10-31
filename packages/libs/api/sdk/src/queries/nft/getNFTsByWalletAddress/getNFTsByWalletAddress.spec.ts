@@ -159,7 +159,6 @@ describe('getNFTsByWalletAddress', () => {
     await withPolly(
       {
         recordingName: 'query-getNFTsByWalletAddress-iterates',
-        recordIfMissing: true,
       },
       async () => {
         const { data: firstResponse } = await client.nft.getNFTsByWalletAddress(
@@ -458,7 +457,6 @@ describe('getNFTsByWalletAddress', () => {
     await withPolly(
       {
         recordingName: 'query-getNFTsByWalletAddress-null',
-        recordIfMissing: true,
       },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAddress({

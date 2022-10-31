@@ -1,10 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client';
 import { CustomApolloClient } from '../../client/customApolloClient';
 import {
-  getWalletAddressNFTsRawQuery,
-  WalletAddressNFTsQueryVariables,
-} from './getNFTsByWalletAddress/getNFTsByWalletAddress';
-import {
   getWalletENSNFTsRawQuery,
   WalletENSNFTsQueryVariables,
 } from './getNFTsByWalletENS/getNFTsByWalletENS';
@@ -40,6 +36,7 @@ import {
   NFTDetailsQueryResponse,
   ContractEventLogsQueryResponse,
 } from './sharedTypes';
+import { WalletNfTs, WalletNfTsQueryVariables } from '../../remote/graphql';
 
 const DEFAULT_LOG_FILTER_TYPES = ['TRANSFER', 'ORDER', 'MINT'];
 
@@ -47,11 +44,11 @@ export class NFTQueries {
   constructor(private client: CustomApolloClient) {}
 
   async getNFTsByWalletAddress(
-    variables: WalletAddressNFTsQueryVariables
+    variables: WalletNfTsQueryVariables
   ): Promise<ApolloQueryResult<WalletNFTsQueryResponse>> {
     const { address, ...otherVariables } = variables;
     return await this.client.query({
-      query: getWalletAddressNFTsRawQuery,
+      query: WalletNfTs,
       variables: {
         address: address.toLowerCase(),
         ...otherVariables,

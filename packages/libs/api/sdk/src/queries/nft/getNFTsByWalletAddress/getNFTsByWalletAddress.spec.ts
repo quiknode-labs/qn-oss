@@ -6,7 +6,9 @@ const client = new QuickNodeSDK();
 describe('getNFTsByWalletAddress', () => {
   it('executes correctly', async () => {
     await withPolly(
-      { recordingName: 'query-getNFTsByWalletAddress-base' },
+      {
+        recordingName: 'query-getNFTsByWalletAddress-base',
+      },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAddress({
           address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
@@ -14,124 +16,139 @@ describe('getNFTsByWalletAddress', () => {
         });
         expect(data).toStrictEqual({
           wallet: {
-            address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
             ensName: 'vitalik.eth',
+            address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+            tokensPageInfo: {
+              hasNextPage: true,
+              endCursor: 'YXJyYXljb25uZWN0aW9uOjQ=',
+            },
             tokens: [
               {
+                tokenId: '362000065',
+                images: [
+                  {
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/md/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                ],
                 contract: {
                   address: '0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270',
-                  name: 'Art Blocks',
                   symbol: 'BLOCKS',
-                },
-                images: [
-                  {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/md/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                ],
-                tokenId: '91000115',
-              },
-              {
-                contract: {
-                  address: '0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270',
                   name: 'Art Blocks',
-                  symbol: 'BLOCKS',
                 },
-                images: [
-                  {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/md/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                ],
-                tokenId: '58000001',
               },
               {
-                contract: {
-                  address: '0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270',
-                  name: 'Art Blocks',
-                  symbol: 'BLOCKS',
-                },
+                tokenId: '45',
                 images: [
                   {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/sm/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/md/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/md/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/lg/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/xl/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                 ],
-                tokenId: '194000131',
+                contract: {
+                  address: '0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd',
+                  symbol: 'DJT',
+                  name: 'Donald Trump - odious hero',
+                },
               },
               {
-                contract: {
-                  address: '0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85',
-                  name: 'ENS: Ethereum Name Service',
-                  symbol: null,
-                },
-                images: [],
-                tokenId:
-                  '16197150600807250673512157823336438942662333680304464499387595216020302532478',
-              },
-              {
-                contract: {
-                  address: '0x1438807d452d5883b038c007e88b9ced10364f67',
-                  name: 'Gutter Punks - Crypto Coven',
-                  symbol: 'GPCC',
-                },
+                tokenId: '44',
                 images: [
                   {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/md/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/md/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                 ],
-                tokenId: '3819',
+                contract: {
+                  address: '0xa186d739ca2b3022b966194004c6b01855d59571',
+                  symbol: 'ATTPASS',
+                  name: 'NFTPass',
+                },
+              },
+              {
+                tokenId: '279',
+                images: [
+                  {
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/md/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                ],
+                contract: {
+                  address: '0x2e19b9b90f683cfef669106c854a7069d95d1e3b',
+                  symbol: 'REDDITQQLS',
+                  name: 'Bored Reddit QQL Club',
+                },
+              },
+              {
+                tokenId: '280',
+                images: [
+                  {
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/md/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                ],
+                contract: {
+                  address: '0x2e19b9b90f683cfef669106c854a7069d95d1e3b',
+                  symbol: 'REDDITQQLS',
+                  name: 'Bored Reddit QQL Club',
+                },
               },
             ],
-            tokensPageInfo: {
-              endCursor: 'YXJyYXljb25uZWN0aW9uOjQ=',
-              hasNextPage: true,
-            },
           },
         });
       }
@@ -140,7 +157,10 @@ describe('getNFTsByWalletAddress', () => {
 
   it('can iterate tokens', async () => {
     await withPolly(
-      { recordingName: 'query-getNFTsByWalletAddress-iterates' },
+      {
+        recordingName: 'query-getNFTsByWalletAddress-iterates',
+        recordIfMissing: true,
+      },
       async () => {
         const { data: firstResponse } = await client.nft.getNFTsByWalletAddress(
           {
@@ -154,252 +174,280 @@ describe('getNFTsByWalletAddress', () => {
             first: 5,
             after: firstResponse?.wallet?.tokensPageInfo.endCursor,
           });
+
         expect(firstResponse).toStrictEqual({
           wallet: {
-            address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
             ensName: 'vitalik.eth',
+            address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+            tokensPageInfo: {
+              hasNextPage: true,
+              endCursor: 'YXJyYXljb25uZWN0aW9uOjQ=',
+            },
             tokens: [
               {
+                tokenId: '362000065',
+                images: [
+                  {
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/md/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/4023c5992c9dbb7dc4ee4574e8b66c95',
+                  },
+                ],
                 contract: {
                   address: '0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270',
-                  name: 'Art Blocks',
                   symbol: 'BLOCKS',
-                },
-                images: [
-                  {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/md/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/d05b9d5bc7d65df64521339e5a54f808',
-                  },
-                ],
-                tokenId: '91000115',
-              },
-              {
-                contract: {
-                  address: '0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270',
                   name: 'Art Blocks',
-                  symbol: 'BLOCKS',
                 },
-                images: [
-                  {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/md/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                  {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/8b0cb4d02dfa4d926c33a540eed881e6',
-                  },
-                ],
-                tokenId: '58000001',
               },
               {
-                contract: {
-                  address: '0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270',
-                  name: 'Art Blocks',
-                  symbol: 'BLOCKS',
-                },
+                tokenId: '45',
                 images: [
                   {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/sm/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/md/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/md/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/lg/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/tokens/e3f9d10c862693c41bc20f4937b4474e',
+                    url: 'https://images.icytools.workers.dev/xl/collections/0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd/tokens/338a12ab3fd22869dbd6ebae8ee47e4f',
                   },
                 ],
-                tokenId: '194000131',
+                contract: {
+                  address: '0x1b2b41bc128dc6246dfcafbb9ae3a75bd74ff6dd',
+                  symbol: 'DJT',
+                  name: 'Donald Trump - odious hero',
+                },
               },
               {
-                contract: {
-                  address: '0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85',
-                  name: 'ENS: Ethereum Name Service',
-                  symbol: null,
-                },
-                images: [],
-                tokenId:
-                  '16197150600807250673512157823336438942662333680304464499387595216020302532478',
-              },
-              {
-                contract: {
-                  address: '0x1438807d452d5883b038c007e88b9ced10364f67',
-                  name: 'Gutter Punks - Crypto Coven',
-                  symbol: 'GPCC',
-                },
+                tokenId: '44',
                 images: [
                   {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/md/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/md/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0x1438807d452d5883b038c007e88b9ced10364f67/tokens/6f35145555c8658384f2d475eeea9aa0',
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xa186d739ca2b3022b966194004c6b01855d59571/tokens/f92a6ff69c45830aeb0793ae649a3cc1',
                   },
                 ],
-                tokenId: '3819',
+                contract: {
+                  address: '0xa186d739ca2b3022b966194004c6b01855d59571',
+                  symbol: 'ATTPASS',
+                  name: 'NFTPass',
+                },
+              },
+              {
+                tokenId: '279',
+                images: [
+                  {
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/md/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/5bc65ff2dd8d92f224be8ba5d788e996',
+                  },
+                ],
+                contract: {
+                  address: '0x2e19b9b90f683cfef669106c854a7069d95d1e3b',
+                  symbol: 'REDDITQQLS',
+                  name: 'Bored Reddit QQL Club',
+                },
+              },
+              {
+                tokenId: '280',
+                images: [
+                  {
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/md/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/4a0cbecc26063ee087932d57f33a6d83',
+                  },
+                ],
+                contract: {
+                  address: '0x2e19b9b90f683cfef669106c854a7069d95d1e3b',
+                  symbol: 'REDDITQQLS',
+                  name: 'Bored Reddit QQL Club',
+                },
               },
             ],
-            tokensPageInfo: {
-              endCursor: 'YXJyYXljb25uZWN0aW9uOjQ=',
-              hasNextPage: true,
-            },
           },
         });
 
         expect(secondResponse).toStrictEqual({
           wallet: {
-            address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
             ensName: 'vitalik.eth',
+            address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+            tokensPageInfo: {
+              hasNextPage: true,
+              endCursor: 'YXJyYXljb25uZWN0aW9uOjk=',
+            },
             tokens: [
               {
-                contract: {
-                  address: '0xe4ab56ba8e23f0a5fb514b914e259156d5069762',
-                  name: 'The Hall of Meta History',
-                  symbol: 'HMH',
-                },
+                tokenId: '281',
                 images: [
                   {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0xe4ab56ba8e23f0a5fb514b914e259156d5069762/tokens/eabbac6d4b06d65c0955e14a395489d6',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/2366f3b7a24528f588a62b512b3df266',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0xe4ab56ba8e23f0a5fb514b914e259156d5069762/tokens/eabbac6d4b06d65c0955e14a395489d6',
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/2366f3b7a24528f588a62b512b3df266',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/md/collections/0xe4ab56ba8e23f0a5fb514b914e259156d5069762/tokens/eabbac6d4b06d65c0955e14a395489d6',
+                    url: 'https://images.icytools.workers.dev/md/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/2366f3b7a24528f588a62b512b3df266',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0xe4ab56ba8e23f0a5fb514b914e259156d5069762/tokens/eabbac6d4b06d65c0955e14a395489d6',
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/2366f3b7a24528f588a62b512b3df266',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0xe4ab56ba8e23f0a5fb514b914e259156d5069762/tokens/eabbac6d4b06d65c0955e14a395489d6',
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/2366f3b7a24528f588a62b512b3df266',
                   },
                 ],
-                tokenId: '2',
+                contract: {
+                  address: '0x2e19b9b90f683cfef669106c854a7069d95d1e3b',
+                  symbol: 'REDDITQQLS',
+                  name: 'Bored Reddit QQL Club',
+                },
               },
               {
-                contract: {
-                  address: '0xcce1145ec8955a2a4f4a94839b0cd02f79c2b2fc',
-                  name: 'ethkun! (onchain)',
-                  symbol: 'ETHKUN',
-                },
+                tokenId: '282',
                 images: [
                   {
-                    url: 'https://cdn.icy.tools/collections/0xcce1145ec8955a2a4f4a94839b0cd02f79c2b2fc/tokens/42c3ae934a21a3d3b05754999c8b7438.svg',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/abc7739bca57fe8853d6041c65fff870',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/abc7739bca57fe8853d6041c65fff870',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/md/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/abc7739bca57fe8853d6041c65fff870',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/abc7739bca57fe8853d6041c65fff870',
+                  },
+                  {
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/abc7739bca57fe8853d6041c65fff870',
                   },
                 ],
-                tokenId: '1',
+                contract: {
+                  address: '0x2e19b9b90f683cfef669106c854a7069d95d1e3b',
+                  symbol: 'REDDITQQLS',
+                  name: 'Bored Reddit QQL Club',
+                },
               },
               {
-                contract: {
-                  address: '0x495f1ec64467539cad047629086e3cd95459e374',
-                  name: 'Big Eye Rebellion',
-                  symbol: 'BER',
-                },
+                tokenId: '283',
                 images: [
                   {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0x495f1ec64467539cad047629086e3cd95459e374/tokens/bb82ed58a62328ebc63e08549ba7cc47',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/9ff64e7a71b21114664ba5fd968a3e70',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0x495f1ec64467539cad047629086e3cd95459e374/tokens/bb82ed58a62328ebc63e08549ba7cc47',
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/9ff64e7a71b21114664ba5fd968a3e70',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/md/collections/0x495f1ec64467539cad047629086e3cd95459e374/tokens/bb82ed58a62328ebc63e08549ba7cc47',
+                    url: 'https://images.icytools.workers.dev/md/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/9ff64e7a71b21114664ba5fd968a3e70',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0x495f1ec64467539cad047629086e3cd95459e374/tokens/bb82ed58a62328ebc63e08549ba7cc47',
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/9ff64e7a71b21114664ba5fd968a3e70',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0x495f1ec64467539cad047629086e3cd95459e374/tokens/bb82ed58a62328ebc63e08549ba7cc47',
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/9ff64e7a71b21114664ba5fd968a3e70',
                   },
                 ],
-                tokenId: '4699',
+                contract: {
+                  address: '0x2e19b9b90f683cfef669106c854a7069d95d1e3b',
+                  symbol: 'REDDITQQLS',
+                  name: 'Bored Reddit QQL Club',
+                },
               },
               {
-                contract: {
-                  address: '0xaa462106da447c0440a4be29614c19387a59a331',
-                  name: 'ENS Maxis',
-                  symbol: 'ENSMAXIS',
-                },
+                tokenId: '284',
                 images: [
                   {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/99e9d84b3feb0a272bb93bcafe77255c',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/99e9d84b3feb0a272bb93bcafe77255c',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/md/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/md/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/99e9d84b3feb0a272bb93bcafe77255c',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/99e9d84b3feb0a272bb93bcafe77255c',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0xaa462106da447c0440a4be29614c19387a59a331/tokens/35dbef27db71841cf536b1497a7f7fa5',
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/99e9d84b3feb0a272bb93bcafe77255c',
                   },
                 ],
-                tokenId: '3859',
+                contract: {
+                  address: '0x2e19b9b90f683cfef669106c854a7069d95d1e3b',
+                  symbol: 'REDDITQQLS',
+                  name: 'Bored Reddit QQL Club',
+                },
               },
               {
-                contract: {
-                  address: '0x22871b977aae43d44fe50df03f632134c3e3e490',
-                  name: 'UDID Network Genesis Pass Card',
-                  symbol: 'UFPC',
-                },
+                tokenId: '285',
                 images: [
                   {
-                    url: 'https://images.icytools.workers.dev/xs/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
+                    url: 'https://images.icytools.workers.dev/xs/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/dcd63757498476149cf640e1bb1ebda2',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/sm/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
+                    url: 'https://images.icytools.workers.dev/sm/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/dcd63757498476149cf640e1bb1ebda2',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/md/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
+                    url: 'https://images.icytools.workers.dev/md/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/dcd63757498476149cf640e1bb1ebda2',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/lg/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
+                    url: 'https://images.icytools.workers.dev/lg/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/dcd63757498476149cf640e1bb1ebda2',
                   },
                   {
-                    url: 'https://images.icytools.workers.dev/xl/collections/0x22871b977aae43d44fe50df03f632134c3e3e490/tokens/389a50947c165ac7db77fc8faa45472d',
+                    url: 'https://images.icytools.workers.dev/xl/collections/0xc7874b10125c4c57afe8e98f77cf3b21d1bcd260/tokens/dcd63757498476149cf640e1bb1ebda2',
                   },
                 ],
-                tokenId: '481',
+                contract: {
+                  address: '0x2e19b9b90f683cfef669106c854a7069d95d1e3b',
+                  symbol: 'REDDITQQLS',
+                  name: 'Bored Reddit QQL Club',
+                },
               },
             ],
-            tokensPageInfo: {
-              endCursor: 'YXJyYXljb25uZWN0aW9uOjk=',
-              hasNextPage: true,
-            },
           },
         });
       }
@@ -408,7 +456,10 @@ describe('getNFTsByWalletAddress', () => {
 
   it('can handle no response', async () => {
     await withPolly(
-      { recordingName: 'query-getNFTsByWalletAddress-null' },
+      {
+        recordingName: 'query-getNFTsByWalletAddress-null',
+        recordIfMissing: true,
+      },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAddress({
           address: '0x11111111111110thisisnotanaddress01111111',

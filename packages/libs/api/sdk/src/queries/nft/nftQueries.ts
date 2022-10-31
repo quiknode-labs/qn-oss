@@ -36,7 +36,10 @@ import {
   NFTDetailsQueryResponse,
   ContractEventLogsQueryResponse,
 } from './sharedTypes';
-import { WalletNfTs, WalletNfTsQueryVariables } from '../../remote/graphql';
+import {
+  WalletNfTsDocument,
+  WalletNfTsQueryVariables,
+} from '../../graphql/types';
 
 const DEFAULT_LOG_FILTER_TYPES = ['TRANSFER', 'ORDER', 'MINT'];
 
@@ -48,7 +51,7 @@ export class NFTQueries {
   ): Promise<ApolloQueryResult<WalletNFTsQueryResponse>> {
     const { address, ...otherVariables } = variables;
     return await this.client.query({
-      query: WalletNfTs,
+      query: WalletNfTsDocument,
       variables: {
         address: address.toLowerCase(),
         ...otherVariables,

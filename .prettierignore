@@ -2,3 +2,7 @@
 
 /dist
 /coverage
+
+# Ignore codegen generated file
+# See more: https://www.the-guild.dev/graphql/codegen/docs/integrations/prettier
+/packages/libs/api/sdk/src/graphql/types.ts

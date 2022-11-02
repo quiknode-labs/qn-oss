@@ -1,0 +1,9 @@
+overwrite: true
+documents: src/**/*.gql
+schema: https://graphql.icy.tools/graphql
+generates:
+  src/graphql/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typed-document-node

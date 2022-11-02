@@ -1,0 +1,30 @@
+query TrendingNFTCollections(
+  $after: String
+  $first: Int
+  $orderBy: TrendingCollectionsOrderByEnum
+  $orderDirection: OrderDirectionEnum
+  $timePeriod: TrendingCollectionsTimePeriodEnum
+  $timeRange: DateInputType
+  $marketplace: OrderMarketplaceInput
+) {
+  trendingCollections(
+    after: $after
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+    timePeriod: $timePeriod
+    timeRange: $timeRange
+    marketplace: $marketplace
+  ) {
+    edges {
+      cursor
+      node {
+        ...NftCollection
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

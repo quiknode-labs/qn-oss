@@ -6,4 +6,7 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-      - typed-document-node
+      - typescript-document-nodes
+  src/graphql/fragmentMatcher.ts:
+    plugins:
+      - 'fragment-matcher'

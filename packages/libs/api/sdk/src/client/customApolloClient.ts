@@ -1,23 +1,29 @@
 import {
   ApolloClient,
   NormalizedCacheObject,
+  OperationVariables,
   QueryOptions,
 } from '@apollo/client';
-import { removeNodesAndEdges } from '../utils/removeNodesAndEdges';
+import {
+  removeNodesAndEdges,
+  ResultOutput,
+} from '../utils/removeNodesAndEdges';
 
 export class CustomApolloClient {
   constructor(public apolloClient: ApolloClient<NormalizedCacheObject>) {}
 
-  /**
-   * @todo improve typing here
-   */
-  async query(options: QueryOptions<any, any>): Promise<any> {
+  async query<
+    TVariables extends OperationVariables,
+    KResults extends Record<string, any>,
+    KResultsOutput extends ResultOutput
+  >(options: QueryOptions<TVariables, KResults>) {
     const result = await this.apolloClient.query(options);
 
-    if (result?.data && typeof result?.data === 'object') {
-      result.data = removeNodesAndEdges(result.data);
-    }
-
-    return result;
+    return {
+      ...result,
+      data:
+        result?.data &&
+        removeNodesAndEdges<KResults, KResultsOutput>(result.data),
+    };
   }
 }

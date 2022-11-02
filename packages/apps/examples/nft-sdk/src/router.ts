@@ -39,4 +39,9 @@ router.get(
   nftController.getNFTsByWalletAndContracts
 );
 
+router.get(
+  '/api/getTrendingNFTCollections',
+  nftController.getTrendingNFTCollections
+);
+
 export default router;

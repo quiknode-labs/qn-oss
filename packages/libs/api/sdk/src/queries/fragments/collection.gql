@@ -1,0 +1,25 @@
+fragment NftCollection on Contract {
+  ... on ERC721Contract {
+    address
+    isVerified
+    circulatingSupply
+    name
+    symbol
+    stats {
+      average
+      ceiling
+      floor
+      totalSales
+      volume
+    }
+    tokens(first: 5) {
+      edges {
+        node {
+          ... on ERC721Token {
+            ...Nft
+          }
+        }
+      }
+    }
+  }
+}

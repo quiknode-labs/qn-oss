@@ -273,3 +273,7 @@ Run `nx test libs-api-sdk` to execute the unit tests via [Jest](https://jestjs.i
 ## Running lint
 
 Run `nx lint libs-api-sdk` to execute the lint via [ESLint](https://eslint.org/).
+
+## Generate graphql
+
+Run `yarn codegen` to generate graphql typings via [Codegen](https://www.the-guild.dev/graphql/codegen).

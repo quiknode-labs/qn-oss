@@ -1,4 +1,3 @@
-import { ApolloQueryResult } from '@apollo/client';
 import { CustomApolloClient } from '../../client/customApolloClient';
 import {
   getWalletENSNFTsRawQuery,
@@ -12,46 +11,57 @@ import {
   getCollectionDetailsRawQuery,
   CollectionDetailsQueryVariables,
 } from './getCollectionDetails/getCollectionDetails';
-import {
-  EventLogsQueryVariables,
-  getNFTEventLogsRawQuery,
-} from './getNFTEventLogs/getNFTEventLogs';
+import { EventLogsQueryVariables } from './getNFTEventLogs/getNFTEventLogs';
 import {
   getNFTDetailsRawQuery,
   NFTDetailsQueryVariables,
 } from './getNFTDetails/getNFTDetails';
-import {
-  getContractEventLogsRawQuery,
-  ContractEventLogQueryVariables,
-} from './getContractEventLogs/getContractEventLogs';
-import {
-  getNFTsWalletAndContractsRawQuery,
-  NFTWalletAndContractQueryVariables,
-} from './getNFTsByWalletAndContracts/getNFTsByWalletAndContracts';
+import { ContractEventLogQueryVariables } from './getContractEventLogs/getContractEventLogs';
 import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
   CollectionDetailsQueryResponse,
-  EventLogsQueryResponse,
   NFTDetailsQueryResponse,
   ContractEventLogsQueryResponse,
+  EventLogsQueryResponse,
 } from './sharedTypes';
 import {
-  WalletNfTsDocument,
+  NfTsWalletAndContract,
+  NfTsWalletAndContractQuery,
+  NfTsWalletAndContractQueryVariables,
+  TrendingNftCollections,
+  TrendingNftCollectionsQuery,
+  TrendingNftCollectionsQueryVariables,
+  WalletNfTs,
   WalletNfTsQueryVariables,
+  ContractEventsLogs,
+  ContractEventsLogsQuery,
+  ContractEventsLogsQueryVariables,
+  LogType,
+  NftEventsLogsQueryVariables,
+  NftEventsLogsQuery,
+  NftEventsLogs,
 } from '../../graphql/types';
+import { TrendingNFTCollection } from './getTrendingNFTCollections/getTrendingNFTCollections';
+import { NFTsByWalletAndContractsVariables } from './getNFTsByWalletAndContracts/getNFTsByWalletAndContracts';
 
-const DEFAULT_LOG_FILTER_TYPES = ['TRANSFER', 'ORDER', 'MINT'];
+const DEFAULT_LOG_FILTER_TYPES = [
+  LogType.Transfer,
+  LogType.Order,
+  LogType.Mint,
+];
 
 export class NFTQueries {
   constructor(private client: CustomApolloClient) {}
 
-  async getNFTsByWalletAddress(
-    variables: WalletNfTsQueryVariables
-  ): Promise<ApolloQueryResult<WalletNFTsQueryResponse>> {
+  async getNFTsByWalletAddress(variables: WalletNfTsQueryVariables) {
     const { address, ...otherVariables } = variables;
-    return await this.client.query({
-      query: WalletNfTsDocument,
+    return this.client.query<
+      WalletNfTsQueryVariables,
+      WalletNFTsQueryResponse,
+      WalletNFTsQueryResponse
+    >({
+      query: WalletNfTs,
       variables: {
         address: address.toLowerCase(),
         ...otherVariables,
@@ -59,20 +69,24 @@ export class NFTQueries {
     });
   }
 
-  async getNFTsByWalletENS(
-    variables: WalletENSNFTsQueryVariables
-  ): Promise<ApolloQueryResult<WalletNFTsQueryResponse>> {
-    return await this.client.query({
+  async getNFTsByWalletENS(variables: WalletENSNFTsQueryVariables) {
+    return this.client.query<
+      WalletENSNFTsQueryVariables,
+      WalletNFTsQueryResponse,
+      WalletNFTsQueryResponse
+    >({
       query: getWalletENSNFTsRawQuery,
       variables,
     });
   }
 
-  async getNFTsByContractAddress(
-    variables: ContractAddressNFTsQueryVariables
-  ): Promise<ApolloQueryResult<ContractNFTsQueryResponse>> {
+  async getNFTsByContractAddress(variables: ContractAddressNFTsQueryVariables) {
     const { address, ...otherVariables } = variables;
-    return await this.client.query({
+    return this.client.query<
+      ContractAddressNFTsQueryVariables,
+      ContractNFTsQueryResponse,
+      ContractNFTsQueryResponse
+    >({
       query: getContractAddressNFTsRawQuery,
       variables: {
         address: address.toLowerCase(),
@@ -81,11 +95,13 @@ export class NFTQueries {
     });
   }
 
-  async getCollectionDetails(
-    variables: CollectionDetailsQueryVariables
-  ): Promise<ApolloQueryResult<CollectionDetailsQueryResponse>> {
+  async getCollectionDetails(variables: CollectionDetailsQueryVariables) {
     const { address, ...otherVariables } = variables;
-    return await this.client.query({
+    return this.client.query<
+      CollectionDetailsQueryVariables,
+      CollectionDetailsQueryResponse,
+      CollectionDetailsQueryResponse
+    >({
       query: getCollectionDetailsRawQuery,
       variables: {
         address: address.toLowerCase(),
@@ -94,16 +110,18 @@ export class NFTQueries {
     });
   }
 
-  async getNFTEventLogs(
-    variables: EventLogsQueryVariables
-  ): Promise<ApolloQueryResult<EventLogsQueryResponse>> {
+  async getNFTEventLogs(variables: EventLogsQueryVariables) {
     const {
       address,
       types = DEFAULT_LOG_FILTER_TYPES,
       ...otherVariables
     } = variables;
-    return await this.client.query({
-      query: getNFTEventLogsRawQuery,
+    return this.client.query<
+      NftEventsLogsQueryVariables,
+      NftEventsLogsQuery,
+      EventLogsQueryResponse
+    >({
+      query: NftEventsLogs,
       variables: {
         ...otherVariables,
         address: address.toLowerCase(),
@@ -114,11 +132,13 @@ export class NFTQueries {
     });
   }
 
-  async getNFTDetails(
-    variables: NFTDetailsQueryVariables
-  ): Promise<ApolloQueryResult<NFTDetailsQueryResponse>> {
+  async getNFTDetails(variables: NFTDetailsQueryVariables) {
     const { contractAddress, ...otherVariables } = variables;
-    return await this.client.query({
+    return this.client.query<
+      NFTDetailsQueryVariables,
+      NFTDetailsQueryResponse,
+      NFTDetailsQueryResponse
+    >({
       query: getNFTDetailsRawQuery,
       variables: {
         contractAddress: contractAddress.toLowerCase(),
@@ -127,16 +147,18 @@ export class NFTQueries {
     });
   }
 
-  async getContractEventLogs(
-    variables: ContractEventLogQueryVariables
-  ): Promise<ApolloQueryResult<ContractEventLogsQueryResponse>> {
+  async getContractEventLogs(variables: ContractEventLogQueryVariables) {
     const {
       address,
       types = DEFAULT_LOG_FILTER_TYPES,
       ...otherVariables
     } = variables;
-    return await this.client.query({
-      query: getContractEventLogsRawQuery,
+    return this.client.query<
+      ContractEventsLogsQueryVariables,
+      ContractEventsLogsQuery,
+      ContractEventLogsQueryResponse
+    >({
+      query: ContractEventsLogs,
       variables: {
         ...otherVariables,
         address: address.toLowerCase(),
@@ -148,20 +170,36 @@ export class NFTQueries {
   }
 
   async getNFTsByWalletAndContracts(
-    variables: NFTWalletAndContractQueryVariables
-  ): Promise<ApolloQueryResult<WalletNFTsQueryResponse>> {
+    variables: NFTsByWalletAndContractsVariables
+  ) {
     const { address, contracts, ...otherVariables } = variables;
     const normalizedContracts = contracts.map((contract) =>
       contract.toLowerCase()
     );
-    const response = await this.client.query({
-      query: getNFTsWalletAndContractsRawQuery,
+    return this.client.query<
+      NfTsWalletAndContractQueryVariables,
+      NfTsWalletAndContractQuery,
+      WalletNFTsQueryResponse
+    >({
+      query: NfTsWalletAndContract,
       variables: {
         ...otherVariables,
         address: address.toLowerCase(),
         filter: { contractAddressIn: normalizedContracts },
       },
     });
-    return response;
+  }
+
+  async getTrendingNFTCollections(
+    variables?: TrendingNftCollectionsQueryVariables
+  ) {
+    return this.client.query<
+      TrendingNftCollectionsQueryVariables,
+      TrendingNftCollectionsQuery,
+      TrendingNFTCollection
+    >({
+      query: TrendingNftCollections,
+      variables,
+    });
   }
 }

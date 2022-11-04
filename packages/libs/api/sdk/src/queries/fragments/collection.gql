@@ -12,14 +12,5 @@ fragment NftCollection on Contract {
       totalSales
       volume
     }
-    tokens(first: 5) {
-      edges {
-        node {
-          ... on ERC721Token {
-            ...Nft
-          }
-        }
-      }
-    }
   }
 }

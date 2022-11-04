@@ -962,7 +962,7 @@ export type WalletTransactionsArgs = {
 
 type NftCollection_BaseContract_Fragment = { __typename?: 'BaseContract' };
 
-type NftCollection_Erc721Contract_Fragment = { __typename?: 'ERC721Contract', address: string, isVerified: boolean, circulatingSupply?: number | null, name?: string | null, symbol?: string | null, stats?: { __typename?: 'ContractStats', average?: number | null, ceiling?: number | null, floor?: number | null, totalSales?: number | null, volume?: number | null } | null, tokens?: { __typename?: 'TokenConnection', edges?: Array<{ __typename?: 'TokenEdge', node?: { __typename?: 'BaseToken' } | { __typename?: 'ERC721Token', tokenId: string, name?: string | null, symbol?: string | null, attributes: Array<{ __typename?: 'TokenAttribute', name: string, value: string } | null>, contract: { __typename?: 'BaseContract', address: string, isVerified: boolean, tokenStandard?: TokenStandard | null } | { __typename?: 'ERC721Contract', name?: string | null, address: string, isVerified: boolean, tokenStandard?: TokenStandard | null }, images: Array<{ __typename?: 'TokenImage', height?: number | null, mimeType?: string | null, url: string, width?: number | null } | null>, metadata?: { __typename?: 'ERC721Metadata', animation_url?: string | null, background_color?: string | null, description?: string | null, external_url?: string | null, image?: string | null, image_data?: string | null, name?: string | null, youtube_url?: string | null } | null } | null } | null> | null } | null };
+type NftCollection_Erc721Contract_Fragment = { __typename?: 'ERC721Contract', address: string, isVerified: boolean, circulatingSupply?: number | null, name?: string | null, symbol?: string | null, stats?: { __typename?: 'ContractStats', average?: number | null, ceiling?: number | null, floor?: number | null, totalSales?: number | null, volume?: number | null } | null };
 
 export type NftCollectionFragment = NftCollection_BaseContract_Fragment | NftCollection_Erc721Contract_Fragment;
 
@@ -1033,8 +1033,26 @@ export type TrendingNftCollectionsQueryVariables = Exact<{
 }>;
 
 
-export type TrendingNftCollectionsQuery = { __typename?: 'RootQuery', trendingCollections?: { __typename?: 'ContractConnection', edges?: Array<{ __typename?: 'ContractEdge', cursor: string, node?: { __typename?: 'BaseContract' } | { __typename?: 'ERC721Contract', address: string, isVerified: boolean, circulatingSupply?: number | null, name?: string | null, symbol?: string | null, stats?: { __typename?: 'ContractStats', average?: number | null, ceiling?: number | null, floor?: number | null, totalSales?: number | null, volume?: number | null } | null, tokens?: { __typename?: 'TokenConnection', edges?: Array<{ __typename?: 'TokenEdge', node?: { __typename?: 'BaseToken' } | { __typename?: 'ERC721Token', tokenId: string, name?: string | null, symbol?: string | null, attributes: Array<{ __typename?: 'TokenAttribute', name: string, value: string } | null>, contract: { __typename?: 'BaseContract', address: string, isVerified: boolean, tokenStandard?: TokenStandard | null } | { __typename?: 'ERC721Contract', name?: string | null, address: string, isVerified: boolean, tokenStandard?: TokenStandard | null }, images: Array<{ __typename?: 'TokenImage', height?: number | null, mimeType?: string | null, url: string, width?: number | null } | null>, metadata?: { __typename?: 'ERC721Metadata', animation_url?: string | null, background_color?: string | null, description?: string | null, external_url?: string | null, image?: string | null, image_data?: string | null, name?: string | null, youtube_url?: string | null } | null } | null } | null> | null } | null } | null } | null> | null, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
+export type TrendingNftCollectionsQuery = { __typename?: 'RootQuery', trendingCollections?: { __typename?: 'ContractConnection', edges?: Array<{ __typename?: 'ContractEdge', cursor: string, node?: { __typename?: 'BaseContract' } | { __typename?: 'ERC721Contract', address: string, isVerified: boolean, circulatingSupply?: number | null, name?: string | null, symbol?: string | null, stats?: { __typename?: 'ContractStats', average?: number | null, ceiling?: number | null, floor?: number | null, totalSales?: number | null, volume?: number | null } | null } | null } | null> | null, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
 
+export const NftCollection = gql`
+    fragment NftCollection on Contract {
+  ... on ERC721Contract {
+    address
+    isVerified
+    circulatingSupply
+    name
+    symbol
+    stats {
+      average
+      ceiling
+      floor
+      totalSales
+      volume
+    }
+  }
+}
+    `;
 export const Nft = gql`
     fragment Nft on Token {
   ... on ERC721Token {
@@ -1072,33 +1090,6 @@ export const Nft = gql`
   }
 }
     `;
-export const NftCollection = gql`
-    fragment NftCollection on Contract {
-  ... on ERC721Contract {
-    address
-    isVerified
-    circulatingSupply
-    name
-    symbol
-    stats {
-      average
-      ceiling
-      floor
-      totalSales
-      volume
-    }
-    tokens(first: 5) {
-      edges {
-        node {
-          ... on ERC721Token {
-            ...Nft
-          }
-        }
-      }
-    }
-  }
-}
-    ${Nft}`;
 export const ContractEventLog = gql`
     fragment ContractEventLog on Log {
   blockNumber

@@ -2,6 +2,27 @@
  * @todo replace this with graphql automatic schema generation
  */
 
+/**** Graphql interface *****/
+
+export interface Connection<T> {
+  pageInfo: PageInfo;
+  edges: {
+    node: T;
+  }[];
+}
+
+export interface PageInfo {
+  hasNextPage: boolean;
+  endCursor: string | null;
+}
+
+export interface PaginationArgs {
+  first?: number;
+  after?: string;
+}
+
+export type Scalar = string | number | boolean;
+
 /*** Wallet ***/
 
 export interface Wallet {
@@ -102,28 +123,6 @@ interface NFTMetadata {
 }
 
 /*** Logs ***/
-interface ContracEventLogs {
-  contract: {
-    address: string;
-  };
-  logs: ContracEventLogs | (ContracEventLogs & OrderEvents);
-}
-
-interface ContractEventLog extends BaseEventLog {
-  token: {
-    tokenId: string;
-  };
-}
-
-interface TokenEventLogs {
-  contract: {
-    address: string;
-  };
-  token: {
-    tokenId: string;
-    logs: BaseEventLog | (BaseEventLog & OrderEvents);
-  };
-}
 
 interface OrderEvents {
   marketplace: string;
@@ -137,6 +136,16 @@ interface BaseEventLog {
   toAddress: string;
   estimatedConfirmedAt: string;
   transactionHash: string;
+}
+
+interface TokenEventLogs {
+  contract: {
+    address: string;
+  };
+  token: {
+    tokenId: string;
+    logs: BaseEventLog | (BaseEventLog & OrderEvents);
+  };
 }
 
 /*** Pagination ***/
@@ -174,16 +183,4 @@ export interface EventLogsQueryResponse {
 
 export interface NFTDetailsQueryResponse {
   token: NFTDetails | null;
-}
-
-export interface ContractEventLogsQueryResponse {
-  contract: (ContractEventLogs & LogPaginationInfo) | null;
-}
-
-export interface TrendingNFTCollection {
-  trendingCollectionsPageInfo: Pick<PageInfo, 'endCursor' | 'hasNextPage'>;
-  trendingCollections: Omit<NftCollectionFragment, 'tokens'> & {
-    tokens: NftFragment;
-    tokensPageInfo: Pick<PageInfo, 'endCursor' | 'hasNextPage'>;
-  };
 }

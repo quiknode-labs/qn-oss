@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { PaginationArgs } from '../../../types';
+import { PaginationArgs } from '../sharedTypes';
 
 export const getContractAddressNFTsRawQuery = gql`
   query ContractNFTs($address: String!, $first: Int, $after: String) {

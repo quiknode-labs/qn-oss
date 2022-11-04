@@ -17,6 +17,8 @@ describe('getContractEventLogs', () => {
           types: [LogType.Mint, LogType.Order, LogType.Transfer],
         });
 
+        console.log(JSON.stringify(data));
+
         expect(data).toStrictEqual({
           contract: {
             address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
@@ -26,33 +28,35 @@ describe('getContractEventLogs', () => {
             },
             logs: [
               {
-                blockNumber: 15884184,
-                type: 'TRANSFER',
-                fromAddress: '0x86c994904dd138bdc8462ac06edd919ad70fe575',
-                toAddress: '0x330d8d19c19776a3d0e84f44e9a1d4ad73c088ff',
-                estimatedConfirmedAt: '2022-11-02T18:40:11.000Z',
+                blockNumber: 15896593,
+                type: 'ORDER',
+                fromAddress: '0x5f20abebe0ba11a9dc0f08e654e416bbee8979f9',
+                toAddress: '0x602a20f6d1e1263d5e31ec0d22a5de0c15be36c7',
+                estimatedConfirmedAt: '2022-11-04T12:16:47.000Z',
                 transactionHash:
-                  '0x8f52ed690de664d9ac19dc129d6baa875a67e7e6cac70c7a32ef241daa8e195f',
+                  '0xa1b3a0587d977282e80a6cf7b020e5e7e7bb79836d6939eb07530899e6cff95f',
                 token: {
                   contract: {
                     address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
                   },
-                  tokenId: '29121',
+                  tokenId: '29551',
                 },
+                marketplace: 'OPENSEA',
+                priceInEth: 16,
               },
               {
-                blockNumber: 15884167,
+                blockNumber: 15896167,
                 type: 'TRANSFER',
-                fromAddress: '0xb6674e0f123652ff18fa10ce2eca886fc60e07e4',
-                toAddress: '0x0f732cd6a97330f7c5fb4f41199f1bf1229ed179',
-                estimatedConfirmedAt: '2022-11-02T18:36:47.000Z',
+                fromAddress: '0x3e516cf3c9d4f29fae6c1324c2414dc872fc9c09',
+                toAddress: '0xf667e7bebf8c1191f646a76c3c3b6366670703bb',
+                estimatedConfirmedAt: '2022-11-04T10:51:23.000Z',
                 transactionHash:
-                  '0x8779a8056cd2066f0a0f69f11541dc7b8f360e63074725c45b5f009d11159f48',
+                  '0xef9fe88a877005819a823779f765923a85507defe685e94c6d0eefe62e4775de',
                 token: {
                   contract: {
                     address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
                   },
-                  tokenId: '3090',
+                  tokenId: '28586',
                 },
               },
             ],
@@ -138,33 +142,35 @@ describe('getContractEventLogs', () => {
             },
             logs: [
               {
-                blockNumber: 15884230,
-                type: 'TRANSFER',
-                fromAddress: '0x82bbcac5a8b81368a4a96f0265cb40e46020a1e1',
-                toAddress: '0x8252df1d8b29057d1afe3062bf5a64d503152bc8',
-                estimatedConfirmedAt: '2022-11-02T18:49:35.000Z',
+                blockNumber: 15896593,
+                type: 'ORDER',
+                fromAddress: '0x5f20abebe0ba11a9dc0f08e654e416bbee8979f9',
+                toAddress: '0x602a20f6d1e1263d5e31ec0d22a5de0c15be36c7',
+                estimatedConfirmedAt: '2022-11-04T12:16:47.000Z',
                 transactionHash:
-                  '0x64bff7d35b9ca0e18e759979eb14aec6732c6a988bdd80b62925b0cf1e3b4619',
+                  '0xa1b3a0587d977282e80a6cf7b020e5e7e7bb79836d6939eb07530899e6cff95f',
                 token: {
                   contract: {
                     address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
                   },
-                  tokenId: '17361',
+                  tokenId: '29551',
                 },
+                marketplace: 'OPENSEA',
+                priceInEth: 16,
               },
               {
-                blockNumber: 15884184,
+                blockNumber: 15896167,
                 type: 'TRANSFER',
-                fromAddress: '0x86c994904dd138bdc8462ac06edd919ad70fe575',
-                toAddress: '0x330d8d19c19776a3d0e84f44e9a1d4ad73c088ff',
-                estimatedConfirmedAt: '2022-11-02T18:40:11.000Z',
+                fromAddress: '0x3e516cf3c9d4f29fae6c1324c2414dc872fc9c09',
+                toAddress: '0xf667e7bebf8c1191f646a76c3c3b6366670703bb',
+                estimatedConfirmedAt: '2022-11-04T10:51:23.000Z',
                 transactionHash:
-                  '0x8f52ed690de664d9ac19dc129d6baa875a67e7e6cac70c7a32ef241daa8e195f',
+                  '0xef9fe88a877005819a823779f765923a85507defe685e94c6d0eefe62e4775de',
                 token: {
                   contract: {
                     address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',
                   },
-                  tokenId: '29121',
+                  tokenId: '28586',
                 },
               },
             ],
@@ -189,6 +195,7 @@ describe('getContractEventLogs', () => {
           first: 2,
           after: 'YXJyYXljb25uZWN0aW9uOjE=',
         });
+
         expect(firstResponse).toStrictEqual({
           contract: {
             address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
@@ -198,33 +205,33 @@ describe('getContractEventLogs', () => {
             },
             logs: [
               {
-                blockNumber: 15879815,
+                blockNumber: 15891936,
                 type: 'TRANSFER',
-                fromAddress: '0x433c8a73bec1273561e4e2201649de12f20b7d58',
-                toAddress: '0x8ae57a027c63fca8070d1bf38622321de8004c67',
-                estimatedConfirmedAt: '2022-11-02T04:01:23.000Z',
+                fromAddress: '0xf22859140265c1b73ac02c5468d690f566406e3d',
+                toAddress: '0x0d7087111cbbc2bc3ef1b1cfe2c418ef20b5f57a',
+                estimatedConfirmedAt: '2022-11-03T20:40:59.000Z',
                 transactionHash:
-                  '0x7e68649dcb97ff55c93c731eabbfe85dc113fa08ce99d17d3b13c2da4e79bc0f',
+                  '0x5fc224365913b1a8b1ed206e8c4a83225c91217ab27edd5c9f6cc2f744113f53',
                 token: {
                   contract: {
                     address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
                   },
-                  tokenId: '7437',
+                  tokenId: '5809',
                 },
               },
               {
-                blockNumber: 15877166,
+                blockNumber: 15891936,
                 type: 'TRANSFER',
-                fromAddress: '0x560fd50fbeaa6180302c07e11d16f842f5a53053',
-                toAddress: '0xae3ec1aee72aaad27f4465195abb011ddd2d2621',
-                estimatedConfirmedAt: '2022-11-01T19:07:59.000Z',
+                fromAddress: '0xf22859140265c1b73ac02c5468d690f566406e3d',
+                toAddress: '0x0d7087111cbbc2bc3ef1b1cfe2c418ef20b5f57a',
+                estimatedConfirmedAt: '2022-11-03T20:40:59.000Z',
                 transactionHash:
-                  '0x80170c8916dbf10007e496f684c17c19acb92b9aa92c8d2ebccebd5356a97447',
+                  '0x5fc224365913b1a8b1ed206e8c4a83225c91217ab27edd5c9f6cc2f744113f53',
                 token: {
                   contract: {
                     address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
                   },
-                  tokenId: '9727',
+                  tokenId: '5548',
                 },
               },
             ],
@@ -240,35 +247,33 @@ describe('getContractEventLogs', () => {
             },
             logs: [
               {
-                blockNumber: 15875814,
-                type: 'ORDER',
-                fromAddress: '0x3ddb69473881a8f0c73419293519994c14603b12',
-                toAddress: '0x823969a8d456a594e80aac9df050a50ada374091',
-                estimatedConfirmedAt: '2022-11-01T14:36:35.000Z',
+                blockNumber: 15890651,
+                type: 'TRANSFER',
+                fromAddress: '0x433c8a73bec1273561e4e2201649de12f20b7d58',
+                toAddress: '0x8ae57a027c63fca8070d1bf38622321de8004c67',
+                estimatedConfirmedAt: '2022-11-03T16:21:35.000Z',
                 transactionHash:
-                  '0xf5d2d640f30cefcfb01c67eeb9c9237db77cdf1ddf6177616cc8dc5a29646717',
+                  '0xf0237d19f93f0a9827ed8588eb77a4c8760d11b348692d1cbc1daa84fd31690c',
                 token: {
                   contract: {
                     address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
                   },
-                  tokenId: '1254',
+                  tokenId: '6302',
                 },
-                marketplace: 'OPENSEA',
-                priceInEth: 0.0099,
               },
               {
-                blockNumber: 15852043,
+                blockNumber: 15879815,
                 type: 'TRANSFER',
-                fromAddress: '0x1298ea1e151d84c4a1629d6bd2813666c1c2f86c',
+                fromAddress: '0x433c8a73bec1273561e4e2201649de12f20b7d58',
                 toAddress: '0x8ae57a027c63fca8070d1bf38622321de8004c67',
-                estimatedConfirmedAt: '2022-10-29T06:51:35.000Z',
+                estimatedConfirmedAt: '2022-11-02T04:01:23.000Z',
                 transactionHash:
-                  '0x84a5a4cc8a3e66c8ddb60641c5392ee154d1490933bd6f367dfd3232def45f00',
+                  '0x7e68649dcb97ff55c93c731eabbfe85dc113fa08ce99d17d3b13c2da4e79bc0f',
                 token: {
                   contract: {
                     address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
                   },
-                  tokenId: '8913',
+                  tokenId: '7437',
                 },
               },
             ],

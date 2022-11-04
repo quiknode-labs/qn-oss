@@ -1,7 +1,8 @@
-import { LogType } from '../../../graphql/types';
-import { PaginationArgs } from '../../../types';
+import { ContractEventLogFragment, PageInfo } from '../../../graphql/types';
 
-export interface ContractEventLogQueryVariables extends PaginationArgs {
-  address: string;
-  types?: LogType[];
+export interface ContractEventLogsQueryResponse {
+  contract: {
+    logsPageInfo: Pick<PageInfo, 'endCursor' | 'hasNextPage'>;
+    logs: ContractEventLogFragment;
+  };
 }

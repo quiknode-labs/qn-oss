@@ -1,4 +1,4 @@
-import { PaginationArgs } from '../../../types';
+import { PaginationArgs } from '../sharedTypes';
 
 export interface NFTsByWalletAndContractsVariables extends PaginationArgs {
   address: string;

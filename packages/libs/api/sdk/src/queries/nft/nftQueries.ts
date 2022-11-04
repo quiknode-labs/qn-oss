@@ -16,14 +16,14 @@ import {
   getNFTDetailsRawQuery,
   NFTDetailsQueryVariables,
 } from './getNFTDetails/getNFTDetails';
-import { ContractEventLogQueryVariables } from './getContractEventLogs/getContractEventLogs';
+import { ContractEventLogsQueryResponse } from './getContractEventLogs/getContractEventLogs';
 import {
   ContractNFTsQueryResponse,
   WalletNFTsQueryResponse,
   CollectionDetailsQueryResponse,
   NFTDetailsQueryResponse,
-  ContractEventLogsQueryResponse,
   EventLogsQueryResponse,
+  PaginationArgs,
 } from './sharedTypes';
 import {
   NfTsWalletAndContract,
@@ -147,7 +147,12 @@ export class NFTQueries {
     });
   }
 
-  async getContractEventLogs(variables: ContractEventLogQueryVariables) {
+  async getContractEventLogs(
+    variables: {
+      address: string;
+      types?: LogType[];
+    } & PaginationArgs
+  ) {
     const {
       address,
       types = DEFAULT_LOG_FILTER_TYPES,

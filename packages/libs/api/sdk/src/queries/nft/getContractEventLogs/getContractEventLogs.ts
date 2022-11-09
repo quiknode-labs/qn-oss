@@ -1,8 +1,12 @@
-import { ContractEventLogFragment, PageInfo } from '../../../graphql/types';
+import {
+  ContractEventLogFragment,
+  ContractEventsLogsQuery,
+  PageInfo,
+} from '../../../graphql/types';
 
 export interface ContractEventLogsQueryResponse {
-  contract: {
+  contract: ContractEventsLogsQuery['contract'] & {
     logsPageInfo: Pick<PageInfo, 'endCursor' | 'hasNextPage'>;
-    logs: ContractEventLogFragment;
+    logs: Omit<ContractEventLogFragment, '__typename'>[];
   };
 }

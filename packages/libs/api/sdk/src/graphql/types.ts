@@ -960,25 +960,25 @@ export type WalletTransactionsArgs = {
   first?: InputMaybe<Scalars['Int']>;
 };
 
-type NftCollection_BaseContract_Fragment = { __typename?: 'BaseContract' };
+export type NftCollection_BaseContract_Fragment = { __typename?: 'BaseContract' };
 
-type NftCollection_Erc721Contract_Fragment = { __typename?: 'ERC721Contract', address: string, isVerified: boolean, circulatingSupply?: number | null, name?: string | null, symbol?: string | null, stats?: { __typename?: 'ContractStats', average?: number | null, ceiling?: number | null, floor?: number | null, totalSales?: number | null, volume?: number | null } | null };
+export type NftCollection_Erc721Contract_Fragment = { __typename?: 'ERC721Contract', address: string, isVerified: boolean, circulatingSupply?: number | null, name?: string | null, symbol?: string | null, stats?: { __typename?: 'ContractStats', average?: number | null, ceiling?: number | null, floor?: number | null, totalSales?: number | null, volume?: number | null } | null };
 
 export type NftCollectionFragment = NftCollection_BaseContract_Fragment | NftCollection_Erc721Contract_Fragment;
 
-type Nft_BaseToken_Fragment = { __typename?: 'BaseToken' };
+export type Nft_BaseToken_Fragment = { __typename?: 'BaseToken' };
 
-type Nft_Erc721Token_Fragment = { __typename?: 'ERC721Token', tokenId: string, name?: string | null, symbol?: string | null, attributes: Array<{ __typename?: 'TokenAttribute', name: string, value: string } | null>, contract: { __typename?: 'BaseContract', address: string, isVerified: boolean, tokenStandard?: TokenStandard | null } | { __typename?: 'ERC721Contract', name?: string | null, address: string, isVerified: boolean, tokenStandard?: TokenStandard | null }, images: Array<{ __typename?: 'TokenImage', height?: number | null, mimeType?: string | null, url: string, width?: number | null } | null>, metadata?: { __typename?: 'ERC721Metadata', animation_url?: string | null, background_color?: string | null, description?: string | null, external_url?: string | null, image?: string | null, image_data?: string | null, name?: string | null, youtube_url?: string | null } | null };
+export type Nft_Erc721Token_Fragment = { __typename?: 'ERC721Token', tokenId: string, name?: string | null, symbol?: string | null, attributes: Array<{ __typename?: 'TokenAttribute', name: string, value: string } | null>, contract: { __typename?: 'BaseContract', address: string, isVerified: boolean, tokenStandard?: TokenStandard | null } | { __typename?: 'ERC721Contract', name?: string | null, address: string, isVerified: boolean, tokenStandard?: TokenStandard | null }, images: Array<{ __typename?: 'TokenImage', height?: number | null, mimeType?: string | null, url: string, width?: number | null } | null>, metadata?: { __typename?: 'ERC721Metadata', animation_url?: string | null, background_color?: string | null, description?: string | null, external_url?: string | null, image?: string | null, image_data?: string | null, name?: string | null, youtube_url?: string | null } | null };
 
 export type NftFragment = Nft_BaseToken_Fragment | Nft_Erc721Token_Fragment;
 
-type ContractEventLog_BaseLog_Fragment = { __typename?: 'BaseLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
+export type ContractEventLog_BaseLog_Fragment = { __typename?: 'BaseLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
 
-type ContractEventLog_MintLog_Fragment = { __typename?: 'MintLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
+export type ContractEventLog_MintLog_Fragment = { __typename?: 'MintLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
 
-type ContractEventLog_OrderLog_Fragment = { __typename?: 'OrderLog', marketplace?: LogOrderMarketplace | null, priceInEth: number, blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
+export type ContractEventLog_OrderLog_Fragment = { __typename?: 'OrderLog', marketplace?: LogOrderMarketplace | null, priceInEth: number, blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
 
-type ContractEventLog_TransferLog_Fragment = { __typename?: 'TransferLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
+export type ContractEventLog_TransferLog_Fragment = { __typename?: 'TransferLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
 
 export type ContractEventLogFragment = ContractEventLog_BaseLog_Fragment | ContractEventLog_MintLog_Fragment | ContractEventLog_OrderLog_Fragment | ContractEventLog_TransferLog_Fragment;
 
@@ -990,7 +990,31 @@ export type ContractEventsLogsQueryVariables = Exact<{
 }>;
 
 
-export type ContractEventsLogsQuery = { __typename?: 'RootQuery', contract?: { __typename?: 'BaseContract', address: string, logs?: { __typename?: 'LogConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'LogEdge', node?: { __typename?: 'BaseLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null } | { __typename?: 'MintLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null } | { __typename?: 'OrderLog', marketplace?: LogOrderMarketplace | null, priceInEth: number, blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null } | { __typename?: 'TransferLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null } | null } | null> | null } | null } | { __typename?: 'ERC721Contract', address: string, logs?: { __typename?: 'LogConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'LogEdge', node?: { __typename?: 'BaseLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null } | { __typename?: 'MintLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null } | { __typename?: 'OrderLog', marketplace?: LogOrderMarketplace | null, priceInEth: number, blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null } | { __typename?: 'TransferLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null } | null } | null> | null } | null } | null };
+export type ContractEventsLogsQuery = { __typename?: 'RootQuery', contract?: { __typename?: 'BaseContract', address: string, logs?: { __typename?: 'LogConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'LogEdge', node?: (
+          { __typename?: 'BaseLog' }
+          & ContractEventLog_BaseLog_Fragment
+        ) | (
+          { __typename?: 'MintLog' }
+          & ContractEventLog_MintLog_Fragment
+        ) | (
+          { __typename?: 'OrderLog' }
+          & ContractEventLog_OrderLog_Fragment
+        ) | (
+          { __typename?: 'TransferLog' }
+          & ContractEventLog_TransferLog_Fragment
+        ) | null } | null> | null } | null } | { __typename?: 'ERC721Contract', address: string, logs?: { __typename?: 'LogConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'LogEdge', node?: (
+          { __typename?: 'BaseLog' }
+          & ContractEventLog_BaseLog_Fragment
+        ) | (
+          { __typename?: 'MintLog' }
+          & ContractEventLog_MintLog_Fragment
+        ) | (
+          { __typename?: 'OrderLog' }
+          & ContractEventLog_OrderLog_Fragment
+        ) | (
+          { __typename?: 'TransferLog' }
+          & ContractEventLog_TransferLog_Fragment
+        ) | null } | null> | null } | null } | null };
 
 export type NftEventsLogsQueryVariables = Exact<{
   address: Scalars['String'];
@@ -1033,7 +1057,13 @@ export type TrendingNftCollectionsQueryVariables = Exact<{
 }>;
 
 
-export type TrendingNftCollectionsQuery = { __typename?: 'RootQuery', trendingCollections?: { __typename?: 'ContractConnection', edges?: Array<{ __typename?: 'ContractEdge', cursor: string, node?: { __typename?: 'BaseContract' } | { __typename?: 'ERC721Contract', address: string, isVerified: boolean, circulatingSupply?: number | null, name?: string | null, symbol?: string | null, stats?: { __typename?: 'ContractStats', average?: number | null, ceiling?: number | null, floor?: number | null, totalSales?: number | null, volume?: number | null } | null } | null } | null> | null, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
+export type TrendingNftCollectionsQuery = { __typename?: 'RootQuery', trendingCollections?: { __typename?: 'ContractConnection', edges?: Array<{ __typename?: 'ContractEdge', cursor: string, node?: (
+        { __typename?: 'BaseContract' }
+        & NftCollection_BaseContract_Fragment
+      ) | (
+        { __typename?: 'ERC721Contract' }
+        & NftCollection_Erc721Contract_Fragment
+      ) | null } | null> | null, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
 
 export const NftCollection = gql`
     fragment NftCollection on Contract {

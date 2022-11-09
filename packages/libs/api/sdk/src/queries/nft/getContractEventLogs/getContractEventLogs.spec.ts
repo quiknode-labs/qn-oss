@@ -17,8 +17,6 @@ describe('getContractEventLogs', () => {
           types: [LogType.Mint, LogType.Order, LogType.Transfer],
         });
 
-        console.log(JSON.stringify(data));
-
         expect(data).toStrictEqual({
           contract: {
             address: '0x60e4d786628fea6478f785a6d7e704777c86a7c6',

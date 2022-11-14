@@ -445,6 +445,7 @@ export type LogEdge = {
 };
 
 export enum LogOrderMarketplace {
+  Blur = 'BLUR',
   Cryptopunks = 'CRYPTOPUNKS',
   Gem = 'GEM',
   Genie = 'GENIE',
@@ -1053,7 +1054,6 @@ export type TrendingNftCollectionsQueryVariables = Exact<{
   orderDirection?: InputMaybe<OrderDirectionEnum>;
   timePeriod?: InputMaybe<TrendingCollectionsTimePeriodEnum>;
   timeRange?: InputMaybe<DateInputType>;
-  marketplace?: InputMaybe<OrderMarketplaceInput>;
 }>;
 
 
@@ -1255,7 +1255,7 @@ export const NfTsWalletAndContract = gql`
 }
     `;
 export const TrendingNftCollections = gql`
-    query TrendingNFTCollections($after: String, $first: Int, $orderBy: TrendingCollectionsOrderByEnum, $orderDirection: OrderDirectionEnum, $timePeriod: TrendingCollectionsTimePeriodEnum, $timeRange: DateInputType, $marketplace: OrderMarketplaceInput) {
+    query TrendingNFTCollections($after: String, $first: Int, $orderBy: TrendingCollectionsOrderByEnum, $orderDirection: OrderDirectionEnum, $timePeriod: TrendingCollectionsTimePeriodEnum, $timeRange: DateInputType) {
   trendingCollections(
     after: $after
     first: $first
@@ -1263,7 +1263,6 @@ export const TrendingNftCollections = gql`
     orderDirection: $orderDirection
     timePeriod: $timePeriod
     timeRange: $timeRange
-    marketplace: $marketplace
   ) {
     edges {
       cursor

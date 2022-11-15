@@ -6,7 +6,9 @@ const client = new QuickNodeSDK();
 describe('getNFTsByWalletAndContracts', () => {
   it('can query one contract', async () => {
     await withPolly(
-      { recordingName: 'query-NFTbyWalletAndContract-base' },
+      {
+        recordingName: 'query-NFTbyWalletAndContract-base',
+      },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAndContracts({
           address: '0x13928eB9A86c8278a45B6fF2935c7730b58AC675',
@@ -82,7 +84,9 @@ describe('getNFTsByWalletAndContracts', () => {
 
   it('can query multiple contracts', async () => {
     await withPolly(
-      { recordingName: 'query-NFTbyWalletAndContract-multiple' },
+      {
+        recordingName: 'query-NFTbyWalletAndContract-multiple',
+      },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAndContracts({
           address: '0x13928eB9A86c8278a45B6fF2935c7730b58AC675',
@@ -161,7 +165,9 @@ describe('getNFTsByWalletAndContracts', () => {
 
   it('can iterate results', async () => {
     await withPolly(
-      { recordingName: 'query-NFTByWalletAndContract-iterate' },
+      {
+        recordingName: 'query-NFTByWalletAndContract-iterate',
+      },
       async () => {
         const { data: firstResult } =
           await client.nft.getNFTsByWalletAndContracts({
@@ -309,7 +315,9 @@ describe('getNFTsByWalletAndContracts', () => {
 
   it('can handle null result', async () => {
     await withPolly(
-      { recordingName: 'query-getByWalletAndContract-null' },
+      {
+        recordingName: 'query-getByWalletAndContract-null',
+      },
       async () => {
         const { data } = await client.nft.getNFTsByWalletAndContracts({
           address: '0x11111111111110thisisnotanaddress01111111',

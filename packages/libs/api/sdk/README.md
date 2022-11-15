@@ -227,6 +227,29 @@ client.nft
   .then((response) => console.log(response));
 ```
 
+### nft.getTrendingNFTCollections
+
+| Argument       | Values                            | Optional | Description                                                                                                                                                                                        | Example                     |
+| -------------- | --------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| first          | number                            | ✅       | Number of results to return                                                                                                                                                                        | 10                          |
+| after          | string                            | ✅       | Return results after end cursor                                                                                                                                                                    | YXJyYXljb25uZWN0aW9uOjUwNQ= |
+| orderBy        | TrendingCollectionsOrderByEnum    | ✅       | Sort contracts by average sale price ('AVERAGE'), number of sales ('SALES') or volume ('VOLUME')                                                                                                   | 'AVERAGE'                   |
+| orderDirection | OrderDirectionEnum                | ✅       | Sort results ascending ('ASC') or descending ('DESC')                                                                                                                                              | 'ASC'                       |
+| timePeriod     | TrendingCollectionsTimePeriodEnum | ✅       | Get results from last hour ('ONE_HOUR'), last 12 hours ('TWELVE_HOURS') results, last day ('ONE_DAY') or last 7 days ('SEVEN_DAYS')                                                                | 'ONE_HOUR'                  |
+| timeRange      | DateInputType                     | ✅       | Define the modifier in which `timePeriod` will take action to. It can be equal to ('eq'), greater than ('gt'), greater than or equal to ('gte'), less than ('lt') or less than or equal to ('lte') | 'gt'                        |
+
+```ts
+import { QuickNodeSDK } from '@quicknode/sdk';
+
+const client = new QuickNodeSDK();
+
+client.nft
+  .getTrendingNFTCollections({
+    first: 10,
+  })
+  .then((response) => console.log(response));
+```
+
 ## Pagination
 
 For functions that support pagination, use the `first` property to specify the amount of results to return.
@@ -273,3 +296,7 @@ Run `nx test libs-api-sdk` to execute the unit tests via [Jest](https://jestjs.i
 ## Running lint
 
 Run `nx lint libs-api-sdk` to execute the lint via [ESLint](https://eslint.org/).
+
+## Generate graphql
+
+Run `yarn codegen` to generate graphql typings via [Codegen](https://www.the-guild.dev/graphql/codegen).

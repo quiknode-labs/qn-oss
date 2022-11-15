@@ -86,7 +86,6 @@ export default {
   },
 
   getNFTsByWalletAndContracts: async (req: Request, res: Response) => {
-    console.log(getArrayQueryParam(req, 'contracts'));
     const details = await client.nft.getNFTsByWalletAndContracts({
       address: req.params.address,
       contracts: getArrayQueryParam(req, 'contracts') || [],
@@ -94,5 +93,13 @@ export default {
       after: getQueryParam(req, 'after'),
     });
     res.status(200).send(details);
+  },
+
+  getTrendingNFTCollections: async (req: Request, res: Response) => {
+    const nftCollections = await client.nft.getTrendingNFTCollections({
+      after: getQueryParam(req, 'after'),
+      first: 2,
+    });
+    res.status(200).send(nftCollections);
   },
 };

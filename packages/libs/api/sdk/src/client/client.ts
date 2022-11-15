@@ -10,6 +10,7 @@ import { onError } from '@apollo/client/link/error';
 import fetch from 'cross-fetch';
 import { NFTQueries } from '../queries/nft/nftQueries';
 import { CustomApolloClient } from './customApolloClient';
+import generatedIntrospection from '../graphql/fragmentMatcher';
 
 export interface QuickNodeSDKArguments {
   icyApiKey?: string;
@@ -76,6 +77,7 @@ export class QuickNodeSDK {
     });
 
     const cacheStructure = new InMemoryCache({
+      possibleTypes: generatedIntrospection.possibleTypes,
       typePolicies: {
         ERC721Token: {
           keyFields: ['tokenId', 'contract', ['address']],

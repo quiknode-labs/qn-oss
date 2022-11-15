@@ -6,4 +6,10 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-      - typed-document-node
+      - typescript-document-nodes
+    config:
+      exportFragmentSpreadSubTypes: true
+      inlineFragmentTypes: 'combine'
+  src/graphql/fragmentMatcher.ts:
+    plugins:
+      - 'fragment-matcher'

@@ -1,4 +1,4 @@
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -445,6 +445,7 @@ export type LogEdge = {
 };
 
 export enum LogOrderMarketplace {
+  Blur = 'BLUR',
   Cryptopunks = 'CRYPTOPUNKS',
   Gem = 'GEM',
   Genie = 'GENIE',
@@ -960,6 +961,73 @@ export type WalletTransactionsArgs = {
   first?: InputMaybe<Scalars['Int']>;
 };
 
+export type NftCollection_BaseContract_Fragment = { __typename?: 'BaseContract' };
+
+export type NftCollection_Erc721Contract_Fragment = { __typename?: 'ERC721Contract', address: string, isVerified: boolean, circulatingSupply?: number | null, name?: string | null, symbol?: string | null, stats?: { __typename?: 'ContractStats', average?: number | null, ceiling?: number | null, floor?: number | null, totalSales?: number | null, volume?: number | null } | null };
+
+export type NftCollectionFragment = NftCollection_BaseContract_Fragment | NftCollection_Erc721Contract_Fragment;
+
+export type Nft_BaseToken_Fragment = { __typename?: 'BaseToken' };
+
+export type Nft_Erc721Token_Fragment = { __typename?: 'ERC721Token', tokenId: string, name?: string | null, symbol?: string | null, attributes: Array<{ __typename?: 'TokenAttribute', name: string, value: string } | null>, contract: { __typename?: 'BaseContract', address: string, isVerified: boolean, tokenStandard?: TokenStandard | null } | { __typename?: 'ERC721Contract', name?: string | null, address: string, isVerified: boolean, tokenStandard?: TokenStandard | null }, images: Array<{ __typename?: 'TokenImage', height?: number | null, mimeType?: string | null, url: string, width?: number | null } | null>, metadata?: { __typename?: 'ERC721Metadata', animation_url?: string | null, background_color?: string | null, description?: string | null, external_url?: string | null, image?: string | null, image_data?: string | null, name?: string | null, youtube_url?: string | null } | null };
+
+export type NftFragment = Nft_BaseToken_Fragment | Nft_Erc721Token_Fragment;
+
+export type ContractEventLog_BaseLog_Fragment = { __typename?: 'BaseLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
+
+export type ContractEventLog_MintLog_Fragment = { __typename?: 'MintLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
+
+export type ContractEventLog_OrderLog_Fragment = { __typename?: 'OrderLog', marketplace?: LogOrderMarketplace | null, priceInEth: number, blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
+
+export type ContractEventLog_TransferLog_Fragment = { __typename?: 'TransferLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
+
+export type ContractEventLogFragment = ContractEventLog_BaseLog_Fragment | ContractEventLog_MintLog_Fragment | ContractEventLog_OrderLog_Fragment | ContractEventLog_TransferLog_Fragment;
+
+export type ContractEventsLogsQueryVariables = Exact<{
+  address: Scalars['String'];
+  filter?: InputMaybe<LogsFilterInputType>;
+  first?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type ContractEventsLogsQuery = { __typename?: 'RootQuery', contract?: { __typename?: 'BaseContract', address: string, logs?: { __typename?: 'LogConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'LogEdge', node?: (
+          { __typename?: 'BaseLog' }
+          & ContractEventLog_BaseLog_Fragment
+        ) | (
+          { __typename?: 'MintLog' }
+          & ContractEventLog_MintLog_Fragment
+        ) | (
+          { __typename?: 'OrderLog' }
+          & ContractEventLog_OrderLog_Fragment
+        ) | (
+          { __typename?: 'TransferLog' }
+          & ContractEventLog_TransferLog_Fragment
+        ) | null } | null> | null } | null } | { __typename?: 'ERC721Contract', address: string, logs?: { __typename?: 'LogConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'LogEdge', node?: (
+          { __typename?: 'BaseLog' }
+          & ContractEventLog_BaseLog_Fragment
+        ) | (
+          { __typename?: 'MintLog' }
+          & ContractEventLog_MintLog_Fragment
+        ) | (
+          { __typename?: 'OrderLog' }
+          & ContractEventLog_OrderLog_Fragment
+        ) | (
+          { __typename?: 'TransferLog' }
+          & ContractEventLog_TransferLog_Fragment
+        ) | null } | null> | null } | null } | null };
+
+export type NftEventsLogsQueryVariables = Exact<{
+  address: Scalars['String'];
+  tokenId: Scalars['String'];
+  filter?: InputMaybe<LogsFilterInputType>;
+  first?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type NftEventsLogsQuery = { __typename?: 'RootQuery', token?: { __typename?: 'BaseToken' } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string }, logs?: { __typename?: 'LogConnection', edges?: Array<{ __typename?: 'LogEdge', node?: { __typename?: 'BaseLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string } | { __typename?: 'MintLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string } | { __typename?: 'OrderLog', marketplace?: LogOrderMarketplace | null, priceInEth: number, blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string } | { __typename?: 'TransferLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string } | null } | null> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null } | null };
+
 export type WalletNfTsQueryVariables = Exact<{
   address: Scalars['String'];
   first?: InputMaybe<Scalars['Int']>;
@@ -969,5 +1037,243 @@ export type WalletNfTsQueryVariables = Exact<{
 
 export type WalletNfTsQuery = { __typename?: 'RootQuery', wallet?: { __typename?: 'Wallet', ensName?: string | null, address: string, tokens?: { __typename?: 'TokenConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'TokenEdge', node?: { __typename?: 'BaseToken', tokenId: string, images: Array<{ __typename?: 'TokenImage', url: string } | null> } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', symbol?: string | null, name?: string | null, address: string }, images: Array<{ __typename?: 'TokenImage', url: string } | null> } | null } | null> | null } | null } | null };
 
+export type NfTsWalletAndContractQueryVariables = Exact<{
+  filter?: InputMaybe<TokensFilterInputType>;
+  address?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+}>;
 
-export const WalletNfTsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WalletNFTs"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"wallet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"address"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"tokens"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tokenId"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ERC721Token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ERC721Contract"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<WalletNfTsQuery, WalletNfTsQueryVariables>;
+
+export type NfTsWalletAndContractQuery = { __typename?: 'RootQuery', wallet?: { __typename?: 'Wallet', ensName?: string | null, address: string, tokens?: { __typename?: 'TokenConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'TokenEdge', node?: { __typename?: 'BaseToken', tokenId: string, images: Array<{ __typename?: 'TokenImage', url: string } | null> } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', symbol?: string | null, name?: string | null, address: string }, images: Array<{ __typename?: 'TokenImage', url: string } | null> } | null } | null> | null } | null } | null };
+
+export type TrendingNftCollectionsQueryVariables = Exact<{
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<TrendingCollectionsOrderByEnum>;
+  orderDirection?: InputMaybe<OrderDirectionEnum>;
+  timePeriod?: InputMaybe<TrendingCollectionsTimePeriodEnum>;
+  timeRange?: InputMaybe<DateInputType>;
+}>;
+
+
+export type TrendingNftCollectionsQuery = { __typename?: 'RootQuery', trendingCollections?: { __typename?: 'ContractConnection', edges?: Array<{ __typename?: 'ContractEdge', cursor: string, node?: (
+        { __typename?: 'BaseContract' }
+        & NftCollection_BaseContract_Fragment
+      ) | (
+        { __typename?: 'ERC721Contract' }
+        & NftCollection_Erc721Contract_Fragment
+      ) | null } | null> | null, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
+
+export const NftCollection = gql`
+    fragment NftCollection on Contract {
+  ... on ERC721Contract {
+    address
+    isVerified
+    circulatingSupply
+    name
+    symbol
+    stats {
+      average
+      ceiling
+      floor
+      totalSales
+      volume
+    }
+  }
+}
+    `;
+export const Nft = gql`
+    fragment Nft on Token {
+  ... on ERC721Token {
+    tokenId
+    attributes {
+      name
+      value
+    }
+    contract {
+      address
+      isVerified
+      tokenStandard
+      ... on ERC721Contract {
+        name
+      }
+    }
+    images {
+      height
+      mimeType
+      url
+      width
+    }
+    name
+    symbol
+    metadata {
+      animation_url
+      background_color
+      description
+      external_url
+      image
+      image_data
+      name
+      youtube_url
+    }
+  }
+}
+    `;
+export const ContractEventLog = gql`
+    fragment ContractEventLog on Log {
+  blockNumber
+  type
+  fromAddress
+  toAddress
+  estimatedConfirmedAt
+  transactionHash
+  token {
+    contract {
+      address
+    }
+    ... on ERC721Token {
+      tokenId
+    }
+  }
+  ... on OrderLog {
+    marketplace
+    priceInEth
+  }
+}
+    `;
+export const ContractEventsLogs = gql`
+    query ContractEventsLogs($address: String!, $filter: LogsFilterInputType, $first: Int, $after: String) {
+  contract(address: $address) {
+    address
+    logs(filter: $filter, first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          ...ContractEventLog
+        }
+      }
+    }
+  }
+}
+    ${ContractEventLog}`;
+export const NftEventsLogs = gql`
+    query NFTEventsLogs($address: String!, $tokenId: String!, $filter: LogsFilterInputType, $first: Int, $after: String) {
+  token(contractAddress: $address, tokenId: $tokenId) {
+    ... on ERC721Token {
+      tokenId
+      contract {
+        address
+      }
+      logs(filter: $filter, first: $first, after: $after) {
+        edges {
+          node {
+            blockNumber
+            type
+            fromAddress
+            toAddress
+            estimatedConfirmedAt
+            transactionHash
+            ... on OrderLog {
+              marketplace
+              priceInEth
+            }
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+}
+    `;
+export const WalletNfTs = gql`
+    query WalletNFTs($address: String!, $first: Int, $after: String) {
+  wallet(address: $address) {
+    ensName
+    address
+    tokens(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          tokenId
+          images {
+            url
+          }
+          ... on ERC721Token {
+            contract {
+              address
+              ... on ERC721Contract {
+                symbol
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const NfTsWalletAndContract = gql`
+    query NFTsWalletAndContract($filter: TokensFilterInputType, $address: String, $first: Int, $after: String) {
+  wallet(address: $address) {
+    ensName
+    address
+    tokens(filter: $filter, first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          tokenId
+          images {
+            url
+          }
+          ... on ERC721Token {
+            contract {
+              address
+              ... on ERC721Contract {
+                symbol
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const TrendingNftCollections = gql`
+    query TrendingNFTCollections($after: String, $first: Int, $orderBy: TrendingCollectionsOrderByEnum, $orderDirection: OrderDirectionEnum, $timePeriod: TrendingCollectionsTimePeriodEnum, $timeRange: DateInputType) {
+  trendingCollections(
+    after: $after
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+    timePeriod: $timePeriod
+    timeRange: $timeRange
+  ) {
+    edges {
+      cursor
+      node {
+        ...NftCollection
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+    ${NftCollection}`;

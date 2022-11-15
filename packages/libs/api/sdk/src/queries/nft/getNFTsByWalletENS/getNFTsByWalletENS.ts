@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { PaginationArgs } from '../../../types';
+import { PaginationArgs } from '../sharedTypes';
 
 export const getWalletENSNFTsRawQuery = gql`
   query WalletNFTs($ensName: String, $first: Int, $after: String) {

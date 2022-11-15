@@ -1,5 +1,6 @@
 import { QuickNodeSDK } from 'client';
 import withPolly from '../../../../testSetup/pollyTestSetup';
+import { LogType } from '../../../graphql/types';
 
 const client = new QuickNodeSDK();
 
@@ -14,7 +15,7 @@ describe('getNFTEventLogs', () => {
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
           tokenId: '100',
           first: 2,
-          types: ['MINT', 'ORDER', 'TRANSFER'],
+          types: [LogType.Mint, LogType.Order, LogType.Transfer],
         });
         expect(data).toStrictEqual({
           token: {
@@ -62,7 +63,7 @@ describe('getNFTEventLogs', () => {
         const { data } = await client.nft.getNFTEventLogs({
           address: '0x60E4d786628Fea6478F785A6d7e704777c86a7c6',
           tokenId: '100',
-          types: ['MINT'],
+          types: [LogType.Mint],
         });
         expect(data).toStrictEqual({
           token: {

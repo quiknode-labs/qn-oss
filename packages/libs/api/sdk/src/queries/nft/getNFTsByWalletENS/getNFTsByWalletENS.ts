@@ -1,5 +1,6 @@
-export const getWalletENSNFTsRawQuery = gql``;
-
-export interface WalletENSNFTsQueryVariables {
-  ensName: string;
+import { WalletType } from '../../../graphql/types';
+export interface WalletNFTByEns {
+  ethereum: {
+    walletByEns: WalletType;
+  };
 }

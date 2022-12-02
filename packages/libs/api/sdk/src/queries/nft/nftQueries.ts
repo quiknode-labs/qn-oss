@@ -1,16 +1,22 @@
 import { CustomApolloClient } from '../../client/customApolloClient';
 import {
-  getWalletENSNFTsRawQuery,
-  WalletENSNFTsQueryVariables,
-} from './getNFTsByWalletENS/getNFTsByWalletENS';
+  WalletNfTsByEns,
+  WalletNfTsByEnsQuery,
+  WalletNfTsByEnsQueryVariables,
+} from '../../graphql/types';
+import { WalletNFTByEns } from './getNFTsByWalletENS/getNFTsByWalletENS';
 
 export class NFTQueries {
   constructor(private client: CustomApolloClient) {}
 
-  async getNFTsByWalletENS(variables: WalletENSNFTsQueryVariables) {
+  async getNFTsByWalletENS(variables: WalletNfTsByEnsQueryVariables) {
     return this.client
-      .query<WalletENSNFTsQueryVariables>({
-        query: getWalletENSNFTsRawQuery,
+      .query<
+        WalletNfTsByEnsQueryVariables,
+        WalletNfTsByEnsQuery,
+        WalletNFTByEns
+      >({
+        query: WalletNfTsByEns,
         variables,
       })
 

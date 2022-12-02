@@ -7,41 +7,5 @@ router.get('/api', (req, res) => {
 });
 
 router.get('/api/nftsByEns/:ensResource', nftController.getNFTsByEns);
-router.get(
-  '/api/nftsByContractAddress/:address',
-  nftController.getNFTsByContractAddress
-);
-
-router.get(
-  '/api/nftsByWalletAddress/:walletAddress/:after?',
-  nftController.getNFTsByWalletAddress
-);
-
-router.get(
-  '/api/getCollectionDetails/:address',
-  nftController.getCollectionDetails
-);
-
-router.get(
-  '/api/getNFTEventLogs/:address/:tokenId',
-  nftController.getNFTEventLogs
-);
-
-router.get('/api/getNFTDetails/:address/:tokenId', nftController.getNFTDetails);
-
-router.get(
-  '/api/getContractEventLogs/:address',
-  nftController.getContractEventLogs
-);
-
-router.get(
-  '/api/getNFTsByWalletAndContracts/:address',
-  nftController.getNFTsByWalletAndContracts
-);
-
-router.get(
-  '/api/getTrendingNFTCollections',
-  nftController.getTrendingNFTCollections
-);
 
 export default router;

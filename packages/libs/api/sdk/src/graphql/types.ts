@@ -11,138 +11,42 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  Date: any;
+  BigInt: any;
+  DateTime: any;
+  JSON: any;
+  JSONObject: any;
+  link__Import: any;
 };
 
-/** A base contract */
-export type BaseContract = Contract & {
-  __typename?: 'BaseContract';
+export type Collection = {
   address: Scalars['String'];
-  /** Statistics related to a token's traits/attributes. */
-  attributes: Array<Maybe<ContractAttribute>>;
-  isVerified: Scalars['Boolean'];
-  /** The log history for this contract */
-  logs?: Maybe<LogConnection>;
-  /** A token under this contract */
-  token?: Maybe<Token>;
-  tokenStandard?: Maybe<TokenStandard>;
-  tokens?: Maybe<TokenConnection>;
+  /** Collection banner image. */
+  bannerImage?: Maybe<Array<TokenUpload>>;
+  circulatingSupply?: Maybe<Scalars['BigInt']>;
+  description?: Maybe<Scalars['String']>;
+  externalUrl?: Maybe<Scalars['String']>;
+  /** The collection image. */
+  image?: Maybe<Array<TokenUpload>>;
+  name?: Maybe<Scalars['String']>;
+  openseaMetadata?: Maybe<OpenSeaMetadata>;
+  slug?: Maybe<Scalars['String']>;
+  symbol?: Maybe<Scalars['String']>;
+  tokenEvents?: Maybe<CollectionTokenEventsConnection>;
+  totalSupply?: Maybe<Scalars['BigInt']>;
 };
 
 
-/** A base contract */
-export type BaseContractLogsArgs = {
+export type CollectionTokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<LogsFilterInputType>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
-};
-
-
-/** A base contract */
-export type BaseContractTokenArgs = {
-  tokenId: Scalars['String'];
-};
-
-
-/** A base contract */
-export type BaseContractTokensArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-};
-
-/** A base log */
-export type BaseLog = Log & {
-  __typename?: 'BaseLog';
-  /** The block number for this log */
-  blockNumber: Scalars['Int'];
-  /** The Contract related to this log */
-  contract: Contract;
-  /** The contract address for this log */
-  contractAddress: Scalars['String'];
-  /** The estimated time the transaction was confirmed at */
-  estimatedConfirmedAt: Scalars['Date'];
-  /** The from Wallet related to this log */
-  from?: Maybe<Wallet>;
-  /** The from address for this log */
-  fromAddress: Scalars['String'];
-  /** This log index -- logs are unique by the transaction_hash + log_index */
-  logIndex: Scalars['Int'];
-  /** The to Wallet related to this log */
-  to?: Maybe<Wallet>;
-  /** The to address for this log */
-  toAddress: Scalars['String'];
-  /** The Token related to this log */
-  token?: Maybe<Token>;
-  /** The Transaction related to this log */
-  transaction?: Maybe<Transaction>;
-  /** The address of the wallet that created this transaction */
-  transactionCreator?: Maybe<Scalars['String']>;
-  /** The transaction hash for this log */
-  transactionHash: Scalars['String'];
-  /** The type of log this is: Order, Mint, Transfer, etc. */
-  type: LogType;
-};
-
-/** A base token */
-export type BaseToken = Token & {
-  __typename?: 'BaseToken';
-  /** The attributes of the token. */
-  attributes: Array<Maybe<TokenAttribute>>;
-  /** The contract standard for the token. */
-  contract: Contract;
-  /** An array of image locations and sizes for the token. */
-  images: Array<Maybe<TokenImage>>;
-  /** The log history for this token */
-  logs?: Maybe<LogConnection>;
-  tokenId: Scalars['String'];
-};
-
-
-/** A base token */
-export type BaseTokenLogsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<LogsFilterInputType>;
-  first?: InputMaybe<Scalars['Int']>;
-};
-
-/** A contract */
-export type Contract = {
-  address: Scalars['String'];
-  /** Statistics related to a token's traits/attributes. */
-  attributes: Array<Maybe<ContractAttribute>>;
-  isVerified: Scalars['Boolean'];
-  /** The log history for this contract */
-  logs?: Maybe<LogConnection>;
-  /** A token under this contract */
-  token?: Maybe<Token>;
-  tokenStandard?: Maybe<TokenStandard>;
-  tokens?: Maybe<TokenConnection>;
-};
-
-
-/** A contract */
-export type ContractLogsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<LogsFilterInputType>;
-  first?: InputMaybe<Scalars['Int']>;
-};
-
-
-/** A contract */
-export type ContractTokenArgs = {
-  tokenId: Scalars['String'];
-};
-
-
-/** A contract */
-export type ContractTokensArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 /** A contract's attribute count */
-export type ContractAttribute = {
-  __typename?: 'ContractAttribute';
+export type CollectionAttribute = {
+  __typename?: 'CollectionAttribute';
   /** The trait key. */
   name: Scalars['String'];
   /** The `100 * value_count / total_tokens for the contract. */
@@ -150,240 +54,496 @@ export type ContractAttribute = {
   /** The value of the trait. */
   value?: Maybe<Scalars['String']>;
   /** The total count for this name: value pair in the contract. */
-  valueCount: Scalars['Int'];
-  /**
-   * The total count for this name: value pair in the contract.
-   * @deprecated Moved to "valueCount".
-   */
-  value_count: Scalars['Int'];
+  valueCount: Scalars['Float'];
 };
 
-/** A connection to a list of items. */
-export type ContractConnection = {
-  __typename?: 'ContractConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<Maybe<ContractEdge>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type ContractEdge = {
-  __typename?: 'ContractEdge';
-  /** A cursor for use in pagination */
-  cursor: Scalars['String'];
-  /** The item at the end of the edge */
-  node?: Maybe<Contract>;
-};
-
-/** A contract's stats for a given timeframe */
-export type ContractStats = {
-  __typename?: 'ContractStats';
-  /** Average price */
+/** Stats of a collection */
+export type CollectionStats = {
+  __typename?: 'CollectionStats';
   average?: Maybe<Scalars['Float']>;
-  /** Ceiling price */
   ceiling?: Maybe<Scalars['Float']>;
-  /** Floor price */
   floor?: Maybe<Scalars['Float']>;
-  /** Total number of sales */
   totalSales?: Maybe<Scalars['Int']>;
-  /** Total volume */
   volume?: Maybe<Scalars['Float']>;
 };
 
-/** Filters available to the "contracts" query */
-export type ContractsFilterInput = {
-  /** The address of the contract */
-  address?: InputMaybe<StringInput>;
-  /** The name of the contract */
-  name?: InputMaybe<SearchStringInput>;
-  /** The symbol of the contract */
-  symbol?: InputMaybe<SearchStringInput>;
+export type CollectionTokenEventsConnection = {
+  __typename?: 'CollectionTokenEventsConnection';
+  edges: Array<Maybe<CollectionTokenEventsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
 };
 
-export enum ContractsOrderByEnum {
-  /**
-   * Sort contracts by average sale price within a given time range. Defaults to within last hour, use timeframe on "stats" to further filter.
-   * @deprecated Use the trendingCollections query instead.
-   */
-  Average = 'AVERAGE',
-  /**
-   * Sort contracts by max sale price within a given time range. Defaults to within last hour, use timeframe on "stats" to further filter.
-   * @deprecated Use the trendingCollections query instead.
-   */
-  Ceiling = 'CEILING',
-  /**
-   * Sort contracts by min sale price within a given time range. Defaults to within last hour, use timeframe on "stats" to further filter.
-   * @deprecated Use the trendingCollections query instead.
-   */
-  Floor = 'FLOOR',
-  /** Sort contracts alphabetically by name */
-  Name = 'NAME',
-  /**
-   * Sort contracts by number of sales. Defaults to within last hour, use timeframe on "stats" to further filter.
-   * @deprecated Use the trendingCollections query instead.
-   */
-  Sales = 'SALES',
-  /** Sort contracts alphabetically by symbol */
-  Symbol = 'SYMBOL',
-  /**
-   * Sort contracts by volume. Defaults to within last hour, use timeframe on "stats" to further filter.
-   * @deprecated Use the trendingCollections query instead.
-   */
-  Volume = 'VOLUME'
-}
-
-export type DateInputType = {
-  eq?: InputMaybe<Scalars['Date']>;
-  gt?: InputMaybe<Scalars['Date']>;
-  gte?: InputMaybe<Scalars['Date']>;
-  lt?: InputMaybe<Scalars['Date']>;
-  lte?: InputMaybe<Scalars['Date']>;
+export type CollectionTokenEventsEdge = {
+  __typename?: 'CollectionTokenEventsEdge';
+  cursor: Scalars['String'];
+  node: TokenEvent;
 };
 
-/** An ERC-721 contract */
-export type Erc721Contract = Contract & {
-  __typename?: 'ERC721Contract';
+export type CollectionsConnection = {
+  __typename?: 'CollectionsConnection';
+  edges: Array<Maybe<CollectionsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type CollectionsEdge = {
+  __typename?: 'CollectionsEdge';
+  cursor: Scalars['String'];
+  node: Collection;
+};
+
+export type ContractType = {
+  __typename?: 'ContractType';
   address: Scalars['String'];
-  /** Statistics related to a token's traits/attributes. */
-  attributes: Array<Maybe<ContractAttribute>>;
-  circulatingSupply?: Maybe<Scalars['Int']>;
-  isVerified: Scalars['Boolean'];
-  /** The log history for this contract */
-  logs?: Maybe<LogConnection>;
-  /** The name of the contract */
+  collection?: Maybe<Collection>;
+  /** Contract with verified ABI */
+  isVerified?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
-  stats?: Maybe<ContractStats>;
-  /** The symbol of the contract */
+  supportsERC165Interface?: Maybe<Scalars['Boolean']>;
+  supportsERC721Interface?: Maybe<Scalars['Boolean']>;
+  supportsERC1155Interface?: Maybe<Scalars['Boolean']>;
   symbol?: Maybe<Scalars['String']>;
-  /** A token under this contract */
+};
+
+export type ContractsConnection = {
+  __typename?: 'ContractsConnection';
+  edges: Array<Maybe<ContractsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type ContractsEdge = {
+  __typename?: 'ContractsEdge';
+  cursor: Scalars['String'];
+  node: ContractType;
+};
+
+export type DateTimeInput = {
+  eq?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type Erc721Collection = Collection & {
+  __typename?: 'ERC721Collection';
+  address: Scalars['String'];
+  attributes?: Maybe<Array<CollectionAttribute>>;
+  /** Collection banner image. */
+  bannerImage?: Maybe<Array<TokenUpload>>;
+  circulatingSupply?: Maybe<Scalars['BigInt']>;
+  description?: Maybe<Scalars['String']>;
+  externalUrl?: Maybe<Scalars['String']>;
+  /** The collection image. */
+  image?: Maybe<Array<TokenUpload>>;
+  name?: Maybe<Scalars['String']>;
+  openseaMetadata?: Maybe<OpenSeaMetadata>;
+  slug?: Maybe<Scalars['String']>;
+  stats?: Maybe<CollectionStats>;
+  symbol?: Maybe<Scalars['String']>;
   token?: Maybe<Token>;
-  tokenStandard?: Maybe<TokenStandard>;
-  tokens?: Maybe<TokenConnection>;
-  /** See OpenSea's docs for Collection.banner_image_url. This field is marked unsafe due to the fact OpenSea metadata can change at anytime and we may not have recent changes to this data. */
-  unsafeOpenseaBannerImageUrl?: Maybe<Scalars['String']>;
-  /** See OpenSea's docs for Collection.description. This field is marked unsafe due to the fact OpenSea metadata can change at anytime and we may not have recent changes to this data. */
-  unsafeOpenseaDescription?: Maybe<Scalars['String']>;
-  /** See OpenSea's docs for Collection.external_url. This field is marked unsafe due to the fact OpenSea metadata can change at anytime and we may not have recent changes to this data. */
-  unsafeOpenseaExternalUrl?: Maybe<Scalars['String']>;
-  /** See OpenSea's docs for Collection.image_url. This field is marked unsafe due to the fact OpenSea metadata can change at anytime and we may not have recent changes to this data. */
-  unsafeOpenseaImageUrl?: Maybe<Scalars['String']>;
-  /** See OpenSea's docs for Collection.slug. This field is marked unsafe due to the fact OpenSea metadata can change at anytime and we may not have recent changes to this data. */
-  unsafeOpenseaSlug?: Maybe<Scalars['String']>;
+  tokenEvents?: Maybe<CollectionTokenEventsConnection>;
+  tokens?: Maybe<Erc721CollectionTokensConnection>;
+  totalSupply?: Maybe<Scalars['BigInt']>;
 };
 
 
-/** An ERC-721 contract */
-export type Erc721ContractLogsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<LogsFilterInputType>;
-  first?: InputMaybe<Scalars['Int']>;
+export type Erc721CollectionStatsArgs = {
+  input?: InputMaybe<Erc721CollectionStatsInput>;
 };
 
 
-/** An ERC-721 contract */
-export type Erc721ContractStatsArgs = {
-  timeRange?: InputMaybe<DateInputType>;
-};
-
-
-/** An ERC-721 contract */
-export type Erc721ContractTokenArgs = {
+export type Erc721CollectionTokenArgs = {
   tokenId: Scalars['String'];
 };
 
 
-/** An ERC-721 contract */
-export type Erc721ContractTokensArgs = {
+export type Erc721CollectionTokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
-/** A connection to a list of items. */
-export type Erc721ContractConnection = {
-  __typename?: 'ERC721ContractConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<Maybe<Erc721ContractEdge>>>;
-  /** Information to aid in pagination. */
+
+export type Erc721CollectionTokensArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokensFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type Erc721CollectionStatsInput = {
+  timeRange?: InputMaybe<DateTimeInput>;
+};
+
+export type Erc721CollectionTokensConnection = {
+  __typename?: 'ERC721CollectionTokensConnection';
+  edges: Array<Maybe<Erc721CollectionTokensEdge>>;
   pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
 };
 
-/** An edge in a connection. */
-export type Erc721ContractEdge = {
-  __typename?: 'ERC721ContractEdge';
-  /** A cursor for use in pagination */
+export type Erc721CollectionTokensEdge = {
+  __typename?: 'ERC721CollectionTokensEdge';
   cursor: Scalars['String'];
-  /** The item at the end of the edge */
-  node?: Maybe<Erc721Contract>;
+  node: Token;
 };
 
-/** An ERC721 standard metadata. Return any keys matching the ERC721 standard and ignore non-conforming keys. */
-export type Erc721Metadata = {
-  __typename?: 'ERC721Metadata';
-  animation_url?: Maybe<Scalars['String']>;
-  attributes?: Maybe<Array<Maybe<Erc721MetadataAttribute>>>;
-  background_color?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  external_url?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['String']>;
-  image_data?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  youtube_url?: Maybe<Scalars['String']>;
-};
-
-/** A Metadata Attribute. Return the attribute keys for the ERC721 standard. */
-export type Erc721MetadataAttribute = {
-  __typename?: 'ERC721MetadataAttribute';
-  display_type?: Maybe<Scalars['String']>;
-  trait_type?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
-};
-
-/** An ERC721 token */
 export type Erc721Token = Token & {
   __typename?: 'ERC721Token';
+  animationUrl?: Maybe<Scalars['String']>;
   /** The attributes of the token. */
-  attributes: Array<Maybe<TokenAttribute>>;
-  /** The contract standard for the token. */
-  contract: Contract;
-  /** An array of image locations and sizes for the token. */
-  images: Array<Maybe<TokenImage>>;
-  /** The log history for this token */
-  logs?: Maybe<LogConnection>;
-  metadata?: Maybe<Erc721Metadata>;
+  attributes?: Maybe<Array<TokenAttribute>>;
+  collection?: Maybe<Collection>;
+  collectionSlug?: Maybe<Scalars['String']>;
+  contract?: Maybe<ContractType>;
+  contractAddress: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  externalUrl?: Maybe<Scalars['String']>;
+  metadata?: Maybe<Scalars['JSONObject']>;
   name?: Maybe<Scalars['String']>;
-  owner?: Maybe<Wallet>;
+  owner?: Maybe<WalletType>;
   ownerAddress?: Maybe<Scalars['String']>;
+  tokenEvents?: Maybe<Erc721TokenTokenEventsConnection>;
+  tokenId: Scalars['BigInt'];
+  /** The uploads of the token. */
+  uploads?: Maybe<Array<TokenUpload>>;
+};
+
+
+export type Erc721TokenTokenEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type Erc721TokenTokenEventsConnection = {
+  __typename?: 'ERC721TokenTokenEventsConnection';
+  edges: Array<Maybe<Erc721TokenTokenEventsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type Erc721TokenTokenEventsEdge = {
+  __typename?: 'ERC721TokenTokenEventsEdge';
+  cursor: Scalars['String'];
+  node: TokenEvent;
+};
+
+export type Erc721TrendingCollections = TrendingCollections & {
+  __typename?: 'ERC721TrendingCollections';
+  address: Scalars['String'];
+  attributes?: Maybe<Array<CollectionAttribute>>;
+  circulatingSupply?: Maybe<Scalars['BigInt']>;
+  description?: Maybe<Scalars['String']>;
+  ercStandard?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  stats?: Maybe<CollectionStats>;
   symbol?: Maybe<Scalars['String']>;
+  token?: Maybe<Token>;
+  tokenEvents?: Maybe<TrendingCollectionTokenEventsConnection>;
+  tokens?: Maybe<Erc721TrendingCollectionsTokensConnection>;
+  totalSupply?: Maybe<Scalars['BigInt']>;
+};
+
+
+export type Erc721TrendingCollectionsStatsArgs = {
+  input?: InputMaybe<Erc721TrendingCollectionsStatsInput>;
+};
+
+
+export type Erc721TrendingCollectionsTokenArgs = {
   tokenId: Scalars['String'];
 };
 
 
-/** An ERC721 token */
-export type Erc721TokenLogsArgs = {
+export type Erc721TrendingCollectionsTokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<LogsFilterInputType>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
-/** Held collections filter */
-export type HeldCollectionsFilterInputType = {
+
+export type Erc721TrendingCollectionsTokensArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokensFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type Erc721TrendingCollectionsStatsInput = {
+  timeRange?: InputMaybe<DateTimeInput>;
+};
+
+export type Erc721TrendingCollectionsTokensConnection = {
+  __typename?: 'ERC721TrendingCollectionsTokensConnection';
+  edges: Array<Maybe<Erc721TrendingCollectionsTokensEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type Erc721TrendingCollectionsTokensEdge = {
+  __typename?: 'ERC721TrendingCollectionsTokensEdge';
+  cursor: Scalars['String'];
+  node: Token;
+};
+
+export type Erc1155Collection = Collection & {
+  __typename?: 'ERC1155Collection';
+  address: Scalars['String'];
+  attributes?: Maybe<Array<CollectionAttribute>>;
+  /** Collection banner image. */
+  bannerImage?: Maybe<Array<TokenUpload>>;
+  circulatingSupply?: Maybe<Scalars['BigInt']>;
+  description?: Maybe<Scalars['String']>;
+  externalUrl?: Maybe<Scalars['String']>;
+  /** The collection image. */
+  image?: Maybe<Array<TokenUpload>>;
+  name?: Maybe<Scalars['String']>;
+  openseaMetadata?: Maybe<OpenSeaMetadata>;
+  slug?: Maybe<Scalars['String']>;
+  symbol?: Maybe<Scalars['String']>;
+  token?: Maybe<Token>;
+  tokenEvents?: Maybe<CollectionTokenEventsConnection>;
+  tokens?: Maybe<Erc1155CollectionTokensConnection>;
+  totalSupply?: Maybe<Scalars['BigInt']>;
+};
+
+
+export type Erc1155CollectionTokenArgs = {
+  tokenId: Scalars['String'];
+};
+
+
+export type Erc1155CollectionTokenEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Erc1155CollectionTokensArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokensFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type Erc1155CollectionTokensConnection = {
+  __typename?: 'ERC1155CollectionTokensConnection';
+  edges: Array<Maybe<Erc1155CollectionTokensEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type Erc1155CollectionTokensEdge = {
+  __typename?: 'ERC1155CollectionTokensEdge';
+  cursor: Scalars['String'];
+  node: Token;
+};
+
+export type Erc1155Token = Token & {
+  __typename?: 'ERC1155Token';
+  animationUrl?: Maybe<Scalars['String']>;
+  collection?: Maybe<Collection>;
+  collectionSlug?: Maybe<Scalars['String']>;
+  contract?: Maybe<ContractType>;
+  contractAddress: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  externalUrl?: Maybe<Scalars['String']>;
+  metadata?: Maybe<Scalars['JSONObject']>;
+  name?: Maybe<Scalars['String']>;
+  ownerAddress?: Maybe<Scalars['String']>;
+  tokenEvents?: Maybe<Erc1155TokenTokenEventsConnection>;
+  tokenId: Scalars['BigInt'];
+};
+
+
+export type Erc1155TokenTokenEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type Erc1155TokenTokenEventsConnection = {
+  __typename?: 'ERC1155TokenTokenEventsConnection';
+  edges: Array<Maybe<Erc1155TokenTokenEventsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type Erc1155TokenTokenEventsEdge = {
+  __typename?: 'ERC1155TokenTokenEventsEdge';
+  cursor: Scalars['String'];
+  node: TokenEvent;
+};
+
+export type Erc1155TrendingCollections = TrendingCollections & {
+  __typename?: 'ERC1155TrendingCollections';
+  address: Scalars['String'];
+  attributes?: Maybe<Array<CollectionAttribute>>;
+  circulatingSupply?: Maybe<Scalars['BigInt']>;
+  description?: Maybe<Scalars['String']>;
+  ercStandard?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  symbol?: Maybe<Scalars['String']>;
+  token?: Maybe<Token>;
+  tokenEvents?: Maybe<TrendingCollectionTokenEventsConnection>;
+  tokens?: Maybe<Erc1155TrendingCollectionsTokensConnection>;
+  totalSupply?: Maybe<Scalars['BigInt']>;
+};
+
+
+export type Erc1155TrendingCollectionsTokenArgs = {
+  tokenId: Scalars['String'];
+};
+
+
+export type Erc1155TrendingCollectionsTokenEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Erc1155TrendingCollectionsTokensArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokensFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type Erc1155TrendingCollectionsTokensConnection = {
+  __typename?: 'ERC1155TrendingCollectionsTokensConnection';
+  edges: Array<Maybe<Erc1155TrendingCollectionsTokensEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type Erc1155TrendingCollectionsTokensEdge = {
+  __typename?: 'ERC1155TrendingCollectionsTokensEdge';
+  cursor: Scalars['String'];
+  node: Token;
+};
+
+export type EvmSchemaType = {
+  __typename?: 'EVMSchemaType';
+  collection?: Maybe<Collection>;
+  collections: CollectionsConnection;
+  contract?: Maybe<ContractType>;
+  contracts: ContractsConnection;
+  token?: Maybe<Token>;
+  tokenEvents?: Maybe<TokenEventsConnection>;
+  trendingCollections: TrendingCollectionsConnection;
+  walletByAddress?: Maybe<WalletType>;
+  walletByENS?: Maybe<WalletType>;
+};
+
+
+export type EvmSchemaTypeCollectionArgs = {
+  contractAddress: Scalars['String'];
+};
+
+
+export type EvmSchemaTypeCollectionsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type EvmSchemaTypeContractArgs = {
+  contractAddress: Scalars['String'];
+};
+
+
+export type EvmSchemaTypeContractsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type EvmSchemaTypeTokenArgs = {
+  contractAddress: Scalars['String'];
+  tokenId: Scalars['String'];
+};
+
+
+export type EvmSchemaTypeTokenEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type EvmSchemaTypeTrendingCollectionsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<TrendingOrderByType>;
+  orderDirection?: InputMaybe<OrderDirectionType>;
+  timePeriod?: InputMaybe<TrendingPeriodType>;
+  timeRange?: InputMaybe<DateTimeInput>;
+};
+
+
+export type EvmSchemaTypeWalletByAddressArgs = {
+  address: Scalars['String'];
+};
+
+
+export type EvmSchemaTypeWalletByEnsArgs = {
+  ensName: Scalars['String'];
+};
+
+export enum HeldCollectionOrderByEnum {
+  DateAcquired = 'dateAcquired',
+  Name = 'name'
+}
+
+export type HeldCollectionsConnection = {
+  __typename?: 'HeldCollectionsConnection';
+  edges: Array<Maybe<HeldCollectionsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type HeldCollectionsEdge = {
+  __typename?: 'HeldCollectionsEdge';
+  cursor: Scalars['String'];
+  node: Collection;
+};
+
+/** Filter input for held collections */
+export type HeldCollectionsFilterInput = {
   contractAddressIn?: InputMaybe<Array<Scalars['String']>>;
 };
-
-export enum HeldCollectionsOrderByEnum {
-  /** The timestamp of when the wallet acquired a token in this collection. */
-  DateAcquired = 'DATE_ACQUIRED',
-  /** The name of the collection */
-  Name = 'NAME'
-}
-
-export enum HeldTokensOrderByEnum {
-  /** The timestamp of when the wallet acquired this token. */
-  DateAcquired = 'DATE_ACQUIRED',
-  /** The name of the token */
-  Name = 'NAME'
-}
 
 export type IntegerInput = {
   eq?: InputMaybe<Scalars['Int']>;
@@ -394,306 +554,35 @@ export type IntegerInput = {
   lte?: InputMaybe<Scalars['Int']>;
 };
 
-/** A log */
-export type Log = {
-  /** The block number for this log */
-  blockNumber: Scalars['Int'];
-  /** The Contract related to this log */
-  contract: Contract;
-  /** The contract address for this log */
-  contractAddress: Scalars['String'];
-  /** The estimated time the transaction was confirmed at */
-  estimatedConfirmedAt: Scalars['Date'];
-  /** The from Wallet related to this log */
-  from?: Maybe<Wallet>;
-  /** The from address for this log */
-  fromAddress: Scalars['String'];
-  /** This log index -- logs are unique by the transaction_hash + log_index */
-  logIndex: Scalars['Int'];
-  /** The to Wallet related to this log */
-  to?: Maybe<Wallet>;
-  /** The to address for this log */
-  toAddress: Scalars['String'];
-  /** The Token related to this log */
-  token?: Maybe<Token>;
-  /** The Transaction related to this log */
-  transaction?: Maybe<Transaction>;
-  /** The address of the wallet that created this transaction */
-  transactionCreator?: Maybe<Scalars['String']>;
-  /** The transaction hash for this log */
-  transactionHash: Scalars['String'];
-  /** The type of log this is: Order, Mint, Transfer, etc. */
-  type: LogType;
+/** Metadata provided by opensea */
+export type OpenSeaMetadata = {
+  __typename?: 'OpenSeaMetadata';
+  /** Collection is hidden on Opensea. */
+  isHidden?: Maybe<Scalars['Boolean']>;
+  /** Collection verified by Opensea. */
+  isVerified?: Maybe<Scalars['Boolean']>;
+  /** Slug provided by Opensea (it might be stale). */
+  unsafeSlug?: Maybe<Scalars['String']>;
 };
 
-/** A connection to a list of items. */
-export type LogConnection = {
-  __typename?: 'LogConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<Maybe<LogEdge>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type LogEdge = {
-  __typename?: 'LogEdge';
-  /** A cursor for use in pagination */
-  cursor: Scalars['String'];
-  /** The item at the end of the edge */
-  node?: Maybe<Log>;
-};
-
-export enum LogOrderMarketplace {
-  Blur = 'BLUR',
-  Cryptopunks = 'CRYPTOPUNKS',
-  Gem = 'GEM',
-  Genie = 'GENIE',
-  Looksrare = 'LOOKSRARE',
-  Niftygateway = 'NIFTYGATEWAY',
-  Opensea = 'OPENSEA',
-  X2Y2 = 'X2Y2',
-  Zerox = 'ZEROX'
-}
-
-export enum LogType {
-  Mint = 'MINT',
-  Order = 'ORDER',
-  Transfer = 'TRANSFER'
-}
-
-/** Filter by type */
-export type LogTypeInput = {
-  eq?: InputMaybe<LogType>;
-  in?: InputMaybe<Array<LogType>>;
-  notIn?: InputMaybe<Array<LogType>>;
-};
-
-/** Filter input for logs */
-export type LogsFilterInputType = {
-  /** Filter logs by their block number */
-  blockNumber?: InputMaybe<IntegerInput>;
-  /** Filter logs by contract address */
-  contractAddress?: InputMaybe<StringInput>;
-  /** Filter logs by their estimated confirmation date */
-  estimatedConfirmedAt?: InputMaybe<DateInputType>;
-  /** Filter logs by the "from" wallet */
-  fromAddress?: InputMaybe<StringInput>;
-  /** Filter logs by marketplace */
-  marketplace?: InputMaybe<OrderMarketplaceInput>;
-  /** Filter logs by the "to" wallet */
-  toAddress?: InputMaybe<StringInput>;
-  /** Filter logs by their type */
-  type?: InputMaybe<LogTypeInput>;
-  /** Filter logs by their type */
-  typeIn?: InputMaybe<Array<LogType>>;
-};
-
-/** A Mint log */
-export type MintLog = Log & {
-  __typename?: 'MintLog';
-  /** The block number for this log */
-  blockNumber: Scalars['Int'];
-  /** The Contract related to this log */
-  contract: Contract;
-  /** The contract address for this log */
-  contractAddress: Scalars['String'];
-  /** The estimated time the transaction was confirmed at */
-  estimatedConfirmedAt: Scalars['Date'];
-  /** The from Wallet related to this log */
-  from?: Maybe<Wallet>;
-  /** The from address for this log */
-  fromAddress: Scalars['String'];
-  /** This log index -- logs are unique by the transaction_hash + log_index */
-  logIndex: Scalars['Int'];
-  /** The to Wallet related to this log */
-  to?: Maybe<Wallet>;
-  /** The to address for this log */
-  toAddress: Scalars['String'];
-  /** The Token related to this log */
-  token?: Maybe<Token>;
-  /** The Transaction related to this log */
-  transaction?: Maybe<Transaction>;
-  /** The address of the wallet that created this transaction */
-  transactionCreator?: Maybe<Scalars['String']>;
-  /** The transaction hash for this log */
-  transactionHash: Scalars['String'];
-  /** The type of log this is: Order, Mint, Transfer, etc. */
-  type: LogType;
-};
-
-/** The root of all... mutations */
-export type Mutations = {
-  __typename?: 'Mutations';
-  /**
-   * Queues a job to refresh of the metadata of a specific token or every token in a collection.
-   *     If tokenId is omitted, it will queue a refresh for every token in the collection.
-   *      Only trigger a refresh of the entire collection if absolutely necessary.
-   */
-  refreshTokenMetadata: RefreshMetadataStatusMessage;
-};
-
-
-/** The root of all... mutations */
-export type MutationsRefreshTokenMetadataArgs = {
-  input: RefreshTokenMetadataInput;
-};
-
-export enum OrderDirectionEnum {
-  /** Sort ascending (A-Z) */
+/** Sort ascending (A-Z) or descending (Z-A) */
+export enum OrderDirectionType {
   Asc = 'ASC',
-  /** Sort descending (Z-A) */
   Desc = 'DESC'
 }
 
-/** A Order log */
-export type OrderLog = Log & {
-  __typename?: 'OrderLog';
-  /** The block number for this log */
-  blockNumber: Scalars['Int'];
-  /** The Contract related to this log */
-  contract: Contract;
-  /** The contract address for this log */
-  contractAddress: Scalars['String'];
-  /** The estimated time the transaction was confirmed at */
-  estimatedConfirmedAt: Scalars['Date'];
-  /** The from Wallet related to this log */
-  from?: Maybe<Wallet>;
-  /** The from address for this log */
-  fromAddress: Scalars['String'];
-  /** This log index -- logs are unique by the transaction_hash + log_index */
-  logIndex: Scalars['Int'];
-  /** The marketplace this Order was placed on: OpenSea, Genie, etc. */
-  marketplace?: Maybe<LogOrderMarketplace>;
-  /** The price paid in Ethereum */
-  priceInEth: Scalars['Float'];
-  /** The to Wallet related to this log */
-  to?: Maybe<Wallet>;
-  /** The to address for this log */
-  toAddress: Scalars['String'];
-  /** The Token related to this log */
-  token?: Maybe<Token>;
-  /** The Transaction related to this log */
-  transaction?: Maybe<Transaction>;
-  /** The address of the wallet that created this transaction */
-  transactionCreator?: Maybe<Scalars['String']>;
-  /** The transaction hash for this log */
-  transactionHash: Scalars['String'];
-  /** The type of log this is: Order, Mint, Transfer, etc. */
-  type: LogType;
-};
-
-/** Filter by marketplace */
-export type OrderMarketplaceInput = {
-  eq?: InputMaybe<LogOrderMarketplace>;
-  in?: InputMaybe<Array<LogOrderMarketplace>>;
-  notIn?: InputMaybe<Array<LogOrderMarketplace>>;
-};
-
-/** Information about pagination in a connection. */
 export type PageInfo = {
   __typename?: 'PageInfo';
-  /** When paginating forwards, the cursor to continue. */
   endCursor?: Maybe<Scalars['String']>;
-  /** When paginating forwards, are there more items? */
   hasNextPage: Scalars['Boolean'];
-  /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean'];
-  /** When paginating backwards, the cursor to continue. */
   startCursor?: Maybe<Scalars['String']>;
 };
 
-export enum RefreshMetadataStatusMessage {
-  Completed = 'COMPLETED',
-  CompletedToken = 'COMPLETED_TOKEN',
-  Error = 'ERROR',
-  ErrorToken = 'ERROR_TOKEN',
-  Queued = 'QUEUED',
-  QueuedToken = 'QUEUED_TOKEN'
-}
-
-export type RefreshTokenMetadataInput = {
-  contractAddress: Scalars['String'];
-  /** Include to refresh a specific token's metadata */
-  tokenId?: InputMaybe<Scalars['String']>;
-};
-
-/** The root of all... queries */
-export type RootQuery = {
-  __typename?: 'RootQuery';
-  /** Fetches a contract */
-  contract?: Maybe<Contract>;
-  /** Fetches all contracts with default sorting alphabetically by name */
-  contracts?: Maybe<ContractConnection>;
-  /** Fetches all logs sorted by descending estimatedConfirmedAt */
-  logs?: Maybe<LogConnection>;
-  /** Fetches a token */
-  token?: Maybe<Token>;
-  /** Fetches a list of trending collections with default sorting by descending sales. */
-  trendingCollections?: Maybe<ContractConnection>;
-  /** Fetches a wallet. Provide either a wallet address or ensName. The query will use address if both are provided. */
-  wallet?: Maybe<Wallet>;
-};
-
-
-/** The root of all... queries */
-export type RootQueryContractArgs = {
-  address: Scalars['String'];
-};
-
-
-/** The root of all... queries */
-export type RootQueryContractsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<ContractsFilterInput>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<ContractsOrderByEnum>;
-  orderDirection?: InputMaybe<OrderDirectionEnum>;
-};
-
-
-/** The root of all... queries */
-export type RootQueryLogsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<LogsFilterInputType>;
-  first?: InputMaybe<Scalars['Int']>;
-};
-
-
-/** The root of all... queries */
-export type RootQueryTokenArgs = {
-  contractAddress: Scalars['String'];
-  tokenId: Scalars['String'];
-};
-
-
-/** The root of all... queries */
-export type RootQueryTrendingCollectionsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  marketplace?: InputMaybe<OrderMarketplaceInput>;
-  orderBy?: InputMaybe<TrendingCollectionsOrderByEnum>;
-  orderDirection?: InputMaybe<OrderDirectionEnum>;
-  timePeriod?: InputMaybe<TrendingCollectionsTimePeriodEnum>;
-  timeRange?: InputMaybe<DateInputType>;
-};
-
-
-/** The root of all... queries */
-export type RootQueryWalletArgs = {
-  address?: InputMaybe<Scalars['String']>;
-  ensName?: InputMaybe<Scalars['String']>;
-};
-
-export type SearchStringInput = {
-  contains?: InputMaybe<Scalars['String']>;
-  endswith?: InputMaybe<Scalars['String']>;
-  eq?: InputMaybe<Scalars['String']>;
-  icontains?: InputMaybe<Scalars['String']>;
-  iendswith?: InputMaybe<Scalars['String']>;
-  ieq?: InputMaybe<Scalars['String']>;
-  istartswith?: InputMaybe<Scalars['String']>;
-  startswith?: InputMaybe<Scalars['String']>;
+export type Query = {
+  __typename?: 'Query';
+  _service: _Service;
+  ethereum: EvmSchemaType;
 };
 
 export type StringInput = {
@@ -702,25 +591,10 @@ export type StringInput = {
   notIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
-/** A token */
 export type Token = {
-  /** The attributes of the token. */
-  attributes: Array<Maybe<TokenAttribute>>;
-  /** The contract standard for the token. */
-  contract: Contract;
-  /** An array of image locations and sizes for the token. */
-  images: Array<Maybe<TokenImage>>;
-  /** The log history for this token */
-  logs?: Maybe<LogConnection>;
-  tokenId: Scalars['String'];
-};
-
-
-/** A token */
-export type TokenLogsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<LogsFilterInputType>;
-  first?: InputMaybe<Scalars['Int']>;
+  contractAddress: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  tokenId: Scalars['BigInt'];
 };
 
 /** A token attribute */
@@ -732,361 +606,370 @@ export type TokenAttribute = {
   value: Scalars['String'];
 };
 
-/** A connection to a list of items. */
-export type TokenConnection = {
-  __typename?: 'TokenConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<Maybe<TokenEdge>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
+export type TokenBurnEvent = TokenEvent & {
+  __typename?: 'TokenBurnEvent';
+  blockNumber: Scalars['Int'];
+  fromAddress: Scalars['String'];
+  timestamp: Scalars['DateTime'];
+  toAddress: Scalars['String'];
+  transaction?: Maybe<Transaction>;
+  transactionHash?: Maybe<Scalars['String']>;
+  transferIndex: Scalars['Int'];
+  type: TokenEventType;
 };
 
-/** An edge in a connection. */
-export type TokenEdge = {
-  __typename?: 'TokenEdge';
-  /** A cursor for use in pagination */
-  cursor: Scalars['String'];
-  /** The item at the end of the edge */
-  node?: Maybe<Token>;
+export type TokenEvent = {
+  blockNumber: Scalars['Int'];
+  timestamp: Scalars['DateTime'];
+  transaction?: Maybe<Transaction>;
+  transactionHash?: Maybe<Scalars['String']>;
+  transferIndex: Scalars['Int'];
+  type: TokenEventType;
 };
 
-/** An uploaded token image */
-export type TokenImage = {
-  __typename?: 'TokenImage';
-  /** Height in pixels of token image */
-  height?: Maybe<Scalars['Int']>;
-  /** The mime type of the image */
-  mimeType?: Maybe<Scalars['String']>;
-  /** CDN served image URLs in various sizes or as SVG */
-  url: Scalars['String'];
-  /** Width in pixels of token image */
-  width?: Maybe<Scalars['Int']>;
-};
-
-export enum TokenStandard {
-  Erc721 = 'ERC721',
-  Erc1155 = 'ERC1155'
+export enum TokenEventType {
+  Burn = 'Burn',
+  Mint = 'Mint',
+  Sale = 'Sale',
+  Swap = 'Swap',
+  Transfer = 'Transfer'
 }
 
-/** Tokens filter */
-export type TokensFilterInputType = {
-  contractAddressIn?: InputMaybe<Array<Scalars['String']>>;
-  name?: InputMaybe<SearchStringInput>;
+export type TokenEventsConnection = {
+  __typename?: 'TokenEventsConnection';
+  edges: Array<Maybe<TokenEventsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
 };
 
-/** A transaction */
+export type TokenEventsEdge = {
+  __typename?: 'TokenEventsEdge';
+  cursor: Scalars['String'];
+  node: TokenEvent;
+};
+
+/** Filter input for token events */
+export type TokenEventsFilterInput = {
+  /** Filter token events by their block number */
+  blockNumber?: InputMaybe<IntegerInput>;
+  /** Filter token events by contract address */
+  contractAddress?: InputMaybe<StringInput>;
+  /** Filter token events by the "from" wallet */
+  fromAddress?: InputMaybe<StringInput>;
+  /** Filter token events by their estimated confirmation date */
+  timestamp?: InputMaybe<DateTimeInput>;
+  /** Filter token events by the "to" wallet */
+  toAddress?: InputMaybe<StringInput>;
+  /** Filter token events by their type */
+  type?: InputMaybe<TokenEventType>;
+  /** Filter token events by their type */
+  typeIn?: InputMaybe<Array<TokenEventType>>;
+};
+
+export type TokenMintEvent = TokenEvent & {
+  __typename?: 'TokenMintEvent';
+  blockNumber: Scalars['Int'];
+  fromAddress: Scalars['String'];
+  timestamp: Scalars['DateTime'];
+  toAddress: Scalars['String'];
+  transaction?: Maybe<Transaction>;
+  transactionHash?: Maybe<Scalars['String']>;
+  transferIndex: Scalars['Int'];
+  type: TokenEventType;
+};
+
+export type TokenSaleEvent = TokenEvent & {
+  __typename?: 'TokenSaleEvent';
+  blockNumber: Scalars['Int'];
+  fromAddress: Scalars['String'];
+  timestamp: Scalars['DateTime'];
+  toAddress: Scalars['String'];
+  transaction?: Maybe<Transaction>;
+  transactionHash?: Maybe<Scalars['String']>;
+  transferIndex: Scalars['Int'];
+  type: TokenEventType;
+};
+
+export type TokenSwapEvent = TokenEvent & {
+  __typename?: 'TokenSwapEvent';
+  blockNumber: Scalars['Int'];
+  fromAddress: Scalars['String'];
+  timestamp: Scalars['DateTime'];
+  toAddress: Scalars['String'];
+  transaction?: Maybe<Transaction>;
+  transactionHash?: Maybe<Scalars['String']>;
+  transferIndex: Scalars['Int'];
+  type: TokenEventType;
+};
+
+export type TokenTransferEvent = TokenEvent & {
+  __typename?: 'TokenTransferEvent';
+  blockNumber: Scalars['Int'];
+  fromAddress: Scalars['String'];
+  timestamp: Scalars['DateTime'];
+  toAddress: Scalars['String'];
+  transaction?: Maybe<Transaction>;
+  transactionHash?: Maybe<Scalars['String']>;
+  transferIndex: Scalars['Int'];
+  type: TokenEventType;
+};
+
+/** Token media uploads. */
+export type TokenUpload = {
+  __typename?: 'TokenUpload';
+  /** The upload height. */
+  height?: Maybe<Scalars['Float']>;
+  /** The upload mimeType. */
+  mimeType: Scalars['String'];
+  /** The upload url. */
+  url: Scalars['String'];
+  /** The upload width. */
+  width?: Maybe<Scalars['Float']>;
+};
+
+export type TokensFilterInput = {
+  contractAddressIn?: InputMaybe<Array<Scalars['String']>>;
+};
+
+export enum TokensOrderBy {
+  DateAcquired = 'DATE_ACQUIRED',
+  Name = 'NAME'
+}
+
 export type Transaction = {
   __typename?: 'Transaction';
   blockNumber: Scalars['Int'];
-  /** The number of confirmations for this transaction */
-  confirmations: Scalars['Int'];
-  /** The estimated time the transaction was confirmed at */
-  estimatedConfirmedAt: Scalars['Date'];
-  /** The from Wallet related to this transaction */
-  from?: Maybe<Wallet>;
+  blockTimestamp: Scalars['DateTime'];
+  contractAddress?: Maybe<Scalars['String']>;
+  cumulativeGasUsed: Scalars['BigInt'];
+  effectiveGasPrice?: Maybe<Scalars['BigInt']>;
   fromAddress: Scalars['String'];
   /** The amount of gas supplied for this transaction to happen */
-  gasLimit: Scalars['Int'];
-  /** Cost in Gwei per unit of gas for this transaction. */
-  gasPrice?: Maybe<Scalars['Float']>;
+  gas?: Maybe<Scalars['BigInt']>;
+  /** Cost in Gwei per unit of gas for this transaction */
+  gasPrice?: Maybe<Scalars['BigInt']>;
   /** The amount of gas used by this transaction */
-  gasUsed: Scalars['Int'];
+  gasUsed: Scalars['BigInt'];
   hash: Scalars['String'];
-  /** The log history for this token */
-  logs?: Maybe<LogConnection>;
+  input?: Maybe<Scalars['String']>;
   /** Max gas fee in Gwei */
-  maxGasFee?: Maybe<Scalars['Float']>;
+  maxFeePerGas?: Maybe<Scalars['BigInt']>;
   /** Max gas priority fee in Gwei */
-  maxGasPriorityFee?: Maybe<Scalars['Float']>;
-  /** The to Wallet related to this transaction */
-  to?: Maybe<Wallet>;
+  maxPriorityFeePerGas?: Maybe<Scalars['BigInt']>;
   toAddress?: Maybe<Scalars['String']>;
-  /** Transaction fee in ETH */
-  transactionFeeInEth: Scalars['Float'];
-  transactionIndex: Scalars['String'];
-  /** The transaction type */
-  type?: Maybe<Scalars['Int']>;
-  /** The value being transacted in ETH */
-  valueInEth: Scalars['Float'];
-};
-
-
-/** A transaction */
-export type TransactionLogsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<LogsFilterInputType>;
-  first?: InputMaybe<Scalars['Int']>;
-};
-
-/** A connection to a list of items. */
-export type TransactionConnection = {
-  __typename?: 'TransactionConnection';
-  /** A list of edges. */
-  edges?: Maybe<Array<Maybe<TransactionEdge>>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** An edge in a connection. */
-export type TransactionEdge = {
-  __typename?: 'TransactionEdge';
-  /** A cursor for use in pagination */
-  cursor: Scalars['String'];
-  /** The item at the end of the edge */
-  node?: Maybe<Transaction>;
+  transactionIndex: Scalars['Int'];
+  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['BigInt']>;
 };
 
 /** Filter input for transactions */
-export type TransactionsFilterInputType = {
-  /** Filter transactions by their block number */
+export type TransactionsFilterInput = {
   blockNumber?: InputMaybe<IntegerInput>;
-  /** Filter transactions by their estimated confirmation date */
-  estimatedConfirmedAt?: InputMaybe<DateInputType>;
-  /** Filter transactions by the "from" wallet */
-  fromAddress?: InputMaybe<StringInput>;
-  /** Filter transactions by the "to" wallet */
-  toAddress?: InputMaybe<StringInput>;
+  fromAddress?: InputMaybe<Scalars['String']>;
+  timestamp?: InputMaybe<DateTimeInput>;
+  toAddress?: InputMaybe<Scalars['String']>;
 };
 
-/** A Transfer log */
-export type TransferLog = Log & {
-  __typename?: 'TransferLog';
-  /** The block number for this log */
-  blockNumber: Scalars['Int'];
-  /** The Contract related to this log */
-  contract: Contract;
-  /** The contract address for this log */
-  contractAddress: Scalars['String'];
-  /** The estimated time the transaction was confirmed at */
-  estimatedConfirmedAt: Scalars['Date'];
-  /** The from Wallet related to this log */
-  from?: Maybe<Wallet>;
-  /** The from address for this log */
-  fromAddress: Scalars['String'];
-  /** This log index -- logs are unique by the transaction_hash + log_index */
-  logIndex: Scalars['Int'];
-  /** The to Wallet related to this log */
-  to?: Maybe<Wallet>;
-  /** The to address for this log */
-  toAddress: Scalars['String'];
-  /** The Token related to this log */
-  token?: Maybe<Token>;
-  /** The Transaction related to this log */
-  transaction?: Maybe<Transaction>;
-  /** The address of the wallet that created this transaction */
-  transactionCreator?: Maybe<Scalars['String']>;
-  /** The transaction hash for this log */
-  transactionHash: Scalars['String'];
-  /** The type of log this is: Order, Mint, Transfer, etc. */
-  type: LogType;
+export type TrendingCollectionTokenEventsConnection = {
+  __typename?: 'TrendingCollectionTokenEventsConnection';
+  edges: Array<Maybe<TrendingCollectionTokenEventsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
 };
 
-export enum TrendingCollectionsOrderByEnum {
-  /** Sort contracts by average sale price within a given time range. Defaults to within last hour. */
+export type TrendingCollectionTokenEventsEdge = {
+  __typename?: 'TrendingCollectionTokenEventsEdge';
+  cursor: Scalars['String'];
+  node: TokenEvent;
+};
+
+export type TrendingCollections = {
+  address: Scalars['String'];
+  circulatingSupply?: Maybe<Scalars['BigInt']>;
+  description?: Maybe<Scalars['String']>;
+  ercStandard?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  symbol?: Maybe<Scalars['String']>;
+  tokenEvents?: Maybe<TrendingCollectionTokenEventsConnection>;
+  totalSupply?: Maybe<Scalars['BigInt']>;
+};
+
+
+export type TrendingCollectionsTokenEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type TrendingCollectionsConnection = {
+  __typename?: 'TrendingCollectionsConnection';
+  edges: Array<Maybe<TrendingCollectionsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type TrendingCollectionsEdge = {
+  __typename?: 'TrendingCollectionsEdge';
+  cursor: Scalars['String'];
+  node: TrendingCollections;
+};
+
+export enum TrendingOrderByType {
   Average = 'AVERAGE',
-  /** Sort contracts by number of sales. Defaults to within last hour. */
   Sales = 'SALES',
-  /** Sort contracts by volume. Defaults to within last hour. */
   Volume = 'VOLUME'
 }
 
-export enum TrendingCollectionsTimePeriodEnum {
-  /** Last 24 hours */
+export enum TrendingPeriodType {
+  FifteenMinutes = 'FIFTEEN_MINUTES',
+  FiveMinutes = 'FIVE_MINUTES',
   OneDay = 'ONE_DAY',
-  /** Last hour */
   OneHour = 'ONE_HOUR',
-  /** Last 7 days */
+  OneMinute = 'ONE_MINUTE',
   SevenDays = 'SEVEN_DAYS',
-  /** Last 12 hours */
+  ThirtyMinutes = 'THIRTY_MINUTES',
   TwelveHours = 'TWELVE_HOURS'
 }
 
-/** A wallet */
-export type Wallet = {
-  __typename?: 'Wallet';
+export type WalletTokenEventsConnection = {
+  __typename?: 'WalletTokenEventsConnection';
+  edges: Array<Maybe<WalletTokenEventsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type WalletTokenEventsEdge = {
+  __typename?: 'WalletTokenEventsEdge';
+  cursor: Scalars['String'];
+  node: TokenEvent;
+};
+
+export type WalletTokensConnection = {
+  __typename?: 'WalletTokensConnection';
+  edges: Array<Maybe<WalletTokensEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type WalletTokensEdge = {
+  __typename?: 'WalletTokensEdge';
+  cursor: Scalars['String'];
+  node: Token;
+};
+
+export type WalletTransactionsConnection = {
+  __typename?: 'WalletTransactionsConnection';
+  edges: Array<Maybe<WalletTransactionsEdge>>;
+  pageInfo: PageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type WalletTransactionsEdge = {
+  __typename?: 'WalletTransactionsEdge';
+  cursor: Scalars['String'];
+  node: Transaction;
+};
+
+export type WalletType = {
+  __typename?: 'WalletType';
   address: Scalars['String'];
   ensName?: Maybe<Scalars['String']>;
-  /** The held collections for a wallet */
-  heldCollections?: Maybe<Erc721ContractConnection>;
-  /** The log history for this wallet */
-  logs?: Maybe<LogConnection>;
-  /** A token owned by this wallet, if it exists */
-  token?: Maybe<Token>;
-  /** A list of tokens owned by this wallet */
-  tokens?: Maybe<TokenConnection>;
-  /** The transaction history for this wallet */
-  transactions?: Maybe<TransactionConnection>;
+  heldCollections?: Maybe<HeldCollectionsConnection>;
+  token?: Maybe<Erc721Token>;
+  tokenEvents?: Maybe<WalletTokenEventsConnection>;
+  tokens?: Maybe<WalletTokensConnection>;
+  transactions?: Maybe<WalletTransactionsConnection>;
 };
 
 
-/** A wallet */
-export type WalletHeldCollectionsArgs = {
+export type WalletTypeHeldCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<HeldCollectionsFilterInputType>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<HeldCollectionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<HeldCollectionsOrderByEnum>;
-  orderDirection?: InputMaybe<OrderDirectionEnum>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<HeldCollectionOrderByEnum>;
+  orderDirection?: InputMaybe<OrderDirectionType>;
 };
 
 
-/** A wallet */
-export type WalletLogsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<LogsFilterInputType>;
-  first?: InputMaybe<Scalars['Int']>;
-};
-
-
-/** A wallet */
-export type WalletTokenArgs = {
+export type WalletTypeTokenArgs = {
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
 };
 
 
-/** A wallet */
-export type WalletTokensArgs = {
+export type WalletTypeTokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokensFilterInputType>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<HeldTokensOrderByEnum>;
-  orderDirection?: InputMaybe<OrderDirectionEnum>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 
-/** A wallet */
-export type WalletTransactionsArgs = {
+export type WalletTypeTokensArgs = {
   after?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TransactionsFilterInputType>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TokensFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<TokensOrderBy>;
+  orderDirection?: InputMaybe<OrderDirectionType>;
 };
 
-export type NftCollection_BaseContract_Fragment = { __typename?: 'BaseContract' };
 
-export type NftCollection_Erc721Contract_Fragment = { __typename?: 'ERC721Contract', address: string, isVerified: boolean, circulatingSupply?: number | null, name?: string | null, symbol?: string | null, stats?: { __typename?: 'ContractStats', average?: number | null, ceiling?: number | null, floor?: number | null, totalSales?: number | null, volume?: number | null } | null };
-
-export type NftCollectionFragment = NftCollection_BaseContract_Fragment | NftCollection_Erc721Contract_Fragment;
-
-export type Nft_BaseToken_Fragment = { __typename?: 'BaseToken' };
-
-export type Nft_Erc721Token_Fragment = { __typename?: 'ERC721Token', tokenId: string, name?: string | null, symbol?: string | null, attributes: Array<{ __typename?: 'TokenAttribute', name: string, value: string } | null>, contract: { __typename?: 'BaseContract', address: string, isVerified: boolean, tokenStandard?: TokenStandard | null } | { __typename?: 'ERC721Contract', name?: string | null, address: string, isVerified: boolean, tokenStandard?: TokenStandard | null }, images: Array<{ __typename?: 'TokenImage', height?: number | null, mimeType?: string | null, url: string, width?: number | null } | null>, metadata?: { __typename?: 'ERC721Metadata', animation_url?: string | null, background_color?: string | null, description?: string | null, external_url?: string | null, image?: string | null, image_data?: string | null, name?: string | null, youtube_url?: string | null } | null };
-
-export type NftFragment = Nft_BaseToken_Fragment | Nft_Erc721Token_Fragment;
-
-export type ContractEventLog_BaseLog_Fragment = { __typename?: 'BaseLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
-
-export type ContractEventLog_MintLog_Fragment = { __typename?: 'MintLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
-
-export type ContractEventLog_OrderLog_Fragment = { __typename?: 'OrderLog', marketplace?: LogOrderMarketplace | null, priceInEth: number, blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
-
-export type ContractEventLog_TransferLog_Fragment = { __typename?: 'TransferLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string, token?: { __typename?: 'BaseToken', contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string } } | null };
-
-export type ContractEventLogFragment = ContractEventLog_BaseLog_Fragment | ContractEventLog_MintLog_Fragment | ContractEventLog_OrderLog_Fragment | ContractEventLog_TransferLog_Fragment;
-
-export type ContractEventsLogsQueryVariables = Exact<{
-  address: Scalars['String'];
-  filter?: InputMaybe<LogsFilterInputType>;
-  first?: InputMaybe<Scalars['Int']>;
+export type WalletTypeTransactionsArgs = {
   after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<TransactionsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type _Service = {
+  __typename?: '_Service';
+  /** The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied */
+  sdl?: Maybe<Scalars['String']>;
+};
+
+export type Nft_Erc721Token_Fragment = { __typename?: 'ERC721Token', animationUrl?: string | null, metadata?: any | null, name?: string | null, tokenId: any, contractAddress: string, attributes?: Array<{ __typename?: 'TokenAttribute', name: string, value: string }> | null, contract?: { __typename?: 'ContractType', address: string, isVerified?: boolean | null, name?: string | null, supportsERC165Interface?: boolean | null, supportsERC721Interface?: boolean | null, supportsERC1155Interface?: boolean | null, symbol?: string | null } | null };
+
+export type Nft_Erc1155Token_Fragment = { __typename?: 'ERC1155Token', name?: string | null, tokenId: any, contractAddress: string };
+
+export type NftFragment = Nft_Erc721Token_Fragment | Nft_Erc1155Token_Fragment;
+
+export type PaginationFragment = { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null };
+
+export type WalletNfTsByEnsQueryVariables = Exact<{
+  ensName: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type ContractEventsLogsQuery = { __typename?: 'RootQuery', contract?: { __typename?: 'BaseContract', address: string, logs?: { __typename?: 'LogConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'LogEdge', node?: (
-          { __typename?: 'BaseLog' }
-          & ContractEventLog_BaseLog_Fragment
-        ) | (
-          { __typename?: 'MintLog' }
-          & ContractEventLog_MintLog_Fragment
-        ) | (
-          { __typename?: 'OrderLog' }
-          & ContractEventLog_OrderLog_Fragment
-        ) | (
-          { __typename?: 'TransferLog' }
-          & ContractEventLog_TransferLog_Fragment
-        ) | null } | null> | null } | null } | { __typename?: 'ERC721Contract', address: string, logs?: { __typename?: 'LogConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'LogEdge', node?: (
-          { __typename?: 'BaseLog' }
-          & ContractEventLog_BaseLog_Fragment
-        ) | (
-          { __typename?: 'MintLog' }
-          & ContractEventLog_MintLog_Fragment
-        ) | (
-          { __typename?: 'OrderLog' }
-          & ContractEventLog_OrderLog_Fragment
-        ) | (
-          { __typename?: 'TransferLog' }
-          & ContractEventLog_TransferLog_Fragment
-        ) | null } | null> | null } | null } | null };
+export type WalletNfTsByEnsQuery = { __typename?: 'Query', ethereum: { __typename?: 'EVMSchemaType', walletByENS?: { __typename?: 'WalletType', address: string, tokens?: { __typename?: 'WalletTokensConnection', pageInfo: (
+          { __typename?: 'PageInfo' }
+          & PaginationFragment
+        ), edges: Array<{ __typename?: 'WalletTokensEdge', node: (
+            { __typename?: 'ERC721Token' }
+            & Nft_Erc721Token_Fragment
+          ) | (
+            { __typename?: 'ERC1155Token' }
+            & Nft_Erc1155Token_Fragment
+          ) } | null> } | null } | null } };
 
-export type NftEventsLogsQueryVariables = Exact<{
-  address: Scalars['String'];
-  tokenId: Scalars['String'];
-  filter?: InputMaybe<LogsFilterInputType>;
-  first?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type NftEventsLogsQuery = { __typename?: 'RootQuery', token?: { __typename?: 'BaseToken' } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', address: string }, logs?: { __typename?: 'LogConnection', edges?: Array<{ __typename?: 'LogEdge', node?: { __typename?: 'BaseLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string } | { __typename?: 'MintLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string } | { __typename?: 'OrderLog', marketplace?: LogOrderMarketplace | null, priceInEth: number, blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string } | { __typename?: 'TransferLog', blockNumber: number, type: LogType, fromAddress: string, toAddress: string, estimatedConfirmedAt: any, transactionHash: string } | null } | null> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null } | null };
-
-export type WalletNfTsQueryVariables = Exact<{
-  address: Scalars['String'];
-  first?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type WalletNfTsQuery = { __typename?: 'RootQuery', wallet?: { __typename?: 'Wallet', ensName?: string | null, address: string, tokens?: { __typename?: 'TokenConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'TokenEdge', node?: { __typename?: 'BaseToken', tokenId: string, images: Array<{ __typename?: 'TokenImage', url: string } | null> } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', symbol?: string | null, name?: string | null, address: string }, images: Array<{ __typename?: 'TokenImage', url: string } | null> } | null } | null> | null } | null } | null };
-
-export type NfTsWalletAndContractQueryVariables = Exact<{
-  filter?: InputMaybe<TokensFilterInputType>;
-  address?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type NfTsWalletAndContractQuery = { __typename?: 'RootQuery', wallet?: { __typename?: 'Wallet', ensName?: string | null, address: string, tokens?: { __typename?: 'TokenConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'TokenEdge', node?: { __typename?: 'BaseToken', tokenId: string, images: Array<{ __typename?: 'TokenImage', url: string } | null> } | { __typename?: 'ERC721Token', tokenId: string, contract: { __typename?: 'BaseContract', address: string } | { __typename?: 'ERC721Contract', symbol?: string | null, name?: string | null, address: string }, images: Array<{ __typename?: 'TokenImage', url: string } | null> } | null } | null> | null } | null } | null };
-
-export type TrendingNftCollectionsQueryVariables = Exact<{
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<TrendingCollectionsOrderByEnum>;
-  orderDirection?: InputMaybe<OrderDirectionEnum>;
-  timePeriod?: InputMaybe<TrendingCollectionsTimePeriodEnum>;
-  timeRange?: InputMaybe<DateInputType>;
-}>;
-
-
-export type TrendingNftCollectionsQuery = { __typename?: 'RootQuery', trendingCollections?: { __typename?: 'ContractConnection', edges?: Array<{ __typename?: 'ContractEdge', cursor: string, node?: (
-        { __typename?: 'BaseContract' }
-        & NftCollection_BaseContract_Fragment
-      ) | (
-        { __typename?: 'ERC721Contract' }
-        & NftCollection_Erc721Contract_Fragment
-      ) | null } | null> | null, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
-
-export const NftCollection = gql`
-    fragment NftCollection on Contract {
-  ... on ERC721Contract {
-    address
-    isVerified
-    circulatingSupply
-    name
-    symbol
-    stats {
-      average
-      ceiling
-      floor
-      totalSales
-      volume
-    }
-  }
-}
-    `;
 export const Nft = gql`
     fragment Nft on Token {
+  name
+  tokenId
+  contractAddress
   ... on ERC721Token {
-    tokenId
+    animationUrl
+    metadata
     attributes {
       name
       value
@@ -1094,186 +977,40 @@ export const Nft = gql`
     contract {
       address
       isVerified
-      tokenStandard
-      ... on ERC721Contract {
-        name
-      }
-    }
-    images {
-      height
-      mimeType
-      url
-      width
-    }
-    name
-    symbol
-    metadata {
-      animation_url
-      background_color
-      description
-      external_url
-      image
-      image_data
       name
-      youtube_url
+      supportsERC165Interface
+      supportsERC721Interface
+      supportsERC1155Interface
+      symbol
     }
   }
 }
     `;
-export const ContractEventLog = gql`
-    fragment ContractEventLog on Log {
-  blockNumber
-  type
-  fromAddress
-  toAddress
-  estimatedConfirmedAt
-  transactionHash
-  token {
-    contract {
+export const Pagination = gql`
+    fragment Pagination on PageInfo {
+  endCursor
+  hasNextPage
+  hasPreviousPage
+  startCursor
+}
+    `;
+export const WalletNfTsByEns = gql`
+    query WalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
+  ethereum {
+    walletByENS(ensName: $ensName) {
       address
-    }
-    ... on ERC721Token {
-      tokenId
-    }
-  }
-  ... on OrderLog {
-    marketplace
-    priceInEth
-  }
-}
-    `;
-export const ContractEventsLogs = gql`
-    query ContractEventsLogs($address: String!, $filter: LogsFilterInputType, $first: Int, $after: String) {
-  contract(address: $address) {
-    address
-    logs(filter: $filter, first: $first, after: $after) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          ...ContractEventLog
+      tokens(after: $after, first: $first) {
+        pageInfo {
+          ...Pagination
         }
-      }
-    }
-  }
-}
-    ${ContractEventLog}`;
-export const NftEventsLogs = gql`
-    query NFTEventsLogs($address: String!, $tokenId: String!, $filter: LogsFilterInputType, $first: Int, $after: String) {
-  token(contractAddress: $address, tokenId: $tokenId) {
-    ... on ERC721Token {
-      tokenId
-      contract {
-        address
-      }
-      logs(filter: $filter, first: $first, after: $after) {
         edges {
           node {
-            blockNumber
-            type
-            fromAddress
-            toAddress
-            estimatedConfirmedAt
-            transactionHash
-            ... on OrderLog {
-              marketplace
-              priceInEth
-            }
-          }
-        }
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-      }
-    }
-  }
-}
-    `;
-export const WalletNfTs = gql`
-    query WalletNFTs($address: String!, $first: Int, $after: String) {
-  wallet(address: $address) {
-    ensName
-    address
-    tokens(first: $first, after: $after) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          tokenId
-          images {
-            url
-          }
-          ... on ERC721Token {
-            contract {
-              address
-              ... on ERC721Contract {
-                symbol
-                name
-              }
-            }
+            ...Nft
           }
         }
       }
     }
   }
 }
-    `;
-export const NfTsWalletAndContract = gql`
-    query NFTsWalletAndContract($filter: TokensFilterInputType, $address: String, $first: Int, $after: String) {
-  wallet(address: $address) {
-    ensName
-    address
-    tokens(filter: $filter, first: $first, after: $after) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          tokenId
-          images {
-            url
-          }
-          ... on ERC721Token {
-            contract {
-              address
-              ... on ERC721Contract {
-                symbol
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-    `;
-export const TrendingNftCollections = gql`
-    query TrendingNFTCollections($after: String, $first: Int, $orderBy: TrendingCollectionsOrderByEnum, $orderDirection: OrderDirectionEnum, $timePeriod: TrendingCollectionsTimePeriodEnum, $timeRange: DateInputType) {
-  trendingCollections(
-    after: $after
-    first: $first
-    orderBy: $orderBy
-    orderDirection: $orderDirection
-    timePeriod: $timePeriod
-    timeRange: $timeRange
-  ) {
-    edges {
-      cursor
-      node {
-        ...NftCollection
-      }
-    }
-    pageInfo {
-      endCursor
-      hasNextPage
-    }
-  }
-}
-    ${NftCollection}`;
+    ${Pagination}
+${Nft}`;

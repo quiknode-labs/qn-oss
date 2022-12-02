@@ -26,7 +26,7 @@ const QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
     : false;
 
 const httpLink = new HttpLink({
-  uri: 'https://graphql.icy.tools/graphql',
+  uri: 'http://localhost:1339/graphql',
   fetch,
 });
 
@@ -40,7 +40,7 @@ const errorLink = onError(({ networkError }) => {
     !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS
   ) {
     console.warn(
-      'QuickNode SDK warning: rate limit reached, head over to https://developers.icy.tools/ to upgrade your account'
+      'QuickNode SDK warning: rate limit reached, head over to https://quicknode.com to upgrade your account'
     );
   }
 });
@@ -52,6 +52,7 @@ export class QuickNodeSDK {
   readonly nft: NFTQueries;
 
   constructor({ icyApiKey }: QuickNodeSDKArguments = {}) {
+    console.log('HERE');
     if (!icyApiKey && !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
       console.warn(
         'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://developers.icy.tools/'
@@ -71,7 +72,7 @@ export class QuickNodeSDK {
       return {
         headers: {
           ...headers,
-          ...(icyApiKey && { 'x-api-key': icyApiKey }),
+          //...{ 'x-api-key': 'asdf1234' },
         },
       };
     });

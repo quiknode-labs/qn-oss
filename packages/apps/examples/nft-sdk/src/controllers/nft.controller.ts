@@ -27,8 +27,6 @@ export default {
   getNFTsByEns: async (req: Request, res: Response) => {
     const NFTs = await client.nft.getNFTsByWalletENS({
       ensName: req.params.ensResource,
-      first: 5,
-      after: getQueryParam(req, 'after'),
     });
     res.status(200).send(NFTs);
   },

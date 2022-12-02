@@ -166,7 +166,7 @@ export interface LogPaginationInfo {
 /*** Query Responses ***/
 
 export interface WalletNFTsQueryResponse {
-  wallet: (Wallet & TokenPaginationInfo) | null;
+  wallet: { ensName: string } | null;
 }
 
 export interface ContractNFTsQueryResponse {

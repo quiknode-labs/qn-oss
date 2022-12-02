@@ -70,14 +70,18 @@ export class NFTQueries {
   }
 
   async getNFTsByWalletENS(variables: WalletENSNFTsQueryVariables) {
-    return this.client.query<
-      WalletENSNFTsQueryVariables,
-      WalletNFTsQueryResponse,
-      WalletNFTsQueryResponse
-    >({
-      query: getWalletENSNFTsRawQuery,
-      variables,
-    });
+    return this.client
+      .query<
+        WalletENSNFTsQueryVariables,
+        WalletNFTsQueryResponse,
+        WalletNFTsQueryResponse
+      >({
+        query: getWalletENSNFTsRawQuery,
+        variables,
+      })
+      .catch((error) => {
+        console.log(JSON.stringify(error, null, 2));
+      });
   }
 
   async getNFTsByContractAddress(variables: ContractAddressNFTsQueryVariables) {

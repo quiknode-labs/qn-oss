@@ -1,0 +1,17 @@
+query WalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
+  ethereum {
+    walletByENS(ensName: $ensName) {
+      address
+      tokens(after: $after, first: $first) {
+        pageInfo {
+          ...Pagination
+        }
+        edges {
+          node {
+            ...Nft
+          }
+        }
+      }
+    }
+  }
+}

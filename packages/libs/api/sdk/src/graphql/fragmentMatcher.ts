@@ -6,19 +6,24 @@
       }
       const result: PossibleTypesResultData = {
   "possibleTypes": {
-    "Contract": [
-      "BaseContract",
-      "ERC721Contract"
-    ],
-    "Log": [
-      "BaseLog",
-      "MintLog",
-      "OrderLog",
-      "TransferLog"
+    "Collection": [
+      "ERC721Collection",
+      "ERC1155Collection"
     ],
     "Token": [
-      "BaseToken",
-      "ERC721Token"
+      "ERC721Token",
+      "ERC1155Token"
+    ],
+    "TokenEvent": [
+      "TokenBurnEvent",
+      "TokenMintEvent",
+      "TokenSaleEvent",
+      "TokenSwapEvent",
+      "TokenTransferEvent"
+    ],
+    "TrendingCollections": [
+      "ERC721TrendingCollections",
+      "ERC1155TrendingCollections"
     ]
   }
 };

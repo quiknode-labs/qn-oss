@@ -1,6 +1,6 @@
 overwrite: true
-documents: src/**/*.gql
-schema: https://graphql.icy.tools/graphql
+documents: ["src/queries/nft/getNFTsByWalletENS/*.gql", "src/queries/fragments/*.gql"]
+schema: http://localhost:1339/graphql
 generates:
   src/graphql/types.ts:
     plugins:

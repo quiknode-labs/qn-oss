@@ -1,6 +1,10 @@
 fragment Nft on Token {
+  name
+  tokenId
+  contractAddress
   ... on ERC721Token {
-    tokenId
+    animationUrl
+    metadata
     attributes {
       name
       value
@@ -8,28 +12,11 @@ fragment Nft on Token {
     contract {
       address
       isVerified
-      tokenStandard
-      ... on ERC721Contract {
-        name
-      }
-    }
-    images {
-      height
-      mimeType
-      url
-      width
-    }
-    name
-    symbol
-    metadata {
-      animation_url
-      background_color
-      description
-      external_url
-      image
-      image_data
       name
-      youtube_url
+      supportsERC165Interface
+      supportsERC721Interface
+      supportsERC1155Interface
+      symbol
     }
   }
 }

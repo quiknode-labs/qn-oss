@@ -13,7 +13,7 @@ import { CustomApolloClient } from './customApolloClient';
 import generatedIntrospection from '../graphql/fragmentMatcher';
 
 export interface QuickNodeSDKArguments {
-  icyApiKey?: string;
+  qnApiKey?: string;
 }
 
 const QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
@@ -26,7 +26,7 @@ const QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
     : false;
 
 const httpLink = new HttpLink({
-  uri: 'https://graphql.icy.tools/graphql',
+  uri: 'http://localhost:1339/graphql',
   fetch,
 });
 
@@ -40,7 +40,7 @@ const errorLink = onError(({ networkError }) => {
     !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS
   ) {
     console.warn(
-      'QuickNode SDK warning: rate limit reached, head over to https://developers.icy.tools/ to upgrade your account'
+      'QuickNode SDK warning: rate limit reached, head over to https://quicknode.com to upgrade your account'
     );
   }
 });
@@ -48,30 +48,31 @@ const errorLink = onError(({ networkError }) => {
 export class QuickNodeSDK {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
   private customApolloClient: CustomApolloClient;
-  readonly icyApiKey?: string;
+  readonly qnApiKey?: string;
   readonly nft: NFTQueries;
 
-  constructor({ icyApiKey }: QuickNodeSDKArguments = {}) {
-    if (!icyApiKey && !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
+  constructor({ qnApiKey }: QuickNodeSDKArguments = {}) {
+    if (!qnApiKey && !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
       console.warn(
-        'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://developers.icy.tools/'
+        'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
       );
     }
 
-    this.icyApiKey = icyApiKey;
-    this.apolloClient = this.createApolloClient({ icyApiKey });
+    this.qnApiKey = qnApiKey;
+    this.apolloClient = this.createApolloClient({ qnApiKey });
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
     this.nft = new NFTQueries(this.customApolloClient);
   }
 
   private createApolloClient({
-    icyApiKey,
+    qnApiKey,
   }: QuickNodeSDKArguments): ApolloClient<NormalizedCacheObject> {
     const authLink = setContext(async (_, { headers }) => {
       return {
         headers: {
           ...headers,
-          ...(icyApiKey && { 'x-api-key': icyApiKey }),
+          // TODO: figure out API key and billing
+          //...{ 'x-api-key': qnApiKey },
         },
       };
     });

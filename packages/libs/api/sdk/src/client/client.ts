@@ -13,7 +13,7 @@ import { CustomApolloClient } from './customApolloClient';
 import generatedIntrospection from '../graphql/fragmentMatcher';
 
 export interface QuickNodeSDKArguments {
-  icyApiKey?: string;
+  qnApiKey?: string;
 }
 
 const QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
@@ -48,31 +48,31 @@ const errorLink = onError(({ networkError }) => {
 export class QuickNodeSDK {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
   private customApolloClient: CustomApolloClient;
-  readonly icyApiKey?: string;
+  readonly qnApiKey?: string;
   readonly nft: NFTQueries;
 
-  constructor({ icyApiKey }: QuickNodeSDKArguments = {}) {
-    console.log('HERE');
-    if (!icyApiKey && !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
+  constructor({ qnApiKey }: QuickNodeSDKArguments = {}) {
+    if (!qnApiKey && !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
       console.warn(
-        'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://developers.icy.tools/'
+        'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
       );
     }
 
-    this.icyApiKey = icyApiKey;
-    this.apolloClient = this.createApolloClient({ icyApiKey });
+    this.qnApiKey = qnApiKey;
+    this.apolloClient = this.createApolloClient({ qnApiKey });
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
     this.nft = new NFTQueries(this.customApolloClient);
   }
 
   private createApolloClient({
-    icyApiKey,
+    qnApiKey,
   }: QuickNodeSDKArguments): ApolloClient<NormalizedCacheObject> {
     const authLink = setContext(async (_, { headers }) => {
       return {
         headers: {
           ...headers,
-          //...{ 'x-api-key': 'asdf1234' },
+          // TODO: figure out API key and billing
+          //...{ 'x-api-key': qnApiKey },
         },
       };
     });

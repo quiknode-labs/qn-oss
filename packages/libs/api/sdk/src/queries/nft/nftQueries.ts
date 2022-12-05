@@ -10,18 +10,17 @@ export class NFTQueries {
   constructor(private client: CustomApolloClient) {}
 
   async getNFTsByWalletENS(variables: WalletNfTsByEnsQueryVariables) {
-    return this.client
-      .query<
-        WalletNfTsByEnsQueryVariables,
-        WalletNfTsByEnsQuery,
-        WalletNFTByEns
-      >({
-        query: WalletNfTsByEns,
-        variables,
-      })
+    const {
+      data: { ethereum: data },
+    } = await this.client.query<
+      WalletNfTsByEnsQueryVariables, // What the user can pass in
+      WalletNfTsByEnsQuery, // The actual unmodified result from query
+      WalletNFTByEns // the modified result (edges and nodes removed)
+    >({
+      query: WalletNfTsByEns, // The actual graphql query
+      variables,
+    });
 
-      .catch((error) => {
-        console.log(JSON.stringify(error, null, 2));
-      });
+    return data;
   }
 }

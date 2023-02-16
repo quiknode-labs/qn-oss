@@ -1,22 +1,21 @@
-fragment Nft on Token {
-  name
-  tokenId
-  contractAddress
-  ... on ERC721Token {
-    animationUrl
-    metadata
+fragment Nft on Nft {
+  ... on ERC721Nft {
     attributes {
       name
       value
     }
-    contract {
-      address
-      isVerified
-      name
-      supportsERC165Interface
-      supportsERC721Interface
-      supportsERC1155Interface
-      symbol
-    }
+  }
+  tokenId
+  contractAddress
+  description
+  externalUrl
+  animationUrl
+  metadata
+  contract {
+    address
+    isVerified
+    name
+    supportedErcInterfaces
+    symbol
   }
 }

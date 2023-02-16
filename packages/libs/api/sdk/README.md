@@ -299,4 +299,8 @@ Run `nx lint libs-api-sdk` to execute the lint via [ESLint](https://eslint.org/)
 
 ## Generate graphql
 
-Run `yarn codegen` to generate graphql typings via [Codegen](https://www.the-guild.dev/graphql/codegen).
+Generate graphql typings via [Codegen](https://www.the-guild.dev/graphql/codegen).
+
+1. cd `packages/libs/api/sdk`
+2. add a `graphqlHeaders.json` with any authorization headers you want to pass to graphql API
+3. run `npx graphql-codegen generate`

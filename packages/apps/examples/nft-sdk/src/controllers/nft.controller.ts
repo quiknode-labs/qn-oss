@@ -1,7 +1,16 @@
-import { QuickNodeSDK } from '@quicknode/sdk';
+import { QuickNodeSDK } from '@qn-oss/libs/api/sdk';
 import { Request, Response } from 'express';
 
-const client = new QuickNodeSDK();
+const opts: any = { qnApiKey: process.env.QUICKNODE_API_KEY };
+if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
+  opts.additionalHeaders = {
+    [process.env.ADDITIONAL_SDK_HEADER_KEY]:
+      process.env.ADDITIONAL_SDK_HEADER_VALUE,
+  };
+}
+
+console.log(opts);
+const client = new QuickNodeSDK(opts);
 
 //const getQueryParam = (req: Request, param: string): string | undefined => {
 //  let typedParam = undefined;

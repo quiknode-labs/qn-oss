@@ -14,6 +14,7 @@ import generatedIntrospection from '../graphql/fragmentMatcher';
 
 export interface QuickNodeSDKArguments {
   qnApiKey?: string;
+  additionalHeaders?: Record<string, string>;
 }
 
 const QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
@@ -26,7 +27,7 @@ const QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
     : false;
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:1339/graphql',
+  uri: 'http://localhost:4000/graphql',
   fetch,
 });
 
@@ -51,7 +52,7 @@ export class QuickNodeSDK {
   readonly qnApiKey?: string;
   readonly nft: NFTQueries;
 
-  constructor({ qnApiKey }: QuickNodeSDKArguments = {}) {
+  constructor({ qnApiKey, additionalHeaders }: QuickNodeSDKArguments = {}) {
     if (!qnApiKey && !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
       console.warn(
         'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
@@ -59,20 +60,24 @@ export class QuickNodeSDK {
     }
 
     this.qnApiKey = qnApiKey;
-    this.apolloClient = this.createApolloClient({ qnApiKey });
+    this.apolloClient = this.createApolloClient({
+      qnApiKey,
+      additionalHeaders,
+    });
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
     this.nft = new NFTQueries(this.customApolloClient);
   }
 
   private createApolloClient({
     qnApiKey,
+    additionalHeaders,
   }: QuickNodeSDKArguments): ApolloClient<NormalizedCacheObject> {
     const authLink = setContext(async (_, { headers }) => {
       return {
         headers: {
           ...headers,
-          // TODO: figure out API key and billing
-          //...{ 'x-api-key': qnApiKey },
+          ...{ 'x-api-key': qnApiKey },
+          ...additionalHeaders,
         },
       };
     });

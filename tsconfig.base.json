@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@qn-oss/libs/api/sdk": ["packages/libs/api/sdk/src/index.ts"],
+      "@qn-oss/libs/ui/react-token-gate": [
+        "packages/libs/ui/react-token-gate/src/index.ts"
+      ],
       "@qn-oss/libs/ui/util": ["packages/libs/ui/util/src/index.ts"],
       "@qn-oss/libs/util": ["packages/libs/util/src/index.ts"],
       "@quicknode/icy-nft-hooks": [

@@ -9,6 +9,8 @@ interface ModalBodyProps {
   validateWallet: () => Promise<void>;
   ownershipStatus: OWNERSHIP_STATUS;
   setOwnershipStatus: (value: OWNERSHIP_STATUS) => void;
+  checkOwnership: () => Promise<void>;
+  waitingForConnectWallet: boolean;
 }
 
 function ModalBody({
@@ -18,6 +20,8 @@ function ModalBody({
   validateWallet,
   ownershipStatus,
   setOwnershipStatus,
+  checkOwnership,
+  waitingForConnectWallet,
 }: ModalBodyProps) {
   if (walletConnected) {
     return (
@@ -26,12 +30,18 @@ function ModalBody({
           validateWallet,
           ownershipStatus,
           setOwnershipStatus,
+          closeModal,
+          checkOwnership,
         }}
       />
     );
   }
 
-  return <ConnectWallet {...{ connectWallet, closeModal }} />;
+  return (
+    <ConnectWallet
+      {...{ connectWallet, closeModal, waitingForConnectWallet }}
+    />
+  );
 }
 
 export default ModalBody;

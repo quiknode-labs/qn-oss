@@ -56,7 +56,15 @@ export function TokenGate({ buttonPrompt, appElement }: TokenGateProps) {
   }
 
   async function validateWallet() {
-    // actually verify here
+    // actually ask for signature here
+    console.log('validating wallet');
+    await sleep();
+    setOwnershipStatus(OWNERSHIP_STATUS.SIGNED);
+  }
+
+  async function checkOwnership() {
+    // actually check ownership here
+    console.log('checking ownership');
     await sleep();
     setOwnershipStatus(OWNERSHIP_STATUS.VERIFIED);
     setFullyVerified(true);
@@ -69,6 +77,7 @@ export function TokenGate({ buttonPrompt, appElement }: TokenGateProps) {
         closeModal={closeModal}
         appElement={appElement}
         validateWallet={validateWallet}
+        checkOwnership={checkOwnership}
         ownershipStatus={ownershipStatus}
         setOwnershipStatus={setOwnershipStatus}
       />

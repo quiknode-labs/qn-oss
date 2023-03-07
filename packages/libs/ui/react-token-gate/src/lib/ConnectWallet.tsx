@@ -1,9 +1,14 @@
 interface ConnectWalletProps {
   connectWallet: () => void;
   closeModal: () => void;
+  waitingForConnectWallet: boolean;
 }
 
-function ConnectWallet({ connectWallet, closeModal }: ConnectWalletProps) {
+function ConnectWallet({
+  connectWallet,
+  closeModal,
+  waitingForConnectWallet,
+}: ConnectWalletProps) {
   return (
     <>
       <h2>Connect Wallet</h2>
@@ -11,6 +16,7 @@ function ConnectWallet({ connectWallet, closeModal }: ConnectWalletProps) {
       <button onClick={connectWallet}>Wallet Connect</button>
       <button onClick={connectWallet}>MetaMask</button>
       <button onClick={closeModal}>close</button>
+      {waitingForConnectWallet && <p>Waiting for wallet connection...</p>}
     </>
   );
 }

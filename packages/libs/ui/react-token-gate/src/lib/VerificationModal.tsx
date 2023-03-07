@@ -11,6 +11,7 @@ interface VerificationModalProps {
   validateWallet: () => Promise<void>;
   ownershipStatus: OWNERSHIP_STATUS;
   setOwnershipStatus: (value: OWNERSHIP_STATUS) => void;
+  checkOwnership: () => Promise<void>;
 }
 
 function VerificationModal({
@@ -20,18 +21,27 @@ function VerificationModal({
   validateWallet,
   ownershipStatus,
   setOwnershipStatus,
+  checkOwnership,
 }: VerificationModalProps) {
   // Sets the root app element for the modal
   // see https://reactcommunity.org/react-modal/accessibility/
   Modal.setAppElement(appElement);
 
   const [walletConnected, setWalletConnected] = useState(false);
+  const [waitingForConnectWallet, setWaitingForConnectWallet] = useState(false);
 
   async function connectWallet() {
     // Connect wallet here
-    // start signature once connected
-    await sleep();
-    setWalletConnected(true);
+
+    setWaitingForConnectWallet(true);
+    try {
+      await sleep();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setWaitingForConnectWallet(false);
+      setWalletConnected(true);
+    }
   }
 
   return (
@@ -50,6 +60,8 @@ function VerificationModal({
           validateWallet,
           ownershipStatus,
           setOwnershipStatus,
+          waitingForConnectWallet,
+          checkOwnership,
         }}
       />
     </Modal>

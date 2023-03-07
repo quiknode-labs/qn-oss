@@ -2988,6 +2988,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-modal@^3.13.1":
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/@types/react-modal/-/react-modal-3.13.1.tgz#5b9845c205fccc85d9a77966b6e16dc70a60825a"
+  integrity sha512-iY/gPvTDIy6Z+37l+ibmrY+GTV4KQTHcCyR5FIytm182RQS69G5ps4PH2FxtC7bAQ2QRHXMevsBgck7IQruHNg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-router-dom@5.3.3":
   version "5.3.3"
   resolved "https://registry.npmjs.org/@types/react-router-dom/-/react-router-dom-5.3.3.tgz"
@@ -6892,11 +6899,6 @@ image-size@~0.5.0:
   resolved "https://registry.npmjs.org/image-size/-/image-size-0.5.5.tgz"
   integrity sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==
 
-immer@>=6.0.3:
-  version "9.0.19"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.19.tgz#67fb97310555690b5f9cd8380d38fc0aabb6b38b"
-  integrity sha512-eY+Y0qcsB4TZKwgQzLaE/lqYMlKhv5J9dyd2RhhtGhNo2njPXDqU9XPfcNfa3MIDsdtZt5KlkIsirlo4dHsWdQ==
-
 immer@^9.0.7:
   version "9.0.15"
   resolved "https://registry.npmjs.org/immer/-/immer-9.0.15.tgz"
@@ -9876,6 +9878,13 @@ react-error-overlay@^6.0.11:
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.11.tgz"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
 
+react-hooks-global-state@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-hooks-global-state/-/react-hooks-global-state-2.1.0.tgz#91d1d85c6c920f2e8681579d71d552207c5fe4ac"
+  integrity sha512-tLSRhB5pD3QiNsGOo893m8lVZXDuIkdin8PKKmGqnJniAaD/tzl3BdAkba1vOv1/q1bpuN+9zrqqAHkRJhXzJw==
+  dependencies:
+    zustand "4.0.0"
+
 "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
@@ -10811,13 +10820,6 @@ stackframe@^1.3.4:
   version "1.3.4"
   resolved "https://registry.npmjs.org/stackframe/-/stackframe-1.3.4.tgz"
   integrity sha512-oeVtt7eWQS+Na6F//S4kJ2K2VbRlS9D43mAlMyVpVWovy9o+jfgH8O9agzANzaiLjclA0oYzUXEM4PurhSUChw==
-
-state-pool@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/state-pool/-/state-pool-0.9.0.tgz#002ba56fbc0fdc5b9de2b29dab3469773be56baa"
-  integrity sha512-82732wx9lZvHWFufWDEIwLIHY2FC+eSe2nC9qD2UgPXEoMKlF8kMr1JsGwvk/ueQ/l1/uDElQ086P3PKMJwd4g==
-  dependencies:
-    immer ">=6.0.3"
 
 statuses@2.0.1:
   version "2.0.1"
@@ -12313,6 +12315,13 @@ zen-observable@0.8.15:
   version "0.8.15"
   resolved "https://registry.npmjs.org/zen-observable/-/zen-observable-0.8.15.tgz"
   integrity sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
+
+zustand@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.0.0.tgz#739cba69209ffe67b31e7d6741c25b51496114a7"
+  integrity sha512-OrsfQTnRXF1LZ9/vR/IqN9ws5EXUhb149xmPjErZnUrkgxS/gAHGy2dPNIVkVvoxrVe1sIydn4JjF0dYHmGeeQ==
+  dependencies:
+    use-sync-external-store "1.2.0"
 
 zustand@^4.0.0-rc.3:
   version "4.0.0-rc.3"

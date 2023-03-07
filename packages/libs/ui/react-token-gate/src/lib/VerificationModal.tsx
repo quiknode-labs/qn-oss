@@ -1,28 +1,29 @@
-import { useState } from 'react';
 import Modal from 'react-modal';
 
 interface VerificationModalProps {
   isOpen: boolean;
+  appElement: any;
+  closeModal: () => void;
 }
 
-function VerificationModal({ isOpen }: VerificationModalProps) {
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+function VerificationModal({
+  isOpen,
+  appElement,
+  closeModal,
+}: VerificationModalProps) {
+  Modal.setAppElement(appElement);
 
   return (
     <Modal
-      isOpen={modalIsOpen}
+      isOpen={isOpen}
       onRequestClose={closeModal}
       //style={customStyles}
       //contentLabel="Example Modal"
     >
       <h2>Hello</h2>
-      <button onClick={closeModal}>close</button>
       <div>I am a modal</div>
       <form>Something is happening!</form>
+      <button onClick={closeModal}>close</button>
     </Modal>
   );
 }

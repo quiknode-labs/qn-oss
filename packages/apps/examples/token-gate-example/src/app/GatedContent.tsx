@@ -1,11 +1,17 @@
-import { TokenGate } from '../../../../../libs/ui/react-token-gate/src';
+import {
+  TokenGate,
+  useTokenGate,
+} from '../../../../../libs/ui/react-token-gate/src';
 
-function GatedContent({ isVerified }: { isVerified: any }) {
-  if (isVerified) {
-    return <h1>Verified</h1>;
-  } else {
-    return <TokenGate buttonPrompt={'Verify Ownership'} />;
-  }
+function GatedContent() {
+  const isVerified = useTokenGate();
+
+  return (
+    <>
+      {isVerified && <div>Verified</div>}
+      <TokenGate buttonPrompt={'Verify Ownership'} appElement={'#root'} />
+    </>
+  );
 }
 
 export default GatedContent;

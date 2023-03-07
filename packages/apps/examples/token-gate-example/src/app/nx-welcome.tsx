@@ -1,9 +1,6 @@
 import GatedContent from './GatedContent';
-import { useTokenGate } from '../../../../../libs/ui/react-token-gate/src';
 
 export function NxWelcome() {
-  const isVerifed = useTokenGate();
-
   return (
     <>
       <style
@@ -425,7 +422,7 @@ export function NxWelcome() {
               <h2>
                 <span>X Only Loopy donut owners can see this page</span>
               </h2>
-              <GatedContent isVerified={isVerifed || false} />
+              <GatedContent />
             </div>
           </div>
         </div>

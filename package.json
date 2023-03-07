@@ -23,9 +23,11 @@
     "graphql": "^16.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "regenerator-runtime": "^0.13.7",
+    "state-pool": "^0.9.0",
     "tslib": "^2.3.0",
     "web-vitals": "^2.1.4",
     "zustand": "^4.0.0-rc.3"

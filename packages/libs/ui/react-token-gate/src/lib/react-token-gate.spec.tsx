@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import LibsUiReactTokenGate from './libs-ui-react-token-gate';
+import { TokenGate } from './TokenVerify';
 
 describe('LibsUiReactTokenGate', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<LibsUiReactTokenGate />);
+    const { baseElement } = render(<TokenGate buttonPrompt={'hi'} />);
     expect(baseElement).toBeTruthy();
   });
 });

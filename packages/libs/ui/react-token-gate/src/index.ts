@@ -1,1 +1,1 @@
-export * from './lib/libs-ui-react-token-gate';
+export * from './lib/TokenVerify';

@@ -31,17 +31,23 @@ function VerificationModal({
   const [waitingForConnectWallet, setWaitingForConnectWallet] = useState(false);
 
   async function connectWallet() {
-    // Connect wallet here
+    // Should be blocked from getting here by not being able to click the button if wallet not installed
+    if (!(window as any).ethereum) {
+      return false;
+    }
 
     setWaitingForConnectWallet(true);
     try {
-      await sleep();
+      // TODO: Can we check correct network and ask to switch if on incorrect one here?
+      await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
+      setWalletConnected(true);
     } catch (e) {
       console.error(e);
     } finally {
       setWaitingForConnectWallet(false);
-      setWalletConnected(true);
     }
+
+    return true;
   }
 
   return (

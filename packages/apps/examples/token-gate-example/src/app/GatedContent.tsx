@@ -39,7 +39,11 @@ function GatedContent() {
       ) : (
         <div>Only Loopy Donut hodlers can view what is hidden here</div>
       )}
-      <TokenGate buttonPrompt={'Verify NFT Ownership'} appElement={'#root'} />
+      <TokenGate
+        buttonPrompt={'Verify NFT Ownership'}
+        appElement={'#root'}
+        quicknodeUrl={process.env['QUICKNODE_URL'] as string}
+      />
     </>
   );
 }

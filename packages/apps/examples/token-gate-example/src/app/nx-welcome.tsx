@@ -130,16 +130,7 @@ export function NxWelcome() {
     #hero .text-container h2 span {
       margin-left: 2.5rem;
     }
-    #hero .text-container a {
-      background-color: rgba(255, 255, 255, 1);
-      border-radius: 0.75rem;
-      color: rgba(55, 65, 81, 1);
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 1rem 2rem;
-      text-decoration: inherit;
-    }
-    #hero .logo-container {
+   #hero .logo-container {
       display: none;
       justify-content: center;
       padding-left: 2rem;
@@ -316,14 +307,6 @@ export function NxWelcome() {
     #nx-cloud pre {
       margin-top: 1rem;
     }
-    #nx-cloud a {
-      color: rgba(107, 114, 128, 1);
-      display: block;
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      margin-top: 1.5rem;
-      text-align: right;
-    }
     #nx-cloud a:hover {
       text-decoration: underline;
     }
@@ -396,7 +379,7 @@ export function NxWelcome() {
     }
     @media screen and (min-width: 768px) {
       #hero {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(1, minmax(0, 1fr));
       }
       #hero .logo-container {
         display: flex;
@@ -419,9 +402,6 @@ export function NxWelcome() {
 
           <div id="hero" className="rounded">
             <div className="text-container">
-              <h2>
-                <span>X Only Loopy donut owners can see this page</span>
-              </h2>
               <GatedContent />
             </div>
           </div>

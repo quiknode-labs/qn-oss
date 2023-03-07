@@ -13,9 +13,7 @@ export function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/loopypage">
-              Click here for token-gated loopy content
-            </Link>
+            <Link to="/loopypage">Loopy Donut Fan Club (OWNERS ONLY!!)</Link>
           </li>
         </ul>
       </div>

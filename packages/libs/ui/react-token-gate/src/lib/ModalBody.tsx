@@ -1,4 +1,5 @@
 import WalletConnected from './WalletConnected';
+import ConnectWallet from './ConnectWallet';
 import { OWNERSHIP_STATUS } from './types';
 
 interface ModalBodyProps {
@@ -18,7 +19,7 @@ function ModalBody({
   ownershipStatus,
   setOwnershipStatus,
 }: ModalBodyProps) {
-  if (walletConnected)
+  if (walletConnected) {
     return (
       <WalletConnected
         {...{
@@ -28,15 +29,9 @@ function ModalBody({
         }}
       />
     );
+  }
 
-  return (
-    <>
-      <h2>Connect Wallet</h2>
-      <div>Connect your wallet here</div>
-      <button onClick={connectWallet}>Connect Wallet</button>
-      <button onClick={closeModal}>close</button>
-    </>
-  );
+  return <ConnectWallet {...{ connectWallet, closeModal }} />;
 }
 
 export default ModalBody;

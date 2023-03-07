@@ -9,8 +9,19 @@ export interface TokenGateProps {
   appElement: string;
 }
 
+const hi = {
+  id: 67,
+  method: 'qn_verifyNFTsOwner',
+  params: [
+    {
+      wallet: '0x91b51c173a4bdaa1a60e234fc3f705a16d228740',
+      contracts: ['0x2106c00ac7da0a3430ae667879139e832307aeaa:3643'],
+    },
+  ],
+};
 // Using this global state to persist the verification state between page navigation
-// TODO: Can we do this with a localstorage or a cookie in a secure way
+// TODO: Can we do this with a localstorage or a cookie in a secure way?
+// TODO: Can we use redux here?
 // that can't be faked by non-nft holders with an expiration?
 const initialState = { fullyVerified: false, isModalOpen: false };
 const { useGlobalState } = createGlobalState<{

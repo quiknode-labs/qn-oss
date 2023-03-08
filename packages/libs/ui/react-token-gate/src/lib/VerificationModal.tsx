@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import Modal from 'react-modal';
-import ModalBody from './ModalBody';
+import ModalContent from './ModalContent';
 import { OWNERSHIP_STATUS } from './types';
 
 interface VerificationModalProps {
@@ -36,15 +35,27 @@ function VerificationModal({
   // see https://reactcommunity.org/react-modal/accessibility/
   Modal.setAppElement(appElement);
 
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      width: '80%',
+      height: '60%',
+    },
+  };
+
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={closeModal}
-      //style={customStyles}
+      style={customStyles}
       contentLabel="token-gating-modal"
     >
-      <button onClick={closeModal}>x</button>
-      <ModalBody
+      <ModalContent
         {...{
           connectWallet,
           closeModal,

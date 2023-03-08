@@ -13,7 +13,7 @@ function VerifyButton({ startVerification, buttonPrompt }: VerifyButtonProps) {
       0px 1px 3px rgba(16, 21, 27, 0.05);
     border-radius: 8px;
     background: #10151b;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;

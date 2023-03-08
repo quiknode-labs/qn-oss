@@ -11,6 +11,8 @@ interface ModalBodyProps {
   setOwnershipStatus: (value: OWNERSHIP_STATUS) => void;
   checkOwnership: () => Promise<void>;
   waitingForConnectWallet: boolean;
+  connectToWalletConnect: () => void;
+  walletConnectProjectId: string | undefined;
 }
 
 function ModalBody({
@@ -22,6 +24,8 @@ function ModalBody({
   setOwnershipStatus,
   checkOwnership,
   waitingForConnectWallet,
+  connectToWalletConnect,
+  walletConnectProjectId,
 }: ModalBodyProps) {
   if (walletConnected) {
     return (
@@ -39,7 +43,13 @@ function ModalBody({
 
   return (
     <ConnectWallet
-      {...{ connectWallet, closeModal, waitingForConnectWallet }}
+      {...{
+        walletConnectProjectId,
+        connectWallet,
+        connectToWalletConnect,
+        closeModal,
+        waitingForConnectWallet,
+      }}
     />
   );
 }

@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VerificationModal from './VerificationModal';
+import VerifyButton from './VerifyButton';
 import { createGlobalState } from 'react-hooks-global-state';
 import { OWNERSHIP_STATUS } from './types';
 import { ethers, JsonRpcProvider } from 'ethers';
-import { sleep } from './utils';
+import SignClient from '@walletconnect/sign-client';
+import { Web3Modal } from '@web3modal/standalone';
 
 export interface TokenGateProps {
-  buttonPrompt: string;
+  buttonPrompt?: string;
   appElement: string;
   quicknodeUrl: string;
   nftContractAddress: string;
+  walletConnectProjectId?: string | undefined;
 }
 
 // Using this global state to persist the verification state between page navigation
@@ -23,10 +26,11 @@ const { useGlobalState } = createGlobalState<{
 }>(initialState);
 
 export function TokenGate({
-  buttonPrompt,
+  buttonPrompt = 'Verify NFT Ownership',
   appElement,
   nftContractAddress,
   quicknodeUrl,
+  walletConnectProjectId,
 }: TokenGateProps) {
   const browserProvider = new ethers.BrowserProvider((window as any).ethereum);
   // TODO: Make work for other chains
@@ -44,6 +48,28 @@ export function TokenGate({
     useState<boolean>(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [modalIsOpen, setModalIsOpen] = useGlobalState('isModalOpen');
+  const [web3Modal, setWeb3Modal] = useState<Web3Modal | null>(null);
+  const [signClient, setSignClient] = useState<SignClient | null>(null);
+
+  useEffect(() => {
+    /*
+    if (walletConnectProjectId) {
+      const modal = new Web3Modal({
+        //
+        walletConnectVersion: 1, // or 2
+        projectId: walletConnectProjectId,
+        standaloneChains: ['eip155:1'],
+      });
+      setWeb3Modal(modal);
+      (async () => {
+        const client = await SignClient.init({
+          projectId: walletConnectProjectId,
+        });
+        setSignClient(client);
+      })();
+    }
+    */
+  }, [walletConnectProjectId]);
 
   function openModal() {
     setModalIsOpen(true);
@@ -79,6 +105,37 @@ export function TokenGate({
       setWaitingForConnectWallet(false);
     }
 
+    return true;
+  }
+
+  async function connectToWalletConnect() {
+    if (!walletConnectProjectId) {
+      return false;
+    }
+    try {
+      if (signClient && web3Modal) {
+        const { uri, approval } = await signClient.connect({
+          requiredNamespaces: {
+            eip155: {
+              methods: ['eth_sign'],
+              chains: ['eip155:1'],
+              events: ['accountsChanged'],
+            },
+          },
+        });
+        if (uri) {
+          await web3Modal.openModal({
+            uri,
+            standaloneChains: ['eip155:1'],
+          });
+          await approval();
+          web3Modal.closeModal();
+        }
+      }
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
     return true;
   }
 
@@ -124,19 +181,15 @@ export function TokenGate({
 
     if (walletAssets.length > 0) {
       const { collectionTokenId: nftId, imageUrl } = walletAssets[0];
-      console.log(nftId);
       // TODO: imageURL doesn't seem to be working, check API for opensea image
       const ownerNfts = [`${nftContractAddress.toLowerCase()}:${nftId}`];
-      console.log(ownerNfts);
       const data = await qnProvider.send('qn_verifyNFTsOwner', [
         {
           wallet: walletAddress,
           contracts: ownerNfts,
         },
       ]);
-      console.log(data);
       const { owner, assets } = data;
-      console.log(walletAddress, owner, assets, ownerNfts);
       const verified =
         owner === walletAddress &&
         JSON.stringify(assets) === JSON.stringify(ownerNfts);
@@ -157,11 +210,16 @@ export function TokenGate({
         ownershipStatus={ownershipStatus}
         setOwnershipStatus={setOwnershipStatus}
         connectWallet={connectWallet}
+        connectToWalletConnect={connectToWalletConnect}
         waitingForConnectWallet={waitingForConnectWallet}
         walletConnected={walletConnected}
+        walletConnectProjectId={walletConnectProjectId}
       />
       {!fullyVerified && (
-        <button onClick={startVerification}>{buttonPrompt}</button>
+        <VerifyButton
+          startVerification={startVerification}
+          buttonPrompt={buttonPrompt}
+        />
       )}
     </>
   );

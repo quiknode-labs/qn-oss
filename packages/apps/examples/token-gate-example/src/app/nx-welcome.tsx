@@ -1,4 +1,5 @@
 import GatedContent from './GatedContent';
+import { TokenGate } from '../../../../../libs/ui/react-token-gate/src';
 
 export function NxWelcome() {
   return (
@@ -110,9 +111,11 @@ export function NxWelcome() {
       grid-template-columns: 1fr;
       margin-top: 3.5rem;
     }
-    #hero .text-container {
-      color: rgba(255, 255, 255, 1);
+    #hero .text-container{
       padding: 3rem 2rem;
+    }
+    #hero .text-container .hero-text{
+      color: rgba(255, 255, 255, 1);
     }
     #hero .text-container h2 {
       font-size: 1.5rem;
@@ -403,6 +406,15 @@ export function NxWelcome() {
           <div id="hero" className="rounded">
             <div className="text-container">
               <GatedContent />
+              <TokenGate
+                buttonPrompt={'Verify NFT Ownership'}
+                appElement={'#root'}
+                quicknodeUrl={process.env['NX_QUICKNODE_URL'] as string}
+                nftContractAddress={
+                  '0x2106C00Ac7dA0A3430aE667879139E832307AeAa'
+                }
+                walletConnectProjectId={'61d6b9e45ae61849a3609b09627b5dbc'} // Optional
+              />
             </div>
           </div>
         </div>

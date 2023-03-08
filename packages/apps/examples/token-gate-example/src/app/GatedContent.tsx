@@ -8,9 +8,9 @@ function GatedContent() {
   const isVerified = useTokenGate();
 
   return (
-    <>
+    <div className="hero-text">
       {isVerified ? (
-        <>
+        <div>
           <div>✅ Verified.</div>
           <br />
           <div>
@@ -35,17 +35,11 @@ function GatedContent() {
             which you can only see because you are a verified Loopy Donut owner!
           </div>
           <br />
-        </>
+        </div>
       ) : (
         <div>Only Loopy Donut hodlers can view what is hidden here</div>
       )}
-      <TokenGate
-        buttonPrompt={'Verify NFT Ownership'}
-        appElement={'#root'}
-        quicknodeUrl={process.env['NX_QUICKNODE_URL'] as string}
-        nftContractAddress={'0x2106C00Ac7dA0A3430aE667879139E832307AeAa'}
-      />
-    </>
+    </div>
   );
 }
 

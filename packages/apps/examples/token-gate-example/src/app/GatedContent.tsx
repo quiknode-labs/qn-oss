@@ -1,8 +1,5 @@
 import { Link } from 'react-router-dom';
-import {
-  TokenGate,
-  useTokenGate,
-} from '../../../../../libs/ui/react-token-gate/src';
+import { useTokenGate } from '../../../../../libs/ui/token-gate/src';
 
 function GatedContent() {
   const isVerified = useTokenGate();

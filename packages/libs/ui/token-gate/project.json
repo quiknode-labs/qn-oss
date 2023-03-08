@@ -1,0 +1,43 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/libs/ui/token-gate/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/libs/ui/token-gate",
+        "tsConfig": "packages/libs/ui/token-gate/tsconfig.lib.json",
+        "project": "packages/libs/ui/token-gate/package.json",
+        "entryFile": "packages/libs/ui/token-gate/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "packages/libs/ui/token-gate/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/libs/ui/token-gate/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/libs/ui/token-gate"],
+      "options": {
+        "jestConfig": "packages/libs/ui/token-gate/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

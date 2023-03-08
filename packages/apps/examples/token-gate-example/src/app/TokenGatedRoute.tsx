@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useTokenGate } from '../../../../../libs/ui/react-token-gate/src';
+import { useTokenGate } from '../../../../../libs/ui/token-gate/src';
 
 const TokenGatedRoute = ({ children }: { children: any }) => {
   const isVerifed = useTokenGate();

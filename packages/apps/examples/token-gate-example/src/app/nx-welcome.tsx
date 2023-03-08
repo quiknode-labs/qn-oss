@@ -1,5 +1,5 @@
 import GatedContent from './GatedContent';
-import { TokenGate } from '../../../../../libs/ui/react-token-gate/src';
+import { TokenGate } from '../../../../../libs/ui/token-gate/src';
 
 export function NxWelcome() {
   return (

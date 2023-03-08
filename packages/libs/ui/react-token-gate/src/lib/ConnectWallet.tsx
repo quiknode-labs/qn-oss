@@ -1,3 +1,6 @@
+import ConnectWalletButton from './ConnectWalletButton';
+//import CoinbaseWalletIcon from './assets/coinbase-wallet.svg';
+
 interface ConnectWalletProps {
   connectWallet: () => void;
   closeModal: () => void;
@@ -16,7 +19,7 @@ function ConnectWallet({
   if ((window as any).ethereum) {
     return (
       <>
-        <div>Connect your wallet to continue</div>
+        <strong>Connect your wallet to continue</strong>
         <div>
           Don't have a wallet yet?{' '}
           <a href="https://www.coinbase.com/wallet" target="_blank">
@@ -24,24 +27,22 @@ function ConnectWallet({
           </a>{' '}
           to continue
         </div>
-        <button onClick={connectWallet}>Coinbase Wallet</button>
-        <button onClick={connectWallet}>MetaMask</button>
-        {false && // TODO: add wallet connect
-          walletConnectProjectId && (
-            <button onClick={connectToWalletConnect}>Wallet Connect</button>
-          )}
-        <button onClick={closeModal}>close</button>
+        <ConnectWalletButton
+          connectWallet={connectWallet}
+          text={'Coinbase Wallet'}
+        />
+        <ConnectWalletButton connectWallet={connectWallet} text={'Metamask'} />
         {waitingForConnectWallet && <p>Waiting for wallet connection...</p>}
       </>
     );
   } else {
     return (
       <>
-        <h2>Connect Wallet</h2>
-        <p>
+        <strong>Connect Wallet</strong>
+        <div>
           Please install a wallet to continue. We recommend{' '}
           <a href="https://www.coinbase.com/wallet">Coinbase Wallet</a>.
-        </p>
+        </div>
         <button onClick={closeModal}>close</button>
       </>
     );

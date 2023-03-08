@@ -17,7 +17,7 @@ function ModalHeader({ text, closeModal }: ModalHeaderProps) {
     padding: 0em 0.5em;
   `;
   const HeaderText = styled.div`
-    font-weight: 500;
+    font-weight: 800;
     font-size: 20px;
     line-height: 32px;
   `;

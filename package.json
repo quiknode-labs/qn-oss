@@ -32,6 +32,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "regenerator-runtime": "^0.13.7",
+    "styled-components": "^5.3.8",
     "tslib": "^2.3.0",
     "web-vitals": "^2.1.4",
     "zustand": "^4.0.0-rc.3"
@@ -65,6 +66,7 @@
     "@types/react-dom": "18.0.5",
     "@types/react-modal": "^3.13.1",
     "@types/react-router-dom": "5.3.3",
+    "@types/styled-components": "^5.1.26",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",

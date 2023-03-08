@@ -23,7 +23,6 @@ export function NxWelcome() {
                 nftContractAddress={
                   '0x2106C00Ac7dA0A3430aE667879139E832307AeAa'
                 }
-                walletConnectProjectId={'61d6b9e45ae61849a3609b09627b5dbc'} // Optional
               />
             </div>
           </div>

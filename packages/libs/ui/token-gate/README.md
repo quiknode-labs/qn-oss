@@ -64,4 +64,6 @@ const TokenGatedRoute = ({ children }: { children: any }) => {
 
 ## Caveats
 
-This is a client-side library, meaning the "hidden" parts of your application will likely still be avaible in the source code (depending on your bundling). We would love to discuss a more comprehensive gating application, feel free to file an issue in [our repo](https://github.com/quiknode-labs/qn-oss)
+This is a client-side library, meaning the "hidden" parts of your application will likely still be avaible in the source code of your application.
+
+We would love to discuss a more comprehensive gating approach involving a backend library, feel free to file an issue in [our repo](https://github.com/quiknode-labs/qn-oss) if you would like to discuss a use-case.

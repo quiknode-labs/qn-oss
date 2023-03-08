@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import ModalBody from './ModalBody';
 import { OWNERSHIP_STATUS } from './types';
-import { sleep } from './utils';
 
 interface VerificationModalProps {
   isOpen: boolean;
@@ -12,6 +11,9 @@ interface VerificationModalProps {
   ownershipStatus: OWNERSHIP_STATUS;
   setOwnershipStatus: (value: OWNERSHIP_STATUS) => void;
   checkOwnership: () => Promise<void>;
+  connectWallet: () => void;
+  walletConnected: boolean;
+  waitingForConnectWallet: boolean;
 }
 
 function VerificationModal({
@@ -22,33 +24,13 @@ function VerificationModal({
   ownershipStatus,
   setOwnershipStatus,
   checkOwnership,
+  connectWallet,
+  walletConnected,
+  waitingForConnectWallet,
 }: VerificationModalProps) {
   // Sets the root app element for the modal
   // see https://reactcommunity.org/react-modal/accessibility/
   Modal.setAppElement(appElement);
-
-  const [walletConnected, setWalletConnected] = useState(false);
-  const [waitingForConnectWallet, setWaitingForConnectWallet] = useState(false);
-
-  async function connectWallet() {
-    // Should be blocked from getting here by not being able to click the button if wallet not installed
-    if (!(window as any).ethereum) {
-      return false;
-    }
-
-    setWaitingForConnectWallet(true);
-    try {
-      // TODO: Can we check correct network and ask to switch if on incorrect one here?
-      await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
-      setWalletConnected(true);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setWaitingForConnectWallet(false);
-    }
-
-    return true;
-  }
 
   return (
     <Modal

@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import VerificationModal from './VerificationModal';
 import { createGlobalState } from 'react-hooks-global-state';
-import { sleep } from './utils';
 import { OWNERSHIP_STATUS } from './types';
-import { JsonRpcProvider } from 'ethers';
+import { ethers, JsonRpcProvider } from 'ethers';
+import { sleep } from './utils';
 
 export interface TokenGateProps {
   buttonPrompt: string;
   appElement: string;
   quicknodeUrl: string;
+  nftContractAddress: string;
 }
 
 // Using this global state to persist the verification state between page navigation
@@ -24,9 +25,12 @@ const { useGlobalState } = createGlobalState<{
 export function TokenGate({
   buttonPrompt,
   appElement,
+  nftContractAddress,
   quicknodeUrl,
 }: TokenGateProps) {
-  const ethersProvider = new JsonRpcProvider(quicknodeUrl);
+  const browserProvider = new ethers.BrowserProvider((window as any).ethereum);
+  // TODO: Make work for other chains
+  const qnProvider = new JsonRpcProvider(quicknodeUrl);
   // fullyVerified is for when they have fully gone through the verification process and own the NFT
   // This is meant to be used by the hook to determine if they should be gated or not
   const [fullyVerified, setFullyVerified] = useGlobalState('fullyVerified');
@@ -35,6 +39,10 @@ export function TokenGate({
   const [ownershipStatus, setOwnershipStatus] = useState<OWNERSHIP_STATUS>(
     OWNERSHIP_STATUS.NULL
   );
+  const [walletConnected, setWalletConnected] = useState<boolean>(false);
+  const [waitingForConnectWallet, setWaitingForConnectWallet] =
+    useState<boolean>(false);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [modalIsOpen, setModalIsOpen] = useGlobalState('isModalOpen');
 
   function openModal() {
@@ -49,24 +57,93 @@ export function TokenGate({
     openModal();
   }
 
-  async function validateWallet() {
-    const message =
-      'This message was sent by URL to verify your wallet ownership.\n\nSigning this message will not make any transactions.';
-
-    const signer = ethersProvider.getSigner();
-    const signed = await signer.signMessage(message);
-    if (signed) {
-      setOwnershipStatus(OWNERSHIP_STATUS.SIGNED);
-      checkOwnership();
+  async function connectWallet() {
+    // Should be blocked from getting here by not being able to click the button if wallet not installed
+    if (!(window as any).ethereum) {
+      return false;
     }
+
+    setWaitingForConnectWallet(true);
+    try {
+      // TODO: Can we check correct network and ask to switch if on incorrect one here?
+      const accounts = await (window as any).ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      if (accounts?.length > 0) {
+        setWalletConnected(true);
+        setWalletAddress(accounts[0]);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setWaitingForConnectWallet(false);
+    }
+
+    return true;
+  }
+
+  async function validateWallet() {
+    const signer = await browserProvider.getSigner();
+    // TODO: make message customizable
+    const message =
+      'This message is used to verify your wallet ownership.\n\nSigning this message will not make any transactions.';
+    const signed = await signer.signMessage(message);
+    // TODO: Store the hashed message, and re-verify hash instead of having to ask wallet to sign each time
+    console.log(signed);
+    // https://github.com/ethers-io/ethers.js/issues/447
+    setOwnershipStatus(OWNERSHIP_STATUS.SIGNED);
   }
 
   async function checkOwnership() {
-    // actually check ownership here
-    console.log('checking ownership');
-    await sleep();
-    setOwnershipStatus(OWNERSHIP_STATUS.VERIFIED);
-    setFullyVerified(true);
+    try {
+      const verified = await checkWalletForNFT();
+      if (verified) {
+        setOwnershipStatus(OWNERSHIP_STATUS.VERIFIED);
+        setFullyVerified(true);
+      } else {
+        setOwnershipStatus(OWNERSHIP_STATUS.DENIED);
+        setFullyVerified(false);
+      }
+    } catch (e) {
+      console.error(e);
+      // TODO: make an error handler status
+      setOwnershipStatus(OWNERSHIP_STATUS.DENIED);
+    }
+  }
+
+  async function checkWalletForNFT(): Promise<boolean> {
+    const data = await qnProvider.send('qn_fetchNFTs', [
+      {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        wallet: walletAddress.toLowerCase(),
+        contracts: [nftContractAddress.toLowerCase()],
+      },
+    ]);
+    const { assets: walletAssets } = data;
+
+    if (walletAssets.length > 0) {
+      const { collectionTokenId: nftId, imageUrl } = walletAssets[0];
+      console.log(nftId);
+      // TODO: imageURL doesn't seem to be working, check API for opensea image
+      const ownerNfts = [`${nftContractAddress.toLowerCase()}:${nftId}`];
+      console.log(ownerNfts);
+      const data = await qnProvider.send('qn_verifyNFTsOwner', [
+        {
+          wallet: walletAddress,
+          contracts: ownerNfts,
+        },
+      ]);
+      console.log(data);
+      const { owner, assets } = data;
+      console.log(walletAddress, owner, assets, ownerNfts);
+      const verified =
+        owner === walletAddress &&
+        JSON.stringify(assets) === JSON.stringify(ownerNfts);
+
+      if (verified) return true;
+    }
+    return false;
   }
 
   return (
@@ -79,6 +156,9 @@ export function TokenGate({
         checkOwnership={checkOwnership}
         ownershipStatus={ownershipStatus}
         setOwnershipStatus={setOwnershipStatus}
+        connectWallet={connectWallet}
+        waitingForConnectWallet={waitingForConnectWallet}
+        walletConnected={walletConnected}
       />
       {!fullyVerified && (
         <button onClick={startVerification}>{buttonPrompt}</button>

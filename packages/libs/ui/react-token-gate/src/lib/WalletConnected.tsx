@@ -17,16 +17,25 @@ function WalletConnected({
   closeModal,
   checkOwnership,
 }: WalletConnectedProps) {
+  const [loadingSignature, setLoadingSignature] = useState(false);
   const [loadingOwnership, setLoadingOwnership] = useState(false);
 
   useEffect(() => {
-    if (ownershipStatus === OWNERSHIP_STATUS.NULL) {
+    if (ownershipStatus === OWNERSHIP_STATUS.NULL && !loadingSignature) {
       setOwnershipStatus(OWNERSHIP_STATUS.AWAITING);
+      console.log('HERE');
       (async () => {
-        await validateWallet();
+        setLoadingSignature(true);
+        try {
+          await validateWallet();
+        } catch (e) {
+          console.error(e);
+        } finally {
+          setLoadingSignature(false);
+        }
       })();
     }
-  }, [ownershipStatus]);
+  }, [ownershipStatus, loadingSignature]);
 
   useEffect(() => {
     if (ownershipStatus === OWNERSHIP_STATUS.SIGNED && !loadingOwnership) {
@@ -41,7 +50,7 @@ function WalletConnected({
         }
       })();
     }
-  }, [ownershipStatus]);
+  }, [ownershipStatus, loadingOwnership]);
 
   if (ownershipStatus === OWNERSHIP_STATUS.NULL) {
     return <>Loading...</>;

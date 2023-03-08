@@ -42,7 +42,8 @@ function GatedContent() {
       <TokenGate
         buttonPrompt={'Verify NFT Ownership'}
         appElement={'#root'}
-        quicknodeUrl={process.env['QUICKNODE_URL'] as string}
+        quicknodeUrl={process.env['NX_QUICKNODE_URL'] as string}
+        nftContractAddress={'0x2106C00Ac7dA0A3430aE667879139E832307AeAa'}
       />
     </>
   );

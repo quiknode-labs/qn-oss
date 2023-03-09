@@ -1,0 +1,85 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/apps/examples/token-gate-example/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/packages/apps/examples/token-gate-example",
+        "index": "packages/apps/examples/token-gate-example/src/index.html",
+        "baseHref": "/",
+        "main": "packages/apps/examples/token-gate-example/src/main.tsx",
+        "polyfills": "packages/apps/examples/token-gate-example/src/polyfills.ts",
+        "tsConfig": "packages/apps/examples/token-gate-example/tsconfig.app.json",
+        "assets": [
+          "packages/apps/examples/token-gate-example/src/favicon.ico",
+          "packages/apps/examples/token-gate-example/src/assets"
+        ],
+        "styles": ["packages/apps/examples/token-gate-example/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "packages/apps/examples/token-gate-example/src/environments/environment.ts",
+              "with": "packages/apps/examples/token-gate-example/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "apps-examples-token-gate-example:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "apps-examples-token-gate-example:build:development"
+        },
+        "production": {
+          "buildTarget": "apps-examples-token-gate-example:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/apps/examples/token-gate-example/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/apps/examples/token-gate-example"],
+      "options": {
+        "jestConfig": "packages/apps/examples/token-gate-example/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

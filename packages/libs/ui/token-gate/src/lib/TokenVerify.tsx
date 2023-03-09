@@ -29,7 +29,6 @@ export function TokenGate({
   quicknodeUrl,
 }: TokenGateProps) {
   const browserProvider = new ethers.BrowserProvider((window as any).ethereum);
-  // TODO: Make work for other chains
   const qnProvider = new JsonRpcProvider(quicknodeUrl);
   // fullyVerified is for when they have fully gone through the verification process and own the NFT
   // This is meant to be used by the hook to determine if they should be gated or not

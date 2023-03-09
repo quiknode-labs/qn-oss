@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import CloseIcon from './icons/CloseIcon';
 interface ModalHeaderProps {
   text: string;
   closeModal: () => void;
@@ -12,9 +13,10 @@ const ModalHeaderStyled = styled.div`
   padding: 16px 32px;
   border-bottom: 1px solid #d3d6dc;
 `;
-const CloseButton = styled.div`
+const CloseButtonWrapper = styled.div`
+  display: flex;
   cursor: pointer;
-  padding: 0em 0.5em;
+  align-items: center;
 `;
 const HeaderText = styled.div`
   font-weight: 800;
@@ -27,7 +29,9 @@ function ModalHeader({ text, closeModal }: ModalHeaderProps) {
     <ModalHeaderStyled>
       <HeaderText>{text}</HeaderText>
       <div>
-        <CloseButton onClick={closeModal}>x</CloseButton>
+        <CloseButtonWrapper onClick={closeModal}>
+          <CloseIcon />
+        </CloseButtonWrapper>
       </div>
     </ModalHeaderStyled>
   );

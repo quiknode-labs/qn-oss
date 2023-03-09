@@ -5,6 +5,7 @@ A [React](https://reactjs.org/) library for conditionally showing parts of your 
 ## QuickStart
 
 1. Sign up for an endpoint at https://www.quicknode.com/ and add the [Token and NFT API v2 bundle](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle). Check [the official add-on page](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle) for an up-to-date list of supported chains and networks.
+1. `npm install @quicknode/token-gate`
 1. Import the library
 
 ```javascript
@@ -64,7 +65,7 @@ const TokenGatedRoute = ({ children }: { children: any }) => {
 
 ## Caveats
 
-This is a client-side library, meaning the "hidden" parts of your application will likely still be avaible in the source code of your application.
+This is a client-side library, meaning the "hidden" parts of your application will likely still be available in the source code of your application.
 
 We would love to discuss a more comprehensive gating approach involving a backend library, feel free to file an issue in [our OSS repo](https://github.com/quiknode-labs/qn-oss/issues) if you would like to discuss a use-case.
 

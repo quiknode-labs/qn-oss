@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import WalletConnected from './WalletConnected';
 import ConnectWallet from './ConnectWallet';
-import { OWNERSHIP_STATUS } from './types';
+import { OWNERSHIP_STATUS, WALLET_PROVIDERS } from './types';
 import ModalHeader from './ModalHeader';
 import ModalBody from './ModalBody';
 import styled from 'styled-components';
@@ -35,9 +36,10 @@ function ModalContent({
   checkOwnership,
   waitingForConnectWallet,
 }: ModalContentProps) {
-  const headerText = walletConnected
-    ? 'Verify NFT Ownership'
-    : 'Connect Wallet';
+  const headerText = 'Verify NFT Ownership';
+  const [walletProvider, setWalletProvider] = useState<WALLET_PROVIDERS>(
+    WALLET_PROVIDERS.COINBASE
+  );
 
   return (
     <ModalContentStyled>
@@ -53,6 +55,7 @@ function ModalContent({
                 setOwnershipStatus,
                 closeModal,
                 checkOwnership,
+                walletProvider,
               }}
             />
           ) : (
@@ -61,6 +64,7 @@ function ModalContent({
                 connectWallet,
                 closeModal,
                 waitingForConnectWallet,
+                setWalletProvider,
               }}
             />
           )}

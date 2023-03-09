@@ -10,3 +10,9 @@ export enum OWNERSHIP_STATUS {
   'SIGNED',
   'DENIED',
 }
+
+export enum WALLET_PROVIDERS {
+  'METAMASK',
+  'COINBASE',
+  'WALLET_CONNECT',
+}

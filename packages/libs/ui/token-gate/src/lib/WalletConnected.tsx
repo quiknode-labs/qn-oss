@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { OWNERSHIP_STATUS } from './types';
-import AwaitingSignature from './AwaitingSignature';
+import { OWNERSHIP_STATUS, WALLET_PROVIDERS } from './types';
+import SignatureStatus from './SignatureStatus';
 
 interface WalletConnectedProps {
   validateWallet: () => Promise<void>;
@@ -8,14 +8,15 @@ interface WalletConnectedProps {
   setOwnershipStatus: (value: OWNERSHIP_STATUS) => void;
   closeModal: () => void;
   checkOwnership: () => Promise<void>;
+  walletProvider: WALLET_PROVIDERS;
 }
 
 function WalletConnected({
   validateWallet,
   ownershipStatus,
   setOwnershipStatus,
-  closeModal,
   checkOwnership,
+  walletProvider,
 }: WalletConnectedProps) {
   const [loadingSignature, setLoadingSignature] = useState(false);
   const [loadingOwnership, setLoadingOwnership] = useState(false);
@@ -55,11 +56,21 @@ function WalletConnected({
     return <>Loading...</>;
   }
   if (ownershipStatus === OWNERSHIP_STATUS.AWAITING) {
-    return <AwaitingSignature closeModal={closeModal} />;
+    return (
+      <SignatureStatus
+        walletProvider={walletProvider}
+        text={'Awaiting signature...'}
+      />
+    );
   }
 
   if (ownershipStatus === OWNERSHIP_STATUS.SIGNED) {
-    return <>Checking status...</>;
+    return (
+      <SignatureStatus
+        walletProvider={walletProvider}
+        text={'Verifying ownership status...'}
+      />
+    );
   }
 
   if (ownershipStatus === OWNERSHIP_STATUS.VERIFIED) {

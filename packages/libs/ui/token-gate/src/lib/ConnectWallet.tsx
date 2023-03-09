@@ -1,40 +1,26 @@
 import ConnectWalletButton from './ConnectWalletButton';
 import styled from 'styled-components';
-import CoinbaseWalletIcon from './icons/CoinbaseWalletIcon';
-import MetaMaskIcon from './icons/MetaMaskIcon';
+import { TextBox, BoldText, RegularText } from './sharedStyles';
+import { WALLET_PROVIDERS } from './types';
 
-const TextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
 const ButtonGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
 `;
 
-const BoldText = styled.div`
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 150%;
-`;
-const RegularText = styled.div`
-  // TODO: figure out why this color is not working
-  color: '#58626D';
-  font-size: 14px;
-  font-weight: 300;
-`;
 interface ConnectWalletProps {
   connectWallet: () => void;
   closeModal: () => void;
   waitingForConnectWallet: boolean;
+  setWalletProvider: (value: WALLET_PROVIDERS) => void;
 }
 
 function ConnectWallet({
   connectWallet,
   closeModal,
   waitingForConnectWallet,
+  setWalletProvider,
 }: ConnectWalletProps) {
   if ((window as any).ethereum) {
     return (
@@ -43,7 +29,12 @@ function ConnectWallet({
           <BoldText>Connect your wallet to continue</BoldText>
           <RegularText>
             Don't have a wallet yet?{' '}
-            <a href="https://www.coinbase.com/wallet" target="_blank">
+            <a
+              style={{ color: '#58626d' }}
+              href="https://www.coinbase.com/wallet"
+              target="_blank"
+              rel="noreferrer"
+            >
               Create a wallet
             </a>{' '}
             to continue
@@ -51,14 +42,16 @@ function ConnectWallet({
         </TextBox>
         <ButtonGroup>
           <ConnectWalletButton
+            walletName={WALLET_PROVIDERS.COINBASE}
+            setWalletProvider={setWalletProvider}
             connectWallet={connectWallet}
             text={'Coinbase Wallet'}
-            Icon={CoinbaseWalletIcon}
           />
           <ConnectWalletButton
+            walletName={WALLET_PROVIDERS.METAMASK}
+            setWalletProvider={setWalletProvider}
             connectWallet={connectWallet}
             text={'MetaMask'}
-            Icon={MetaMaskIcon}
           />
         </ButtonGroup>
         {waitingForConnectWallet && <p>Waiting for wallet connection...</p>}

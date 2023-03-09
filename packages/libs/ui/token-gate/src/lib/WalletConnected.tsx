@@ -23,7 +23,6 @@ function WalletConnected({
   useEffect(() => {
     if (ownershipStatus === OWNERSHIP_STATUS.NULL && !loadingSignature) {
       setOwnershipStatus(OWNERSHIP_STATUS.AWAITING);
-      console.log('HERE');
       (async () => {
         setLoadingSignature(true);
         try {

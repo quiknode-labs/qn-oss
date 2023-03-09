@@ -1,14 +1,7 @@
 import ConnectWalletButton from './ConnectWalletButton';
 import styled from 'styled-components';
-import CoinbaseWalletIcon from './CoinbaseWalletIcon';
-
-interface ConnectWalletProps {
-  connectWallet: () => void;
-  closeModal: () => void;
-  waitingForConnectWallet: boolean;
-  connectToWalletConnect: () => void;
-  walletConnectProjectId: string | undefined;
-}
+import CoinbaseWalletIcon from './icons/CoinbaseWalletIcon';
+import MetaMaskIcon from './icons/MetaMaskIcon';
 
 const TextBox = styled.div`
   display: flex;
@@ -32,6 +25,13 @@ const RegularText = styled.div`
   font-size: 14px;
   font-weight: 300;
 `;
+interface ConnectWalletProps {
+  connectWallet: () => void;
+  closeModal: () => void;
+  waitingForConnectWallet: boolean;
+  connectToWalletConnect: () => void;
+  walletConnectProjectId: string | undefined;
+}
 
 function ConnectWallet({
   connectWallet,
@@ -61,13 +61,8 @@ function ConnectWallet({
           />
           <ConnectWalletButton
             connectWallet={connectWallet}
-            text={'Coinbase Wallet'}
-            Icon={CoinbaseWalletIcon}
-          />
-          <ConnectWalletButton
-            connectWallet={connectWallet}
-            text={'Coinbase Wallet'}
-            Icon={CoinbaseWalletIcon}
+            text={'MetaMask'}
+            Icon={MetaMaskIcon}
           />
         </ButtonGroup>
         {waitingForConnectWallet && <p>Waiting for wallet connection...</p>}

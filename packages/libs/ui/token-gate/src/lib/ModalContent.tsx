@@ -18,6 +18,15 @@ interface ModalContentProps {
   walletConnectProjectId: string | undefined;
 }
 
+const ModalContentStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+`;
+
 function ModalContent({
   walletConnected,
   connectWallet,
@@ -33,15 +42,6 @@ function ModalContent({
   const headerText = walletConnected
     ? 'Verify NFT Ownership'
     : 'Connect Wallet';
-
-  const ModalContentStyled = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-  `;
 
   return (
     <ModalContentStyled>

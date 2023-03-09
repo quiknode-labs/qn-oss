@@ -180,20 +180,12 @@ export function TokenGate({
     const { assets: walletAssets } = data;
 
     if (walletAssets.length > 0) {
-      const { collectionTokenId: nftId } = walletAssets[0];
-      const ownerNfts = [`${nftContractAddress.toLowerCase()}:${nftId}`];
-      const data = await qnProvider.send('qn_verifyNFTsOwner', [
-        {
-          wallet: walletAddress,
-          contracts: ownerNfts,
-        },
-      ]);
-      const { owner, assets } = data;
-      const verified =
-        owner === walletAddress &&
-        JSON.stringify(assets) === JSON.stringify(ownerNfts);
-
-      if (verified) return true;
+      const { collectionAddress } = walletAssets[0];
+      if (
+        collectionAddress.toLowerCase() === nftContractAddress.toLowerCase()
+      ) {
+        return true;
+      }
     }
     return false;
   }

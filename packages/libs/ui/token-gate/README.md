@@ -5,8 +5,8 @@ A [React](https://reactjs.org/) library for conditionally showing parts of your 
 ## QuickStart
 
 1. Sign up for an endpoint at https://www.quicknode.com/ and add the [Token and NFT API v2 bundle](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle). Check [the official add-on page](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle) for an up-to-date list of supported chains and networks.
-1. `npm install @quicknode/token-gate`
-1. Import the library
+1. `npm install @quicknode/token-gate` or `yarn add @quicknode/token-gate`
+1. Import the token gate button
 
 ```javascript
 import { TokenGate } from '@quicknode/token-gate';
@@ -23,7 +23,7 @@ import { TokenGate } from '@quicknode/token-gate';
 />
 ```
 
-1. Use the hook anywhere in your application as a conditional anywhere in you application
+1. Use the hook anywhere in your application as a conditional anywhere in you application.
 
 ```javascript
 import { useTokenGate } from '@quicknode/token-gate';

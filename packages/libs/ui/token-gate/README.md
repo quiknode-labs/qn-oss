@@ -1,10 +1,11 @@
 # Token Gate
 
-A react library for conditionally showing parts of your application based on NFT ownership
+A [React](https://reactjs.org/) library for conditionally showing parts of your application based on NFT ownership, using [QuickNode](https://www.quicknode.com/)'s [Token and NFT API v2 bundle](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle).
 
 ## QuickStart
 
-1. Sign up for an Ethereum mainnet endpoint at https://www.quicknode.com/
+1. Sign up for an endpoint at https://www.quicknode.com/ and add the [Token and NFT API v2 bundle](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle).
+   NOTE: At the time of this writing, both Ethereum mainnet and Polygon mainnet networks are supported by this add-on, but check [the official add-on page](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle) for an up-to-date network list.
 1. Import the library
 
 ```javascript
@@ -16,7 +17,7 @@ import { TokenGate } from '@quicknode/token-gate';
 ```jsx
 <TokenGate
   buttonPrompt={'Verify NFT Ownership'} // What shows on the Verify button
-  appElement={'#root'} // the root of your application
+  appElement={'#root'} // the root of your React application
   quicknodeUrl={'https://my-cool-name.mainnet.quiknode.pro/myauthtoken/'} // Your QN endpoint
   nftContractAddress={'0x2106C00Ac7dA0A3430aE667879139E832307AeAa'} // The NFT you would like to gate
 />
@@ -25,7 +26,7 @@ import { TokenGate } from '@quicknode/token-gate';
 1. Use the hook anywhere in your application as a conditional anywhere in you application
 
 ```javascript
-import { useTokenGate } from '../../../../../libs/ui/token-gate/src';
+import { useTokenGate } from '@quicknode/token-gate';
 
 const isVerified = useTokenGate();
 ```

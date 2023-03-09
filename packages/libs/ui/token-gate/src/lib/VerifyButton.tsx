@@ -1,10 +1,15 @@
 import styled from 'styled-components';
+import StarsIcon from './icons/StarsIcon';
 interface VerifyButtonProps {
   startVerification: () => void;
   buttonPrompt: string;
 }
 
 const Button = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
   /* Semantic/Shadow/2 */
 
@@ -15,18 +20,23 @@ const Button = styled.button`
   font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 24px;
   color: white;
-  margin: 0.5em;
-  padding: 0.7em 1.5em;
+  margin: 8px;
+  padding: 8px 16px;
   cursor: pointer;
+`;
+
+const ButtonText = styled.div`
+  margin: 0 8px;
 `;
 
 function VerifyButton({ startVerification, buttonPrompt }: VerifyButtonProps) {
   return (
     <Button className="" onClick={startVerification}>
-      {buttonPrompt}
+      <StarsIcon />
+      <ButtonText>{buttonPrompt}</ButtonText>
     </Button>
   );
 }

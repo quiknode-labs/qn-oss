@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-
 function MetaMaskIcon() {
   return (
     <svg

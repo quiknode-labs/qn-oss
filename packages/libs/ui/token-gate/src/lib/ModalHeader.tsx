@@ -9,8 +9,9 @@ function ModalHeader({ text, closeModal }: ModalHeaderProps) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 0.5em 0em;
+    background-color: white;
+    padding: 16px 32px;
+    border-bottom: 1px solid #d3d6dc;
   `;
   const CloseButton = styled.div`
     cursor: pointer;

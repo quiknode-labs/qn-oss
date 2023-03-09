@@ -43,8 +43,15 @@ function VerificationModal({
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      width: '80%',
-      height: '60%',
+      width: '600px',
+      border: '1px solid #D3D6DC',
+      borderRadius: '16px',
+      background: '#F8F8F8',
+      padding: '0px',
+      display: 'flex',
+      justifyContent: 'space-between',
+      filter:
+        'drop-shadow(0px 4px 32px rgba(16, 21, 27, 0.05)) drop-shadow(0px 4px 8px rgba(16, 21, 27, 0.05)) drop-shadow(0px 1px 3px rgba(16, 21, 27, 0.05))',
     },
   };
 

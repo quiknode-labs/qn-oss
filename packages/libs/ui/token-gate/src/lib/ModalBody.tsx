@@ -8,7 +8,7 @@ function ModalBody({ children }: ModalBodyProps) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 1em;
+    gap: 24px;
     padding: 2em;
   `;
   return <ModalBodyStyled>{children}</ModalBodyStyled>;

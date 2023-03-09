@@ -26,6 +26,9 @@ const Button = styled.button`
   margin: 8px;
   padding: 8px 16px;
   cursor: pointer;
+  &:hover {
+    background: #161b21d0;
+  }
 `;
 
 const ButtonText = styled.div`

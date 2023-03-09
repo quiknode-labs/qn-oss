@@ -4,21 +4,18 @@ import VerifyButton from './VerifyButton';
 import { createGlobalState } from 'react-hooks-global-state';
 import { OWNERSHIP_STATUS } from './types';
 import { ethers, JsonRpcProvider } from 'ethers';
-import SignClient from '@walletconnect/sign-client';
-import { Web3Modal } from '@web3modal/standalone';
 
 export interface TokenGateProps {
   buttonPrompt?: string;
   appElement: string;
   quicknodeUrl: string;
   nftContractAddress: string;
-  walletConnectProjectId?: string | undefined;
 }
 
 // Using this global state to persist the verification state between page navigation
 // TODO: Can we do this with a localstorage or a cookie in a secure way?
-// TODO: Can we use redux here?
 // that can't be faked by non-nft holders with an expiration?
+// TODO: Can we use redux here?
 const initialState = { fullyVerified: false, isModalOpen: false };
 const { useGlobalState } = createGlobalState<{
   fullyVerified: boolean;
@@ -30,7 +27,6 @@ export function TokenGate({
   appElement,
   nftContractAddress,
   quicknodeUrl,
-  walletConnectProjectId,
 }: TokenGateProps) {
   const browserProvider = new ethers.BrowserProvider((window as any).ethereum);
   // TODO: Make work for other chains
@@ -48,29 +44,6 @@ export function TokenGate({
     useState<boolean>(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [modalIsOpen, setModalIsOpen] = useGlobalState('isModalOpen');
-  const [web3Modal, _setWeb3Modal] = useState<Web3Modal | null>(null);
-  const [signClient, _setSignClient] = useState<SignClient | null>(null);
-
-  useEffect(() => {
-    // TODO: Add WalletConnect
-    /*
-    if (walletConnectProjectId) {
-      const modal = new Web3Modal({
-        //
-        walletConnectVersion: 1, // or 2
-        projectId: walletConnectProjectId,
-        standaloneChains: ['eip155:1'],
-      });
-      setWeb3Modal(modal);
-      (async () => {
-        const client = await SignClient.init({
-          projectId: walletConnectProjectId,
-        });
-        setSignClient(client);
-      })();
-    }
-    */
-  }, [walletConnectProjectId]);
 
   function openModal() {
     setModalIsOpen(true);
@@ -92,7 +65,6 @@ export function TokenGate({
 
     setWaitingForConnectWallet(true);
     try {
-      // TODO: Can we check correct network and ask to switch if on incorrect one here?
       const accounts = await (window as any).ethereum.request({
         method: 'eth_requestAccounts',
       });
@@ -106,37 +78,6 @@ export function TokenGate({
       setWaitingForConnectWallet(false);
     }
 
-    return true;
-  }
-
-  async function connectToWalletConnect() {
-    if (!walletConnectProjectId) {
-      return false;
-    }
-    try {
-      if (signClient && web3Modal) {
-        const { uri, approval } = await signClient.connect({
-          requiredNamespaces: {
-            eip155: {
-              methods: ['eth_sign'],
-              chains: ['eip155:1'],
-              events: ['accountsChanged'],
-            },
-          },
-        });
-        if (uri) {
-          await web3Modal.openModal({
-            uri,
-            standaloneChains: ['eip155:1'],
-          });
-          await approval();
-          web3Modal.closeModal();
-        }
-      }
-    } catch (e) {
-      console.error(e);
-      return false;
-    }
     return true;
   }
 
@@ -201,10 +142,8 @@ export function TokenGate({
         ownershipStatus={ownershipStatus}
         setOwnershipStatus={setOwnershipStatus}
         connectWallet={connectWallet}
-        connectToWalletConnect={connectToWalletConnect}
         waitingForConnectWallet={waitingForConnectWallet}
         walletConnected={walletConnected}
-        walletConnectProjectId={walletConnectProjectId}
       />
       {!fullyVerified && (
         <VerifyButton

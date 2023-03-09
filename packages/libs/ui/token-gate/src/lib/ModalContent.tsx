@@ -14,8 +14,6 @@ interface ModalContentProps {
   setOwnershipStatus: (value: OWNERSHIP_STATUS) => void;
   checkOwnership: () => Promise<void>;
   waitingForConnectWallet: boolean;
-  connectToWalletConnect: () => void;
-  walletConnectProjectId: string | undefined;
 }
 
 const ModalContentStyled = styled.div`
@@ -36,8 +34,6 @@ function ModalContent({
   setOwnershipStatus,
   checkOwnership,
   waitingForConnectWallet,
-  connectToWalletConnect,
-  walletConnectProjectId,
 }: ModalContentProps) {
   const headerText = walletConnected
     ? 'Verify NFT Ownership'
@@ -62,9 +58,7 @@ function ModalContent({
           ) : (
             <ConnectWallet
               {...{
-                walletConnectProjectId,
                 connectWallet,
-                connectToWalletConnect,
                 closeModal,
                 waitingForConnectWallet,
               }}

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import NxWelcome from './nx-welcome';
+import Welcome from './welcome';
 import { Route, Routes, Link } from 'react-router-dom';
 import TokenGatedRoute from './TokenGatedRoute';
 import LoopyPage from './LoopyPage';
@@ -18,7 +18,7 @@ export function App() {
         </ul>
       </div>
       <Routes>
-        <Route path="/" element={<NxWelcome />} />
+        <Route path="/" element={<Welcome />} />
         <Route
           path="/loopypage"
           element={

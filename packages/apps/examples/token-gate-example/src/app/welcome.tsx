@@ -1,7 +1,7 @@
 import GatedContent from './GatedContent';
 import { TokenGate } from '@quicknode/token-gate';
 
-export function NxWelcome() {
+export function Welcome() {
   return (
     <div className="wrapper">
       <div className="container">
@@ -31,4 +31,4 @@ export function NxWelcome() {
   );
 }
 
-export default NxWelcome;
+export default Welcome;

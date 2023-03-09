@@ -29,16 +29,12 @@ interface ConnectWalletProps {
   connectWallet: () => void;
   closeModal: () => void;
   waitingForConnectWallet: boolean;
-  connectToWalletConnect: () => void;
-  walletConnectProjectId: string | undefined;
 }
 
 function ConnectWallet({
   connectWallet,
   closeModal,
   waitingForConnectWallet,
-  connectToWalletConnect,
-  walletConnectProjectId,
 }: ConnectWalletProps) {
   if ((window as any).ethereum) {
     return (

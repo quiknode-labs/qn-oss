@@ -48,10 +48,11 @@ export function TokenGate({
     useState<boolean>(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [modalIsOpen, setModalIsOpen] = useGlobalState('isModalOpen');
-  const [web3Modal, setWeb3Modal] = useState<Web3Modal | null>(null);
-  const [signClient, setSignClient] = useState<SignClient | null>(null);
+  const [web3Modal, _setWeb3Modal] = useState<Web3Modal | null>(null);
+  const [signClient, _setSignClient] = useState<SignClient | null>(null);
 
   useEffect(() => {
+    // TODO: Add WalletConnect
     /*
     if (walletConnectProjectId) {
       const modal = new Web3Modal({
@@ -144,9 +145,8 @@ export function TokenGate({
     // TODO: make message customizable
     const message =
       'This message is used to verify your wallet ownership.\n\nSigning this message will not make any transactions.';
-    const signed = await signer.signMessage(message);
+    await signer.signMessage(message);
     // TODO: Store the hashed message, and re-verify hash instead of having to ask wallet to sign each time
-    console.log(signed);
     // https://github.com/ethers-io/ethers.js/issues/447
     setOwnershipStatus(OWNERSHIP_STATUS.SIGNED);
   }

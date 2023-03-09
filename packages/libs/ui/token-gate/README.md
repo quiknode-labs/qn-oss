@@ -4,8 +4,7 @@ A [React](https://reactjs.org/) library for conditionally showing parts of your 
 
 ## QuickStart
 
-1. Sign up for an endpoint at https://www.quicknode.com/ and add the [Token and NFT API v2 bundle](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle).
-   NOTE: At the time of this writing, both Ethereum mainnet and Polygon mainnet networks are supported by this add-on, but check [the official add-on page](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle) for an up-to-date network list.
+1. Sign up for an endpoint at https://www.quicknode.com/ and add the [Token and NFT API v2 bundle](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle). Check [the official add-on page](https://marketplace.quicknode.com/add-on/token-and-nft-api-v2-bundle) for an up-to-date list of supported chains and networks.
 1. Import the library
 
 ```javascript
@@ -67,4 +66,8 @@ const TokenGatedRoute = ({ children }: { children: any }) => {
 
 This is a client-side library, meaning the "hidden" parts of your application will likely still be avaible in the source code of your application.
 
-We would love to discuss a more comprehensive gating approach involving a backend library, feel free to file an issue in [our repo](https://github.com/quiknode-labs/qn-oss) if you would like to discuss a use-case.
+We would love to discuss a more comprehensive gating approach involving a backend library, feel free to file an issue in [our OSS repo](https://github.com/quiknode-labs/qn-oss/issues) if you would like to discuss a use-case.
+
+## Contributing
+
+Feel free to [file an issue](https://github.com/quiknode-labs/qn-oss/issues) with any bug reports or feature requests.

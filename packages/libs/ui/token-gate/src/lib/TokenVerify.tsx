@@ -180,8 +180,7 @@ export function TokenGate({
     const { assets: walletAssets } = data;
 
     if (walletAssets.length > 0) {
-      const { collectionTokenId: nftId, imageUrl } = walletAssets[0];
-      // TODO: imageURL doesn't seem to be working, check API for opensea image
+      const { collectionTokenId: nftId } = walletAssets[0];
       const ownerNfts = [`${nftContractAddress.toLowerCase()}:${nftId}`];
       const data = await qnProvider.send('qn_verifyNFTsOwner', [
         {

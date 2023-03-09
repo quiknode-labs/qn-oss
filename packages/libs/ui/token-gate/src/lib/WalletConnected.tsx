@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { OWNERSHIP_STATUS, WALLET_PROVIDERS } from './types';
 import SignatureStatus from './SignatureStatus';
+import VerifiedStatus from './VerifiedStatus';
 
 interface WalletConnectedProps {
   validateWallet: () => Promise<void>;
@@ -9,6 +10,7 @@ interface WalletConnectedProps {
   closeModal: () => void;
   checkOwnership: () => Promise<void>;
   walletProvider: WALLET_PROVIDERS;
+  walletAddress: string;
 }
 
 function WalletConnected({
@@ -17,6 +19,8 @@ function WalletConnected({
   setOwnershipStatus,
   checkOwnership,
   walletProvider,
+  closeModal,
+  walletAddress,
 }: WalletConnectedProps) {
   const [loadingSignature, setLoadingSignature] = useState(false);
   const [loadingOwnership, setLoadingOwnership] = useState(false);
@@ -74,14 +78,24 @@ function WalletConnected({
   }
 
   if (ownershipStatus === OWNERSHIP_STATUS.VERIFIED) {
-    return <>Verified! You have access to this content</>;
+    return (
+      <VerifiedStatus
+        walletAddress={walletAddress}
+        walletProvider={walletProvider}
+        closeModal={closeModal}
+        verified={true}
+      />
+    );
   }
 
   if (ownershipStatus === OWNERSHIP_STATUS.DENIED) {
     return (
-      <>
-        Denied! You do not have access to the required NFT to view this content
-      </>
+      <VerifiedStatus
+        walletAddress={walletAddress}
+        walletProvider={walletProvider}
+        closeModal={closeModal}
+        verified={false}
+      />
     );
   }
 

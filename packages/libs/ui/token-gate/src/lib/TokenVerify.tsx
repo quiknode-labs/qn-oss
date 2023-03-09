@@ -68,8 +68,8 @@ export function TokenGate({
         method: 'eth_requestAccounts',
       });
       if (accounts?.length > 0) {
-        setWalletConnected(true);
         setWalletAddress(accounts[0]);
+        setWalletConnected(true);
       }
     } catch (e) {
       console.error(e);
@@ -143,6 +143,7 @@ export function TokenGate({
         connectWallet={connectWallet}
         waitingForConnectWallet={waitingForConnectWallet}
         walletConnected={walletConnected}
+        walletAddress={walletAddress || ''}
       />
       {!fullyVerified && (
         <VerifyButton

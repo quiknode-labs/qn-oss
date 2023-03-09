@@ -61,7 +61,12 @@ const WalletButtonText = styled.div`
 `;
 
 const ArrowRightContainer = styled.div`
+  align-items: center;
+  justify-content: center;
   margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: auto;
 `;
 
 function ConnectWalletButton({

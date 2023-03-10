@@ -2,6 +2,8 @@ import ConnectWalletButton from './ConnectWalletButton';
 import styled from 'styled-components';
 import { TextBox, BoldText, RegularText } from './sharedStyles';
 import { WALLET_PROVIDERS } from './types';
+import ArrowRightIcon from './icons/ArrowRightIcon';
+import Spinner from './icons/spinner';
 
 const ButtonGroup = styled.div`
   display: flex;
@@ -11,64 +13,60 @@ const ButtonGroup = styled.div`
 
 interface ConnectWalletProps {
   connectWallet: () => void;
-  closeModal: () => void;
   waitingForConnectWallet: boolean;
   setWalletProvider: (value: WALLET_PROVIDERS) => void;
+  walletProvider: WALLET_PROVIDERS;
 }
 
 function ConnectWallet({
   connectWallet,
-  closeModal,
   waitingForConnectWallet,
   setWalletProvider,
+  walletProvider,
 }: ConnectWalletProps) {
-  if ((window as any).ethereum) {
-    return (
-      <>
-        <TextBox>
-          <BoldText>Connect your wallet to continue</BoldText>
-          <RegularText>
-            Don't have a wallet yet?{' '}
-            <a
-              style={{ color: '#58626d' }}
-              href="https://www.coinbase.com/wallet"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Create a wallet
-            </a>{' '}
-            to continue
-          </RegularText>
-        </TextBox>
-        <ButtonGroup>
-          <ConnectWalletButton
-            walletName={WALLET_PROVIDERS.COINBASE}
-            setWalletProvider={setWalletProvider}
-            connectWallet={connectWallet}
-            text={'Coinbase Wallet'}
-          />
-          <ConnectWalletButton
-            walletName={WALLET_PROVIDERS.METAMASK}
-            setWalletProvider={setWalletProvider}
-            connectWallet={connectWallet}
-            text={'MetaMask'}
-          />
-        </ButtonGroup>
-        {waitingForConnectWallet && <p>Waiting for wallet connection...</p>}
-      </>
-    );
-  } else {
-    return (
-      <>
-        <strong>Connect Wallet</strong>
-        <div>
-          Please install a wallet to continue. We recommend{' '}
-          <a href="https://www.coinbase.com/wallet">Coinbase Wallet</a>.
-        </div>
-        <button onClick={closeModal}>close</button>
-      </>
-    );
+  function getIcon(walletName: WALLET_PROVIDERS) {
+    if (walletName === walletProvider && waitingForConnectWallet) {
+      return Spinner;
+    } else {
+      return ArrowRightIcon;
+    }
   }
+
+  return (
+    <>
+      <TextBox>
+        <BoldText>Connect your wallet to continue</BoldText>
+        <RegularText>
+          Don't have a wallet yet?{' '}
+          <a
+            style={{ color: '#58626d' }}
+            href="https://www.coinbase.com/wallet"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Create a wallet
+          </a>{' '}
+          to continue
+        </RegularText>
+      </TextBox>
+      <ButtonGroup>
+        <ConnectWalletButton
+          walletName={WALLET_PROVIDERS.COINBASE}
+          setWalletProvider={setWalletProvider}
+          connectWallet={connectWallet}
+          text={'Coinbase Wallet'}
+          RightIcon={getIcon(WALLET_PROVIDERS.COINBASE)}
+        />
+        <ConnectWalletButton
+          walletName={WALLET_PROVIDERS.METAMASK}
+          setWalletProvider={setWalletProvider}
+          connectWallet={connectWallet}
+          text={'MetaMask'}
+          RightIcon={getIcon(WALLET_PROVIDERS.METAMASK)}
+        />
+      </ButtonGroup>
+    </>
+  );
 }
 
 export default ConnectWallet;

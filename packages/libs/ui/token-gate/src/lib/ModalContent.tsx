@@ -65,9 +65,9 @@ function ModalContent({
             <ConnectWallet
               {...{
                 connectWallet,
-                closeModal,
                 waitingForConnectWallet,
                 setWalletProvider,
+                walletProvider,
               }}
             />
           )}

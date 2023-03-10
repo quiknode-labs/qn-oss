@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import ConnectWalletButton from './ConnectWalletButton';
 import DeniedIcon from './icons/DeniedIcon';
 import GreenCheckIcon from './icons/GreenCheckIcon';
+import { SizeMe } from 'react-sizeme';
 import { TextBox, BoldText, RegularText } from './sharedStyles';
 import { WALLET_PROVIDERS } from './types';
+import { BREAKPOINT, shortenedAddress } from './utils';
 
 interface VerifiedStatusProps {
   walletProvider: WALLET_PROVIDERS;
@@ -40,21 +42,29 @@ function VerifiedStatus({
     ? 'Your NFT will give you exclusive access to content on this page.'
     : 'You need to own the required NFT to access this page.';
   return (
-    <>
-      <TextBox>
-        <BoldText>{topText}</BoldText>
-        <RegularText>{bodyText}</RegularText>
-      </TextBox>
-      <ConnectWalletButton
-        walletName={walletProvider}
-        text={walletAddress}
-        RightIcon={verified ? GreenCheckIcon : DeniedIcon}
-        hoverable={false}
-      />
-      <FinishButton onClick={closeModal}>
-        {verified ? 'Finish' : 'Back'}
-      </FinishButton>
-    </>
+    <SizeMe>
+      {({ size: { width } }) => (
+        <>
+          <TextBox>
+            <BoldText>{topText}</BoldText>
+            <RegularText>{bodyText}</RegularText>
+          </TextBox>
+          <ConnectWalletButton
+            walletName={walletProvider}
+            text={
+              (width || 0) > BREAKPOINT
+                ? walletAddress
+                : shortenedAddress(walletAddress)
+            }
+            RightIcon={verified ? GreenCheckIcon : DeniedIcon}
+            hoverable={false}
+          />
+          <FinishButton onClick={closeModal}>
+            {verified ? 'Finish' : 'Back'}
+          </FinishButton>
+        </>
+      )}
+    </SizeMe>
   );
 }
 

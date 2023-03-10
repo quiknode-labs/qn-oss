@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { OWNERSHIP_STATUS, WALLET_PROVIDERS } from './types';
 import SignatureStatus from './SignatureStatus';
 import VerifiedStatus from './VerifiedStatus';
+import { SizeMe } from 'react-sizeme';
+import { BREAKPOINT } from './utils';
 
 interface WalletConnectedProps {
   validateWallet: () => Promise<void>;
@@ -61,19 +63,35 @@ function WalletConnected({
   }
   if (ownershipStatus === OWNERSHIP_STATUS.AWAITING) {
     return (
-      <SignatureStatus
-        walletProvider={walletProvider}
-        text={'Awaiting signature...'}
-      />
+      <SizeMe>
+        {({ size: { width } }) => (
+          <SignatureStatus
+            walletProvider={walletProvider}
+            text={
+              (width || 0) > BREAKPOINT
+                ? 'Awaiting signature...'
+                : 'Awaiting...'
+            }
+          />
+        )}
+      </SizeMe>
     );
   }
 
   if (ownershipStatus === OWNERSHIP_STATUS.SIGNED) {
     return (
-      <SignatureStatus
-        walletProvider={walletProvider}
-        text={'Verifying ownership status...'}
-      />
+      <SizeMe>
+        {({ size: { width } }) => (
+          <SignatureStatus
+            walletProvider={walletProvider}
+            text={
+              (width || 0) > BREAKPOINT
+                ? 'Verifying ownership status...'
+                : 'Verifying...'
+            }
+          />
+        )}
+      </SizeMe>
     );
   }
 

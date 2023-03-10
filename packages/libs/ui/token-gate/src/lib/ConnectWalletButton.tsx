@@ -1,12 +1,22 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ArrowRightIcon from './icons/ArrowRightIcon';
+import CoinbaseWalletIcon from './icons/CoinbaseWalletIcon';
+import MetaMaskIcon from './icons/MetaMaskIcon';
+import { WALLET_PROVIDERS } from './types';
 interface ConnectWalletButtonProps {
-  connectWallet: () => void;
+  walletName: WALLET_PROVIDERS;
+  connectWallet?: () => void;
+  setWalletProvider?: (value: WALLET_PROVIDERS) => void;
   text: string;
-  Icon: any;
+  RightIcon?: any;
+  hoverable?: boolean;
 }
 
-const WalletButton = styled.button`
+type WalletButtonProps = {
+  hoverable?: boolean;
+};
+
+const WalletButton = styled.button<WalletButtonProps>`
   display: flex;
   align-items: center;
   gap: 12px;
@@ -16,11 +26,15 @@ const WalletButton = styled.button`
   border: 1px solid rgba(16, 21, 27, 0.12);
   border-radius: 8px;
   text-align: center;
-  cursor: pointer;
   padding: 12px 16px;
-  &:hover {
-    background: rgba(16, 21, 27, 0.06);
-  }
+  ${(props) =>
+    props.hoverable &&
+    css`
+      &:hover {
+        background: rgba(16, 21, 27, 0.06);
+      }
+      cursor: pointer;
+    `}
 `;
 
 const IconContainer = styled.div`
@@ -47,22 +61,49 @@ const WalletButtonText = styled.div`
 `;
 
 const ArrowRightContainer = styled.div`
+  align-items: center;
+  justify-content: center;
   margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: auto;
 `;
 
 function ConnectWalletButton({
-  connectWallet,
+  walletName,
+  setWalletProvider,
+  connectWallet = () => null,
   text,
-  Icon,
+  RightIcon = ArrowRightIcon,
+  hoverable = true,
 }: ConnectWalletButtonProps) {
+  function onButtonClick() {
+    if (setWalletProvider) {
+      setWalletProvider(walletName);
+    }
+    connectWallet();
+  }
+
+  function getIcon(wallet: WALLET_PROVIDERS) {
+    switch (wallet) {
+      case WALLET_PROVIDERS.METAMASK:
+        return MetaMaskIcon;
+      case WALLET_PROVIDERS.COINBASE:
+        return CoinbaseWalletIcon;
+      default:
+        return CoinbaseWalletIcon;
+    }
+  }
+  const Icon = getIcon(walletName);
+
   return (
-    <WalletButton onClick={connectWallet}>
+    <WalletButton onClick={onButtonClick} hoverable={hoverable}>
       <IconContainer>
         <Icon />
       </IconContainer>
       <WalletButtonText>{text}</WalletButtonText>
       <ArrowRightContainer>
-        <ArrowRightIcon />
+        <RightIcon />
       </ArrowRightContainer>
     </WalletButton>
   );

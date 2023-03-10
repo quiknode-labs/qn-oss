@@ -13,6 +13,7 @@ interface VerificationModalProps {
   connectWallet: () => void;
   walletConnected: boolean;
   waitingForConnectWallet: boolean;
+  walletAddress: string;
 }
 
 function VerificationModal({
@@ -26,6 +27,7 @@ function VerificationModal({
   connectWallet,
   walletConnected,
   waitingForConnectWallet,
+  walletAddress,
 }: VerificationModalProps) {
   // Sets the root app element for the modal
   // see https://reactcommunity.org/react-modal/accessibility/
@@ -39,7 +41,8 @@ function VerificationModal({
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      width: '600px',
+      width: '90%',
+      maxWidth: '600px',
       border: '1px solid #D3D6DC',
       borderRadius: '16px',
       background: '#F8F8F8',
@@ -68,6 +71,7 @@ function VerificationModal({
           setOwnershipStatus,
           waitingForConnectWallet,
           checkOwnership,
+          walletAddress,
         }}
       />
     </Modal>

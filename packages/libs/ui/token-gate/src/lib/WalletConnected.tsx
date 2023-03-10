@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import { OWNERSHIP_STATUS } from './types';
-import AwaitingSignature from './AwaitingSignature';
+import { OWNERSHIP_STATUS, WALLET_PROVIDERS } from './types';
+import SignatureStatus from './SignatureStatus';
+import VerifiedStatus from './VerifiedStatus';
+import { SizeMe } from 'react-sizeme';
+import { BREAKPOINT } from './utils';
 
 interface WalletConnectedProps {
   validateWallet: () => Promise<void>;
@@ -8,14 +11,18 @@ interface WalletConnectedProps {
   setOwnershipStatus: (value: OWNERSHIP_STATUS) => void;
   closeModal: () => void;
   checkOwnership: () => Promise<void>;
+  walletProvider: WALLET_PROVIDERS;
+  walletAddress: string;
 }
 
 function WalletConnected({
   validateWallet,
   ownershipStatus,
   setOwnershipStatus,
-  closeModal,
   checkOwnership,
+  walletProvider,
+  closeModal,
+  walletAddress,
 }: WalletConnectedProps) {
   const [loadingSignature, setLoadingSignature] = useState(false);
   const [loadingOwnership, setLoadingOwnership] = useState(false);
@@ -55,22 +62,58 @@ function WalletConnected({
     return <>Loading...</>;
   }
   if (ownershipStatus === OWNERSHIP_STATUS.AWAITING) {
-    return <AwaitingSignature closeModal={closeModal} />;
+    return (
+      <SizeMe>
+        {({ size: { width } }) => (
+          <SignatureStatus
+            walletProvider={walletProvider}
+            text={
+              (width || 0) > BREAKPOINT
+                ? 'Awaiting signature...'
+                : 'Awaiting...'
+            }
+          />
+        )}
+      </SizeMe>
+    );
   }
 
   if (ownershipStatus === OWNERSHIP_STATUS.SIGNED) {
-    return <>Checking status...</>;
+    return (
+      <SizeMe>
+        {({ size: { width } }) => (
+          <SignatureStatus
+            walletProvider={walletProvider}
+            text={
+              (width || 0) > BREAKPOINT
+                ? 'Verifying ownership status...'
+                : 'Verifying...'
+            }
+          />
+        )}
+      </SizeMe>
+    );
   }
 
   if (ownershipStatus === OWNERSHIP_STATUS.VERIFIED) {
-    return <>Verified! You have access to this content</>;
+    return (
+      <VerifiedStatus
+        walletAddress={walletAddress}
+        walletProvider={walletProvider}
+        closeModal={closeModal}
+        verified={true}
+      />
+    );
   }
 
   if (ownershipStatus === OWNERSHIP_STATUS.DENIED) {
     return (
-      <>
-        Denied! You do not have access to the required NFT to view this content
-      </>
+      <VerifiedStatus
+        walletAddress={walletAddress}
+        walletProvider={walletProvider}
+        closeModal={closeModal}
+        verified={false}
+      />
     );
   }
 

@@ -1,7 +1,7 @@
-import { NftFragment, WalletType } from '../../../graphql/types';
+import { NftFragment, Wallet } from '../../../graphql/types';
 export interface WalletNFTByEns {
   ethereum: {
-    walletByENS: WalletType & {
+    walletByENS: Wallet & {
       tokens: NftFragment;
     };
   };

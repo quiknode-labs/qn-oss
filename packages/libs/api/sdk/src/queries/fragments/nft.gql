@@ -1,21 +1,9 @@
-fragment Nft on Nft {
-  ... on ERC721Nft {
-    attributes {
-      name
-      value
-    }
-  }
-  tokenId
-  contractAddress
-  description
-  externalUrl
-  animationUrl
-  metadata
-  contract {
-    address
-    isVerified
+fragment Nft on WalletNFT {
+  nft {
+    animationUrl
     name
-    supportedErcInterfaces
-    symbol
+    collection {
+      address
+    }
   }
 }

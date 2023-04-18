@@ -3,7 +3,7 @@ query WalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
     walletByENS(ensName: $ensName) {
       address
       ensName
-      heldNfts(after: $after, first: $first) {
+      walletNFTs(after: $after, first: $first) {
         pageInfo {
           ...Pagination
         }

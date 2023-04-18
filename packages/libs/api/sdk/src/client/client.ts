@@ -21,15 +21,15 @@ const QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS =
   /**
    * @todo set unified config util
    */
-  // @ts-ignore
-  process.env.QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS === 'true'
+  process.env['QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS'] === 'true'
     ? true
     : false;
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: process.env['NX_GRAPHQL_API_URI'] || 'https://api.quicknode.com/graphql',
   fetch,
 });
+
 
 const errorLink = onError(({ networkError }) => {
   if (
@@ -53,6 +53,7 @@ export class QuickNodeSDK {
   readonly nft: NFTQueries;
 
   constructor({ qnApiKey, additionalHeaders }: QuickNodeSDKArguments = {}) {
+    console.log({ qnApiKey })
     if (!qnApiKey && !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
       console.warn(
         'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
@@ -82,19 +83,11 @@ export class QuickNodeSDK {
       };
     });
 
+    // TODO - add type policies
     const cacheStructure = new InMemoryCache({
       possibleTypes: generatedIntrospection.possibleTypes,
       typePolicies: {
-        ERC721Token: {
-          keyFields: ['tokenId', 'contract', ['address']],
-        },
-        ERC721Contract: {
-          keyFields: ['address'],
-        },
-        Wallet: {
-          keyFields: ['address'],
-        },
-      },
+     },
     });
 
     const rawClient = new ApolloClient({

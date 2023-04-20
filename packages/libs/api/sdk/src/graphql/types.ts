@@ -1411,36 +1411,31 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']>;
 };
 
-export type NftFragment = { __typename?: 'WalletNFT', nft?: { __typename?: 'ERC721NFT', animationUrl?: string | null, name?: string | null, collection?: { __typename?: 'ERC721Collection', address: string } | null } | { __typename?: 'ERC1155NFT', animationUrl?: string | null, name?: string | null, collection?: { __typename?: 'ERC1155Collection', address: string } | null } | null };
+export type NftFragment = { __typename?: 'WalletNFT', nft?: { __typename?: 'ERC721NFT', animationUrl?: string | null, description?: string | null, externalUrl?: string | null, name?: string | null, tokenId: any, collection?: { __typename?: 'ERC721Collection', address: string } | null } | { __typename?: 'ERC1155NFT', animationUrl?: string | null, description?: string | null, externalUrl?: string | null, name?: string | null, tokenId: any, collection?: { __typename?: 'ERC1155Collection', address: string } | null } | null };
+
+export type WalletByEnsFragmentFragment = { __typename?: 'Wallet', address: string, ensName?: string | null, walletNFTs: { __typename?: 'WalletNFTsConnection', pageInfo: (
+      { __typename?: 'PageInfo' }
+      & PaginationFragment
+    ), edges: Array<{ __typename?: 'WalletNFTsConnectionEdge', node: (
+        { __typename?: 'WalletNFT' }
+        & NftFragment
+      ) }> } };
 
 export type PaginationFragment = { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null };
 
 export type WalletNfTsByEnsQueryVariables = Exact<{
+  ethereum?: InputMaybe<Scalars['Boolean']>;
   ensName: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type WalletNfTsByEnsQuery = { __typename?: 'Query', ethereum: { __typename?: 'EVMSchemaType', walletByENS?: { __typename?: 'Wallet', address: string, ensName?: string | null, walletNFTs: { __typename?: 'WalletNFTsConnection', pageInfo: (
-          { __typename?: 'PageInfo' }
-          & PaginationFragment
-        ), edges: Array<{ __typename?: 'WalletNFTsConnectionEdge', node: (
-            { __typename?: 'WalletNFT' }
-            & NftFragment
-          ) }> } } | null } };
+export type WalletNfTsByEnsQuery = { __typename?: 'Query', ethereum?: { __typename?: 'EVMSchemaType', walletByENS?: (
+      { __typename?: 'Wallet' }
+      & WalletByEnsFragmentFragment
+    ) | null } };
 
-export const Nft = gql`
-    fragment Nft on WalletNFT {
-  nft {
-    animationUrl
-    name
-    collection {
-      address
-    }
-  }
-}
-    `;
 export const Pagination = gql`
     fragment Pagination on PageInfo {
   endCursor
@@ -1449,24 +1444,43 @@ export const Pagination = gql`
   startCursor
 }
     `;
-export const WalletNfTsByEns = gql`
-    query WalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
-  ethereum {
-    walletByENS(ensName: $ensName) {
+export const Nft = gql`
+    fragment Nft on WalletNFT {
+  nft {
+    animationUrl
+    description
+    externalUrl
+    name
+    tokenId
+    collection {
       address
-      ensName
-      walletNFTs(after: $after, first: $first) {
-        pageInfo {
-          ...Pagination
-        }
-        edges {
-          node {
-            ...Nft
-          }
-        }
+    }
+  }
+}
+    `;
+export const WalletByEnsFragment = gql`
+    fragment WalletByEnsFragment on Wallet {
+  address
+  ensName
+  walletNFTs(after: $after, first: $first) {
+    pageInfo {
+      ...Pagination
+    }
+    edges {
+      node {
+        ...Nft
       }
     }
   }
 }
     ${Pagination}
 ${Nft}`;
+export const WalletNfTsByEns = gql`
+    query WalletNFTsByEns($ethereum: Boolean = false, $ensName: String!, $after: String, $first: Int) {
+  ethereum @include(if: $ethereum) {
+    walletByENS(ensName: $ensName) {
+      ...WalletByEnsFragment
+    }
+  }
+}
+    ${WalletByEnsFragment}`;

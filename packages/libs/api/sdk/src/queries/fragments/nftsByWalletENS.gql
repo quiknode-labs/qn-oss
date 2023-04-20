@@ -1,0 +1,15 @@
+fragment WalletByEnsFragment on Wallet {
+  address
+  ensName
+  walletNFTs(after: $after, first: $first) {
+    pageInfo {
+      ...Pagination
+    }
+    edges {
+      node {
+        ...Nft
+      }
+    }
+  }
+}
+

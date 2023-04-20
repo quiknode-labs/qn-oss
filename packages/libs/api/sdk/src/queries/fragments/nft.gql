@@ -1,7 +1,10 @@
 fragment Nft on WalletNFT {
   nft {
     animationUrl
+    description
+    externalUrl
     name
+    tokenId
     collection {
       address
     }

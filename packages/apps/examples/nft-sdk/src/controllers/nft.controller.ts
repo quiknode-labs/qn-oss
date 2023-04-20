@@ -35,6 +35,7 @@ const client = new QuickNodeSDK(opts);
 export default {
   getNFTsByEns: async (req: Request, res: Response) => {
     const NFTs = await client.nft.getNFTsByWalletENS({
+      ethereum: true,
       ensName: req.params.ensResource,
     });
     res.status(200).send(NFTs);

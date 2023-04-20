@@ -15,7 +15,6 @@ export type Scalars = {
   DateTime: any;
   JSON: any;
   JSONObject: any;
-  link__Import: any;
 };
 
 export type Collection = {
@@ -858,8 +857,9 @@ export type PageInfo = {
 
 export type Query = {
   __typename?: 'Query';
-  _service: _Service;
   ethereum: EvmSchemaType;
+  ethereumSepolia: EvmSchemaType;
+  polygon: EvmSchemaType;
 };
 
 export type StringInput = {
@@ -1405,36 +1405,41 @@ export type WalletWalletCollectionsConnectionEdge = {
   node: WalletCollection;
 };
 
-export type _Service = {
-  __typename?: '_Service';
-  /** The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied */
-  sdl?: Maybe<Scalars['String']>;
-};
-
-export type NftFragment = { __typename?: 'WalletNFT', nft?: { __typename?: 'ERC721NFT', animationUrl?: string | null, description?: string | null, externalUrl?: string | null, name?: string | null, tokenId: any, collection?: { __typename?: 'ERC721Collection', address: string } | null } | { __typename?: 'ERC1155NFT', animationUrl?: string | null, description?: string | null, externalUrl?: string | null, name?: string | null, tokenId: any, collection?: { __typename?: 'ERC1155Collection', address: string } | null } | null };
-
-export type WalletByEnsFragmentFragment = { __typename?: 'Wallet', address: string, ensName?: string | null, walletNFTs: { __typename?: 'WalletNFTsConnection', pageInfo: (
-      { __typename?: 'PageInfo' }
-      & PaginationFragment
-    ), edges: Array<{ __typename?: 'WalletNFTsConnectionEdge', node: (
-        { __typename?: 'WalletNFT' }
-        & NftFragment
-      ) }> } };
-
-export type PaginationFragment = { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null };
-
-export type WalletNfTsByEnsQueryVariables = Exact<{
-  ethereum?: InputMaybe<Scalars['Boolean']>;
+export type EthMainnetWalletNfTsByEnsQueryVariables = Exact<{
   ensName: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type WalletNfTsByEnsQuery = { __typename?: 'Query', ethereum?: { __typename?: 'EVMSchemaType', walletByENS?: (
-      { __typename?: 'Wallet' }
-      & WalletByEnsFragmentFragment
-    ) | null } };
+export type EthMainnetWalletNfTsByEnsQuery = { __typename?: 'Query', ethereum: (
+    { __typename?: 'EVMSchemaType' }
+    & WalletByEnsFragmentFragment
+  ) };
+
+export type NftFragment = { __typename?: 'WalletNFT', nft?: { __typename?: 'ERC721NFT', animationUrl?: string | null, description?: string | null, externalUrl?: string | null, name?: string | null, tokenId: any, collection?: { __typename?: 'ERC721Collection', address: string } | null } | { __typename?: 'ERC1155NFT', animationUrl?: string | null, description?: string | null, externalUrl?: string | null, name?: string | null, tokenId: any, collection?: { __typename?: 'ERC1155Collection', address: string } | null } | null };
+
+export type WalletByEnsFragmentFragment = { __typename?: 'EVMSchemaType', walletByENS?: { __typename?: 'Wallet', address: string, ensName?: string | null, walletNFTs: { __typename?: 'WalletNFTsConnection', pageInfo: (
+        { __typename?: 'PageInfo' }
+        & PaginationFragment
+      ), edges: Array<{ __typename?: 'WalletNFTsConnectionEdge', node: (
+          { __typename?: 'WalletNFT' }
+          & NftFragment
+        ) }> } } | null };
+
+export type PaginationFragment = { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null };
+
+export type PolygonMainnetWalletNfTsByEnsQueryVariables = Exact<{
+  ensName: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type PolygonMainnetWalletNfTsByEnsQuery = { __typename?: 'Query', polygon: (
+    { __typename?: 'EVMSchemaType' }
+    & WalletByEnsFragmentFragment
+  ) };
 
 export const Pagination = gql`
     fragment Pagination on PageInfo {
@@ -1459,28 +1464,35 @@ export const Nft = gql`
 }
     `;
 export const WalletByEnsFragment = gql`
-    fragment WalletByEnsFragment on Wallet {
-  address
-  ensName
-  walletNFTs(after: $after, first: $first) {
-    pageInfo {
-      ...Pagination
-    }
-    edges {
-      node {
-        ...Nft
+    fragment WalletByEnsFragment on EVMSchemaType {
+  walletByENS(ensName: $ensName) {
+    address
+    ensName
+    walletNFTs(after: $after, first: $first) {
+      pageInfo {
+        ...Pagination
+      }
+      edges {
+        node {
+          ...Nft
+        }
       }
     }
   }
 }
     ${Pagination}
 ${Nft}`;
-export const WalletNfTsByEns = gql`
-    query WalletNFTsByEns($ethereum: Boolean = false, $ensName: String!, $after: String, $first: Int) {
-  ethereum @include(if: $ethereum) {
-    walletByENS(ensName: $ensName) {
-      ...WalletByEnsFragment
-    }
+export const EthMainnetWalletNfTsByEns = gql`
+    query EthMainnetWalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
+  ethereum {
+    ...WalletByEnsFragment
+  }
+}
+    ${WalletByEnsFragment}`;
+export const PolygonMainnetWalletNfTsByEns = gql`
+    query PolygonMainnetWalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
+  polygon {
+    ...WalletByEnsFragment
   }
 }
     ${WalletByEnsFragment}`;

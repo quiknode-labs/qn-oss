@@ -1,11 +1,11 @@
 import { ApolloError } from '@apollo/client';
 import { CustomApolloClient } from '../../client/customApolloClient';
+import { WalletNFTByEns } from '../types/getNFTsByWalletENS';
 import {
   WalletNfTsByEns,
   WalletNfTsByEnsQuery,
   WalletNfTsByEnsQueryVariables,
 } from '../../graphql/types';
-import { WalletNFTByEns } from './getNFTsByWalletENS/getNFTsByWalletENS';
 
 export class NFTQueries {
   constructor(private client: CustomApolloClient) {}

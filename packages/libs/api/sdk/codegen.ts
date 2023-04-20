@@ -2,7 +2,7 @@ import { CodegenConfig } from '@graphql-codegen/cli';
 import { readFileSync } from 'fs';
 
 const additionalHeaders: Record<string, string> = JSON.parse(
-  readFileSync('graphqlHeaders.json')
+  String(readFileSync('graphqlHeaders.json'))
 );
 
 const config: CodegenConfig = {
@@ -10,7 +10,7 @@ const config: CodegenConfig = {
   documents: 'src/**/*.gql',
   schema: [
     {
-      'http://localhost:4000/graphql': {
+      'https://api.quicknode.com/graphql': {
         headers: {
           'content-type': 'application/json',
           ...additionalHeaders,

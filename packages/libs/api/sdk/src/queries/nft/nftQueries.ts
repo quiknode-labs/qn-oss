@@ -1,25 +1,28 @@
 import { ApolloError } from '@apollo/client';
 import { CustomApolloClient } from '../../client/customApolloClient';
-import { WalletNFTByEns } from '../types/getNFTsByWalletENS';
 import {
-  WalletNfTsByEns,
-  WalletNfTsByEnsQuery,
-  WalletNfTsByEnsQueryVariables,
+  getWalletENSNFTsRawQuery
+} from '../ethereum/mainnet/getNFTsByWalletENS/getNFTsByWalletENS';
+
+import { WalletNFTByEnsType } from '../types/getNFTsByWalletENS';
+import {
+  PolygonMainnetWalletNfTsByEnsQuery,
+  PolygonMainnetWalletNfTsByEnsQueryVariables,
 } from '../../graphql/types';
 
 export class NFTQueries {
   constructor(private client: CustomApolloClient) {}
 
-  async getNFTsByWalletENS(variables: WalletNfTsByEnsQueryVariables) {
+  async getNFTsByWalletENS(variables: PolygonMainnetWalletNfTsByEnsQueryVariables) {
     try {
       const {
         data: { ethereum: data },
       } = await this.client.query<
-        WalletNfTsByEnsQueryVariables, // What the user can pass in
-        WalletNfTsByEnsQuery, // The actual unmodified result from query
-        WalletNFTByEns // the modified result (edges and nodes removed)
+        PolygonMainnetWalletNfTsByEnsQueryVariables, // What the user can pass in
+        PolygonMainnetWalletNfTsByEnsQuery, // The actual unmodified result from query
+        WalletNFTByEnsType // the modified result (edges and nodes removed)
       >({
-        query: WalletNfTsByEns, // The actual graphql query
+        query: getWalletENSNFTsRawQuery("ethereum"), // The actual graphql query
         variables,
       });
       return data;

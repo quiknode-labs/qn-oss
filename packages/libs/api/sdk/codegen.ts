@@ -7,7 +7,7 @@ const additionalHeaders: Record<string, string> = JSON.parse(
 
 const config: CodegenConfig = {
   overwrite: true,
-  documents: 'src/**/*.gql',
+  documents: ['src/**/*.gql', 'src/**/!(*.d).{ts,tsx}'],
   schema: [
     {
       'https://api.quicknode.com/graphql': {

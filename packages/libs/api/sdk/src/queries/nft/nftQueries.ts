@@ -1,16 +1,14 @@
 import { ApolloError } from '@apollo/client';
 import { CustomApolloClient } from '../../client/customApolloClient';
-import { importSchema } from 'graphql-import'
 import {
-  EthMainnet
-} from ;
+  EthMainnetWalletNFTsByEns,
+} from '../ethereum/mainnet/getNFTsByWalletENS/getNFTsByWalletENS';
 
 import { WalletNFTByEnsType } from '../types/getNFTsByWalletENS';
 import {
   PolygonMainnetWalletNfTsByEnsQuery,
   PolygonMainnetWalletNfTsByEnsQueryVariables,
 } from '../../graphql/types';
-const e = importSchema('../ethereum/mainnet/getNFTsByWalletENS/getNFTsByWalletENS.gql')
 
 export class NFTQueries {
   constructor(private client: CustomApolloClient) {}
@@ -24,7 +22,7 @@ export class NFTQueries {
         PolygonMainnetWalletNfTsByEnsQuery, // The actual unmodified result from query
         WalletNFTByEnsType // the modified result (edges and nodes removed)
       >({
-        query: EthereumMainnetGetWalletENSNFTs, // The actual graphql query
+        query: EthMainnetWalletNFTsByEns, // The actual graphql query
         variables,
       });
       return data;

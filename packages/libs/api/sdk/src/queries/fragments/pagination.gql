@@ -1,6 +1,0 @@
-fragment Pagination on PageInfo {
-  endCursor
-  hasNextPage
-  hasPreviousPage
-  startCursor
-}

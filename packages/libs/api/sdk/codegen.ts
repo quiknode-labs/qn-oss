@@ -28,6 +28,7 @@ const config: CodegenConfig = {
       config: {
         exportFragmentSpreadSubTypes: true,
         inlineFragmentTypes: 'combine',
+        fragmentMasking: false
       },
     },
     'src/graphql/fragmentMatcher.ts': {

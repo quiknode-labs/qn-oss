@@ -1,0 +1,5 @@
+query EthMainnetWalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
+  ethereum {
+    ...WalletByEnsFragment
+  }
+}

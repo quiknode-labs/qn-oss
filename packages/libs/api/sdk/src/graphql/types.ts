@@ -1405,6 +1405,18 @@ export type WalletWalletCollectionsConnectionEdge = {
   node: WalletCollection;
 };
 
+export type EthMainnetWalletNfTsByEnsQueryVariables = Exact<{
+  ensName: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type EthMainnetWalletNfTsByEnsQuery = { __typename?: 'Query', ethereum: (
+    { __typename?: 'EVMSchemaType' }
+    & WalletByEnsFragmentFragment
+  ) };
+
 export type NftFragment = { __typename?: 'WalletNFT', nft?: { __typename?: 'ERC721NFT', animationUrl?: string | null, description?: string | null, externalUrl?: string | null, name?: string | null, tokenId: any, collection?: { __typename?: 'ERC721Collection', address: string } | null } | { __typename?: 'ERC1155NFT', animationUrl?: string | null, description?: string | null, externalUrl?: string | null, name?: string | null, tokenId: any, collection?: { __typename?: 'ERC1155Collection', address: string } | null } | null };
 
 export type WalletByEnsFragmentFragment = { __typename?: 'EVMSchemaType', walletByENS?: { __typename?: 'Wallet', address: string, ensName?: string | null, walletNFTs: { __typename?: 'WalletNFTsConnection', pageInfo: (
@@ -1470,6 +1482,13 @@ export const WalletByEnsFragment = gql`
 }
     ${Pagination}
 ${Nft}`;
+export const EthMainnetWalletNfTsByEns = gql`
+    query EthMainnetWalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
+  ethereum {
+    ...WalletByEnsFragment
+  }
+}
+    ${WalletByEnsFragment}`;
 export const PolygonMainnetWalletNfTsByEns = gql`
     query PolygonMainnetWalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
   polygon {

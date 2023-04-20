@@ -11,6 +11,7 @@ import fetch from 'cross-fetch';
 import { NFTQueries } from '../queries/nft/nftQueries';
 import { CustomApolloClient } from './customApolloClient';
 import generatedIntrospection from '../graphql/fragmentMatcher';
+import { EthMainnetChainConfig } from './chainConfigs';
 
 export interface QuickNodeSDKArguments {
   qnApiKey?: string;
@@ -50,7 +51,7 @@ export class QuickNodeSDK {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
   private customApolloClient: CustomApolloClient;
   readonly qnApiKey?: string;
-  readonly nft: NFTQueries;
+  readonly ethereum: EthMainnetChainConfig;
 
   constructor({ qnApiKey, additionalHeaders }: QuickNodeSDKArguments = {}) {
     console.log({ qnApiKey })
@@ -66,7 +67,7 @@ export class QuickNodeSDK {
       additionalHeaders,
     });
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
-    this.nft = new NFTQueries(this.customApolloClient);
+    this.ethereum = new EthMainnetChainConfig({ customApolloClient: this.customApolloClient });
   }
 
   private createApolloClient({

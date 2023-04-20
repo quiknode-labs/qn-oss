@@ -1,8 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import { CustomApolloClient } from '../../client/customApolloClient';
-import {
-  EthMainnetWalletNFTsByEns,
-} from '../ethereum/mainnet/getNFTsByWalletENS/getNFTsByWalletENS';
+import { EthMainnetWalletNFTsByEns } from '../ethereum/mainnet/getNFTsByWalletENS/getNFTsByWalletENS';
 
 import { WalletNFTByEnsType } from '../types/getNFTsByWalletENS';
 import {
@@ -13,7 +11,7 @@ import {
 export class NFTQueries {
   constructor(private client: CustomApolloClient) {}
 
-  async getNFTsByWalletENS(variables: EthMainnetWalletNfTsByEnsQueryVariables) {
+  async getByWalletENS(variables: EthMainnetWalletNfTsByEnsQueryVariables) {
     try {
       const {
         data: { ethereum: data },

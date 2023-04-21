@@ -24,11 +24,12 @@ const config: CodegenConfig = {
         'typescript',
         'typescript-operations',
         'typescript-document-nodes',
+        './src/graphql/QNCodegenPlugin',
       ],
       config: {
         exportFragmentSpreadSubTypes: true,
         inlineFragmentTypes: 'combine',
-        fragmentMasking: false
+        fragmentMasking: false,
       },
     },
     'src/graphql/fragmentMatcher.ts': {

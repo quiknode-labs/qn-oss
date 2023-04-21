@@ -3,8 +3,11 @@ import { NFTQueries } from '../queries/nft/nftQueries';
 import {
   EthMainnetWalletNfTsByEnsQuery,
   EthMainnetWalletNfTsByEnsQueryVariables,
+  PolygonMainnetWalletNfTsByEnsQuery,
+  PolygonMainnetWalletNfTsByEnsQueryVariables,
 } from '../graphql/types';
-import { EthMainnetWalletNFTsByEns } from '../queries/ethereum/mainnet/getNFTsByWalletENS/getNFTsByWalletENS';
+import { EthMainnetWalletNFTsByEns } from '../queries/ethereum/mainnet/getNFTsByWalletENS';
+import { PolygonMainnetWalletNFTsByEns } from '../queries/polygon/mainnet/getNFTsByWalletENS';
 
 interface BaseNetworkConfigArgs {
   customApolloClient: CustomApolloClient;
@@ -20,6 +23,20 @@ export class EthMainnetNetworkConfig {
       EthMainnetWalletNfTsByEnsQueryVariables
     >(customApolloClient, 'ethereum', {
       WalletNFTsByEns: EthMainnetWalletNFTsByEns,
+    });
+  }
+}
+
+// write PolygonMainnetNetworkConfig
+export class PolygonMainnetNetworkConfig {
+  readonly nft;
+
+  constructor({ customApolloClient }: BaseNetworkConfigArgs) {
+    this.nft = new NFTQueries<
+      PolygonMainnetWalletNfTsByEnsQuery,
+      PolygonMainnetWalletNfTsByEnsQueryVariables
+    >(customApolloClient, 'polygon', {
+      WalletNFTsByEns: PolygonMainnetWalletNFTsByEns,
     });
   }
 }

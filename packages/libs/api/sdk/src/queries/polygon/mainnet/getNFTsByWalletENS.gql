@@ -1,5 +1,0 @@
-query PolygonMainnetWalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
-  polygon {
-    ...WalletByEnsFragment
-  }
-}

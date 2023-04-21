@@ -8,10 +8,12 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import fetch from 'cross-fetch';
-import { NFTQueries } from '../queries/nft/nftQueries';
 import { CustomApolloClient } from './customApolloClient';
 import generatedIntrospection from '../graphql/fragmentMatcher';
-import { EthMainnetChainConfig } from './chainConfigs';
+import {
+  EthMainnetChainConfig,
+  PolygonMainnetChainConfig,
+} from './chainConfigs';
 
 export interface QuickNodeSDKArguments {
   qnApiKey?: string;
@@ -30,7 +32,6 @@ const httpLink = new HttpLink({
   uri: process.env['NX_GRAPHQL_API_URI'] || 'https://api.quicknode.com/graphql',
   fetch,
 });
-
 
 const errorLink = onError(({ networkError }) => {
   if (
@@ -52,9 +53,10 @@ export class QuickNodeSDK {
   private customApolloClient: CustomApolloClient;
   readonly qnApiKey?: string;
   readonly ethereum: EthMainnetChainConfig;
+  readonly polygon: PolygonMainnetChainConfig;
 
   constructor({ qnApiKey, additionalHeaders }: QuickNodeSDKArguments = {}) {
-    console.log({ qnApiKey })
+    console.log({ qnApiKey });
     if (!qnApiKey && !QUICKNODE_GRAPHQL_CLIENT_SUPPRESS_WARNINGS) {
       console.warn(
         'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
@@ -67,7 +69,12 @@ export class QuickNodeSDK {
       additionalHeaders,
     });
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
-    this.ethereum = new EthMainnetChainConfig({ customApolloClient: this.customApolloClient });
+    this.ethereum = new EthMainnetChainConfig({
+      customApolloClient: this.customApolloClient,
+    });
+    this.polygon = new PolygonMainnetChainConfig({
+      customApolloClient: this.customApolloClient,
+    });
   }
 
   private createApolloClient({
@@ -87,8 +94,7 @@ export class QuickNodeSDK {
     // TODO - add type policies
     const cacheStructure = new InMemoryCache({
       possibleTypes: generatedIntrospection.possibleTypes,
-      typePolicies: {
-     },
+      typePolicies: {},
     });
 
     const rawClient = new ApolloClient({

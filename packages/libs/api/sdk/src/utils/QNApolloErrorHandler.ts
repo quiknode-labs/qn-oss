@@ -20,6 +20,7 @@ export function QNApolloErrorHandler(
           } else {
             console.error(error);
           }
+          throw error;
         }
       }
       console.error(

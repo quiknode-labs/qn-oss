@@ -5,7 +5,7 @@
     "apps-examples-nft-react-hooks": "packages/apps/examples/nft-react-hooks",
     "apps-examples-nft-react-hooks-e2e": "packages/apps/examples/nft-react-hooks-e2e",
     "apps-examples-nft-sdk": "packages/apps/examples/nft-sdk",
-    "libs-api-sdk": "packages/libs/api/sdk",
+    "libs-sdk": "packages/libs/sdk",
     "libs-ui-nft-react-hooks": "packages/libs/ui/nft-react-hooks",
     "libs-ui-util": "packages/libs/ui/util",
     "libs-util": "packages/libs/util"

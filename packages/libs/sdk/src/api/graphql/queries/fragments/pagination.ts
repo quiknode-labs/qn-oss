@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client"
+import { gql } from '@apollo/client';
 
 export const Pagination = gql`
   fragment Pagination on PageInfo {
@@ -7,4 +7,4 @@ export const Pagination = gql`
     hasPreviousPage
     startCursor
   }
-`
+`;

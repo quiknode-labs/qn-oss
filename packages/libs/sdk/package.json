@@ -29,6 +29,6 @@
     "supertest": "^6.2.4"
   },
   "scripts": {
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.ts"
   }
 }

@@ -17,7 +17,7 @@ import {
 } from './chainConfigs';
 
 export interface ApiArguments {
-  qnApiKey?: string;
+  gqlApiKey?: string;
   additionalHeaders?: Record<string, string>;
 }
 
@@ -59,20 +59,20 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
 export class Api {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
   private customApolloClient: CustomApolloClient;
-  readonly qnApiKey?: string;
+  readonly gqlApiKey?: string;
   readonly ethereum: EthMainnetChainConfig;
   readonly polygon: PolygonMainnetChainConfig;
 
-  constructor({ qnApiKey, additionalHeaders }: ApiArguments = {}) {
-    if (!qnApiKey) {
+  constructor({ gqlApiKey, additionalHeaders }: ApiArguments = {}) {
+    if (!gqlApiKey) {
       console.warn(
         'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
       );
     }
 
-    this.qnApiKey = process.env['QUICKNODE_GQL_API_KEY'] || qnApiKey;
+    this.gqlApiKey = process.env['QUICKNODE_GQL_API_KEY'] || gqlApiKey;
     this.apolloClient = this.createApolloClient({
-      qnApiKey,
+      gqlApiKey,
       additionalHeaders,
     });
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
@@ -85,14 +85,14 @@ export class Api {
   }
 
   private createApolloClient({
-    qnApiKey,
+    gqlApiKey,
     additionalHeaders,
   }: ApiArguments): ApolloClient<NormalizedCacheObject> {
     const authLink = setContext(async (_, { headers }) => {
       return {
         headers: {
           ...headers,
-          ...{ 'x-api-key': qnApiKey },
+          ...{ 'x-api-key': gqlApiKey },
           ...additionalHeaders,
         },
       };

@@ -1,16 +1,16 @@
 import { CustomApolloClient } from './graphql/customApolloClient';
 import { NftController } from './controllers/nft';
 import {
-  EthMainnetWalletNfTsByEnsQuery,
-  EthMainnetWalletNfTsByEnsQueryVariables,
-  PolygonMainnetWalletNfTsByEnsQuery,
-  PolygonMainnetWalletNfTsByEnsQueryVariables,
-  EthSepoliaWalletNfTsByEnsQuery,
-  EthSepoliaWalletNfTsByEnsQueryVariables,
+  CodegenEthMainnetWalletNFTsByEnsQuery,
+  CodegenEthMainnetWalletNFTsByEnsQueryVariables,
+  CodegenPolygonMainnetWalletNFTsByEnsQuery,
+  CodegenPolygonMainnetWalletNFTsByEnsQueryVariables,
+  CodegenEthSepoliaWalletNFTsByEnsQuery,
+  CodegenEthSepoliaWalletNFTsByEnsQueryVariables,
 } from './graphql/generatedTypes';
-import { EthMainnetWalletNFTsByEns } from './graphql/queries/ethereum/mainnet/getNFTsByWalletENS';
-import { PolygonMainnetWalletNFTsByEns } from './graphql/queries/polygon/mainnet/getNFTsByWalletENS';
-import { EthSepoliaWalletNFTsByEns } from './graphql/queries/ethereum/sepolia/getNFTsByWalletENS';
+import { EthMainnetWalletNFTsByEns } from './graphql/queries/ethereum/mainnet/getAllByWalletENS';
+import { PolygonMainnetWalletNFTsByEns } from './graphql/queries/polygon/mainnet/getAllByWalletENS';
+import { EthSepoliaWalletNFTsByEns } from './graphql/queries/ethereum/sepolia/getAllByWalletENS';
 
 interface BaseNetworkConfigArgs {
   customApolloClient: CustomApolloClient;
@@ -21,8 +21,8 @@ export class EthMainnetNetworkConfig {
 
   constructor({ customApolloClient }: BaseNetworkConfigArgs) {
     this.nft = new NftController<
-      EthMainnetWalletNfTsByEnsQuery,
-      EthMainnetWalletNfTsByEnsQueryVariables
+      CodegenEthMainnetWalletNFTsByEnsQuery,
+      CodegenEthMainnetWalletNFTsByEnsQueryVariables
     >(customApolloClient, 'ethereum', {
       WalletNFTsByEns: EthMainnetWalletNFTsByEns,
     });
@@ -34,8 +34,8 @@ export class EthSepoliaNetworkConfig {
 
   constructor({ customApolloClient }: BaseNetworkConfigArgs) {
     this.nft = new NftController<
-      EthSepoliaWalletNfTsByEnsQuery,
-      EthSepoliaWalletNfTsByEnsQueryVariables
+      CodegenEthSepoliaWalletNFTsByEnsQuery,
+      CodegenEthSepoliaWalletNFTsByEnsQueryVariables
     >(customApolloClient, 'ethereumSepolia', {
       WalletNFTsByEns: EthSepoliaWalletNFTsByEns,
     });
@@ -47,8 +47,8 @@ export class PolygonMainnetNetworkConfig {
 
   constructor({ customApolloClient }: BaseNetworkConfigArgs) {
     this.nft = new NftController<
-      PolygonMainnetWalletNfTsByEnsQuery,
-      PolygonMainnetWalletNfTsByEnsQueryVariables
+      CodegenPolygonMainnetWalletNFTsByEnsQuery,
+      CodegenPolygonMainnetWalletNFTsByEnsQueryVariables
     >(customApolloClient, 'polygon', {
       WalletNFTsByEns: PolygonMainnetWalletNFTsByEns,
     });

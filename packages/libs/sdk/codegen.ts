@@ -26,6 +26,7 @@ const config: CodegenConfig = {
         'typescript-document-nodes',
       ],
       config: {
+        namingConvention: './codegenCustomNaming',
         exportFragmentSpreadSubTypes: true,
         inlineFragmentTypes: 'combine',
         fragmentMasking: false,

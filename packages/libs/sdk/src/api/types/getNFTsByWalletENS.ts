@@ -1,11 +1,14 @@
-import { NftInfoFragment, PaginationFragment } from '../graphql/generatedTypes';
+import {
+  CodegenNftInfoFragment,
+  CodegenPaginationFragment,
+} from '../graphql/generatedTypes';
 import { ChainName } from './chains';
 
 export interface WalletByEnsQueryResultInfo {
   address: string;
   ensName: string;
-  walletNFTsPageInfo: PaginationFragment;
-  walletNFTs: NftInfoFragment[];
+  walletNFTsPageInfo: CodegenPaginationFragment;
+  walletNFTs: CodegenNftInfoFragment[];
 }
 export interface WalletByEnsQueryResultBody {
   walletByENS: WalletByEnsQueryResultInfo;
@@ -21,6 +24,6 @@ export type WalletNFTByEnsQueryResultFull = Record<
 export type WalletNFTsByEnsFormattedResult = {
   address: string;
   ensName: string;
-  results: NftInfoFragment['nft'][];
-  pageInfo: PaginationFragment;
+  results: CodegenNftInfoFragment['nft'][];
+  pageInfo: CodegenPaginationFragment;
 };

@@ -17,33 +17,33 @@ export type Scalars = {
   JSONObject: any;
 };
 
-export type Collection = {
+export type CodegenCollection = {
   address: Scalars['String'];
-  attributes?: Maybe<CollectionAttributesConnection>;
+  attributes?: Maybe<CodegenCollectionAttributesConnection>;
   /** Collection banner image. */
-  bannerImage?: Maybe<Array<TokenUpload>>;
+  bannerImage?: Maybe<Array<CodegenTokenUpload>>;
   baseTokenUri?: Maybe<Scalars['String']>;
   circulatingSupply?: Maybe<Scalars['BigInt']>;
-  contract?: Maybe<NftContract>;
+  contract?: Maybe<CodegenNFTContract>;
   description?: Maybe<Scalars['String']>;
   externalUrl?: Maybe<Scalars['String']>;
-  holders: CollectionHoldersConnection;
+  holders: CodegenCollectionHoldersConnection;
   /** The collection image. */
-  image?: Maybe<Array<TokenUpload>>;
+  image?: Maybe<Array<CodegenTokenUpload>>;
   name?: Maybe<Scalars['String']>;
-  ohlcvChart?: Maybe<Array<CollectionOhlcvChart>>;
-  openseaMetadata?: Maybe<OpenSeaMetadata>;
-  orderHistory?: Maybe<Array<CollectionOrderHistory>>;
+  ohlcvChart?: Maybe<Array<CodegenCollectionOHLCVChart>>;
+  openseaMetadata?: Maybe<CodegenOpenSeaMetadata>;
+  orderHistory?: Maybe<Array<CodegenCollectionOrderHistory>>;
   slug?: Maybe<Scalars['String']>;
   symbol?: Maybe<Scalars['String']>;
-  tokenEvents: CollectionTokenEventsConnection;
+  tokenEvents: CodegenCollectionTokenEventsConnection;
   totalSupply?: Maybe<Scalars['BigInt']>;
   twitterUsername?: Maybe<Scalars['String']>;
-  wallets: CollectionWalletsConnection;
+  wallets: CodegenCollectionWalletsConnection;
 };
 
 
-export type CollectionAttributesArgs = {
+export type CodegenCollectionCodegenattributesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -51,7 +51,7 @@ export type CollectionAttributesArgs = {
 };
 
 
-export type CollectionHoldersArgs = {
+export type CodegenCollectionCodegenholdersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -59,26 +59,26 @@ export type CollectionHoldersArgs = {
 };
 
 
-export type CollectionOhlcvChartArgs = {
-  filter?: InputMaybe<CollectionOhlcvChartInput>;
+export type CodegenCollectionCodegenohlcvChartArgs = {
+  filter?: InputMaybe<CodegenCollectionOhlcvChartInput>;
 };
 
 
-export type CollectionOrderHistoryArgs = {
-  filter?: InputMaybe<CollectionOrderHistoryInput>;
+export type CodegenCollectionCodegenorderHistoryArgs = {
+  filter?: InputMaybe<CodegenCollectionOrderHistoryInput>;
 };
 
 
-export type CollectionTokenEventsArgs = {
+export type CodegenCollectionCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type CollectionWalletsArgs = {
+export type CodegenCollectionCodegenwalletsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -86,7 +86,7 @@ export type CollectionWalletsArgs = {
 };
 
 /** A contract's attribute count */
-export type CollectionAttribute = {
+export type CodegenCollectionAttribute = {
   __typename?: 'CollectionAttribute';
   /** The trait key. */
   name: Scalars['String'];
@@ -94,34 +94,34 @@ export type CollectionAttribute = {
   value?: Maybe<Scalars['String']>;
 };
 
-export type CollectionAttributesConnection = {
+export type CodegenCollectionAttributesConnection = {
   __typename?: 'CollectionAttributesConnection';
-  edges: Array<CollectionAttributesConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenCollectionAttributesConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type CollectionAttributesConnectionEdge = {
+export type CodegenCollectionAttributesConnectionEdge = {
   __typename?: 'CollectionAttributesConnectionEdge';
   cursor: Scalars['String'];
-  node: CollectionAttribute;
+  node: CodegenCollectionAttribute;
 };
 
-export type CollectionHoldersConnection = {
+export type CodegenCollectionHoldersConnection = {
   __typename?: 'CollectionHoldersConnection';
-  edges: Array<CollectionHoldersConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenCollectionHoldersConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type CollectionHoldersConnectionEdge = {
+export type CodegenCollectionHoldersConnectionEdge = {
   __typename?: 'CollectionHoldersConnectionEdge';
   cursor: Scalars['String'];
-  node: NftWallet;
+  node: CodegenNFTWallet;
 };
 
 /** Collection OHLCV chart stats */
-export type CollectionOhlcvChart = {
+export type CodegenCollectionOHLCVChart = {
   __typename?: 'CollectionOHLCVChart';
   average?: Maybe<Scalars['Float']>;
   close?: Maybe<Scalars['Float']>;
@@ -134,28 +134,28 @@ export type CollectionOhlcvChart = {
 };
 
 /** Filter by input interval */
-export enum CollectionOhlcvChartInterval {
-  FifteenMinutes = 'FIFTEEN_MINUTES',
-  FiveMinutes = 'FIVE_MINUTES',
-  OneDay = 'ONE_DAY',
-  OneHour = 'ONE_HOUR',
-  OneMinute = 'ONE_MINUTE',
-  SevenDays = 'SEVEN_DAYS',
-  SixHours = 'SIX_HOURS',
-  ThirtyDays = 'THIRTY_DAYS',
-  ThirtyMinutes = 'THIRTY_MINUTES',
-  TwelveHours = 'TWELVE_HOURS'
+export enum CodegenCollectionOHLCVChartInterval {
+  CodegenFIFTEEN_MINUTES = 'FIFTEEN_MINUTES',
+  CodegenFIVE_MINUTES = 'FIVE_MINUTES',
+  CodegenONE_DAY = 'ONE_DAY',
+  CodegenONE_HOUR = 'ONE_HOUR',
+  CodegenONE_MINUTE = 'ONE_MINUTE',
+  CodegenSEVEN_DAYS = 'SEVEN_DAYS',
+  CodegenSIX_HOURS = 'SIX_HOURS',
+  CodegenTHIRTY_DAYS = 'THIRTY_DAYS',
+  CodegenTHIRTY_MINUTES = 'THIRTY_MINUTES',
+  CodegenTWELVE_HOURS = 'TWELVE_HOURS'
 }
 
-export type CollectionOhlcvChartInput = {
+export type CodegenCollectionOhlcvChartInput = {
   confirmedAtGte?: InputMaybe<Scalars['DateTime']>;
   confirmedAtLte?: InputMaybe<Scalars['DateTime']>;
-  interval?: InputMaybe<CollectionOhlcvChartInterval>;
+  interval?: InputMaybe<CodegenCollectionOHLCVChartInterval>;
   limit?: InputMaybe<Scalars['Float']>;
 };
 
 /** Collection order history summary */
-export type CollectionOrderHistory = {
+export type CodegenCollectionOrderHistory = {
   __typename?: 'CollectionOrderHistory';
   fromAddress: Scalars['String'];
   priceInEth: Scalars['Float'];
@@ -165,32 +165,32 @@ export type CollectionOrderHistory = {
   transactionHash: Scalars['String'];
 };
 
-export type CollectionOrderHistoryInput = {
+export type CodegenCollectionOrderHistoryInput = {
   confirmedAtGte?: InputMaybe<Scalars['DateTime']>;
   confirmedAtLte?: InputMaybe<Scalars['DateTime']>;
   isLimited?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Sale of a collection token */
-export type CollectionSale = {
+export type CodegenCollectionSale = {
   __typename?: 'CollectionSale';
   estimatedConfirmedAt?: Maybe<Scalars['DateTime']>;
   priceInEth?: Maybe<Scalars['Float']>;
 };
 
-export enum CollectionStandard {
-  Erc721 = 'ERC721',
-  Erc1155 = 'ERC1155'
+export enum CodegenCollectionStandard {
+  CodegenERC721 = 'ERC721',
+  CodegenERC1155 = 'ERC1155'
 }
 
-export type CollectionStandardInput = {
-  eq?: InputMaybe<CollectionStandard>;
-  in?: InputMaybe<Array<CollectionStandard>>;
-  notIn?: InputMaybe<Array<CollectionStandard>>;
+export type CodegenCollectionStandardInput = {
+  eq?: InputMaybe<CodegenCollectionStandard>;
+  in?: InputMaybe<Array<CodegenCollectionStandard>>;
+  notIn?: InputMaybe<Array<CodegenCollectionStandard>>;
 };
 
 /** Stats of a collection */
-export type CollectionStats = {
+export type CodegenCollectionStats = {
   __typename?: 'CollectionStats';
   average?: Maybe<Scalars['Float']>;
   ceiling?: Maybe<Scalars['Float']>;
@@ -199,39 +199,39 @@ export type CollectionStats = {
   volume?: Maybe<Scalars['Float']>;
 };
 
-export type CollectionTokenEventsConnection = {
+export type CodegenCollectionTokenEventsConnection = {
   __typename?: 'CollectionTokenEventsConnection';
-  edges: Array<CollectionTokenEventsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenCollectionTokenEventsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type CollectionTokenEventsConnectionEdge = {
+export type CodegenCollectionTokenEventsConnectionEdge = {
   __typename?: 'CollectionTokenEventsConnectionEdge';
   cursor: Scalars['String'];
-  node: TokenEvent;
+  node: CodegenTokenEvent;
 };
 
-export type CollectionWalletsConnection = {
+export type CodegenCollectionWalletsConnection = {
   __typename?: 'CollectionWalletsConnection';
-  edges: Array<CollectionWalletsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenCollectionWalletsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type CollectionWalletsConnectionEdge = {
+export type CodegenCollectionWalletsConnectionEdge = {
   __typename?: 'CollectionWalletsConnectionEdge';
   cursor: Scalars['String'];
-  node: Wallet;
+  node: CodegenWallet;
 };
 
 /** Filter input for collections */
-export type CollectionsFilterInput = {
-  address?: InputMaybe<StringInput>;
-  ercStandard?: InputMaybe<CollectionStandardInput>;
+export type CodegenCollectionsFilterInput = {
+  address?: InputMaybe<CodegenStringInput>;
+  ercStandard?: InputMaybe<CodegenCollectionStandardInput>;
 };
 
-export type Contract = {
+export type CodegenContract = {
   abi?: Maybe<Scalars['JSON']>;
   address: Scalars['String'];
   /** Contract with verified ABI */
@@ -239,50 +239,50 @@ export type Contract = {
   name?: Maybe<Scalars['String']>;
   supportedErcInterfaces?: Maybe<Array<Scalars['String']>>;
   symbol?: Maybe<Scalars['String']>;
-  tokenEvents: ContractTokenEventsConnection;
+  tokenEvents: CodegenContractTokenEventsConnection;
 };
 
 
-export type ContractTokenEventsArgs = {
+export type CodegenContractCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export type ContractTokenEventsConnection = {
+export type CodegenContractTokenEventsConnection = {
   __typename?: 'ContractTokenEventsConnection';
-  edges: Array<ContractTokenEventsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenContractTokenEventsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type ContractTokenEventsConnectionEdge = {
+export type CodegenContractTokenEventsConnectionEdge = {
   __typename?: 'ContractTokenEventsConnectionEdge';
   cursor: Scalars['String'];
-  node: TokenEvent;
+  node: CodegenTokenEvent;
 };
 
-export type ContractsConnection = {
+export type CodegenContractsConnection = {
   __typename?: 'ContractsConnection';
-  edges: Array<ContractsEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenContractsEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type ContractsEdge = {
+export type CodegenContractsEdge = {
   __typename?: 'ContractsEdge';
   cursor: Scalars['String'];
-  node: Contract;
+  node: CodegenContract;
 };
 
 /** Filter input for contracts */
-export type ContractsFilterInput = {
-  address?: InputMaybe<StringInput>;
+export type CodegenContractsFilterInput = {
+  address?: InputMaybe<CodegenStringInput>;
 };
 
-export type DateTimeInput = {
+export type CodegenDateTimeInput = {
   eq?: InputMaybe<Scalars['DateTime']>;
   gt?: InputMaybe<Scalars['DateTime']>;
   gte?: InputMaybe<Scalars['DateTime']>;
@@ -290,37 +290,37 @@ export type DateTimeInput = {
   lte?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type Erc721Collection = Collection & {
+export type CodegenERC721Collection = CodegenCollection & {
   __typename?: 'ERC721Collection';
   address: Scalars['String'];
-  attributes?: Maybe<CollectionAttributesConnection>;
+  attributes?: Maybe<CodegenCollectionAttributesConnection>;
   /** Collection banner image. */
-  bannerImage?: Maybe<Array<TokenUpload>>;
+  bannerImage?: Maybe<Array<CodegenTokenUpload>>;
   baseTokenUri?: Maybe<Scalars['String']>;
   circulatingSupply?: Maybe<Scalars['BigInt']>;
-  contract?: Maybe<NftContract>;
+  contract?: Maybe<CodegenNFTContract>;
   description?: Maybe<Scalars['String']>;
   externalUrl?: Maybe<Scalars['String']>;
-  holders: CollectionHoldersConnection;
+  holders: CodegenCollectionHoldersConnection;
   /** The collection image. */
-  image?: Maybe<Array<TokenUpload>>;
+  image?: Maybe<Array<CodegenTokenUpload>>;
   name?: Maybe<Scalars['String']>;
-  nft?: Maybe<Erc721Nft>;
-  nfts: Erc721CollectionTokensConnection;
-  ohlcvChart?: Maybe<Array<CollectionOhlcvChart>>;
-  openseaMetadata?: Maybe<OpenSeaMetadata>;
-  orderHistory?: Maybe<Array<CollectionOrderHistory>>;
+  nft?: Maybe<CodegenERC721NFT>;
+  nfts: CodegenERC721CollectionTokensConnection;
+  ohlcvChart?: Maybe<Array<CodegenCollectionOHLCVChart>>;
+  openseaMetadata?: Maybe<CodegenOpenSeaMetadata>;
+  orderHistory?: Maybe<Array<CodegenCollectionOrderHistory>>;
   slug?: Maybe<Scalars['String']>;
-  stats?: Maybe<CollectionStats>;
+  stats?: Maybe<CodegenCollectionStats>;
   symbol?: Maybe<Scalars['String']>;
-  tokenEvents: CollectionTokenEventsConnection;
+  tokenEvents: CodegenCollectionTokenEventsConnection;
   totalSupply?: Maybe<Scalars['BigInt']>;
   twitterUsername?: Maybe<Scalars['String']>;
-  wallets: CollectionWalletsConnection;
+  wallets: CodegenCollectionWalletsConnection;
 };
 
 
-export type Erc721CollectionAttributesArgs = {
+export type CodegenERC721CollectionCodegenattributesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -328,7 +328,7 @@ export type Erc721CollectionAttributesArgs = {
 };
 
 
-export type Erc721CollectionHoldersArgs = {
+export type CodegenERC721CollectionCodegenholdersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -336,129 +336,129 @@ export type Erc721CollectionHoldersArgs = {
 };
 
 
-export type Erc721CollectionNftArgs = {
+export type CodegenERC721CollectionCodegennftArgs = {
   tokenId: Scalars['String'];
 };
 
 
-export type Erc721CollectionNftsArgs = {
+export type CodegenERC721CollectionCodegennftsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<NfTsFilterInput>;
+  filter?: InputMaybe<CodegenNFTsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type Erc721CollectionOhlcvChartArgs = {
-  filter?: InputMaybe<CollectionOhlcvChartInput>;
+export type CodegenERC721CollectionCodegenohlcvChartArgs = {
+  filter?: InputMaybe<CodegenCollectionOhlcvChartInput>;
 };
 
 
-export type Erc721CollectionOrderHistoryArgs = {
-  filter?: InputMaybe<CollectionOrderHistoryInput>;
+export type CodegenERC721CollectionCodegenorderHistoryArgs = {
+  filter?: InputMaybe<CodegenCollectionOrderHistoryInput>;
 };
 
 
-export type Erc721CollectionStatsArgs = {
-  filter?: InputMaybe<Erc721CollectionStatsInput>;
+export type CodegenERC721CollectionCodegenstatsArgs = {
+  filter?: InputMaybe<CodegenERC721CollectionStatsInput>;
 };
 
 
-export type Erc721CollectionTokenEventsArgs = {
+export type CodegenERC721CollectionCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type Erc721CollectionWalletsArgs = {
+export type CodegenERC721CollectionCodegenwalletsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export type Erc721CollectionStatsInput = {
-  timeRange?: InputMaybe<DateTimeInput>;
+export type CodegenERC721CollectionStatsInput = {
+  timeRange?: InputMaybe<CodegenDateTimeInput>;
 };
 
-export type Erc721CollectionTokensConnection = {
+export type CodegenERC721CollectionTokensConnection = {
   __typename?: 'ERC721CollectionTokensConnection';
-  edges: Array<Erc721CollectionTokensEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenERC721CollectionTokensEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type Erc721CollectionTokensEdge = {
+export type CodegenERC721CollectionTokensEdge = {
   __typename?: 'ERC721CollectionTokensEdge';
   cursor: Scalars['String'];
-  node: Erc721Nft;
+  node: CodegenERC721NFT;
 };
 
-export type Erc721Nft = Nft & {
+export type CodegenERC721NFT = CodegenNFT & {
   __typename?: 'ERC721NFT';
   animationUrl?: Maybe<Scalars['String']>;
   /** The attributes of the token. */
-  attributes?: Maybe<Array<TokenAttribute>>;
-  collection?: Maybe<Erc721Collection>;
+  attributes?: Maybe<Array<CodegenTokenAttribute>>;
+  collection?: Maybe<CodegenERC721Collection>;
   collectionSlug?: Maybe<Scalars['String']>;
-  contract?: Maybe<NftContract>;
+  contract?: Maybe<CodegenNFTContract>;
   contractAddress: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   externalUrl?: Maybe<Scalars['String']>;
   /** @deprecated Use nft.wallet instead */
-  holder?: Maybe<NftWallet>;
+  holder?: Maybe<CodegenNFTWallet>;
   metadata?: Maybe<Scalars['JSONObject']>;
   name?: Maybe<Scalars['String']>;
-  tokenEvents: NftTokenEventsConnection;
+  tokenEvents: CodegenNFTTokenEventsConnection;
   tokenId: Scalars['BigInt'];
   /** The uploads of a token. */
-  uploads?: Maybe<Array<TokenUpload>>;
-  wallet?: Maybe<Wallet>;
+  uploads?: Maybe<Array<CodegenTokenUpload>>;
+  wallet?: Maybe<CodegenWallet>;
 };
 
 
-export type Erc721NftTokenEventsArgs = {
+export type CodegenERC721NFTCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export type Erc1155Collection = Collection & {
+export type CodegenERC1155Collection = CodegenCollection & {
   __typename?: 'ERC1155Collection';
   address: Scalars['String'];
-  attributes?: Maybe<CollectionAttributesConnection>;
+  attributes?: Maybe<CodegenCollectionAttributesConnection>;
   /** Collection banner image. */
-  bannerImage?: Maybe<Array<TokenUpload>>;
+  bannerImage?: Maybe<Array<CodegenTokenUpload>>;
   baseTokenUri?: Maybe<Scalars['String']>;
   circulatingSupply?: Maybe<Scalars['BigInt']>;
-  contract?: Maybe<NftContract>;
+  contract?: Maybe<CodegenNFTContract>;
   description?: Maybe<Scalars['String']>;
   externalUrl?: Maybe<Scalars['String']>;
-  holders: CollectionHoldersConnection;
+  holders: CodegenCollectionHoldersConnection;
   /** The collection image. */
-  image?: Maybe<Array<TokenUpload>>;
+  image?: Maybe<Array<CodegenTokenUpload>>;
   name?: Maybe<Scalars['String']>;
-  nft?: Maybe<Erc1155Nft>;
-  nfts: Erc1155CollectionTokensConnection;
-  ohlcvChart?: Maybe<Array<CollectionOhlcvChart>>;
-  openseaMetadata?: Maybe<OpenSeaMetadata>;
-  orderHistory?: Maybe<Array<CollectionOrderHistory>>;
+  nft?: Maybe<CodegenERC1155NFT>;
+  nfts: CodegenERC1155CollectionTokensConnection;
+  ohlcvChart?: Maybe<Array<CodegenCollectionOHLCVChart>>;
+  openseaMetadata?: Maybe<CodegenOpenSeaMetadata>;
+  orderHistory?: Maybe<Array<CodegenCollectionOrderHistory>>;
   slug?: Maybe<Scalars['String']>;
   symbol?: Maybe<Scalars['String']>;
-  tokenEvents: CollectionTokenEventsConnection;
+  tokenEvents: CodegenCollectionTokenEventsConnection;
   totalSupply?: Maybe<Scalars['BigInt']>;
   twitterUsername?: Maybe<Scalars['String']>;
-  wallets: CollectionWalletsConnection;
+  wallets: CodegenCollectionWalletsConnection;
 };
 
 
-export type Erc1155CollectionAttributesArgs = {
+export type CodegenERC1155CollectionCodegenattributesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -466,7 +466,7 @@ export type Erc1155CollectionAttributesArgs = {
 };
 
 
-export type Erc1155CollectionHoldersArgs = {
+export type CodegenERC1155CollectionCodegenholdersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -474,81 +474,81 @@ export type Erc1155CollectionHoldersArgs = {
 };
 
 
-export type Erc1155CollectionNftArgs = {
+export type CodegenERC1155CollectionCodegennftArgs = {
   tokenId: Scalars['String'];
 };
 
 
-export type Erc1155CollectionNftsArgs = {
+export type CodegenERC1155CollectionCodegennftsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<NfTsFilterInput>;
+  filter?: InputMaybe<CodegenNFTsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type Erc1155CollectionOhlcvChartArgs = {
-  filter?: InputMaybe<CollectionOhlcvChartInput>;
+export type CodegenERC1155CollectionCodegenohlcvChartArgs = {
+  filter?: InputMaybe<CodegenCollectionOhlcvChartInput>;
 };
 
 
-export type Erc1155CollectionOrderHistoryArgs = {
-  filter?: InputMaybe<CollectionOrderHistoryInput>;
+export type CodegenERC1155CollectionCodegenorderHistoryArgs = {
+  filter?: InputMaybe<CodegenCollectionOrderHistoryInput>;
 };
 
 
-export type Erc1155CollectionTokenEventsArgs = {
+export type CodegenERC1155CollectionCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type Erc1155CollectionWalletsArgs = {
+export type CodegenERC1155CollectionCodegenwalletsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export type Erc1155CollectionTokensConnection = {
+export type CodegenERC1155CollectionTokensConnection = {
   __typename?: 'ERC1155CollectionTokensConnection';
-  edges: Array<Erc1155CollectionTokensEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenERC1155CollectionTokensEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type Erc1155CollectionTokensEdge = {
+export type CodegenERC1155CollectionTokensEdge = {
   __typename?: 'ERC1155CollectionTokensEdge';
   cursor: Scalars['String'];
-  node: Erc1155Nft;
+  node: CodegenERC1155NFT;
 };
 
-export type Erc1155Nft = Nft & {
+export type CodegenERC1155NFT = CodegenNFT & {
   __typename?: 'ERC1155NFT';
   animationUrl?: Maybe<Scalars['String']>;
-  collection?: Maybe<Erc1155Collection>;
+  collection?: Maybe<CodegenERC1155Collection>;
   collectionSlug?: Maybe<Scalars['String']>;
-  contract?: Maybe<NftContract>;
+  contract?: Maybe<CodegenNFTContract>;
   contractAddress: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   externalUrl?: Maybe<Scalars['String']>;
   /** @deprecated Use nft.wallets instead */
-  holders: Erc1155NftHoldersConnection;
+  holders: CodegenERC1155NFTHoldersConnection;
   metadata?: Maybe<Scalars['JSONObject']>;
   name?: Maybe<Scalars['String']>;
-  tokenEvents: NftTokenEventsConnection;
+  tokenEvents: CodegenNFTTokenEventsConnection;
   tokenId: Scalars['BigInt'];
   /** The uploads of a token. */
-  uploads?: Maybe<Array<TokenUpload>>;
-  wallets: Erc1155NftWalletsConnection;
+  uploads?: Maybe<Array<CodegenTokenUpload>>;
+  wallets: CodegenERC1155NFTWalletsConnection;
 };
 
 
-export type Erc1155NftHoldersArgs = {
+export type CodegenERC1155NFTCodegenholdersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -556,202 +556,202 @@ export type Erc1155NftHoldersArgs = {
 };
 
 
-export type Erc1155NftTokenEventsArgs = {
+export type CodegenERC1155NFTCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type Erc1155NftWalletsArgs = {
+export type CodegenERC1155NFTCodegenwalletsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export type Erc1155NftHoldersConnection = {
+export type CodegenERC1155NFTHoldersConnection = {
   __typename?: 'ERC1155NFTHoldersConnection';
-  edges: Array<Erc1155NftHoldersConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenERC1155NFTHoldersConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type Erc1155NftHoldersConnectionEdge = {
+export type CodegenERC1155NFTHoldersConnectionEdge = {
   __typename?: 'ERC1155NFTHoldersConnectionEdge';
   cursor: Scalars['String'];
-  node: NftWallet;
+  node: CodegenNFTWallet;
 };
 
-export type Erc1155NftWalletsConnection = {
+export type CodegenERC1155NFTWalletsConnection = {
   __typename?: 'ERC1155NFTWalletsConnection';
-  edges: Array<Erc1155NftWalletsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenERC1155NFTWalletsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type Erc1155NftWalletsConnectionEdge = {
+export type CodegenERC1155NFTWalletsConnectionEdge = {
   __typename?: 'ERC1155NFTWalletsConnectionEdge';
   cursor: Scalars['String'];
-  node: Wallet;
+  node: CodegenWallet;
 };
 
-export enum ErcStandard {
-  Erc20 = 'ERC20',
-  Erc721 = 'ERC721',
-  Erc1155 = 'ERC1155'
+export enum CodegenERCStandard {
+  CodegenERC20 = 'ERC20',
+  CodegenERC721 = 'ERC721',
+  CodegenERC1155 = 'ERC1155'
 }
 
-export type EvmSchemaType = {
+export type CodegenEVMSchemaType = {
   __typename?: 'EVMSchemaType';
-  collection?: Maybe<Collection>;
-  collections: EvmSchemaTypeCollectionsConnection;
-  contract?: Maybe<Contract>;
-  contracts: ContractsConnection;
-  nft?: Maybe<Nft>;
-  tokenEvents: EvmSchemaTypeTokenEventsConnection;
-  transaction?: Maybe<Transaction>;
+  collection?: Maybe<CodegenCollection>;
+  collections: CodegenEVMSchemaTypeCollectionsConnection;
+  contract?: Maybe<CodegenContract>;
+  contracts: CodegenContractsConnection;
+  nft?: Maybe<CodegenNFT>;
+  tokenEvents: CodegenEVMSchemaTypeTokenEventsConnection;
+  transaction?: Maybe<CodegenTransaction>;
   /** Returns a list of transactions. Ordered by block number and index. */
-  transactions?: Maybe<EvmSchemaTypeTransactionsConnection>;
-  trendingCollections: EvmSchemaTypeTrendingCollectionsConnection;
-  walletByAddress?: Maybe<Wallet>;
-  walletByENS?: Maybe<Wallet>;
+  transactions?: Maybe<CodegenEVMSchemaTypeTransactionsConnection>;
+  trendingCollections: CodegenEVMSchemaTypeTrendingCollectionsConnection;
+  walletByAddress?: Maybe<CodegenWallet>;
+  walletByENS?: Maybe<CodegenWallet>;
 };
 
 
-export type EvmSchemaTypeCollectionArgs = {
+export type CodegenEVMSchemaTypeCodegencollectionArgs = {
   contractAddress: Scalars['String'];
 };
 
 
-export type EvmSchemaTypeCollectionsArgs = {
+export type CodegenEVMSchemaTypeCodegencollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<CollectionsFilterInput>;
+  filter?: InputMaybe<CodegenCollectionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type EvmSchemaTypeContractArgs = {
+export type CodegenEVMSchemaTypeCodegencontractArgs = {
   contractAddress: Scalars['String'];
 };
 
 
-export type EvmSchemaTypeContractsArgs = {
+export type CodegenEVMSchemaTypeCodegencontractsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<ContractsFilterInput>;
+  filter?: InputMaybe<CodegenContractsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type EvmSchemaTypeNftArgs = {
+export type CodegenEVMSchemaTypeCodegennftArgs = {
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
 };
 
 
-export type EvmSchemaTypeTokenEventsArgs = {
+export type CodegenEVMSchemaTypeCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type EvmSchemaTypeTransactionArgs = {
+export type CodegenEVMSchemaTypeCodegentransactionArgs = {
   hash: Scalars['String'];
 };
 
 
-export type EvmSchemaTypeTransactionsArgs = {
+export type CodegenEVMSchemaTypeCodegentransactionsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TransactionsFilterInput>;
+  filter?: InputMaybe<CodegenTransactionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
-  orderDirection?: InputMaybe<OrderDirection>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
-export type EvmSchemaTypeTrendingCollectionsArgs = {
+export type CodegenEVMSchemaTypeCodegentrendingCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TrendingCollectionsFilterInput>;
+  filter?: InputMaybe<CodegenTrendingCollectionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<TrendingOrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
+  orderBy?: InputMaybe<CodegenTrendingOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
-export type EvmSchemaTypeWalletByAddressArgs = {
+export type CodegenEVMSchemaTypeCodegenwalletByAddressArgs = {
   address: Scalars['String'];
 };
 
 
-export type EvmSchemaTypeWalletByEnsArgs = {
+export type CodegenEVMSchemaTypeCodegenwalletByENSArgs = {
   ensName: Scalars['String'];
 };
 
-export type EvmSchemaTypeCollectionsConnection = {
+export type CodegenEVMSchemaTypeCollectionsConnection = {
   __typename?: 'EVMSchemaTypeCollectionsConnection';
-  edges: Array<EvmSchemaTypeCollectionsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenEVMSchemaTypeCollectionsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type EvmSchemaTypeCollectionsConnectionEdge = {
+export type CodegenEVMSchemaTypeCollectionsConnectionEdge = {
   __typename?: 'EVMSchemaTypeCollectionsConnectionEdge';
   cursor: Scalars['String'];
-  node: Collection;
+  node: CodegenCollection;
 };
 
-export type EvmSchemaTypeTokenEventsConnection = {
+export type CodegenEVMSchemaTypeTokenEventsConnection = {
   __typename?: 'EVMSchemaTypeTokenEventsConnection';
-  edges: Array<EvmSchemaTypeTokenEventsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenEVMSchemaTypeTokenEventsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type EvmSchemaTypeTokenEventsConnectionEdge = {
+export type CodegenEVMSchemaTypeTokenEventsConnectionEdge = {
   __typename?: 'EVMSchemaTypeTokenEventsConnectionEdge';
   cursor: Scalars['String'];
-  node: TokenEvent;
+  node: CodegenTokenEvent;
 };
 
-export type EvmSchemaTypeTransactionsConnection = {
+export type CodegenEVMSchemaTypeTransactionsConnection = {
   __typename?: 'EVMSchemaTypeTransactionsConnection';
-  edges: Array<EvmSchemaTypeTransactionsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenEVMSchemaTypeTransactionsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type EvmSchemaTypeTransactionsConnectionEdge = {
+export type CodegenEVMSchemaTypeTransactionsConnectionEdge = {
   __typename?: 'EVMSchemaTypeTransactionsConnectionEdge';
   cursor: Scalars['String'];
-  node: Transaction;
+  node: CodegenTransaction;
 };
 
-export type EvmSchemaTypeTrendingCollectionsConnection = {
+export type CodegenEVMSchemaTypeTrendingCollectionsConnection = {
   __typename?: 'EVMSchemaTypeTrendingCollectionsConnection';
-  edges: Array<EvmSchemaTypeTrendingCollectionsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenEVMSchemaTypeTrendingCollectionsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type EvmSchemaTypeTrendingCollectionsConnectionEdge = {
+export type CodegenEVMSchemaTypeTrendingCollectionsConnectionEdge = {
   __typename?: 'EVMSchemaTypeTrendingCollectionsConnectionEdge';
   cursor: Scalars['String'];
-  node: TrendingCollection;
+  node: CodegenTrendingCollection;
 };
 
-export type IntegerInput = {
+export type CodegenIntegerInput = {
   eq?: InputMaybe<Scalars['Int']>;
   gt?: InputMaybe<Scalars['Int']>;
   gte?: InputMaybe<Scalars['Int']>;
@@ -760,78 +760,78 @@ export type IntegerInput = {
   lte?: InputMaybe<Scalars['Int']>;
 };
 
-export type Nft = {
+export type CodegenNFT = {
   animationUrl?: Maybe<Scalars['String']>;
-  collection?: Maybe<Collection>;
+  collection?: Maybe<CodegenCollection>;
   collectionSlug?: Maybe<Scalars['String']>;
-  contract?: Maybe<NftContract>;
+  contract?: Maybe<CodegenNFTContract>;
   contractAddress: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   externalUrl?: Maybe<Scalars['String']>;
   metadata?: Maybe<Scalars['JSONObject']>;
   name?: Maybe<Scalars['String']>;
-  tokenEvents: NftTokenEventsConnection;
+  tokenEvents: CodegenNFTTokenEventsConnection;
   tokenId: Scalars['BigInt'];
   /** The uploads of a token. */
-  uploads?: Maybe<Array<TokenUpload>>;
+  uploads?: Maybe<Array<CodegenTokenUpload>>;
 };
 
 
-export type NftTokenEventsArgs = {
+export type CodegenNFTCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export type NftContract = Contract & {
+export type CodegenNFTContract = CodegenContract & {
   __typename?: 'NFTContract';
   abi?: Maybe<Scalars['JSON']>;
   address: Scalars['String'];
-  collection?: Maybe<Collection>;
+  collection?: Maybe<CodegenCollection>;
   /** Contract with verified ABI */
   isVerified?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   supportedErcInterfaces?: Maybe<Array<Scalars['String']>>;
   symbol?: Maybe<Scalars['String']>;
-  tokenEvents: ContractTokenEventsConnection;
+  tokenEvents: CodegenContractTokenEventsConnection;
 };
 
 
-export type NftContractTokenEventsArgs = {
+export type CodegenNFTContractCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export type NftTokenEventsConnection = {
+export type CodegenNFTTokenEventsConnection = {
   __typename?: 'NFTTokenEventsConnection';
-  edges: Array<NftTokenEventsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenNFTTokenEventsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type NftTokenEventsConnectionEdge = {
+export type CodegenNFTTokenEventsConnectionEdge = {
   __typename?: 'NFTTokenEventsConnectionEdge';
   cursor: Scalars['String'];
-  node: TokenEvent;
+  node: CodegenTokenEvent;
 };
 
-export type NftWallet = {
+export type CodegenNFTWallet = {
   __typename?: 'NFTWallet';
-  owner?: Maybe<Wallet>;
+  owner?: Maybe<CodegenWallet>;
   walletAddress?: Maybe<Scalars['String']>;
 };
 
-export type NfTsFilterInput = {
+export type CodegenNFTsFilterInput = {
   contractAddressIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** Metadata provided by opensea */
-export type OpenSeaMetadata = {
+export type CodegenOpenSeaMetadata = {
   __typename?: 'OpenSeaMetadata';
   /** Collection is hidden on Opensea. */
   isHidden?: Maybe<Scalars['Boolean']>;
@@ -842,12 +842,12 @@ export type OpenSeaMetadata = {
 };
 
 /** Sort ascending (A-Z) or descending (Z-A) */
-export enum OrderDirection {
-  Asc = 'ASC',
-  Desc = 'DESC'
+export enum CodegenOrderDirection {
+  CodegenASC = 'ASC',
+  CodegenDESC = 'DESC'
 }
 
-export type PageInfo = {
+export type CodegenPageInfo = {
   __typename?: 'PageInfo';
   endCursor?: Maybe<Scalars['String']>;
   hasNextPage: Scalars['Boolean'];
@@ -855,21 +855,21 @@ export type PageInfo = {
   startCursor?: Maybe<Scalars['String']>;
 };
 
-export type Query = {
+export type CodegenQuery = {
   __typename?: 'Query';
-  ethereum: EvmSchemaType;
-  ethereumSepolia: EvmSchemaType;
-  polygon: EvmSchemaType;
+  ethereum: CodegenEVMSchemaType;
+  ethereumSepolia: CodegenEVMSchemaType;
+  polygon: CodegenEVMSchemaType;
 };
 
-export type StringInput = {
+export type CodegenStringInput = {
   eq?: InputMaybe<Scalars['String']>;
   in?: InputMaybe<Array<Scalars['String']>>;
   notIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** A token attribute */
-export type TokenAttribute = {
+export type CodegenTokenAttribute = {
   __typename?: 'TokenAttribute';
   /** Attribute name */
   name: Scalars['String'];
@@ -877,46 +877,46 @@ export type TokenAttribute = {
   value: Scalars['String'];
 };
 
-export type TokenBurnEvent = TokenEvent & {
+export type CodegenTokenBurnEvent = CodegenTokenEvent & {
   __typename?: 'TokenBurnEvent';
   blockNumber: Scalars['Int'];
   contractAddress: Scalars['String'];
-  contractERCStandard?: Maybe<ErcStandard>;
+  contractERCStandard?: Maybe<CodegenERCStandard>;
   fromAddress: Scalars['String'];
   timestamp: Scalars['DateTime'];
   toAddress: Scalars['String'];
   tokenId?: Maybe<Scalars['BigInt']>;
   tokenQuantity: Scalars['BigInt'];
-  transaction?: Maybe<Transaction>;
+  transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
   transferIndex: Scalars['Int'];
-  type: TokenTransferType;
+  type: CodegenTokenTransferType;
 };
 
-export type TokenContract = Contract & {
+export type CodegenTokenContract = CodegenContract & {
   __typename?: 'TokenContract';
   abi?: Maybe<Scalars['JSON']>;
   address: Scalars['String'];
   decimals?: Maybe<Scalars['BigInt']>;
-  details?: Maybe<TokenDetailsType>;
+  details?: Maybe<CodegenTokenDetailsType>;
   /** Contract with verified ABI */
   isVerified?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   supportedErcInterfaces?: Maybe<Array<Scalars['String']>>;
   symbol?: Maybe<Scalars['String']>;
-  tokenEvents: ContractTokenEventsConnection;
+  tokenEvents: CodegenContractTokenEventsConnection;
 };
 
 
-export type TokenContractTokenEventsArgs = {
+export type CodegenTokenContractCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export type TokenDetailsType = {
+export type CodegenTokenDetailsType = {
   __typename?: 'TokenDetailsType';
   address: Scalars['String'];
   name?: Maybe<Scalars['String']>;
@@ -924,52 +924,52 @@ export type TokenDetailsType = {
   symbol?: Maybe<Scalars['String']>;
 };
 
-export type TokenEvent = {
+export type CodegenTokenEvent = {
   blockNumber: Scalars['Int'];
   timestamp: Scalars['DateTime'];
-  transaction?: Maybe<Transaction>;
+  transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
   transferIndex: Scalars['Int'];
-  type: TokenTransferType;
+  type: CodegenTokenTransferType;
 };
 
 /** Filter input for token events */
-export type TokenEventsFilterInput = {
+export type CodegenTokenEventsFilterInput = {
   /** Filter token events by their block number */
-  blockNumber?: InputMaybe<IntegerInput>;
+  blockNumber?: InputMaybe<CodegenIntegerInput>;
   /** Filter token events by contract address */
-  contractAddress?: InputMaybe<StringInput>;
+  contractAddress?: InputMaybe<CodegenStringInput>;
   /** Filter token events by the "from" wallet */
-  fromAddress?: InputMaybe<StringInput>;
+  fromAddress?: InputMaybe<CodegenStringInput>;
   /** Filter token events by their estimated confirmation date */
-  timestamp?: InputMaybe<DateTimeInput>;
+  timestamp?: InputMaybe<CodegenDateTimeInput>;
   /** Filter token events by the "to" wallet */
-  toAddress?: InputMaybe<StringInput>;
+  toAddress?: InputMaybe<CodegenStringInput>;
   /** Filter token events by their type */
-  type?: InputMaybe<TokenTransferType>;
+  type?: InputMaybe<CodegenTokenTransferType>;
   /** Filter token events by their type */
-  typeIn?: InputMaybe<Array<TokenTransferType>>;
+  typeIn?: InputMaybe<Array<CodegenTokenTransferType>>;
   /** Filter token events by the "to" and "from" wallet */
-  walletAddress?: InputMaybe<StringInput>;
+  walletAddress?: InputMaybe<CodegenStringInput>;
 };
 
-export type TokenMintEvent = TokenEvent & {
+export type CodegenTokenMintEvent = CodegenTokenEvent & {
   __typename?: 'TokenMintEvent';
   blockNumber: Scalars['Int'];
   contractAddress: Scalars['String'];
-  contractERCStandard?: Maybe<ErcStandard>;
+  contractERCStandard?: Maybe<CodegenERCStandard>;
   fromAddress: Scalars['String'];
   timestamp: Scalars['DateTime'];
   toAddress: Scalars['String'];
   tokenId?: Maybe<Scalars['BigInt']>;
   tokenQuantity: Scalars['BigInt'];
-  transaction?: Maybe<Transaction>;
+  transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
   transferIndex: Scalars['Int'];
-  type: TokenTransferType;
+  type: CodegenTokenTransferType;
 };
 
-export type TokenSaleEvent = TokenEvent & {
+export type CodegenTokenSaleEvent = CodegenTokenEvent & {
   __typename?: 'TokenSaleEvent';
   blockNumber: Scalars['Int'];
   fromAddress: Scalars['String'];
@@ -977,18 +977,18 @@ export type TokenSaleEvent = TokenEvent & {
   receivedTokenId?: Maybe<Scalars['BigInt']>;
   receivedTokenQuantity?: Maybe<Scalars['BigInt']>;
   sentTokenContractAddress: Scalars['String'];
-  sentTokenContractERCStandard?: Maybe<ErcStandard>;
+  sentTokenContractERCStandard?: Maybe<CodegenERCStandard>;
   sentTokenId?: Maybe<Scalars['BigInt']>;
   sentTokenQuantity: Scalars['BigInt'];
   timestamp: Scalars['DateTime'];
   toAddress: Scalars['String'];
-  transaction?: Maybe<Transaction>;
+  transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
   transferIndex: Scalars['Int'];
-  type: TokenTransferType;
+  type: CodegenTokenTransferType;
 };
 
-export type TokenSwapEvent = TokenEvent & {
+export type CodegenTokenSwapEvent = CodegenTokenEvent & {
   __typename?: 'TokenSwapEvent';
   blockNumber: Scalars['Int'];
   fromAddress: Scalars['String'];
@@ -996,43 +996,43 @@ export type TokenSwapEvent = TokenEvent & {
   receivedTokenId?: Maybe<Scalars['BigInt']>;
   receivedTokenQuantity?: Maybe<Scalars['BigInt']>;
   sentTokenContractAddress: Scalars['String'];
-  sentTokenContractERCStandard?: Maybe<ErcStandard>;
+  sentTokenContractERCStandard?: Maybe<CodegenERCStandard>;
   sentTokenId?: Maybe<Scalars['BigInt']>;
   sentTokenQuantity: Scalars['BigInt'];
   timestamp: Scalars['DateTime'];
   toAddress: Scalars['String'];
-  transaction?: Maybe<Transaction>;
+  transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
   transferIndex: Scalars['Int'];
-  type: TokenTransferType;
+  type: CodegenTokenTransferType;
 };
 
-export type TokenTransferEvent = TokenEvent & {
+export type CodegenTokenTransferEvent = CodegenTokenEvent & {
   __typename?: 'TokenTransferEvent';
   blockNumber: Scalars['Int'];
   contractAddress: Scalars['String'];
-  contractERCStandard?: Maybe<ErcStandard>;
+  contractERCStandard?: Maybe<CodegenERCStandard>;
   fromAddress: Scalars['String'];
   timestamp: Scalars['DateTime'];
   toAddress: Scalars['String'];
   tokenId?: Maybe<Scalars['BigInt']>;
   tokenQuantity: Scalars['BigInt'];
-  transaction?: Maybe<Transaction>;
+  transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
   transferIndex: Scalars['Int'];
-  type: TokenTransferType;
+  type: CodegenTokenTransferType;
 };
 
-export enum TokenTransferType {
-  Burn = 'BURN',
-  Mint = 'MINT',
-  Sale = 'SALE',
-  Swap = 'SWAP',
-  Transfer = 'TRANSFER'
+export enum CodegenTokenTransferType {
+  CodegenBURN = 'BURN',
+  CodegenMINT = 'MINT',
+  CodegenSALE = 'SALE',
+  CodegenSWAP = 'SWAP',
+  CodegenTRANSFER = 'TRANSFER'
 }
 
 /** Token media uploads. */
-export type TokenUpload = {
+export type CodegenTokenUpload = {
   __typename?: 'TokenUpload';
   /** The upload height. */
   height?: Maybe<Scalars['Float']>;
@@ -1044,7 +1044,7 @@ export type TokenUpload = {
   width?: Maybe<Scalars['Float']>;
 };
 
-export type Transaction = {
+export type CodegenTransaction = {
   __typename?: 'Transaction';
   blockNumber: Scalars['Int'];
   blockTimestamp: Scalars['DateTime'];
@@ -1071,22 +1071,22 @@ export type Transaction = {
 };
 
 /** Filter input for transactions */
-export type TransactionsFilterInput = {
-  blockNumber?: InputMaybe<IntegerInput>;
+export type CodegenTransactionsFilterInput = {
+  blockNumber?: InputMaybe<CodegenIntegerInput>;
   fromAddress?: InputMaybe<Scalars['String']>;
-  timestamp?: InputMaybe<DateTimeInput>;
+  timestamp?: InputMaybe<CodegenDateTimeInput>;
   toAddress?: InputMaybe<Scalars['String']>;
 };
 
-export type TrendingCollection = {
+export type CodegenTrendingCollection = {
   __typename?: 'TrendingCollection';
-  collection?: Maybe<Collection>;
-  last20Sales?: Maybe<Array<CollectionSale>>;
-  stats?: Maybe<TrendingCollectionStats>;
+  collection?: Maybe<CodegenCollection>;
+  last20Sales?: Maybe<Array<CodegenCollectionSale>>;
+  stats?: Maybe<CodegenTrendingCollectionStats>;
 };
 
 /** Stats of a trending collection */
-export type TrendingCollectionStats = {
+export type CodegenTrendingCollectionStats = {
   __typename?: 'TrendingCollectionStats';
   average?: Maybe<Scalars['Float']>;
   ceiling?: Maybe<Scalars['Float']>;
@@ -1096,364 +1096,364 @@ export type TrendingCollectionStats = {
 };
 
 /** Filter input for trending collections */
-export type TrendingCollectionsFilterInput = {
+export type CodegenTrendingCollectionsFilterInput = {
   /** A time period relative to the current time in which to filter trending collections by. */
-  timePeriod?: InputMaybe<TrendingPeriod>;
+  timePeriod?: InputMaybe<CodegenTrendingPeriod>;
   /** Custom time range in which to filter trending collections by. Available only to paid customers. */
-  timeRange?: InputMaybe<DateTimeInput>;
+  timeRange?: InputMaybe<CodegenDateTimeInput>;
 };
 
-export enum TrendingOrderBy {
-  Average = 'AVERAGE',
-  Sales = 'SALES',
-  Volume = 'VOLUME'
+export enum CodegenTrendingOrderBy {
+  CodegenAVERAGE = 'AVERAGE',
+  CodegenSALES = 'SALES',
+  CodegenVOLUME = 'VOLUME'
 }
 
-export enum TrendingPeriod {
-  FifteenMinutes = 'FIFTEEN_MINUTES',
-  FiveMinutes = 'FIVE_MINUTES',
-  OneDay = 'ONE_DAY',
-  OneHour = 'ONE_HOUR',
-  OneMinute = 'ONE_MINUTE',
-  SevenDays = 'SEVEN_DAYS',
-  ThirtyMinutes = 'THIRTY_MINUTES',
-  TwelveHours = 'TWELVE_HOURS'
+export enum CodegenTrendingPeriod {
+  CodegenFIFTEEN_MINUTES = 'FIFTEEN_MINUTES',
+  CodegenFIVE_MINUTES = 'FIVE_MINUTES',
+  CodegenONE_DAY = 'ONE_DAY',
+  CodegenONE_HOUR = 'ONE_HOUR',
+  CodegenONE_MINUTE = 'ONE_MINUTE',
+  CodegenSEVEN_DAYS = 'SEVEN_DAYS',
+  CodegenTHIRTY_MINUTES = 'THIRTY_MINUTES',
+  CodegenTWELVE_HOURS = 'TWELVE_HOURS'
 }
 
-export type Wallet = {
+export type CodegenWallet = {
   __typename?: 'Wallet';
   address: Scalars['String'];
   ensName?: Maybe<Scalars['String']>;
   /** @deprecated Use wallet.collection instead. */
-  heldCollection?: Maybe<WalletCollection>;
+  heldCollection?: Maybe<CodegenWalletCollection>;
   /** @deprecated Use wallet.collections instead. */
-  heldCollections: WalletHeldCollectionsConnection;
+  heldCollections: CodegenWalletHeldCollectionsConnection;
   /** @deprecated Use wallet.nft instead. */
-  heldNft?: Maybe<WalletNft>;
+  heldNft?: Maybe<CodegenWalletNFT>;
   /** @deprecated Use wallet.nfts instead. */
-  heldNfts: WalletHeldNfTsConnection;
+  heldNfts: CodegenWalletHeldNFTsConnection;
   /** @deprecated Use wallet.tokenBalances instead. */
-  heldTokenBalances: WalletHeldTokenBalancesConnection;
-  tokenBalances: WalletTokenBalancesConnection;
-  tokenEvents: WalletTokenEventsConnection;
+  heldTokenBalances: CodegenWalletHeldTokenBalancesConnection;
+  tokenBalances: CodegenWalletTokenBalancesConnection;
+  tokenEvents: CodegenWalletTokenEventsConnection;
   /** Returns a list of transactions this wallet is associated with. Ordered by block number and index. */
-  transactions: WalletTransactionsConnection;
-  walletCollection?: Maybe<WalletCollection>;
-  walletCollections: WalletWalletCollectionsConnection;
-  walletNFT?: Maybe<WalletNft>;
-  walletNFTs: WalletNfTsConnection;
+  transactions: CodegenWalletTransactionsConnection;
+  walletCollection?: Maybe<CodegenWalletCollection>;
+  walletCollections: CodegenWalletWalletCollectionsConnection;
+  walletNFT?: Maybe<CodegenWalletNFT>;
+  walletNFTs: CodegenWalletNFTsConnection;
 };
 
 
-export type WalletHeldCollectionArgs = {
+export type CodegenWalletCodegenheldCollectionArgs = {
   collectionAddress: Scalars['String'];
 };
 
 
-export type WalletHeldCollectionsArgs = {
+export type CodegenWalletCodegenheldCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<WalletCollectionsFilterInput>;
+  filter?: InputMaybe<CodegenWalletCollectionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<WalletCollectionOrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
+  orderBy?: InputMaybe<CodegenWalletCollectionOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
-export type WalletHeldNftArgs = {
+export type CodegenWalletCodegenheldNftArgs = {
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
 };
 
 
-export type WalletHeldNftsArgs = {
+export type CodegenWalletCodegenheldNftsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<WalletNfTsFilterInput>;
+  filter?: InputMaybe<CodegenWalletNFTsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<WalletNfTsOrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
+  orderBy?: InputMaybe<CodegenWalletNFTsOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
-export type WalletHeldTokenBalancesArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<WalletTokenBalanceOrder>;
-  orderDirection?: InputMaybe<OrderDirection>;
-};
-
-
-export type WalletTokenBalancesArgs = {
+export type CodegenWalletCodegenheldTokenBalancesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<WalletTokenBalanceOrder>;
-  orderDirection?: InputMaybe<OrderDirection>;
+  orderBy?: InputMaybe<CodegenWalletTokenBalanceOrder>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
-export type WalletTokenEventsArgs = {
+export type CodegenWalletCodegentokenBalancesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TokenEventsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenWalletTokenBalanceOrder>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
+};
+
+
+export type CodegenWalletCodegentokenEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type WalletTransactionsArgs = {
+export type CodegenWalletCodegentransactionsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<TransactionsFilterInput>;
+  filter?: InputMaybe<CodegenTransactionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
-  orderDirection?: InputMaybe<OrderDirection>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
-export type WalletWalletCollectionArgs = {
+export type CodegenWalletCodegenwalletCollectionArgs = {
   collectionAddress: Scalars['String'];
 };
 
 
-export type WalletWalletCollectionsArgs = {
+export type CodegenWalletCodegenwalletCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<WalletCollectionsFilterInput>;
+  filter?: InputMaybe<CodegenWalletCollectionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<WalletCollectionOrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
+  orderBy?: InputMaybe<CodegenWalletCollectionOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
-export type WalletWalletNftArgs = {
+export type CodegenWalletCodegenwalletNFTArgs = {
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
 };
 
 
-export type WalletWalletNfTsArgs = {
+export type CodegenWalletCodegenwalletNFTsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<WalletNfTsFilterInput>;
+  filter?: InputMaybe<CodegenWalletNFTsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<WalletNfTsOrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
+  orderBy?: InputMaybe<CodegenWalletNFTsOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
-export type WalletCollection = {
+export type CodegenWalletCollection = {
   __typename?: 'WalletCollection';
-  collection?: Maybe<Collection>;
+  collection?: Maybe<CodegenCollection>;
   collectionAddress?: Maybe<Scalars['String']>;
   /** @deprecated Use nftsCount instead. */
   heldTokensCount: Scalars['BigInt'];
   nftsCount: Scalars['BigInt'];
 };
 
-export enum WalletCollectionOrderBy {
-  DateAcquired = 'DATE_ACQUIRED',
-  Name = 'NAME'
+export enum CodegenWalletCollectionOrderBy {
+  CodegenDATE_ACQUIRED = 'DATE_ACQUIRED',
+  CodegenNAME = 'NAME'
 }
 
 /** Filter of collections in a wallet */
-export type WalletCollectionsFilterInput = {
+export type CodegenWalletCollectionsFilterInput = {
   contractAddressIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
-export type WalletHeldCollectionsConnection = {
+export type CodegenWalletHeldCollectionsConnection = {
   __typename?: 'WalletHeldCollectionsConnection';
-  edges: Array<WalletHeldCollectionsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenWalletHeldCollectionsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type WalletHeldCollectionsConnectionEdge = {
+export type CodegenWalletHeldCollectionsConnectionEdge = {
   __typename?: 'WalletHeldCollectionsConnectionEdge';
   cursor: Scalars['String'];
-  node: WalletCollection;
+  node: CodegenWalletCollection;
 };
 
-export type WalletHeldNfTsConnection = {
+export type CodegenWalletHeldNFTsConnection = {
   __typename?: 'WalletHeldNFTsConnection';
-  edges: Array<WalletHeldNfTsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenWalletHeldNFTsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type WalletHeldNfTsConnectionEdge = {
+export type CodegenWalletHeldNFTsConnectionEdge = {
   __typename?: 'WalletHeldNFTsConnectionEdge';
   cursor: Scalars['String'];
-  node: WalletNft;
+  node: CodegenWalletNFT;
 };
 
-export type WalletHeldTokenBalancesConnection = {
+export type CodegenWalletHeldTokenBalancesConnection = {
   __typename?: 'WalletHeldTokenBalancesConnection';
-  edges: Array<WalletHeldTokenBalancesConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenWalletHeldTokenBalancesConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type WalletHeldTokenBalancesConnectionEdge = {
+export type CodegenWalletHeldTokenBalancesConnectionEdge = {
   __typename?: 'WalletHeldTokenBalancesConnectionEdge';
   cursor: Scalars['String'];
-  node: WalletTokenBalance;
+  node: CodegenWalletTokenBalance;
 };
 
-export type WalletNft = {
+export type CodegenWalletNFT = {
   __typename?: 'WalletNFT';
   /** @deprecated Use nftsCount instead. */
   heldNftCount?: Maybe<Scalars['Int']>;
-  nft?: Maybe<Nft>;
+  nft?: Maybe<CodegenNFT>;
   nftsCount?: Maybe<Scalars['Int']>;
 };
 
-export type WalletNfTsConnection = {
+export type CodegenWalletNFTsConnection = {
   __typename?: 'WalletNFTsConnection';
-  edges: Array<WalletNfTsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenWalletNFTsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type WalletNfTsConnectionEdge = {
+export type CodegenWalletNFTsConnectionEdge = {
   __typename?: 'WalletNFTsConnectionEdge';
   cursor: Scalars['String'];
-  node: WalletNft;
+  node: CodegenWalletNFT;
 };
 
 /** Filter of nfts in a wallet */
-export type WalletNfTsFilterInput = {
+export type CodegenWalletNFTsFilterInput = {
   contractAddressIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
-export enum WalletNfTsOrderBy {
-  DateAcquired = 'DATE_ACQUIRED',
-  Name = 'NAME'
+export enum CodegenWalletNFTsOrderBy {
+  CodegenDATE_ACQUIRED = 'DATE_ACQUIRED',
+  CodegenNAME = 'NAME'
 }
 
-export type WalletTokenBalance = {
+export type CodegenWalletTokenBalance = {
   __typename?: 'WalletTokenBalance';
-  contract?: Maybe<TokenContract>;
+  contract?: Maybe<CodegenTokenContract>;
   contractAddress: Scalars['String'];
   totalBalance: Scalars['BigInt'];
 };
 
 /** Sort wallet token balance */
-export enum WalletTokenBalanceOrder {
-  ContractAddress = 'CONTRACT_ADDRESS',
-  Name = 'NAME',
-  Symbol = 'SYMBOL',
-  TotalBalance = 'TOTAL_BALANCE'
+export enum CodegenWalletTokenBalanceOrder {
+  CodegenCONTRACT_ADDRESS = 'CONTRACT_ADDRESS',
+  CodegenNAME = 'NAME',
+  CodegenSYMBOL = 'SYMBOL',
+  CodegenTOTAL_BALANCE = 'TOTAL_BALANCE'
 }
 
-export type WalletTokenBalancesConnection = {
+export type CodegenWalletTokenBalancesConnection = {
   __typename?: 'WalletTokenBalancesConnection';
-  edges: Array<WalletTokenBalancesConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenWalletTokenBalancesConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type WalletTokenBalancesConnectionEdge = {
+export type CodegenWalletTokenBalancesConnectionEdge = {
   __typename?: 'WalletTokenBalancesConnectionEdge';
   cursor: Scalars['String'];
-  node: WalletTokenBalance;
+  node: CodegenWalletTokenBalance;
 };
 
-export type WalletTokenEventsConnection = {
+export type CodegenWalletTokenEventsConnection = {
   __typename?: 'WalletTokenEventsConnection';
-  edges: Array<WalletTokenEventsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenWalletTokenEventsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type WalletTokenEventsConnectionEdge = {
+export type CodegenWalletTokenEventsConnectionEdge = {
   __typename?: 'WalletTokenEventsConnectionEdge';
   cursor: Scalars['String'];
-  node: TokenEvent;
+  node: CodegenTokenEvent;
 };
 
-export type WalletTransactionsConnection = {
+export type CodegenWalletTransactionsConnection = {
   __typename?: 'WalletTransactionsConnection';
-  edges: Array<WalletTransactionsEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenWalletTransactionsEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type WalletTransactionsEdge = {
+export type CodegenWalletTransactionsEdge = {
   __typename?: 'WalletTransactionsEdge';
   cursor: Scalars['String'];
-  node: Transaction;
+  node: CodegenTransaction;
 };
 
-export type WalletWalletCollectionsConnection = {
+export type CodegenWalletWalletCollectionsConnection = {
   __typename?: 'WalletWalletCollectionsConnection';
-  edges: Array<WalletWalletCollectionsConnectionEdge>;
-  pageInfo: PageInfo;
+  edges: Array<CodegenWalletWalletCollectionsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type WalletWalletCollectionsConnectionEdge = {
+export type CodegenWalletWalletCollectionsConnectionEdge = {
   __typename?: 'WalletWalletCollectionsConnectionEdge';
   cursor: Scalars['String'];
-  node: WalletCollection;
+  node: CodegenWalletCollection;
 };
 
-export type EthMainnetWalletNfTsByEnsQueryVariables = Exact<{
+export type CodegenEthMainnetWalletNFTsByEnsQueryVariables = Exact<{
   ensName: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type EthMainnetWalletNfTsByEnsQuery = { __typename?: 'Query', ethereum: (
+export type CodegenEthMainnetWalletNFTsByEnsQuery = { __typename?: 'Query', ethereum: (
     { __typename?: 'EVMSchemaType' }
-    & WalletByEnsFragmentFragment
+    & CodegenWalletByEnsFragmentFragment
   ) };
 
-export type EthSepoliaWalletNfTsByEnsQueryVariables = Exact<{
+export type CodegenEthSepoliaWalletNFTsByEnsQueryVariables = Exact<{
   ensName: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type EthSepoliaWalletNfTsByEnsQuery = { __typename?: 'Query', ethereumSepolia: (
+export type CodegenEthSepoliaWalletNFTsByEnsQuery = { __typename?: 'Query', ethereumSepolia: (
     { __typename?: 'EVMSchemaType' }
-    & WalletByEnsFragmentFragment
+    & CodegenWalletByEnsFragmentFragment
   ) };
 
-export type NftInfoFragment = { __typename?: 'WalletNFT', nft?: { __typename?: 'ERC721NFT', animationUrl?: string | null, collectionSlug?: string | null, contractAddress: string, description?: string | null, externalUrl?: string | null, metadata?: any | null, name?: string | null, tokenId: any } | { __typename?: 'ERC1155NFT', animationUrl?: string | null, collectionSlug?: string | null, contractAddress: string, description?: string | null, externalUrl?: string | null, metadata?: any | null, name?: string | null, tokenId: any } | null };
+export type CodegenNftInfoFragment = { __typename?: 'WalletNFT', nft?: { __typename?: 'ERC721NFT', animationUrl?: string | null, collectionSlug?: string | null, contractAddress: string, description?: string | null, externalUrl?: string | null, metadata?: any | null, name?: string | null, tokenId: any } | { __typename?: 'ERC1155NFT', animationUrl?: string | null, collectionSlug?: string | null, contractAddress: string, description?: string | null, externalUrl?: string | null, metadata?: any | null, name?: string | null, tokenId: any } | null };
 
-export type WalletByEnsFragmentFragment = { __typename?: 'EVMSchemaType', walletByENS?: { __typename?: 'Wallet', address: string, ensName?: string | null, walletNFTs: { __typename?: 'WalletNFTsConnection', pageInfo: (
+export type CodegenWalletByEnsFragmentFragment = { __typename?: 'EVMSchemaType', walletByENS?: { __typename?: 'Wallet', address: string, ensName?: string | null, walletNFTs: { __typename?: 'WalletNFTsConnection', pageInfo: (
         { __typename?: 'PageInfo' }
-        & PaginationFragment
+        & CodegenPaginationFragment
       ), edges: Array<{ __typename?: 'WalletNFTsConnectionEdge', node: (
           { __typename?: 'WalletNFT' }
-          & NftInfoFragment
+          & CodegenNftInfoFragment
         ) }> } } | null };
 
-export type PaginationFragment = { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null };
+export type CodegenPaginationFragment = { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null };
 
-export type PolygonMainnetWalletNfTsByEnsQueryVariables = Exact<{
+export type CodegenPolygonMainnetWalletNFTsByEnsQueryVariables = Exact<{
   ensName: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type PolygonMainnetWalletNfTsByEnsQuery = { __typename?: 'Query', polygon: (
+export type CodegenPolygonMainnetWalletNFTsByEnsQuery = { __typename?: 'Query', polygon: (
     { __typename?: 'EVMSchemaType' }
-    & WalletByEnsFragmentFragment
+    & CodegenWalletByEnsFragmentFragment
   ) };
 
-export const Pagination = gql`
+export const CodegenPagination = gql`
     fragment Pagination on PageInfo {
   endCursor
   hasNextPage
@@ -1461,7 +1461,7 @@ export const Pagination = gql`
   startCursor
 }
     `;
-export const NftInfo = gql`
+export const CodegenNftInfo = gql`
     fragment NftInfo on WalletNFT {
   nft {
     animationUrl
@@ -1475,7 +1475,7 @@ export const NftInfo = gql`
   }
 }
     `;
-export const WalletByEnsFragment = gql`
+export const CodegenWalletByEnsFragment = gql`
     fragment WalletByEnsFragment on EVMSchemaType {
   walletByENS(ensName: $ensName) {
     address
@@ -1492,26 +1492,26 @@ export const WalletByEnsFragment = gql`
     }
   }
 }
-    ${Pagination}
-${NftInfo}`;
-export const EthMainnetWalletNfTsByEns = gql`
+    ${CodegenPagination}
+${CodegenNftInfo}`;
+export const CodegenEthMainnetWalletNFTsByEns = gql`
     query EthMainnetWalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
   ethereum {
     ...WalletByEnsFragment
   }
 }
-    ${WalletByEnsFragment}`;
-export const EthSepoliaWalletNfTsByEns = gql`
+    ${CodegenWalletByEnsFragment}`;
+export const CodegenEthSepoliaWalletNFTsByEns = gql`
     query EthSepoliaWalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
   ethereumSepolia {
     ...WalletByEnsFragment
   }
 }
-    ${WalletByEnsFragment}`;
-export const PolygonMainnetWalletNfTsByEns = gql`
+    ${CodegenWalletByEnsFragment}`;
+export const CodegenPolygonMainnetWalletNFTsByEns = gql`
     query PolygonMainnetWalletNFTsByEns($ensName: String!, $after: String, $first: Int) {
   polygon {
     ...WalletByEnsFragment
   }
 }
-    ${WalletByEnsFragment}`;
+    ${CodegenWalletByEnsFragment}`;

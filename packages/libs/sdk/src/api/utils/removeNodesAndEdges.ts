@@ -1,4 +1,4 @@
-import { PageInfo } from '../graphql/generatedTypes';
+import { CodegenPageInfo } from '../graphql/generatedTypes';
 
 interface Edge {
   __typename?: 'TokenEdge';
@@ -7,7 +7,7 @@ interface Edge {
 }
 
 interface Connection {
-  pageInfo?: PageInfo;
+  pageInfo?: CodegenPageInfo;
   edges?: Edge[];
   total?: number;
   breadcrumbs?: string;

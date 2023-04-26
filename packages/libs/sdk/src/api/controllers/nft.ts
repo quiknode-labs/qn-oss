@@ -40,12 +40,15 @@ export class NftController<
       query: WalletNFTsByEns, // The actual graphql query
       variables,
     });
+
     if (!walletByENS)
       return { address: '', ensName: '', results: [], pageInfo: emptyPageInfo };
+
     const formattedResult = formatQueryResult<
       WalletByEnsQueryResultInfo,
       WalletNFTsByEnsFormattedResult
     >(walletByENS, 'walletNFTs', 'walletNFTsPageInfo', 'nft');
+
     return formattedResult;
   }
 }

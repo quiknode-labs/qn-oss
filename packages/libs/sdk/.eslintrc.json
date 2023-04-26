@@ -1,20 +1,16 @@
 {
-  "extends": ["../../../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@typescript-eslint/ban-ts-comment": "off"
-      }
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "rules": {}
-    }
-  ]
+  "plugins": ["@nrwl/nx", "no-only-tests"],
+  "parserOptions": {
+    "project": ["./tsconfig.*?.json"],
+    "sourceType": "module",
+    "ecmaVersion": 2015
+  },
+  "extends": [
+    "../../../.eslintrc.json",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": "warn",
+    "no-only-tests/no-only-tests": "error"
+  }
 }

@@ -1163,6 +1163,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/mocha@^10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-10.0.1.tgz#2f4f65bb08bc368ac39c96da7b2f09140b26851b"
+  integrity sha512-/fvYntiO1GeICvqbQ3doGDIP97vWmvFt83GKguJ6prmQM2iXZfFcq6YE8KteFyRtX2/h5Hf91BYvPodJKFYv5Q==
+
 "@types/node@*":
   version "18.11.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.7.tgz#8ccef136f240770c1379d50100796a6952f01f94"
@@ -1987,6 +1992,11 @@ escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==
+
+eslint-plugin-no-only-tests@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-no-only-tests/-/eslint-plugin-no-only-tests-3.1.0.tgz#f38e4935c6c6c4842bf158b64aaa20c366fe171b"
+  integrity sha512-Lf4YW/bL6Un1R6A76pRZyE1dl1vr31G/ev8UzIc/geCgFWyrKil8hVjYqWVKGB/UIGmb6Slzs9T0wNezdSVegw==
 
 etag@~1.8.1:
   version "1.8.1"

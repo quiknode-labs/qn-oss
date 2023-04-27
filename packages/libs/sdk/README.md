@@ -142,9 +142,12 @@ We recommend using the example application to develop
 3. `nx serve apps-examples-sdk-api`
 4. Then you can send requests to the API, for example: `curl http://localhost:3333/api/nftsByAddress/0xbc08dadccc79c00587d7e6a75bb68ff5fd30f9e0`
 
-## Running unit tests
+## Running tests
 
-Run `nx test libs-sdk` to execute the unit tests via [Jest](https://jestjs.io).
+Run `nx test libs-sdk` to execute the tests via [Jest](https://jestjs.io).
+
+API responses are recorded using [polly.js](https://github.com/Netflix/pollyjs). You can re-record live requests by passing in an API key as an environment variable.
+`QUICKNODE_GQL_API_KEY=REPLACEME nx test libs-sdk`
 
 ## Running lint
 

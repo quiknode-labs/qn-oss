@@ -1,43 +1,48 @@
-import { OperationVariables, DocumentNode } from '@apollo/client';
 import { CustomApolloClient } from '../graphql/customApolloClient';
 
 import {
   WalletByEnsQueryResultInfo,
   WalletNFTsByEnsFormattedResult,
   WalletNFTByEnsQueryResultFull,
+  WalletNFTsByEnsQueryVariablesType,
+  WalletNFTsByEnsQueryType,
 } from '../types/getNFTsByWalletENS';
+import {
+  CodegenEthMainnetWalletNFTsByEnsDocument,
+  CodegenEthSepoliaWalletNFTsByEnsDocument,
+  CodegenPolygonMainnetWalletNFTsByEnsDocument,
+} from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
 import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
+import { TypedDocumentNode } from '@apollo/client';
 
-export class NftController<
-  WalletNftsByEnsQuery extends Record<string, any>,
-  WalletNftsByEnsQueryVariables extends OperationVariables
-> {
+export class NftController {
   constructor(
     private client: CustomApolloClient,
-    private chainName: ChainName,
-    private queries: {
-      WalletNFTsByEns: DocumentNode;
-    }
+    private chainName: ChainName
   ) {}
 
   @QNApolloErrorHandler
   async getAllByWalletENS(
-    variables: WalletNftsByEnsQueryVariables
+    variables: WalletNFTsByEnsQueryVariablesType
   ): Promise<WalletNFTsByEnsFormattedResult> {
-    const { WalletNFTsByEns } = this.queries;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetWalletNFTsByEnsDocument,
+      polygon: CodegenPolygonMainnetWalletNFTsByEnsDocument,
+      ethereumSepolia: CodegenEthSepoliaWalletNFTsByEnsDocument,
+    };
     const {
       data: {
         [this.chainName]: { walletByENS },
       },
     } = await this.client.query<
-      WalletNftsByEnsQueryVariables, // What the user can pass in
-      WalletNftsByEnsQuery, // The actual unmodified result from query
+      WalletNFTsByEnsQueryVariablesType, // What the user can pass in
+      WalletNFTsByEnsQueryType, // The actual unmodified result from query
       WalletNFTByEnsQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: WalletNFTsByEns, // The actual graphql query
+      query: query['ethereum'], // The actual graphql query
       variables,
     });
 

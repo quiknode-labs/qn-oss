@@ -1,15 +1,9 @@
-import gql from 'graphql-tag';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -48,12 +42,14 @@ export type CodegenCollection = {
   wallets: CodegenCollectionWalletsConnection;
 };
 
+
 export type CodegenCollectionCodegenattributesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type CodegenCollectionCodegenholdersArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -62,13 +58,16 @@ export type CodegenCollectionCodegenholdersArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type CodegenCollectionCodegenohlcvChartArgs = {
   filter?: InputMaybe<CodegenCollectionOhlcvChartInput>;
 };
 
+
 export type CodegenCollectionCodegenorderHistoryArgs = {
   filter?: InputMaybe<CodegenCollectionOrderHistoryInput>;
 };
+
 
 export type CodegenCollectionCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -77,6 +76,7 @@ export type CodegenCollectionCodegentokenEventsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type CodegenCollectionCodegenwalletsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -144,7 +144,7 @@ export enum CodegenCollectionOHLCVChartInterval {
   CodegenSIX_HOURS = 'SIX_HOURS',
   CodegenTHIRTY_DAYS = 'THIRTY_DAYS',
   CodegenTHIRTY_MINUTES = 'THIRTY_MINUTES',
-  CodegenTWELVE_HOURS = 'TWELVE_HOURS',
+  CodegenTWELVE_HOURS = 'TWELVE_HOURS'
 }
 
 export type CodegenCollectionOhlcvChartInput = {
@@ -180,7 +180,7 @@ export type CodegenCollectionSale = {
 
 export enum CodegenCollectionStandard {
   CodegenERC721 = 'ERC721',
-  CodegenERC1155 = 'ERC1155',
+  CodegenERC1155 = 'ERC1155'
 }
 
 export type CodegenCollectionStandardInput = {
@@ -241,6 +241,7 @@ export type CodegenContract = {
   symbol?: Maybe<Scalars['String']>;
   tokenEvents: CodegenContractTokenEventsConnection;
 };
+
 
 export type CodegenContractCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -318,12 +319,14 @@ export type CodegenERC721Collection = CodegenCollection & {
   wallets: CodegenCollectionWalletsConnection;
 };
 
+
 export type CodegenERC721CollectionCodegenattributesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type CodegenERC721CollectionCodegenholdersArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -332,9 +335,11 @@ export type CodegenERC721CollectionCodegenholdersArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type CodegenERC721CollectionCodegennftArgs = {
   tokenId: Scalars['String'];
 };
+
 
 export type CodegenERC721CollectionCodegennftsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -344,17 +349,21 @@ export type CodegenERC721CollectionCodegennftsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type CodegenERC721CollectionCodegenohlcvChartArgs = {
   filter?: InputMaybe<CodegenCollectionOhlcvChartInput>;
 };
+
 
 export type CodegenERC721CollectionCodegenorderHistoryArgs = {
   filter?: InputMaybe<CodegenCollectionOrderHistoryInput>;
 };
 
+
 export type CodegenERC721CollectionCodegenstatsArgs = {
   filter?: InputMaybe<CodegenERC721CollectionStatsInput>;
 };
+
 
 export type CodegenERC721CollectionCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -363,6 +372,7 @@ export type CodegenERC721CollectionCodegentokenEventsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type CodegenERC721CollectionCodegenwalletsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -410,6 +420,7 @@ export type CodegenERC721NFT = CodegenNFT & {
   wallet?: Maybe<CodegenWallet>;
 };
 
+
 export type CodegenERC721NFTCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -446,12 +457,14 @@ export type CodegenERC1155Collection = CodegenCollection & {
   wallets: CodegenCollectionWalletsConnection;
 };
 
+
 export type CodegenERC1155CollectionCodegenattributesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type CodegenERC1155CollectionCodegenholdersArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -460,9 +473,11 @@ export type CodegenERC1155CollectionCodegenholdersArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type CodegenERC1155CollectionCodegennftArgs = {
   tokenId: Scalars['String'];
 };
+
 
 export type CodegenERC1155CollectionCodegennftsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -472,13 +487,16 @@ export type CodegenERC1155CollectionCodegennftsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type CodegenERC1155CollectionCodegenohlcvChartArgs = {
   filter?: InputMaybe<CodegenCollectionOhlcvChartInput>;
 };
 
+
 export type CodegenERC1155CollectionCodegenorderHistoryArgs = {
   filter?: InputMaybe<CodegenCollectionOrderHistoryInput>;
 };
+
 
 export type CodegenERC1155CollectionCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -487,6 +505,7 @@ export type CodegenERC1155CollectionCodegentokenEventsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type CodegenERC1155CollectionCodegenwalletsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -528,12 +547,14 @@ export type CodegenERC1155NFT = CodegenNFT & {
   wallets: CodegenERC1155NFTWalletsConnection;
 };
 
+
 export type CodegenERC1155NFTCodegenholdersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type CodegenERC1155NFTCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -542,6 +563,7 @@ export type CodegenERC1155NFTCodegentokenEventsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type CodegenERC1155NFTCodegenwalletsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -579,7 +601,7 @@ export type CodegenERC1155NFTWalletsConnectionEdge = {
 export enum CodegenERCStandard {
   CodegenERC20 = 'ERC20',
   CodegenERC721 = 'ERC721',
-  CodegenERC1155 = 'ERC1155',
+  CodegenERC1155 = 'ERC1155'
 }
 
 export type CodegenEVMSchemaType = {
@@ -598,9 +620,11 @@ export type CodegenEVMSchemaType = {
   walletByENS?: Maybe<CodegenWallet>;
 };
 
+
 export type CodegenEVMSchemaTypeCodegencollectionArgs = {
   contractAddress: Scalars['String'];
 };
+
 
 export type CodegenEVMSchemaTypeCodegencollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -610,9 +634,11 @@ export type CodegenEVMSchemaTypeCodegencollectionsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type CodegenEVMSchemaTypeCodegencontractArgs = {
   contractAddress: Scalars['String'];
 };
+
 
 export type CodegenEVMSchemaTypeCodegencontractsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -622,10 +648,12 @@ export type CodegenEVMSchemaTypeCodegencontractsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type CodegenEVMSchemaTypeCodegennftArgs = {
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
 };
+
 
 export type CodegenEVMSchemaTypeCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -635,9 +663,11 @@ export type CodegenEVMSchemaTypeCodegentokenEventsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type CodegenEVMSchemaTypeCodegentransactionArgs = {
   hash: Scalars['String'];
 };
+
 
 export type CodegenEVMSchemaTypeCodegentransactionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -647,6 +677,7 @@ export type CodegenEVMSchemaTypeCodegentransactionsArgs = {
   last?: InputMaybe<Scalars['Int']>;
   orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
+
 
 export type CodegenEVMSchemaTypeCodegentrendingCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -658,9 +689,11 @@ export type CodegenEVMSchemaTypeCodegentrendingCollectionsArgs = {
   orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
+
 export type CodegenEVMSchemaTypeCodegenwalletByAddressArgs = {
   address: Scalars['String'];
 };
+
 
 export type CodegenEVMSchemaTypeCodegenwalletByENSArgs = {
   ensName: Scalars['String'];
@@ -743,6 +776,7 @@ export type CodegenNFT = {
   uploads?: Maybe<Array<CodegenTokenUpload>>;
 };
 
+
 export type CodegenNFTCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -763,6 +797,7 @@ export type CodegenNFTContract = CodegenContract & {
   symbol?: Maybe<Scalars['String']>;
   tokenEvents: CodegenContractTokenEventsConnection;
 };
+
 
 export type CodegenNFTContractCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -809,7 +844,7 @@ export type CodegenOpenSeaMetadata = {
 /** Sort ascending (A-Z) or descending (Z-A) */
 export enum CodegenOrderDirection {
   CodegenASC = 'ASC',
-  CodegenDESC = 'DESC',
+  CodegenDESC = 'DESC'
 }
 
 export type CodegenPageInfo = {
@@ -871,6 +906,7 @@ export type CodegenTokenContract = CodegenContract & {
   symbol?: Maybe<Scalars['String']>;
   tokenEvents: CodegenContractTokenEventsConnection;
 };
+
 
 export type CodegenTokenContractCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -992,7 +1028,7 @@ export enum CodegenTokenTransferType {
   CodegenMINT = 'MINT',
   CodegenSALE = 'SALE',
   CodegenSWAP = 'SWAP',
-  CodegenTRANSFER = 'TRANSFER',
+  CodegenTRANSFER = 'TRANSFER'
 }
 
 /** Token media uploads. */
@@ -1070,7 +1106,7 @@ export type CodegenTrendingCollectionsFilterInput = {
 export enum CodegenTrendingOrderBy {
   CodegenAVERAGE = 'AVERAGE',
   CodegenSALES = 'SALES',
-  CodegenVOLUME = 'VOLUME',
+  CodegenVOLUME = 'VOLUME'
 }
 
 export enum CodegenTrendingPeriod {
@@ -1081,7 +1117,7 @@ export enum CodegenTrendingPeriod {
   CodegenONE_MINUTE = 'ONE_MINUTE',
   CodegenSEVEN_DAYS = 'SEVEN_DAYS',
   CodegenTHIRTY_MINUTES = 'THIRTY_MINUTES',
-  CodegenTWELVE_HOURS = 'TWELVE_HOURS',
+  CodegenTWELVE_HOURS = 'TWELVE_HOURS'
 }
 
 export type CodegenWallet = {
@@ -1108,9 +1144,11 @@ export type CodegenWallet = {
   walletNFTs: CodegenWalletNFTsConnection;
 };
 
+
 export type CodegenWalletCodegenheldCollectionArgs = {
   collectionAddress: Scalars['String'];
 };
+
 
 export type CodegenWalletCodegenheldCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -1122,10 +1160,12 @@ export type CodegenWalletCodegenheldCollectionsArgs = {
   orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
+
 export type CodegenWalletCodegenheldNftArgs = {
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
 };
+
 
 export type CodegenWalletCodegenheldNftsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -1137,6 +1177,7 @@ export type CodegenWalletCodegenheldNftsArgs = {
   orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
+
 export type CodegenWalletCodegenheldTokenBalancesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -1145,6 +1186,7 @@ export type CodegenWalletCodegenheldTokenBalancesArgs = {
   orderBy?: InputMaybe<CodegenWalletTokenBalanceOrder>;
   orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
+
 
 export type CodegenWalletCodegentokenBalancesArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -1155,6 +1197,7 @@ export type CodegenWalletCodegentokenBalancesArgs = {
   orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
+
 export type CodegenWalletCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -1162,6 +1205,7 @@ export type CodegenWalletCodegentokenEventsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type CodegenWalletCodegentransactionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -1172,9 +1216,11 @@ export type CodegenWalletCodegentransactionsArgs = {
   orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
+
 export type CodegenWalletCodegenwalletCollectionArgs = {
   collectionAddress: Scalars['String'];
 };
+
 
 export type CodegenWalletCodegenwalletCollectionsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -1186,10 +1232,12 @@ export type CodegenWalletCodegenwalletCollectionsArgs = {
   orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
+
 export type CodegenWalletCodegenwalletNFTArgs = {
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
 };
+
 
 export type CodegenWalletCodegenwalletNFTsArgs = {
   after?: InputMaybe<Scalars['String']>;
@@ -1212,7 +1260,7 @@ export type CodegenWalletCollection = {
 
 export enum CodegenWalletCollectionOrderBy {
   CodegenDATE_ACQUIRED = 'DATE_ACQUIRED',
-  CodegenNAME = 'NAME',
+  CodegenNAME = 'NAME'
 }
 
 /** Filter of collections in a wallet */
@@ -1287,7 +1335,7 @@ export type CodegenWalletNFTsFilterInput = {
 
 export enum CodegenWalletNFTsOrderBy {
   CodegenDATE_ACQUIRED = 'DATE_ACQUIRED',
-  CodegenNAME = 'NAME',
+  CodegenNAME = 'NAME'
 }
 
 export type CodegenWalletTokenBalance = {
@@ -1302,7 +1350,7 @@ export enum CodegenWalletTokenBalanceOrder {
   CodegenCONTRACT_ADDRESS = 'CONTRACT_ADDRESS',
   CodegenNAME = 'NAME',
   CodegenSYMBOL = 'SYMBOL',
-  CodegenTOTAL_BALANCE = 'TOTAL_BALANCE',
+  CodegenTOTAL_BALANCE = 'TOTAL_BALANCE'
 }
 
 export type CodegenWalletTokenBalancesConnection = {
@@ -1363,12 +1411,11 @@ export type CodegenEthMainnetWalletNFTsByEnsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type CodegenEthMainnetWalletNFTsByEnsQuery = {
-  __typename?: 'Query';
-  ethereum: {
-    __typename?: 'EVMSchemaType';
-  } & CodegenWalletByEnsFragmentFragment;
-};
+
+export type CodegenEthMainnetWalletNFTsByEnsQuery = { __typename?: 'Query', ethereum: (
+    { __typename?: 'EVMSchemaType' }
+    & CodegenWalletByEnsFragmentFragment
+  ) };
 
 export type CodegenEthSepoliaWalletNFTsByEnsQueryVariables = Exact<{
   ensName: Scalars['String'];
@@ -1376,65 +1423,23 @@ export type CodegenEthSepoliaWalletNFTsByEnsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type CodegenEthSepoliaWalletNFTsByEnsQuery = {
-  __typename?: 'Query';
-  ethereumSepolia: {
-    __typename?: 'EVMSchemaType';
-  } & CodegenWalletByEnsFragmentFragment;
-};
 
-export type CodegenNftInfoFragment = {
-  __typename?: 'WalletNFT';
-  nft?:
-    | {
-        __typename?: 'ERC721NFT';
-        animationUrl?: string | null;
-        collectionSlug?: string | null;
-        contractAddress: string;
-        description?: string | null;
-        externalUrl?: string | null;
-        metadata?: any | null;
-        name?: string | null;
-        tokenId: any;
-      }
-    | {
-        __typename?: 'ERC1155NFT';
-        animationUrl?: string | null;
-        collectionSlug?: string | null;
-        contractAddress: string;
-        description?: string | null;
-        externalUrl?: string | null;
-        metadata?: any | null;
-        name?: string | null;
-        tokenId: any;
-      }
-    | null;
-};
+export type CodegenEthSepoliaWalletNFTsByEnsQuery = { __typename?: 'Query', ethereumSepolia: (
+    { __typename?: 'EVMSchemaType' }
+    & CodegenWalletByEnsFragmentFragment
+  ) };
 
-export type CodegenWalletByEnsFragmentFragment = {
-  __typename?: 'EVMSchemaType';
-  walletByENS?: {
-    __typename?: 'Wallet';
-    address: string;
-    ensName?: string | null;
-    walletNFTs: {
-      __typename?: 'WalletNFTsConnection';
-      pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
-      edges: Array<{
-        __typename?: 'WalletNFTsConnectionEdge';
-        node: { __typename?: 'WalletNFT' } & CodegenNftInfoFragment;
-      }>;
-    };
-  } | null;
-};
+export type CodegenNftInfoFragment = { __typename?: 'WalletNFT', nft?: { __typename?: 'ERC721NFT', animationUrl?: string | null, collectionSlug?: string | null, contractAddress: string, description?: string | null, externalUrl?: string | null, metadata?: any | null, name?: string | null, tokenId: any } | { __typename?: 'ERC1155NFT', animationUrl?: string | null, collectionSlug?: string | null, contractAddress: string, description?: string | null, externalUrl?: string | null, metadata?: any | null, name?: string | null, tokenId: any } | null };
 
-export type CodegenPaginationFragment = {
-  __typename?: 'PageInfo';
-  endCursor?: string | null;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-  startCursor?: string | null;
-};
+export type CodegenWalletByEnsFragmentFragment = { __typename?: 'EVMSchemaType', walletByENS?: { __typename?: 'Wallet', address: string, ensName?: string | null, walletNFTs: { __typename?: 'WalletNFTsConnection', pageInfo: (
+        { __typename?: 'PageInfo' }
+        & CodegenPaginationFragment
+      ), edges: Array<{ __typename?: 'WalletNFTsConnectionEdge', node: (
+          { __typename?: 'WalletNFT' }
+          & CodegenNftInfoFragment
+        ) }> } } | null };
+
+export type CodegenPaginationFragment = { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null };
 
 export type CodegenPolygonMainnetWalletNFTsByEnsQueryVariables = Exact<{
   ensName: Scalars['String'];
@@ -1442,88 +1447,15 @@ export type CodegenPolygonMainnetWalletNFTsByEnsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
 }>;
 
-export type CodegenPolygonMainnetWalletNFTsByEnsQuery = {
-  __typename?: 'Query';
-  polygon: {
-    __typename?: 'EVMSchemaType';
-  } & CodegenWalletByEnsFragmentFragment;
-};
 
-export const CodegenPagination = gql`
-  fragment Pagination on PageInfo {
-    endCursor
-    hasNextPage
-    hasPreviousPage
-    startCursor
-  }
-`;
-export const CodegenNftInfo = gql`
-  fragment NftInfo on WalletNFT {
-    nft {
-      animationUrl
-      collectionSlug
-      contractAddress
-      description
-      externalUrl
-      metadata
-      name
-      tokenId
-    }
-  }
-`;
-export const CodegenWalletByEnsFragment = gql`
-  fragment WalletByEnsFragment on EVMSchemaType {
-    walletByENS(ensName: $ensName) {
-      address
-      ensName
-      walletNFTs(after: $after, first: $first) {
-        pageInfo {
-          ...Pagination
-        }
-        edges {
-          node {
-            ...NftInfo
-          }
-        }
-      }
-    }
-  }
-  ${CodegenPagination}
-  ${CodegenNftInfo}
-`;
-export const CodegenEthMainnetWalletNFTsByEns = gql`
-  query EthMainnetWalletNFTsByEns(
-    $ensName: String!
-    $after: String
-    $first: Int
-  ) {
-    ethereum {
-      ...WalletByEnsFragment
-    }
-  }
-  ${CodegenWalletByEnsFragment}
-`;
-export const CodegenEthSepoliaWalletNFTsByEns = gql`
-  query EthSepoliaWalletNFTsByEns(
-    $ensName: String!
-    $after: String
-    $first: Int
-  ) {
-    ethereumSepolia {
-      ...WalletByEnsFragment
-    }
-  }
-  ${CodegenWalletByEnsFragment}
-`;
-export const CodegenPolygonMainnetWalletNFTsByEns = gql`
-  query PolygonMainnetWalletNFTsByEns(
-    $ensName: String!
-    $after: String
-    $first: Int
-  ) {
-    polygon {
-      ...WalletByEnsFragment
-    }
-  }
-  ${CodegenWalletByEnsFragment}
-`;
+export type CodegenPolygonMainnetWalletNFTsByEnsQuery = { __typename?: 'Query', polygon: (
+    { __typename?: 'EVMSchemaType' }
+    & CodegenWalletByEnsFragmentFragment
+  ) };
+
+export const CodegenPaginationFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}}]} as unknown as DocumentNode<CodegenPaginationFragment, unknown>;
+export const CodegenNftInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NftInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletNFT"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nft"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"animationUrl"}},{"kind":"Field","name":{"kind":"Name","value":"collectionSlug"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"externalUrl"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tokenId"}}]}}]}}]} as unknown as DocumentNode<CodegenNftInfoFragment, unknown>;
+export const CodegenWalletByEnsFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WalletByEnsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"walletNFTs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"NftInfo"}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NftInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletNFT"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nft"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"animationUrl"}},{"kind":"Field","name":{"kind":"Name","value":"collectionSlug"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"externalUrl"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tokenId"}}]}}]}}]} as unknown as DocumentNode<CodegenWalletByEnsFragmentFragment, unknown>;
+export const CodegenEthMainnetWalletNFTsByEnsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthMainnetWalletNFTsByEns"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereum"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WalletByEnsFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NftInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletNFT"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nft"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"animationUrl"}},{"kind":"Field","name":{"kind":"Name","value":"collectionSlug"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"externalUrl"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tokenId"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WalletByEnsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"walletNFTs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"NftInfo"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthMainnetWalletNFTsByEnsQuery, CodegenEthMainnetWalletNFTsByEnsQueryVariables>;
+export const CodegenEthSepoliaWalletNFTsByEnsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthSepoliaWalletNFTsByEns"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereumSepolia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WalletByEnsFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NftInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletNFT"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nft"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"animationUrl"}},{"kind":"Field","name":{"kind":"Name","value":"collectionSlug"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"externalUrl"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tokenId"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WalletByEnsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"walletNFTs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"NftInfo"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthSepoliaWalletNFTsByEnsQuery, CodegenEthSepoliaWalletNFTsByEnsQueryVariables>;
+export const CodegenPolygonMainnetWalletNFTsByEnsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PolygonMainnetWalletNFTsByEns"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"polygon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WalletByEnsFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NftInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletNFT"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nft"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"animationUrl"}},{"kind":"Field","name":{"kind":"Name","value":"collectionSlug"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"externalUrl"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tokenId"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WalletByEnsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"walletNFTs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"NftInfo"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenPolygonMainnetWalletNFTsByEnsQuery, CodegenPolygonMainnetWalletNFTsByEnsQueryVariables>;

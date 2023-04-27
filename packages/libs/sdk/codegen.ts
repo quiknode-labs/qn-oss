@@ -20,11 +20,7 @@ const config: CodegenConfig = {
   ],
   generates: {
     'src/api/graphql/generatedTypes.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-document-nodes',
-      ],
+      plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
       config: {
         namingConvention: './codegenCustomNaming',
         exportFragmentSpreadSubTypes: true,

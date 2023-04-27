@@ -16,56 +16,83 @@ Currently supports getting started with [Icy Tools GraphQL API](https://develope
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';
 
-const client = new QuickNodeSDK();
+const client = new QuickNodeSDK({ gqlApiKey: 'my-api-key' });
 
 client.nft
-  .getNFTsByWalletENS({
+  .getAllByWalletENS({
     ensName: 'vitalik.eth',
     first: 5,
   })
   .then((response) => console.log(response));
 ```
 
-Full example implementation [here](https://github.com/quiknode-labs/qn-oss/tree/main/packages/apps/examples/nft-sdk)
+Full example app implementation [here](https://github.com/quiknode-labs/qn-oss/tree/main/packages/apps/examples/nft-sdk)
 
 ## Providing a config object to the client
-
-> :warning: This client (and the underlying API) can be used without an icyApiKey, but its usage will be heavily rate limited, intended for trial and development purposes only.
 
 ```ts
 import { QuickNodeSDK } from '@quicknode/sdk';
 
 const client = new QuickNodeSDK({
-  icyApiKey: 'my-api-key', // which is obtained by signing up on https://developers.icy.tools/
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+  defaultChain: 'polygon',
 });
 ```
 
 ### Client config API
 
-| Property  | Values | Example                            |
-| --------- | ------ | ---------------------------------- |
-| icyApiKey | string | 1c1t00ls-4p10-k3y0-lu21-43405e3310 |
+| Property     | Values | Description                                | Example     |
+| ------------ | ------ | ------------------------------------------ | ----------- |
+| gqlApiKey    | string | The QuickNode GraphQL API Key              | QN_abcd1234 |
+| defaultChain | string | The default chain to use for all functions | polygon     |
 
 <br>
 
 ## Methods
 
-### nft.getNFTsByWalletENS
+### nft.getAllByWalletENS
 
-| Argument | Values | Optional | Description                     | Example                     |
+Returns NFTs owned by a wallet
+
+| Argument | Values | Required | Description                     | Example                     |
 | -------- | ------ | -------- | ------------------------------- | --------------------------- |
-| ensName  | string | ❌       | Wallet ENS address              | vitalik.eth                 |
-| first    | number | ✅       | Number of results to return     | 10                          |
-| after    | string | ✅       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
+| ensName  | string | ✅       | Wallet ENS address              | vitalik.eth                 |
+| first    | number | ❌       | Number of results to return     | 10                          |
+| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
+| chain    | string | ❌       | Blockchain chain name           | polygon                     |
 
 ```ts
 import QuickNode from '@quicknode/sdk';
 
 const client = new QuickNode();
 
-client.api.ethereum.mainnet.nft
+client.api.nft
   .getAllByWalletENS({
     ensName: 'vitalik.eth',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
+### nft.getAllByWalletAddress
+
+Returns NFTs owned by a wallet
+
+| Argument | Values | Required | Description                     | Example                     |
+| -------- | ------ | -------- | ------------------------------- | --------------------------- |
+| address  | string | ✅       | Wallet address                  | vitalik.eth                 |
+| first    | number | ❌       | Number of results to return     | 10                          |
+| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
+| chain    | string | ❌       | Blockchain chain name           | polygon                     |
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const client = new QuickNode();
+
+client.nft
+  .getAllByWalletAddress({
+    address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
     first: 5,
   })
   .then((response) => console.log(response));
@@ -93,7 +120,7 @@ For example, if a response contains:
 calling the following will get the next page of results
 
 ```typescript
-client.nft.getNFTsByWalletENS({
+client.nft.getAllByWalletENS({
   ensName: 'vitalik.eth',
   first: 5,
   after: 'YXJyYXljb25uZWN0aW9uOlk=',
@@ -108,15 +135,15 @@ Please submit any questions, issues, or feedback as an [issue in Github](https:/
 
 ## Building
 
-Run `nx build libs-api-sdk` to build the library.
+Run `nx build libs-sdk` to build the library.
 
 ## Running unit tests
 
-Run `nx test libs-api-sdk` to execute the unit tests via [Jest](https://jestjs.io).
+Run `nx test libs-sdk` to execute the unit tests via [Jest](https://jestjs.io).
 
 ## Running lint
 
-Run `nx lint libs-api-sdk` to execute the lint via [ESLint](https://eslint.org/).
+Run `nx lint libs-sdk` to execute the lint via [ESLint](https://eslint.org/).
 
 ## Generate graphql codegen typings
 

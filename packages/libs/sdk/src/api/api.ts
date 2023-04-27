@@ -11,14 +11,14 @@ import { onError, ErrorResponse } from '@apollo/client/link/error';
 import fetch from 'cross-fetch';
 import { CustomApolloClient } from './graphql/customApolloClient';
 import generatedPossibleTypes from './graphql/fragmentMatcher';
-import {
-  EthMainnetChainConfig,
-  PolygonMainnetChainConfig,
-} from './chainConfigs';
+import { NftController } from './controllers/nft';
+import { ChainName } from './types/chains';
+import { DEFAULT_CHAIN } from './utils/constants';
 
 export interface ApiArguments {
   gqlApiKey?: string;
   additionalHeaders?: Record<string, string>;
+  defaultChain?: ChainName;
 }
 
 const httpLink = new HttpLink({
@@ -59,41 +59,37 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
 export class Api {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
   private customApolloClient: CustomApolloClient;
-  readonly gqlApiKey?: string;
-  readonly ethereum: EthMainnetChainConfig;
-  readonly polygon: PolygonMainnetChainConfig;
+  private gqlApiKey?: string;
+  private additionalHeaders?: Record<string, string>;
+  readonly defaultChain: ChainName;
+  readonly nft: NftController;
 
-  constructor({ gqlApiKey, additionalHeaders }: ApiArguments = {}) {
+  constructor({
+    gqlApiKey,
+    additionalHeaders,
+    defaultChain,
+  }: ApiArguments = {}) {
     if (!gqlApiKey) {
       console.warn(
         'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
       );
     }
 
-    this.gqlApiKey = process.env['QUICKNODE_GQL_API_KEY'] || gqlApiKey;
-    this.apolloClient = this.createApolloClient({
-      gqlApiKey,
-      additionalHeaders,
-    });
+    this.gqlApiKey = gqlApiKey;
+    this.additionalHeaders = additionalHeaders;
+    this.apolloClient = this.createApolloClient();
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
-    this.ethereum = new EthMainnetChainConfig({
-      customApolloClient: this.customApolloClient,
-    });
-    this.polygon = new PolygonMainnetChainConfig({
-      customApolloClient: this.customApolloClient,
-    });
+    this.defaultChain = defaultChain || DEFAULT_CHAIN;
+    this.nft = new NftController(this.customApolloClient);
   }
 
-  private createApolloClient({
-    gqlApiKey,
-    additionalHeaders,
-  }: ApiArguments): ApolloClient<NormalizedCacheObject> {
+  private createApolloClient(): ApolloClient<NormalizedCacheObject> {
     const authLink = setContext(async (_, { headers }) => {
       return {
         headers: {
           ...headers,
-          ...{ 'x-api-key': gqlApiKey },
-          ...additionalHeaders,
+          ...{ 'x-api-key': this.gqlApiKey },
+          ...this.additionalHeaders,
         },
       };
     });

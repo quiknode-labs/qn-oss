@@ -3,8 +3,8 @@ import {
   CodegenEthMainnetWalletNFTsByEnsQuery,
   CodegenNftInfoFragment,
   CodegenPaginationFragment,
-} from '../graphql/generatedTypes';
-import { ChainName } from './chains';
+} from '../../graphql/generatedTypes';
+import { ChainName } from '../chains';
 
 // Using the generated CodegenEthMainnetWalletNFTsByEnsQuery as a base for the type here
 // since the queries for each chain will be the same, so allow for it to be used for all chains

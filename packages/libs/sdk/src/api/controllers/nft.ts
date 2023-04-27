@@ -6,7 +6,7 @@ import {
   WalletNFTByEnsQueryResultFull,
   WalletNFTsByEnsQueryVariablesType,
   WalletNFTsByEnsQueryType,
-} from '../types/getNFTsByWalletENS';
+} from '../types/nft/getAllByWalletENS';
 import {
   CodegenEthMainnetWalletNFTsByEnsDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
@@ -17,33 +17,38 @@ import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@apollo/client';
+import { DEFAULT_CHAIN } from '../../api/utils/constants';
+import { NonQueryInput } from '../../api/types/input';
 
 export class NftController {
   constructor(
     private client: CustomApolloClient,
-    private chainName: ChainName
+    private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
   @QNApolloErrorHandler
   async getAllByWalletENS(
-    variables: WalletNFTsByEnsQueryVariablesType
+    variables: WalletNFTsByEnsQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByEnsFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetWalletNFTsByEnsDocument,
       polygon: CodegenPolygonMainnetWalletNFTsByEnsDocument,
       ethereumSepolia: CodegenEthSepoliaWalletNFTsByEnsDocument,
     };
+
     const {
       data: {
-        [this.chainName]: { walletByENS },
+        [userChain]: { walletByENS },
       },
     } = await this.client.query<
       WalletNFTsByEnsQueryVariablesType, // What the user can pass in
       WalletNFTsByEnsQueryType, // The actual unmodified result from query
       WalletNFTByEnsQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: query['ethereum'], // The actual graphql query
-      variables,
+      query: query[userChain], // The actual graphql query
+      variables: queryVariables,
     });
 
     if (!walletByENS)

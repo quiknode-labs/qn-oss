@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'apps-examples-nft-sdk',
+  displayName: 'apps-examples-sdk-api',
   preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/packages/apps/examples/nft-sdk',
+  coverageDirectory: '../../../../coverage/packages/apps/examples/sdk-api',
 };

@@ -1,16 +1,16 @@
 {
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/apps/examples/nft-sdk/src",
+  "sourceRoot": "packages/apps/examples/sdk-api/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/apps/examples/nft-sdk",
-        "main": "packages/apps/examples/nft-sdk/src/main.ts",
-        "tsConfig": "packages/apps/examples/nft-sdk/tsconfig.app.json",
-        "assets": ["packages/apps/examples/nft-sdk/src/assets"]
+        "outputPath": "dist/packages/apps/examples/sdk-api",
+        "main": "packages/apps/examples/sdk-api/src/main.ts",
+        "tsConfig": "packages/apps/examples/sdk-api/tsconfig.app.json",
+        "assets": ["packages/apps/examples/sdk-api/src/assets"]
       },
       "configurations": {
         "production": {
@@ -19,8 +19,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "packages/apps/examples/nft-sdk/src/environments/environment.ts",
-              "with": "packages/apps/examples/nft-sdk/src/environments/environment.prod.ts"
+              "replace": "packages/apps/examples/sdk-api/src/environments/environment.ts",
+              "with": "packages/apps/examples/sdk-api/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -29,11 +29,11 @@
     "serve": {
       "executor": "@nrwl/node:node",
       "options": {
-        "buildTarget": "apps-examples-nft-sdk:build"
+        "buildTarget": "apps-examples-sdk-api:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "apps-examples-nft-sdk:build:production"
+          "buildTarget": "apps-examples-sdk-api:build:production"
         }
       }
     },
@@ -41,14 +41,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/apps/examples/nft-sdk/**/*.ts"]
+        "lintFilePatterns": ["packages/apps/examples/sdk-api/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/apps/examples/nft-sdk"],
+      "outputs": ["coverage/packages/apps/examples/sdk-api"],
       "options": {
-        "jestConfig": "packages/apps/examples/nft-sdk/jest.config.ts",
+        "jestConfig": "packages/apps/examples/sdk-api/jest.config.ts",
         "passWithNoTests": true
       }
     }

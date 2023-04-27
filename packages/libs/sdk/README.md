@@ -133,9 +133,14 @@ client.nft.getAllByWalletENS({
 
 Please submit any questions, issues, or feedback as an [issue in Github](https://github.com/quiknode-labs/qn-oss/issues).
 
-## Building
+## Development
 
-Run `nx build libs-sdk` to build the library.
+We recommend using the example application to develop
+
+1. cd `packages/apps/examples/sdk-api`
+2. `cp .env.example .env` and add api key
+3. `nx serve apps-examples-sdk-api`
+4. Then you can send requests to the API, for example: `curl http://localhost:3333/api/nftsByAddress/0xbc08dadccc79c00587d7e6a75bb68ff5fd30f9e0`
 
 ## Running unit tests
 
@@ -151,4 +156,4 @@ Generate graphql typings via [Codegen](https://www.the-guild.dev/graphql/codegen
 
 1. cd `packages/libs/sdk`
 2. add a `graphqlHeaders.json` with any authorization headers you want to pass to graphql API
-3. run `npx graphql-codegen generate`
+3. run `yarn run codegen`

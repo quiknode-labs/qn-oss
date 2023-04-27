@@ -3,7 +3,7 @@ import nftController from './controllers/nft.controller';
 const router = express.Router();
 
 router.get('/api', (req, res) => {
-  res.send({ message: "Welcome to QuickNode's nft-sdk example!" });
+  res.send({ message: "Welcome to QuickNode's sdk api example!" });
 });
 
 router.get('/api/nftsByEns/:ensResource', nftController.getNFTsByEns);

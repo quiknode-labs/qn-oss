@@ -1,40 +1,40 @@
 import {
-  CodegenEthMainnetWalletNFTsByEnsQueryVariables,
-  CodegenEthMainnetWalletNFTsByEnsQuery,
+  CodegenEthMainnetWalletNFTsByAddressQueryVariables,
+  CodegenEthMainnetWalletNFTsByAddressQuery,
   CodegenNftInfoFragment,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
 
-// Using the generated CodegenEthMainnetWalletNFTsByEnsQuery as a base for the type here
+// Using the generated CodegenEthMainnetWalletNFTsByAddressQuery as a base for the type here
 // since the queries for each chain will be the same, so allow for it to be used for all chains
-export type WalletNFTsByEnsQueryType = {
-  [k in ChainName]: CodegenEthMainnetWalletNFTsByEnsQuery['ethereum'];
+export type WalletNFTsByAddressQueryType = {
+  [k in ChainName]: CodegenEthMainnetWalletNFTsByAddressQuery['ethereum'];
 };
 
-// Using the generated CodegenEthMainnetWalletNFTsByEnsQueryVariables as a base for the type here
+// Using the generated CodegenEthMainnetWalletNFTsByAddressQueryVariables as a base for the type here
 // since the variables will be the same for each query
-export type WalletNFTsByEnsQueryVariablesType =
-  CodegenEthMainnetWalletNFTsByEnsQueryVariables;
+export type WalletNFTsByAddressQueryVariablesType =
+  CodegenEthMainnetWalletNFTsByAddressQueryVariables;
 
-export interface WalletByEnsQueryResultInfo {
+export interface WalletNFTsByAddressQueryResultInfo {
   address: string;
   ensName: string;
   walletNFTsPageInfo: CodegenPaginationFragment;
   walletNFTs: CodegenNftInfoFragment[];
 }
-export interface WalletByEnsQueryResultBody {
-  walletByENS: WalletByEnsQueryResultInfo;
+export interface WalletNFTsByAddressQueryResultBody {
+  walletByAddress: WalletNFTsByAddressQueryResultInfo;
 }
 
 // What the graphQL query returns after the edges and nodes are removed
-export type WalletNFTByEnsQueryResultFull = Record<
+export type WalletNFTByAddressQueryResultFull = Record<
   ChainName,
-  WalletByEnsQueryResultBody
+  WalletNFTsByAddressQueryResultBody
 >;
 
 // What we actually return to the user
-export type WalletNFTsByEnsFormattedResult = {
+export type WalletNFTsByAddressFormattedResult = {
   address: string;
   ensName: string;
   results: CodegenNftInfoFragment['nft'][];

@@ -17,20 +17,20 @@ export type WalletNFTsByEnsQueryType = {
 export type WalletNFTsByEnsQueryVariablesType =
   CodegenEthMainnetWalletNFTsByEnsQueryVariables;
 
-export interface WalletByEnsQueryResultInfo {
+export interface WalletNFTsByEnsQueryResultInfo {
   address: string;
   ensName: string;
   walletNFTsPageInfo: CodegenPaginationFragment;
   walletNFTs: CodegenNftInfoFragment[];
 }
-export interface WalletByEnsQueryResultBody {
-  walletByENS: WalletByEnsQueryResultInfo;
+export interface WalletNFTsByEnsQueryResultBody {
+  walletByENS: WalletNFTsByEnsQueryResultInfo;
 }
 
 // What the graphQL query returns after the edges and nodes are removed
-export type WalletNFTByEnsQueryResultFull = Record<
+export type WalletNFTsByEnsQueryResultFull = Record<
   ChainName,
-  WalletByEnsQueryResultBody
+  WalletNFTsByEnsQueryResultBody
 >;
 
 // What we actually return to the user

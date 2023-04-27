@@ -1,7 +1,7 @@
 import { apiClient } from './client';
 import withPolly from '../testSetup/pollyTestSetup';
 
-const api = apiClient.ethereum.mainnet;
+const api = apiClient;
 
 describe('getNFTsByWalletENS', () => {
   it('executes correctly', async () => {

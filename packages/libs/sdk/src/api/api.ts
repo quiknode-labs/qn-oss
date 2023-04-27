@@ -80,7 +80,7 @@ export class Api {
     this.apolloClient = this.createApolloClient();
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
     this.defaultChain = defaultChain || DEFAULT_CHAIN;
-    this.nft = new NftController(this.customApolloClient);
+    this.nft = new NftController(this.customApolloClient, this.defaultChain);
   }
 
   private createApolloClient(): ApolloClient<NormalizedCacheObject> {

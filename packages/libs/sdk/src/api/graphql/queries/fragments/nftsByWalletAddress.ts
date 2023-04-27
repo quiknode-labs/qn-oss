@@ -5,7 +5,7 @@ import { Pagination } from './pagination';
 
 export const WalletByAddressFragment = gql`
   fragment WalletByAddressFragment on EVMSchemaType {
-    walletByAddress(ensName: $ensName) {
+    walletByAddress(address: $address) {
       address
       ensName
       walletNFTs(after: $after, first: $first) {

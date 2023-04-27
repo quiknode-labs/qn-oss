@@ -3,7 +3,7 @@ import { WalletByAddressFragment } from '../../fragments/nftsByWalletAddress';
 
 export const EthMainnetWalletNFTsByAddress = gql`
   query EthMainnetWalletNFTsByAddress(
-    $ensName: String!
+    $address: String!
     $after: String
     $first: Int
   ) {

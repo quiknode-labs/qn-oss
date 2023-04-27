@@ -61,7 +61,7 @@ export class NftController {
       variables: queryVariables,
     });
 
-    if (!walletByENS)
+    if (!walletByENS?.walletNFTs?.length)
       return { address: '', ensName: '', results: [], pageInfo: emptyPageInfo };
 
     const formattedResult = formatQueryResult<
@@ -97,8 +97,9 @@ export class NftController {
       variables: queryVariables,
     });
 
-    if (!walletByAddress)
+    if (!walletByAddress?.walletNFTs?.length) {
       return { address: '', ensName: '', results: [], pageInfo: emptyPageInfo };
+    }
 
     const formattedResult = formatQueryResult<
       WalletNFTsByAddressQueryResultInfo,

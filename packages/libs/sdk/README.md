@@ -14,9 +14,9 @@ Currently supports getting started with [QuickNode GraphQL API](https://docs.qui
 ## Quick Start
 
 ```ts
-import { QuickNodeSDK } from '@quicknode/sdk';
+import QuickNode from '@qn-oss/libs/sdk';
 
-const client = new QuickNodeSDK({ gqlApiKey: 'my-api-key' });
+const client = new QuickNode.api({ gqlApiKey: 'my-api-key' });
 
 client.nft
   .getAllByWalletENS({
@@ -31,13 +31,23 @@ Full example app implementation [here](https://github.com/quiknode-labs/qn-oss/t
 ## Providing a config object to the client
 
 ```ts
-import { QuickNodeSDK } from '@quicknode/sdk';
+import QuickNode from '@qn-oss/libs/sdk';
 
-const client = new QuickNodeSDK({
+const client = new QuickNode.api({
   gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
   defaultChain: 'polygon',
 });
 ```
+
+A `defaultChain` can be set to set the chain for all calls. Currently we support:
+
+- `ethereum` Ethereum Mainnet
+- `ethereumSepolia` Ethereum Sepolia
+- `polygon` Polygon Mainnet
+
+The `defaultChain` in the initializer can be overridden with the `chain` argument in functions.
+
+If no `defaultChain is passed into the initializer or a `chain`argument to a function,`ethereum` is used by default.
 
 ### Client config API
 

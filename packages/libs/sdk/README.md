@@ -88,12 +88,12 @@ client.api.nft
 
 Returns NFTs owned by a wallet
 
-| Argument | Values | Required | Description                     | Example                     |
-| -------- | ------ | -------- | ------------------------------- | --------------------------- |
-| address  | string | ✅       | Wallet address                  | vitalik.eth                 |
-| first    | number | ❌       | Number of results to return     | 10                          |
-| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
-| chain    | string | ❌       | Blockchain chain name           | polygon                     |
+| Argument | Values | Required | Description                     | Example                                    |
+| -------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
+| address  | string | ✅       | Wallet address                  | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
+| first    | number | ❌       | Number of results to return     | 10                                         |
+| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain    | string | ❌       | Blockchain chain name           | polygon                                    |
 
 ```ts
 import QuickNode from '@quicknode/sdk';

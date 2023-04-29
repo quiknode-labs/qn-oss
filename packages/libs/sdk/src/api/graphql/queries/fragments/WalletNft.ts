@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const NftInfo = gql`
-  fragment NftInfo on WalletNFT {
+export const WalletNFTNode = gql`
+  fragment WalletNFTNode on WalletNFT {
     nft {
       animationUrl
       collectionSlug

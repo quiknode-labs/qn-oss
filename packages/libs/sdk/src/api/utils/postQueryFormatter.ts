@@ -11,7 +11,8 @@ export function formatQueryResult<
   queryResult: QueryResultType,
   resultsKey: keyof QueryResultType, // Key that the actual results are in
   paginationKey: keyof QueryResultType, // Key that the pagination info is in
-  resultsKeyToRemove?: string // Key that the results are nested under to remove for each entry
+  resultsKeyToRemove?: string | null, // Key that the results are nested under to remove for each entry
+  additionalModification?: (arg: Record<string, any>) => FormattedResultType
 ): FormattedResultType {
   const additionaProperties: Record<string, any> = Object.fromEntries(
     Object.entries(queryResult).filter(
@@ -30,8 +31,11 @@ export function formatQueryResult<
     pageInfo: queryResult[paginationKey],
   };
 
-  return {
+  let result = {
     ...formattedResultBase,
     ...additionaProperties,
-  } as FormattedResultType;
+  };
+  if (additionalModification) result = additionalModification(result);
+
+  return result as FormattedResultType;
 }

@@ -14,6 +14,10 @@ interface Connection {
   viewport?: string;
 }
 
+interface RemoveNodesAndEdgesOptions {
+  keepTypename?: boolean;
+}
+
 interface ResultInput {
   [index: string | number | symbol]: Connection | ResultInput | unknown;
 }
@@ -34,12 +38,16 @@ function isConnection(object: unknown): object is Connection {
 export function removeNodesAndEdges<
   TInput extends ResultInput,
   TResultOutput extends ResultOutput
->(data: TInput): TResultOutput {
+>(data: TInput, options?: RemoveNodesAndEdgesOptions): TResultOutput {
   const keys = Object.keys(data);
   const output: ResultOutput = {};
+  const keepTypename = options?.keepTypename || false;
 
   keys
-    .filter((key) => key !== '__typename')
+    .filter((key) => {
+      if (keepTypename) return true;
+      return key !== '__typename';
+    })
     .forEach((key: string) => {
       const value = data[key];
 
@@ -54,7 +62,9 @@ export function removeNodesAndEdges<
       }
 
       if (Array.isArray(value)) {
-        return (output[key] = value.map((item) => removeNodesAndEdges(item)));
+        return (output[key] = value.map((item) =>
+          removeNodesAndEdges(item, options)
+        ));
       }
 
       if (isConnection(value)) {
@@ -68,13 +78,15 @@ export function removeNodesAndEdges<
 
         return (output[key] = value.edges?.map((item: Edge) => {
           if (item.node) {
+            // Don't pass options back in so we only remove the __typename from top-level
+            // We may need to change this in the future if we want to keep the __typename for nested nodes
             return removeNodesAndEdges(item.node);
           }
           return item;
         }));
       }
 
-      return (output[key] = removeNodesAndEdges(value as ResultInput));
+      return (output[key] = removeNodesAndEdges(value as ResultInput, options));
     });
 
   return output as TResultOutput;

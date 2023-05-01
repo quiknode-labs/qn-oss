@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client/core';
 
 import { NftInfo } from './nft';
 import { Pagination } from './pagination';

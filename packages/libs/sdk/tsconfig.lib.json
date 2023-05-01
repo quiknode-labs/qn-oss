@@ -10,6 +10,7 @@
     "**/*.spec.ts",
     "**/*.test.ts",
     "webpack.config.ts",
-    "src/spec/testSetup/**.*"
+    "src/spec/testSetup/**.*",
+    "codgegen.ts"
   ]
 }

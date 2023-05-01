@@ -1,5 +1,4 @@
-import QuickNode from './client';
+import SDK from './client';
 import { API } from './api';
 
-export default QuickNode;
-export { API };
+export { SDK, API };

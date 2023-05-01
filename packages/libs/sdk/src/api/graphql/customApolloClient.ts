@@ -3,7 +3,7 @@ import {
   NormalizedCacheObject,
   OperationVariables,
   QueryOptions,
-} from '@apollo/client/core';
+} from '@apollo/client/core'; // Using core to not pull in react hooks
 import {
   removeNodesAndEdges,
   ResultOutput,

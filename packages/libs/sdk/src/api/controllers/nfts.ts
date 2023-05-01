@@ -26,7 +26,7 @@ import { ChainName } from '../types/chains';
 import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
-import { TypedDocumentNode } from '@apollo/client/core';
+import { TypedDocumentNode } from '@apollo/client/core'; // Using core to not pull in react hooks
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
 

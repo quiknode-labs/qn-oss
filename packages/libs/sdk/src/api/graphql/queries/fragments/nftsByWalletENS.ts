@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@apollo/client/core'; // Using core to not pull in react hooks
 
 import { NftInfo } from './nft';
 import { Pagination } from './pagination';

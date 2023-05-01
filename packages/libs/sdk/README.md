@@ -53,7 +53,7 @@ If no `defaultChain is passed into the initializer or a `chain`argument to a fun
 
 | Property     | Values | Description                                | Example     |
 | ------------ | ------ | ------------------------------------------ | ----------- |
-| gqlApiKey    | string | The QuickNode GraphQL API Key              | QN_abcd1234 |
+| gqlApiKey    | string | The QuickNode GraphQL API Key              | abcd1234 |
 | defaultChain | string | The default chain to use for all functions | polygon     |
 
 <br>

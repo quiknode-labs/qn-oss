@@ -18,8 +18,8 @@ import QuickNode from '@qn-oss/libs/sdk';
 
 const client = new QuickNode.api({ gqlApiKey: 'my-api-key' });
 
-client.nft
-  .getAllByWalletENS({
+client.nfts
+  .getByWalletENS({
     ensName: 'vitalik.eth',
     first: 5,
   })
@@ -60,7 +60,7 @@ If no `defaultChain is passed into the initializer or a `chain`argument to a fun
 
 ## Methods
 
-### nft.getAllByWalletENS
+### nfts.getByWalletENS
 
 Returns NFTs owned by a wallet
 
@@ -76,15 +76,15 @@ import QuickNode from '@quicknode/sdk';
 
 const client = new QuickNode();
 
-client.api.nft
-  .getAllByWalletENS({
+client.api.nfts
+  .getByWalletENS({
     ensName: 'vitalik.eth',
     first: 5,
   })
   .then((response) => console.log(response));
 ```
 
-### nft.getAllByWalletAddress
+### nfts.getByWalletAddress
 
 Returns NFTs owned by a wallet
 
@@ -100,8 +100,8 @@ import QuickNode from '@quicknode/sdk';
 
 const client = new QuickNode();
 
-client.nft
-  .getAllByWalletAddress({
+client.nfts
+  .getByWalletAddress({
     address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
     first: 5,
   })
@@ -130,7 +130,7 @@ For example, if a response contains:
 calling the following will get the next page of results
 
 ```typescript
-client.nft.getAllByWalletENS({
+client.nfts.getByWalletENS({
   ensName: 'vitalik.eth',
   first: 5,
   after: 'YXJyYXljb25uZWN0aW9uOlk=',

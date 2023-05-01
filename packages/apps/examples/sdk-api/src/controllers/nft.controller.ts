@@ -12,12 +12,12 @@ if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
   };
 }
 
-const client = new QuickNode.api(opts);
+const client = new QuickNode.API(opts);
 
 export default {
   getNFTsByEns: async (req: Request, res: Response) => {
     try {
-      const NFTs = await client.nft.getAllByWalletENS({
+      const NFTs = await client.nfts.getByWalletENS({
         ensName: req.params.ensResource,
         first: 2,
       });
@@ -30,7 +30,7 @@ export default {
 
   getNFTsByAddress: async (req: Request, res: Response) => {
     try {
-      const NFTs = await client.nft.getAllByWalletAddress({
+      const NFTs = await client.nfts.getByWalletAddress({
         address: req.params.address,
         first: 5,
         after: 'T2Zmc2V0Q29ubmVjdGlvbjox',

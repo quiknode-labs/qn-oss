@@ -1,7 +1,7 @@
-import { Api } from '../api';
+import { API } from '../api';
 
 const QuickNode = {
-  api: Api,
+  API: API,
 };
 
 export default QuickNode;

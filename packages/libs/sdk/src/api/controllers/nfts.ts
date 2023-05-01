@@ -6,14 +6,14 @@ import {
   WalletNFTsByEnsQueryResultFull,
   WalletNFTsByEnsQueryVariablesType,
   WalletNFTsByEnsQueryType,
-} from '../types/nft/getAllByWalletENS';
+} from '../types/nfts/getByWalletENS';
 import {
   WalletNFTsByAddressQueryResultInfo,
   WalletNFTsByAddressFormattedResult,
   WalletNFTByAddressQueryResultFull,
   WalletNFTsByAddressQueryVariablesType,
   WalletNFTsByAddressQueryType,
-} from '../types/nft/getAllByWalletAddress';
+} from '../types/nfts/getByWalletAddress';
 import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
@@ -27,17 +27,17 @@ import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@apollo/client';
-import { DEFAULT_CHAIN } from '../../api/utils/constants';
-import { NonQueryInput } from '../../api/types/input';
+import { DEFAULT_CHAIN } from '../utils/constants';
+import { NonQueryInput } from '../types/input';
 
-export class NftController {
+export class NftsController {
   constructor(
     private client: CustomApolloClient,
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
   @QNApolloErrorHandler
-  async getAllByWalletENS(
+  async getByWalletENS(
     variables: WalletNFTsByEnsQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByEnsFormattedResult> {
     const { chain, ...queryVariables } = variables;
@@ -73,7 +73,7 @@ export class NftController {
   }
 
   @QNApolloErrorHandler
-  async getAllByWalletAddress(
+  async getByWalletAddress(
     variables: WalletNFTsByAddressQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByAddressFormattedResult> {
     const { chain, ...queryVariables } = variables;

@@ -11,7 +11,7 @@ import { onError, ErrorResponse } from '@apollo/client/link/error';
 import fetch from 'cross-fetch';
 import { CustomApolloClient } from './graphql/customApolloClient';
 import generatedPossibleTypes from './graphql/fragmentMatcher';
-import { NftController } from './controllers/nft';
+import { NftsController } from './controllers/nfts';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
 
@@ -56,13 +56,13 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
   return;
 });
 
-export class Api {
+export class API {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
   private customApolloClient: CustomApolloClient;
   private gqlApiKey?: string;
   private additionalHeaders?: Record<string, string>;
   readonly defaultChain: ChainName;
-  readonly nft: NftController;
+  readonly nfts: NftsController;
 
   constructor({
     gqlApiKey,
@@ -80,7 +80,7 @@ export class Api {
     this.apolloClient = this.createApolloClient();
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
     this.defaultChain = defaultChain || DEFAULT_CHAIN;
-    this.nft = new NftController(this.customApolloClient, this.defaultChain);
+    this.nfts = new NftsController(this.customApolloClient, this.defaultChain);
   }
 
   private createApolloClient(): ApolloClient<NormalizedCacheObject> {

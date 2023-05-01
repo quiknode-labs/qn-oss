@@ -3,16 +3,13 @@ import withPolly from '../testSetup/pollyTestSetup';
 
 const api = apiClient;
 
-describe('getNFTsByWalletAddress', () => {
+describe('getNFTsByWalletENS', () => {
   it('executes correctly', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getNFTsByWalletAddress-base',
-        recordIfMissing: true,
-      },
+      { recordingName: 'query-getNFTsByWalletENS-base', recordIfMissing: true },
       async () => {
-        const data = await api.nft.getAllByWalletAddress({
-          address: '0x3c6aeff92b4b35c2e1b196b57d0f8ffb56884a17',
+        const data = await api.nfts.getByWalletENS({
+          ensName: 'shaq.eth',
           first: 2,
         });
         expect(data).toStrictEqual({
@@ -87,16 +84,16 @@ describe('getNFTsByWalletAddress', () => {
   it('can iterate tokens', async () => {
     await withPolly(
       {
-        recordingName: 'query-getNFTsByWalletAddress-iterates',
+        recordingName: 'query-getNFTsByWalletENS-iterates',
         recordIfMissing: true,
       },
       async () => {
-        const data1 = await api.nft.getAllByWalletAddress({
-          address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
+        const data1 = await api.nfts.getByWalletENS({
+          ensName: 'shaq.eth',
           first: 2,
         });
-        const data2 = await api.nft.getAllByWalletAddress({
-          address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
+        const data2 = await api.nfts.getByWalletENS({
+          ensName: 'shaq.eth',
           first: 2,
           after: data1?.pageInfo?.endCursor,
         });
@@ -203,13 +200,10 @@ describe('getNFTsByWalletAddress', () => {
 
   it('can handle no response', async () => {
     await withPolly(
-      {
-        recordingName: 'query-getNFTsByWalletAddress-null',
-        recordIfMissing: true,
-      },
+      { recordingName: 'query-getNFTsByWalletENS-null', recordIfMissing: true },
       async () => {
-        const data = await api.nft.getAllByWalletAddress({
-          address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB568ABCD',
+        const data = await api.nfts.getByWalletENS({
+          ensName: 'fakefakefakedoesnotexist.eth',
           first: 2,
         });
         expect(data).toStrictEqual({

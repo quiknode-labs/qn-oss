@@ -3,13 +3,16 @@ import withPolly from '../testSetup/pollyTestSetup';
 
 const api = apiClient;
 
-describe('getNFTsByWalletENS', () => {
+describe('getNFTsByWalletAddress', () => {
   it('executes correctly', async () => {
     await withPolly(
-      { recordingName: 'query-getNFTsByWalletENS-base', recordIfMissing: true },
+      {
+        recordingName: 'query-getNFTsByWalletAddress-base',
+        recordIfMissing: true,
+      },
       async () => {
-        const data = await api.nft.getAllByWalletENS({
-          ensName: 'shaq.eth',
+        const data = await api.nfts.getByWalletAddress({
+          address: '0x3c6aeff92b4b35c2e1b196b57d0f8ffb56884a17',
           first: 2,
         });
         expect(data).toStrictEqual({
@@ -84,16 +87,16 @@ describe('getNFTsByWalletENS', () => {
   it('can iterate tokens', async () => {
     await withPolly(
       {
-        recordingName: 'query-getNFTsByWalletENS-iterates',
+        recordingName: 'query-getNFTsByWalletAddress-iterates',
         recordIfMissing: true,
       },
       async () => {
-        const data1 = await api.nft.getAllByWalletENS({
-          ensName: 'shaq.eth',
+        const data1 = await api.nfts.getByWalletAddress({
+          address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
           first: 2,
         });
-        const data2 = await api.nft.getAllByWalletENS({
-          ensName: 'shaq.eth',
+        const data2 = await api.nfts.getByWalletAddress({
+          address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
           first: 2,
           after: data1?.pageInfo?.endCursor,
         });
@@ -200,10 +203,13 @@ describe('getNFTsByWalletENS', () => {
 
   it('can handle no response', async () => {
     await withPolly(
-      { recordingName: 'query-getNFTsByWalletENS-null', recordIfMissing: true },
+      {
+        recordingName: 'query-getNFTsByWalletAddress-null',
+        recordIfMissing: true,
+      },
       async () => {
-        const data = await api.nft.getAllByWalletENS({
-          ensName: 'fakefakefakedoesnotexist.eth',
+        const data = await api.nfts.getByWalletAddress({
+          address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB568ABCD',
           first: 2,
         });
         expect(data).toStrictEqual({

@@ -16,7 +16,7 @@ Currently supports getting started with [QuickNode GraphQL API](https://docs.qui
 ```ts
 import QuickNode from '@qn-oss/libs/sdk';
 
-const client = new QuickNode.api({ gqlApiKey: 'my-api-key' });
+const client = new QuickNode.API({ gqlApiKey: 'my-api-key' });
 
 client.nfts
   .getByWalletENS({
@@ -33,7 +33,7 @@ Full example app implementation [here](https://github.com/quiknode-labs/qn-oss/t
 ```ts
 import QuickNode from '@qn-oss/libs/sdk';
 
-const client = new QuickNode.api({
+const client = new QuickNode.API({
   gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
   defaultChain: 'polygon',
 });

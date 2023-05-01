@@ -33,10 +33,20 @@ export default {
       const NFTs = await client.nfts.getByWalletAddress({
         address: req.params.address,
         first: 5,
-        after: 'T2Zmc2V0Q29ubmVjdGlvbjox',
-        chain: 'polygon',
       });
       return res.status(200).send(NFTs);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
+
+  getTrendingCollections: async (req: Request, res: Response) => {
+    try {
+      const trendingCollections = await client.nfts.getTrendingCollections({
+        first: 5,
+      });
+      return res.status(200).send(trendingCollections);
     } catch (error) {
       console.error(error);
       return res.status(500).send({});

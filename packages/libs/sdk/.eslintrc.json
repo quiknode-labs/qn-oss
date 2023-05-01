@@ -1,5 +1,5 @@
 {
-  "plugins": ["@nrwl/nx", "no-only-tests"],
+  "plugins": ["@nx", "no-only-tests"],
   "parserOptions": {
     "project": ["./tsconfig.*?.json"],
     "sourceType": "module",

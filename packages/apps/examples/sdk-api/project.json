@@ -1,4 +1,5 @@
 {
+  "name": "apps-examples-sdk-api",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/apps/examples/sdk-api/src",
   "projectType": "application",
@@ -46,7 +47,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/apps/examples/sdk-api"],
+      "outputs": ["{workspaceRoot}/coverage/packages/apps/examples/sdk-api"],
       "options": {
         "jestConfig": "packages/apps/examples/sdk-api/jest.config.ts",
         "passWithNoTests": true

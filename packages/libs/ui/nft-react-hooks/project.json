@@ -1,4 +1,5 @@
 {
+  "name": "libs-ui-nft-react-hooks",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/libs/ui/nft-react-hooks/src",
   "projectType": "library",
@@ -37,7 +38,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/libs/ui/nft-react-hooks"],
+      "outputs": ["{workspaceRoot}/coverage/packages/libs/ui/nft-react-hooks"],
       "options": {
         "jestConfig": "packages/libs/ui/nft-react-hooks/jest.config.ts",
         "passWithNoTests": true

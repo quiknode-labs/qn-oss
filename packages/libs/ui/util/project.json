@@ -1,4 +1,5 @@
 {
+  "name": "libs-ui-util",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/libs/ui/util/src",
   "projectType": "library",
@@ -33,7 +34,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/libs/ui/util"],
+      "outputs": ["{workspaceRoot}/coverage/packages/libs/ui/util"],
       "options": {
         "jestConfig": "packages/libs/ui/util/jest.config.ts",
         "passWithNoTests": true

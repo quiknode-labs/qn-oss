@@ -1,4 +1,5 @@
 {
+  "name": "apps-examples-nft-react-hooks",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/apps/examples/nft-react-hooks/src",
   "projectType": "application",
@@ -74,7 +75,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/apps/examples/nft-react-hooks"],
+      "outputs": [
+        "{workspaceRoot}/coverage/packages/apps/examples/nft-react-hooks"
+      ],
       "options": {
         "jestConfig": "packages/apps/examples/nft-react-hooks/jest.config.ts",
         "passWithNoTests": true

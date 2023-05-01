@@ -1,4 +1,5 @@
 {
+  "name": "libs-sdk",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/libs/sdk/src",
   "projectType": "library",
@@ -21,21 +22,26 @@
       },
       "dependsOn": [
         {
-          "projects": "self",
           "target": "build"
         }
       ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["packages/libs/sdk/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/libs/sdk/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/libs/sdk"],
+      "outputs": [
+        "{workspaceRoot}/coverage/packages/libs/sdk"
+      ],
       "options": {
         "jestConfig": "packages/libs/sdk/jest.config.ts",
         "passWithNoTests": true

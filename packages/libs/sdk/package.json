@@ -1,0 +1,36 @@
+{
+  "name": "@quicknode/sdk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quiknode-labs/qn-oss.git",
+    "directory": "packages/libs/sdk"
+  },
+  "license": "MIT",
+  "version": "0.5.0",
+  "main": "./src/index.js",
+  "module": "./src/index.esm.js",
+  "types": "./src/index.d.ts",
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "@types/mocha": "^10.0.1",
+    "cross-fetch": "^3.1.5",
+    "graphql": "^16.5.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.13.8",
+    "@graphql-codegen/fragment-matcher": "^3.3.1",
+    "@graphql-codegen/typed-document-node": "^4.0.1",
+    "@graphql-codegen/typescript": "2.8.0",
+    "@graphql-codegen/typescript-operations": "^2.5.5",
+    "@pollyjs/adapter-node-http": "^6.0.5",
+    "@pollyjs/core": "^6.0.5",
+    "@pollyjs/persister-fs": "^6.0.5",
+    "@types/node": "^18.13.0",
+    "@types/supertest": "^2.0.12",
+    "eslint-plugin-no-only-tests": "^3.1.0",
+    "supertest": "^6.2.4"
+  },
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.ts"
+  }
+}

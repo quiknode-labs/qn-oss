@@ -11,6 +11,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 /** All built-in and custom scalars, mapped to their actual values */
+
 export type Scalars = {
   ID: string;
   String: string;
@@ -248,6 +249,18 @@ export type CodegenContractCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+};
+
+export enum CodegenContractStandard {
+  CodegenERC20 = 'ERC20',
+  CodegenERC721 = 'ERC721',
+  CodegenERC1155 = 'ERC1155',
+}
+
+export type CodegenContractStandardInput = {
+  eq?: InputMaybe<CodegenContractStandard>;
+  in?: InputMaybe<Array<CodegenContractStandard>>;
+  notIn?: InputMaybe<Array<CodegenContractStandard>>;
 };
 
 export type CodegenContractTokenEventsConnection = {
@@ -727,6 +740,24 @@ export type CodegenIntegerInput = {
   lte?: InputMaybe<Scalars['Int']>;
 };
 
+/** Marketplace where the token was sold */
+export enum CodegenMarketplace {
+  CodegenBLUR = 'BLUR',
+  CodegenCRYPTOPUNKS = 'CRYPTOPUNKS',
+  CodegenLOOKSRARE = 'LOOKSRARE',
+  CodegenNIFTY_GATEWAY = 'NIFTY_GATEWAY',
+  CodegenOPENSEA = 'OPENSEA',
+  CodegenSEAPORT = 'SEAPORT',
+  CodegenX2Y2 = 'X2Y2',
+  CodegenZEROX = 'ZEROX',
+}
+
+export type CodegenMarketplaceInput = {
+  eq?: InputMaybe<CodegenMarketplace>;
+  in?: InputMaybe<Array<CodegenMarketplace>>;
+  notIn?: InputMaybe<Array<CodegenMarketplace>>;
+};
+
 export type CodegenNFT = {
   animationUrl?: Maybe<Scalars['String']>;
   collection?: Maybe<CodegenCollection>;
@@ -845,10 +876,14 @@ export type CodegenTokenAttribute = {
 export type CodegenTokenBurnEvent = CodegenTokenEvent & {
   __typename?: 'TokenBurnEvent';
   blockNumber: Scalars['Int'];
+  contract?: Maybe<CodegenContract>;
   contractAddress: Scalars['String'];
   contractERCStandard?: Maybe<CodegenERCStandard>;
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  nft?: Maybe<CodegenNFT>;
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   tokenId?: Maybe<Scalars['BigInt']>;
   tokenQuantity: Scalars['BigInt'];
@@ -890,7 +925,11 @@ export type CodegenTokenDetailsType = {
 
 export type CodegenTokenEvent = {
   blockNumber: Scalars['Int'];
+  from?: Maybe<CodegenWallet>;
+  fromAddress: Scalars['String'];
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
+  toAddress: Scalars['String'];
   transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
   transferIndex: Scalars['Int'];
@@ -903,16 +942,20 @@ export type CodegenTokenEventsFilterInput = {
   blockNumber?: InputMaybe<CodegenIntegerInput>;
   /** Filter token events by contract address */
   contractAddress?: InputMaybe<CodegenStringInput>;
+  /** Filter token events by their contract standard */
+  contractStandard?: InputMaybe<CodegenContractStandardInput>;
   /** Filter token events by the "from" wallet */
   fromAddress?: InputMaybe<CodegenStringInput>;
+  /** Filter token events by the marketplace. It's only valid for SALE types */
+  marketplace?: InputMaybe<CodegenMarketplaceInput>;
   /** Filter token events by their estimated confirmation date */
   timestamp?: InputMaybe<CodegenDateTimeInput>;
   /** Filter token events by the "to" wallet */
   toAddress?: InputMaybe<CodegenStringInput>;
+  /** Filter token events by transaction hash */
+  transactionHash?: InputMaybe<CodegenStringInput>;
   /** Filter token events by their type */
-  type?: InputMaybe<CodegenTokenTransferType>;
-  /** Filter token events by their type */
-  typeIn?: InputMaybe<Array<CodegenTokenTransferType>>;
+  type?: InputMaybe<CodegenTokenTransferTypeInput>;
   /** Filter token events by the "to" and "from" wallet */
   walletAddress?: InputMaybe<CodegenStringInput>;
 };
@@ -920,10 +963,14 @@ export type CodegenTokenEventsFilterInput = {
 export type CodegenTokenMintEvent = CodegenTokenEvent & {
   __typename?: 'TokenMintEvent';
   blockNumber: Scalars['Int'];
+  contract?: Maybe<CodegenContract>;
   contractAddress: Scalars['String'];
   contractERCStandard?: Maybe<CodegenERCStandard>;
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  nft?: Maybe<CodegenNFT>;
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   tokenId?: Maybe<Scalars['BigInt']>;
   tokenQuantity: Scalars['BigInt'];
@@ -936,15 +983,26 @@ export type CodegenTokenMintEvent = CodegenTokenEvent & {
 export type CodegenTokenSaleEvent = CodegenTokenEvent & {
   __typename?: 'TokenSaleEvent';
   blockNumber: Scalars['Int'];
+  contractAddress: Scalars['String'];
+  contractERCStandard?: Maybe<CodegenERCStandard>;
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  /** Marketplace used to make the sale */
+  marketplace?: Maybe<CodegenMarketplace>;
+  receivedNft?: Maybe<CodegenNFT>;
+  receivedTokenContract?: Maybe<CodegenContract>;
+  /** The address of the token received as payment of the sale proceeds */
   receivedTokenContractAddress?: Maybe<Scalars['String']>;
+  /** The id of the token received as payment of the sale proceeds */
   receivedTokenId?: Maybe<Scalars['BigInt']>;
+  /** The quantity of tokens received as payment of the sale proceeds */
   receivedTokenQuantity?: Maybe<Scalars['BigInt']>;
-  sentTokenContractAddress: Scalars['String'];
-  sentTokenContractERCStandard?: Maybe<CodegenERCStandard>;
+  sentNft?: Maybe<CodegenNFT>;
+  sentTokenContract?: Maybe<CodegenContract>;
   sentTokenId?: Maybe<Scalars['BigInt']>;
   sentTokenQuantity: Scalars['BigInt'];
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
@@ -955,15 +1013,21 @@ export type CodegenTokenSaleEvent = CodegenTokenEvent & {
 export type CodegenTokenSwapEvent = CodegenTokenEvent & {
   __typename?: 'TokenSwapEvent';
   blockNumber: Scalars['Int'];
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  receivedNft?: Maybe<CodegenNFT>;
+  receivedTokenContract?: Maybe<CodegenContract>;
   receivedTokenContractAddress?: Maybe<Scalars['String']>;
   receivedTokenId?: Maybe<Scalars['BigInt']>;
   receivedTokenQuantity?: Maybe<Scalars['BigInt']>;
+  sentNft?: Maybe<CodegenNFT>;
+  sentTokenContract?: Maybe<CodegenContract>;
   sentTokenContractAddress: Scalars['String'];
   sentTokenContractERCStandard?: Maybe<CodegenERCStandard>;
   sentTokenId?: Maybe<Scalars['BigInt']>;
   sentTokenQuantity: Scalars['BigInt'];
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
@@ -974,10 +1038,14 @@ export type CodegenTokenSwapEvent = CodegenTokenEvent & {
 export type CodegenTokenTransferEvent = CodegenTokenEvent & {
   __typename?: 'TokenTransferEvent';
   blockNumber: Scalars['Int'];
+  contract?: Maybe<CodegenContract>;
   contractAddress: Scalars['String'];
   contractERCStandard?: Maybe<CodegenERCStandard>;
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  nft?: Maybe<CodegenNFT>;
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   tokenId?: Maybe<Scalars['BigInt']>;
   tokenQuantity: Scalars['BigInt'];
@@ -994,6 +1062,12 @@ export enum CodegenTokenTransferType {
   CodegenSWAP = 'SWAP',
   CodegenTRANSFER = 'TRANSFER',
 }
+
+export type CodegenTokenTransferTypeInput = {
+  eq?: InputMaybe<CodegenTokenTransferType>;
+  in?: InputMaybe<Array<CodegenTokenTransferType>>;
+  notIn?: InputMaybe<Array<CodegenTokenTransferType>>;
+};
 
 /** Token media uploads. */
 export type CodegenTokenUpload = {
@@ -1409,6 +1483,117 @@ export type CodegenEthSepoliaWalletNFTsByEnsQuery = {
   } & CodegenWalletByEnsFragmentFragment;
 };
 
+export type CodegenNftCollectionInfo_CodegenERC721Collection_CodegenFragment = {
+  __typename?: 'ERC721Collection';
+  address: string;
+  baseTokenUri?: string | null;
+  circulatingSupply?: any | null;
+  description?: string | null;
+  externalUrl?: string | null;
+  name?: string | null;
+  slug?: string | null;
+  symbol?: string | null;
+  totalSupply?: any | null;
+  twitterUsername?: string | null;
+  bannerImage?: Array<{
+    __typename?: 'TokenUpload';
+    height?: number | null;
+    mimeType?: string | null;
+    url: string;
+    width?: number | null;
+  }> | null;
+  contract?: {
+    __typename?: 'NFTContract';
+    address: string;
+    isVerified?: boolean | null;
+    name?: string | null;
+    symbol?: string | null;
+    supportedErcInterfaces?: Array<string> | null;
+  } | null;
+  image?: Array<{
+    __typename?: 'TokenUpload';
+    height?: number | null;
+    mimeType?: string | null;
+    url: string;
+    width?: number | null;
+  }> | null;
+  ohlcvChart?: Array<{
+    __typename?: 'CollectionOHLCVChart';
+    average?: number | null;
+    close?: number | null;
+    count: number;
+    high?: number | null;
+    low?: number | null;
+    open?: number | null;
+    volume?: number | null;
+    timestamp: any;
+  }> | null;
+  openseaMetadata?: {
+    __typename?: 'OpenSeaMetadata';
+    isHidden?: boolean | null;
+    isVerified?: boolean | null;
+    unsafeSlug?: string | null;
+  } | null;
+};
+
+export type CodegenNftCollectionInfo_CodegenERC1155Collection_CodegenFragment =
+  {
+    __typename?: 'ERC1155Collection';
+    address: string;
+    baseTokenUri?: string | null;
+    circulatingSupply?: any | null;
+    description?: string | null;
+    externalUrl?: string | null;
+    name?: string | null;
+    slug?: string | null;
+    symbol?: string | null;
+    totalSupply?: any | null;
+    twitterUsername?: string | null;
+    bannerImage?: Array<{
+      __typename?: 'TokenUpload';
+      height?: number | null;
+      mimeType?: string | null;
+      url: string;
+      width?: number | null;
+    }> | null;
+    contract?: {
+      __typename?: 'NFTContract';
+      address: string;
+      isVerified?: boolean | null;
+      name?: string | null;
+      symbol?: string | null;
+      supportedErcInterfaces?: Array<string> | null;
+    } | null;
+    image?: Array<{
+      __typename?: 'TokenUpload';
+      height?: number | null;
+      mimeType?: string | null;
+      url: string;
+      width?: number | null;
+    }> | null;
+    ohlcvChart?: Array<{
+      __typename?: 'CollectionOHLCVChart';
+      average?: number | null;
+      close?: number | null;
+      count: number;
+      high?: number | null;
+      low?: number | null;
+      open?: number | null;
+      volume?: number | null;
+      timestamp: any;
+    }> | null;
+    openseaMetadata?: {
+      __typename?: 'OpenSeaMetadata';
+      isHidden?: boolean | null;
+      isVerified?: boolean | null;
+      unsafeSlug?: string | null;
+    } | null;
+  };
+
+export type CodegenNftCollectionInfoFragment =
+  | CodegenNftCollectionInfo_CodegenERC721Collection_CodegenFragment
+  | CodegenNftCollectionInfo_CodegenERC1155Collection_CodegenFragment;
+
 export type CodegenNftInfoFragment = {
   __typename?: 'WalletNFT';
   nft?:
@@ -1505,6 +1690,116 @@ export type CodegenPolygonMainnetWalletNFTsByEnsQuery = {
   } & CodegenWalletByEnsFragmentFragment;
 };
 
+export const CodegenNftCollectionInfoFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'NftCollectionInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Collection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'bannerImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'height' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mimeType' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'width' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'baseTokenUri' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'circulatingSupply' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'contract' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'isVerified' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'supportedErcInterfaces' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'image' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'height' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'mimeType' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'width' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ohlcvChart' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filter' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'filter' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'average' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'close' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'count' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'high' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'low' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'open' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'volume' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'openseaMetadata' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isHidden' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'isVerified' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'unsafeSlug' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'totalSupply' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'twitterUsername' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenNftCollectionInfoFragment, unknown>;
 export const CodegenPaginationFragmentDoc = {
   kind: 'Document',
   definitions: [

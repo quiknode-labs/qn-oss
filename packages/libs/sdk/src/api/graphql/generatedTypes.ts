@@ -11,7 +11,6 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 /** All built-in and custom scalars, mapped to their actual values */
-
 export type Scalars = {
   ID: string;
   String: string;
@@ -1483,116 +1482,115 @@ export type CodegenEthSepoliaWalletNFTsByEnsQuery = {
   } & CodegenWalletByEnsFragmentFragment;
 };
 
-export type CodegenNftCollectionInfo_CodegenERC721Collection_CodegenFragment = {
-  __typename?: 'ERC721Collection';
-  address: string;
-  baseTokenUri?: string | null;
-  circulatingSupply?: any | null;
-  description?: string | null;
-  externalUrl?: string | null;
-  name?: string | null;
-  slug?: string | null;
-  symbol?: string | null;
-  totalSupply?: any | null;
-  twitterUsername?: string | null;
-  bannerImage?: Array<{
-    __typename?: 'TokenUpload';
-    height?: number | null;
-    mimeType?: string | null;
-    url: string;
-    width?: number | null;
-  }> | null;
-  contract?: {
-    __typename?: 'NFTContract';
-    address: string;
-    isVerified?: boolean | null;
-    name?: string | null;
-    symbol?: string | null;
-    supportedErcInterfaces?: Array<string> | null;
-  } | null;
-  image?: Array<{
-    __typename?: 'TokenUpload';
-    height?: number | null;
-    mimeType?: string | null;
-    url: string;
-    width?: number | null;
-  }> | null;
-  ohlcvChart?: Array<{
-    __typename?: 'CollectionOHLCVChart';
-    average?: number | null;
-    close?: number | null;
-    count: number;
-    high?: number | null;
-    low?: number | null;
-    open?: number | null;
-    volume?: number | null;
-    timestamp: any;
-  }> | null;
-  openseaMetadata?: {
-    __typename?: 'OpenSeaMetadata';
-    isHidden?: boolean | null;
-    isVerified?: boolean | null;
-    unsafeSlug?: string | null;
-  } | null;
+export type CodegenNftCollectionInfoFragment = {
+  __typename?: 'EVMSchemaType';
+  collection?:
+    | {
+        __typename?: 'ERC721Collection';
+        address: string;
+        baseTokenUri?: string | null;
+        circulatingSupply?: any | null;
+        description?: string | null;
+        externalUrl?: string | null;
+        name?: string | null;
+        slug?: string | null;
+        symbol?: string | null;
+        totalSupply?: any | null;
+        twitterUsername?: string | null;
+        bannerImage?: Array<{
+          __typename?: 'TokenUpload';
+          height?: number | null;
+          mimeType?: string | null;
+          url: string;
+          width?: number | null;
+        }> | null;
+        contract?: {
+          __typename?: 'NFTContract';
+          address: string;
+          isVerified?: boolean | null;
+          name?: string | null;
+          symbol?: string | null;
+          supportedErcInterfaces?: Array<string> | null;
+        } | null;
+        image?: Array<{
+          __typename?: 'TokenUpload';
+          height?: number | null;
+          mimeType?: string | null;
+          url: string;
+          width?: number | null;
+        }> | null;
+        ohlcvChart?: Array<{
+          __typename?: 'CollectionOHLCVChart';
+          average?: number | null;
+          close?: number | null;
+          count: number;
+          high?: number | null;
+          low?: number | null;
+          open?: number | null;
+          volume?: number | null;
+          timestamp: any;
+        }> | null;
+        openseaMetadata?: {
+          __typename?: 'OpenSeaMetadata';
+          isHidden?: boolean | null;
+          isVerified?: boolean | null;
+          unsafeSlug?: string | null;
+        } | null;
+      }
+    | {
+        __typename?: 'ERC1155Collection';
+        address: string;
+        baseTokenUri?: string | null;
+        circulatingSupply?: any | null;
+        description?: string | null;
+        externalUrl?: string | null;
+        name?: string | null;
+        slug?: string | null;
+        symbol?: string | null;
+        totalSupply?: any | null;
+        twitterUsername?: string | null;
+        bannerImage?: Array<{
+          __typename?: 'TokenUpload';
+          height?: number | null;
+          mimeType?: string | null;
+          url: string;
+          width?: number | null;
+        }> | null;
+        contract?: {
+          __typename?: 'NFTContract';
+          address: string;
+          isVerified?: boolean | null;
+          name?: string | null;
+          symbol?: string | null;
+          supportedErcInterfaces?: Array<string> | null;
+        } | null;
+        image?: Array<{
+          __typename?: 'TokenUpload';
+          height?: number | null;
+          mimeType?: string | null;
+          url: string;
+          width?: number | null;
+        }> | null;
+        ohlcvChart?: Array<{
+          __typename?: 'CollectionOHLCVChart';
+          average?: number | null;
+          close?: number | null;
+          count: number;
+          high?: number | null;
+          low?: number | null;
+          open?: number | null;
+          volume?: number | null;
+          timestamp: any;
+        }> | null;
+        openseaMetadata?: {
+          __typename?: 'OpenSeaMetadata';
+          isHidden?: boolean | null;
+          isVerified?: boolean | null;
+          unsafeSlug?: string | null;
+        } | null;
+      }
+    | null;
 };
-
-export type CodegenNftCollectionInfo_CodegenERC1155Collection_CodegenFragment =
-  {
-    __typename?: 'ERC1155Collection';
-    address: string;
-    baseTokenUri?: string | null;
-    circulatingSupply?: any | null;
-    description?: string | null;
-    externalUrl?: string | null;
-    name?: string | null;
-    slug?: string | null;
-    symbol?: string | null;
-    totalSupply?: any | null;
-    twitterUsername?: string | null;
-    bannerImage?: Array<{
-      __typename?: 'TokenUpload';
-      height?: number | null;
-      mimeType?: string | null;
-      url: string;
-      width?: number | null;
-    }> | null;
-    contract?: {
-      __typename?: 'NFTContract';
-      address: string;
-      isVerified?: boolean | null;
-      name?: string | null;
-      symbol?: string | null;
-      supportedErcInterfaces?: Array<string> | null;
-    } | null;
-    image?: Array<{
-      __typename?: 'TokenUpload';
-      height?: number | null;
-      mimeType?: string | null;
-      url: string;
-      width?: number | null;
-    }> | null;
-    ohlcvChart?: Array<{
-      __typename?: 'CollectionOHLCVChart';
-      average?: number | null;
-      close?: number | null;
-      count: number;
-      high?: number | null;
-      low?: number | null;
-      open?: number | null;
-      volume?: number | null;
-      timestamp: any;
-    }> | null;
-    openseaMetadata?: {
-      __typename?: 'OpenSeaMetadata';
-      isHidden?: boolean | null;
-      isVerified?: boolean | null;
-      unsafeSlug?: string | null;
-    } | null;
-  };
-
-export type CodegenNftCollectionInfoFragment =
-  | CodegenNftCollectionInfo_CodegenERC721Collection_CodegenFragment
-  | CodegenNftCollectionInfo_CodegenERC1155Collection_CodegenFragment;
 
 export type CodegenNftInfoFragment = {
   __typename?: 'WalletNFT';
@@ -1698,103 +1696,170 @@ export const CodegenNftCollectionInfoFragmentDoc = {
       name: { kind: 'Name', value: 'NftCollectionInfo' },
       typeCondition: {
         kind: 'NamedType',
-        name: { kind: 'Name', value: 'Collection' },
+        name: { kind: 'Name', value: 'EVMSchemaType' },
       },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'address' } },
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'bannerImage' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'mimeType' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'baseTokenUri' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'circulatingSupply' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'contract' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'isVerified' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'supportedErcInterfaces' },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'image' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'height' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'mimeType' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'width' } },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'ohlcvChart' },
+            name: { kind: 'Name', value: 'collection' },
             arguments: [
               {
                 kind: 'Argument',
-                name: { kind: 'Name', value: 'filter' },
+                name: { kind: 'Name', value: 'contractAddress' },
                 value: {
                   kind: 'Variable',
-                  name: { kind: 'Name', value: 'filter' },
+                  name: { kind: 'Name', value: 'contractAddress' },
                 },
               },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'average' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'close' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'high' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'low' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'open' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'volume' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'bannerImage' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'height' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'mimeType' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'width' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'baseTokenUri' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'circulatingSupply' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contract' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'address' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'isVerified' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'symbol' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'supportedErcInterfaces' },
+                      },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'image' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'height' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'mimeType' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'width' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'ohlcvChart' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'average' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'close' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'high' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'low' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'open' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'volume' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'timestamp' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'openseaMetadata' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'isHidden' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'isVerified' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'unsafeSlug' },
+                      },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'totalSupply' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'twitterUsername' },
+                },
               ],
             },
           },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'openseaMetadata' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'isHidden' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'isVerified' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'unsafeSlug' } },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'totalSupply' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'twitterUsername' } },
         ],
       },
     },

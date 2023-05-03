@@ -54,6 +54,10 @@ export function removeNodesAndEdges<
       }
 
       if (Array.isArray(value)) {
+        // An array can just be an array of strings and not edges and nodes
+        if (value.every((val) => typeof val === 'string')) {
+          return (output[key] = value);
+        }
         return (output[key] = value.map((item) => removeNodesAndEdges(item)));
       }
 

@@ -15,12 +15,22 @@ import {
   WalletNFTsByAddressQueryType,
 } from '../types/nfts/getByWalletAddress';
 import {
+  NftCollectionDetailsQueryResultInfo,
+  NftCollectionDetailsFormattedResult,
+  NftCollectionDetailsQueryResultFull,
+  NftCollectionDetailsQueryVariablesType,
+  NftCollectionDetailsQueryType,
+} from '../types/nfts/getCollectionDetails';
+import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
   CodegenPolygonMainnetWalletNFTsByAddressDocument,
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
+  CodegenEthMainnetNftCollectionDetailsDocument,
+  CodegenEthSepoliaNftCollectionDetailsDocument,
+  CodegenPolygonMainnetNftCollectionDetailsDocument,
 } from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
 import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
@@ -107,5 +117,34 @@ export class NftsController {
     >(walletByAddress, 'walletNFTs', 'walletNFTsPageInfo', 'nft');
 
     return formattedResult;
+  }
+
+  @QNApolloErrorHandler
+  async getCollectionDetails(
+    variables: NftCollectionDetailsQueryVariablesType & NonQueryInput
+  ): Promise<NftCollectionDetailsFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetNftCollectionDetailsDocument,
+      polygon: CodegenPolygonMainnetNftCollectionDetailsDocument,
+      ethereumSepolia: CodegenEthSepoliaNftCollectionDetailsDocument,
+    };
+
+    const {
+      data: {
+        [userChain]: { collection },
+      },
+    } = await this.client.query<
+      NftCollectionDetailsQueryVariablesType, // What the user can pass in
+      NftCollectionDetailsQueryType, // The actual unmodified result from query
+      NftCollectionDetailsQueryResultFull // the modified result (edges and nodes removed)
+    >({
+      query: query[userChain], // The actual graphql query
+      variables: queryVariables,
+    });
+
+    if (collection) return { collection };
+    return { collection: null };
   }
 }

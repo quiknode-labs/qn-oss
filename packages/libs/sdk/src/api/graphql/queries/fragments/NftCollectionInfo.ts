@@ -28,7 +28,7 @@ export const NftCollectionInfo = gql`
         width
       }
       name
-      ohlcvChart(filter: $filter) {
+      ohlcvChart(filter: { limit: 1 }) {
         average
         close
         count

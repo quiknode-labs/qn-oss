@@ -52,4 +52,16 @@ export default {
       return res.status(500).send({});
     }
   },
+
+  getTrendingCollections: async (req: Request, res: Response) => {
+    try {
+      const trendingCollections = await nfts.getTrendingCollections({
+        first: 5,
+      });
+      return res.status(200).send(trendingCollections);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
 };

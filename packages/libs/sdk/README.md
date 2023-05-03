@@ -112,6 +112,28 @@ client.nfts
   .then((response) => console.log(response));
 ```
 
+### nfts.getTrendingCollections
+
+Returns trending NFT Collections
+
+| Argument | Values | Required | Description                     | Example                     |
+| -------- | ------ | -------- | ------------------------------- | --------------------------- |
+| first    | number | ❌       | Number of results to return     | 10                          |
+| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
+| chain    | string | ❌       | Blockchain chain name           | polygon                     |
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const client = new QuickNode();
+
+client.nfts
+  .getTrendingCollections({
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
 ### nfts.getByContractAddress
 
 Returns NFTs by contract address. The response differs based on if they are an ERC721 or ERC1155 standard.

@@ -157,14 +157,15 @@ export class NftsController {
     const setErcStandard = (
       results: any
     ): NFTsByContractAddressFormattedResult => {
-      console.log(results);
       const standardMap: Record<string, NftErcStandards> = {
         ERC1155Collection: 'ERC1155',
         ERC721Collection: 'ERC721',
       };
-      results['standard'] = standardMap[results['__typename']] || null;
-      delete results['__typename'];
-      return results;
+      const { __typename, ...newResults } = results;
+      return {
+        ...newResults,
+        standard: standardMap[results['__typename']] || null,
+      };
     };
 
     const formattedResult = formatQueryResult<

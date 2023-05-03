@@ -72,9 +72,11 @@ Returns NFTs owned by a wallet
 | chain    | string | ❌       | Blockchain chain name           | polygon                     |
 
 ```ts
-import QuickNode from '@quicknode/sdk';
+import QuickNode from '@qn-oss/libs/sdk';
 
-const client = new QuickNode();
+const client = new QuickNode.API({
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
 
 client.api.nfts
   .getByWalletENS({
@@ -96,9 +98,11 @@ Returns NFTs owned by a wallet
 | chain    | string | ❌       | Blockchain chain name           | polygon                                    |
 
 ```ts
-import QuickNode from '@quicknode/sdk';
+import QuickNode from '@qn-oss/libs/sdk';
 
-const client = new QuickNode();
+const client = new QuickNode.API({
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
 
 client.nfts
   .getByWalletAddress({
@@ -125,6 +129,32 @@ const client = new QuickNode();
 
 client.nfts
   .getTrendingCollections({
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
+### nfts.getByContractAddress
+
+Returns NFTs by contract address. The response differs based on if they are an ERC721 or ERC1155 standard.
+
+| Argument        | Values | Required | Description                     | Example                                    |
+| --------------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | NFT contract address            | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| first           | number | ❌       | Number of results to return     | 10                                         |
+| after           | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain           | string | ❌       | Blockchain chain name           | polygon                                    |
+
+```ts
+import QuickNode from '@qn-oss/libs/sdk';
+
+const client = new QuickNode.API({
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+client.nfts
+  .getByWalletAddress({
+    address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
     first: 5,
   })
   .then((response) => console.log(response));

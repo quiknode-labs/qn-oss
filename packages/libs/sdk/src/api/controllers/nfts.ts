@@ -23,15 +23,25 @@ import {
   NFTTrendingCollectionsQueryType,
 } from '../types/nfts/getTrendingCollections';
 import {
+  NFTsByContractAddressQueryResultInfo,
+  NFTsByContractAddressFormattedResult,
+  NFTsByContractAddressQueryResultFull,
+  NFTsByContractAddressQueryVariablesType,
+  NFTsByContractAddressQueryType,
+} from '../types/nfts/getByContractAddress';
+import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
+  CodegenEthMainnetWalletNFTsByContractAddressDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
+  CodegenEthSepoliaWalletNFTsByContractAddressDocument,
   CodegenPolygonMainnetWalletNFTsByAddressDocument,
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
   CodegenEthMainnetTrendingCollectionsDocument,
   CodegenEthSepoliaTrendingCollectionsDocument,
   CodegenPolygonMainnetTrendingCollectionsDocument,
+  CodegenPolygonMainnetNFTsByContractAddressDocument,
 } from '../graphql/generatedTypes';
 
 import { ChainName } from '../types/chains';
@@ -41,6 +51,7 @@ import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@apollo/client';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
+import { NftErcStandards } from 'api/types/nfts';
 
 export class NftsController {
   constructor(
@@ -157,6 +168,60 @@ export class NftsController {
       'trendingCollectionsPageInfo',
       'collection'
     );
+  }
+
+  @QNApolloErrorHandler
+  async getByContractAddress(
+    variables: NFTsByContractAddressQueryVariablesType & NonQueryInput
+  ): Promise<NFTsByContractAddressFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetWalletNFTsByContractAddressDocument,
+      polygon: CodegenPolygonMainnetNFTsByContractAddressDocument,
+      ethereumSepolia: CodegenEthSepoliaWalletNFTsByContractAddressDocument,
+    };
+
+    const {
+      data: {
+        [userChain]: { collection },
+      },
+    } = await this.client.query<
+      NFTsByContractAddressQueryVariablesType, // What the user can pass in
+      NFTsByContractAddressQueryType, // The actual unmodified result from query
+      NFTsByContractAddressQueryResultFull // the modified result (edges and nodes removed)
+    >({
+      query: query[userChain], // The actual graphql query
+      variables: queryVariables,
+      keepTypename: true,
+    });
+
+    if (!collection?.nfts?.length) {
+      return {
+        standard: null,
+        results: [],
+        pageInfo: emptyPageInfo,
+      };
+    }
+
+    const setErcStandard = (
+      results: any
+    ): NFTsByContractAddressFormattedResult => {
+      const standardMap: Record<string, NftErcStandards> = {
+        ERC1155Collection: 'ERC1155',
+        ERC721Collection: 'ERC721',
+      };
+      const { __typename, ...newResults } = results;
+      return {
+        ...newResults,
+        standard: standardMap[results['__typename']] || null,
+      };
+    };
+
+    const formattedResult = formatQueryResult<
+      NFTsByContractAddressQueryResultInfo,
+      NFTsByContractAddressFormattedResult
+    >(collection, 'nfts', 'nftsPageInfo', null, setErcStandard);
 
     return formattedResult;
   }

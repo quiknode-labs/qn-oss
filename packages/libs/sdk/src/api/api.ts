@@ -94,10 +94,13 @@ export class API {
       };
     });
 
-    // TODO MIGRATION: add type policies
     const cacheStructure = new InMemoryCache({
       possibleTypes: generatedPossibleTypes.possibleTypes,
-      typePolicies: {},
+      typePolicies: {
+        NFT: {
+          keyFields: ['contractAddress', 'tokenId'],
+        },
+      },
     });
 
     const rawClient = new ApolloClient({

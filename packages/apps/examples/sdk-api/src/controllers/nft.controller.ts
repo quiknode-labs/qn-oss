@@ -33,10 +33,21 @@ export default {
       const NFTs = await client.nfts.getByWalletAddress({
         address: req.params.address,
         first: 5,
-        after: 'T2Zmc2V0Q29ubmVjdGlvbjox',
-        chain: 'polygon',
       });
       return res.status(200).send(NFTs);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
+
+  getNFTDetails: async (req: Request, res: Response) => {
+    try {
+      const NFT = await client.nfts.getNFTDetails({
+        contractAddress: req.params.contractAddress,
+        tokenId: req.params.tokenId,
+      });
+      return res.status(200).send(NFT);
     } catch (error) {
       console.error(error);
       return res.status(500).send({});

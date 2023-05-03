@@ -180,8 +180,8 @@ const client = new QuickNode.API({
 
 client.nfts
   .getNFTDetails(
-    contractAddress: req.params.contractAddress,
-    tokenId: req.params.tokenId,
+    contractAddress: "0x2106C00Ac7dA0A3430aE667879139E832307AeAa",
+    tokenId: "1",
   )
   .then((response) => console.log(response));
 ```

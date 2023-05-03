@@ -9,6 +9,10 @@ import {
   ResultOutput,
 } from '../utils/removeNodesAndEdges';
 
+interface InternalOptions {
+  keepTypename?: boolean;
+}
+
 export class CustomApolloClient {
   constructor(public apolloClient: ApolloClient<NormalizedCacheObject>) {}
 
@@ -16,14 +20,17 @@ export class CustomApolloClient {
     TVariables extends OperationVariables,
     KResults extends Record<string, any>,
     KResultsOutput extends ResultOutput
-  >(options: QueryOptions<TVariables, KResults>) {
-    const result = await this.apolloClient.query(options);
+  >(options: QueryOptions<TVariables, KResults> & InternalOptions) {
+    const { keepTypename, ...apolloOptions } = options;
+    const result = await this.apolloClient.query(apolloOptions);
 
     return {
       ...result,
       data:
         result?.data &&
-        removeNodesAndEdges<KResults, KResultsOutput>(result.data),
+        removeNodesAndEdges<KResults, KResultsOutput>(result.data, {
+          keepTypename,
+        }),
     };
   }
 }

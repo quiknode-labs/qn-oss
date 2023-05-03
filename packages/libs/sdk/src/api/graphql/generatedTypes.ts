@@ -250,6 +250,18 @@ export type CodegenContractCodegentokenEventsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+export enum CodegenContractStandard {
+  CodegenERC20 = 'ERC20',
+  CodegenERC721 = 'ERC721',
+  CodegenERC1155 = 'ERC1155',
+}
+
+export type CodegenContractStandardInput = {
+  eq?: InputMaybe<CodegenContractStandard>;
+  in?: InputMaybe<Array<CodegenContractStandard>>;
+  notIn?: InputMaybe<Array<CodegenContractStandard>>;
+};
+
 export type CodegenContractTokenEventsConnection = {
   __typename?: 'ContractTokenEventsConnection';
   edges: Array<CodegenContractTokenEventsConnectionEdge>;
@@ -727,6 +739,24 @@ export type CodegenIntegerInput = {
   lte?: InputMaybe<Scalars['Int']>;
 };
 
+/** Marketplace where the token was sold */
+export enum CodegenMarketplace {
+  CodegenBLUR = 'BLUR',
+  CodegenCRYPTOPUNKS = 'CRYPTOPUNKS',
+  CodegenLOOKSRARE = 'LOOKSRARE',
+  CodegenNIFTY_GATEWAY = 'NIFTY_GATEWAY',
+  CodegenOPENSEA = 'OPENSEA',
+  CodegenSEAPORT = 'SEAPORT',
+  CodegenX2Y2 = 'X2Y2',
+  CodegenZEROX = 'ZEROX',
+}
+
+export type CodegenMarketplaceInput = {
+  eq?: InputMaybe<CodegenMarketplace>;
+  in?: InputMaybe<Array<CodegenMarketplace>>;
+  notIn?: InputMaybe<Array<CodegenMarketplace>>;
+};
+
 export type CodegenNFT = {
   animationUrl?: Maybe<Scalars['String']>;
   collection?: Maybe<CodegenCollection>;
@@ -845,10 +875,14 @@ export type CodegenTokenAttribute = {
 export type CodegenTokenBurnEvent = CodegenTokenEvent & {
   __typename?: 'TokenBurnEvent';
   blockNumber: Scalars['Int'];
+  contract?: Maybe<CodegenContract>;
   contractAddress: Scalars['String'];
   contractERCStandard?: Maybe<CodegenERCStandard>;
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  nft?: Maybe<CodegenNFT>;
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   tokenId?: Maybe<Scalars['BigInt']>;
   tokenQuantity: Scalars['BigInt'];
@@ -890,7 +924,11 @@ export type CodegenTokenDetailsType = {
 
 export type CodegenTokenEvent = {
   blockNumber: Scalars['Int'];
+  from?: Maybe<CodegenWallet>;
+  fromAddress: Scalars['String'];
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
+  toAddress: Scalars['String'];
   transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
   transferIndex: Scalars['Int'];
@@ -903,16 +941,20 @@ export type CodegenTokenEventsFilterInput = {
   blockNumber?: InputMaybe<CodegenIntegerInput>;
   /** Filter token events by contract address */
   contractAddress?: InputMaybe<CodegenStringInput>;
+  /** Filter token events by their contract standard */
+  contractStandard?: InputMaybe<CodegenContractStandardInput>;
   /** Filter token events by the "from" wallet */
   fromAddress?: InputMaybe<CodegenStringInput>;
+  /** Filter token events by the marketplace. It's only valid for SALE types */
+  marketplace?: InputMaybe<CodegenMarketplaceInput>;
   /** Filter token events by their estimated confirmation date */
   timestamp?: InputMaybe<CodegenDateTimeInput>;
   /** Filter token events by the "to" wallet */
   toAddress?: InputMaybe<CodegenStringInput>;
+  /** Filter token events by transaction hash */
+  transactionHash?: InputMaybe<CodegenStringInput>;
   /** Filter token events by their type */
-  type?: InputMaybe<CodegenTokenTransferType>;
-  /** Filter token events by their type */
-  typeIn?: InputMaybe<Array<CodegenTokenTransferType>>;
+  type?: InputMaybe<CodegenTokenTransferTypeInput>;
   /** Filter token events by the "to" and "from" wallet */
   walletAddress?: InputMaybe<CodegenStringInput>;
 };
@@ -920,10 +962,14 @@ export type CodegenTokenEventsFilterInput = {
 export type CodegenTokenMintEvent = CodegenTokenEvent & {
   __typename?: 'TokenMintEvent';
   blockNumber: Scalars['Int'];
+  contract?: Maybe<CodegenContract>;
   contractAddress: Scalars['String'];
   contractERCStandard?: Maybe<CodegenERCStandard>;
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  nft?: Maybe<CodegenNFT>;
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   tokenId?: Maybe<Scalars['BigInt']>;
   tokenQuantity: Scalars['BigInt'];
@@ -936,15 +982,26 @@ export type CodegenTokenMintEvent = CodegenTokenEvent & {
 export type CodegenTokenSaleEvent = CodegenTokenEvent & {
   __typename?: 'TokenSaleEvent';
   blockNumber: Scalars['Int'];
+  contractAddress: Scalars['String'];
+  contractERCStandard?: Maybe<CodegenERCStandard>;
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  /** Marketplace used to make the sale */
+  marketplace?: Maybe<CodegenMarketplace>;
+  receivedNft?: Maybe<CodegenNFT>;
+  receivedTokenContract?: Maybe<CodegenContract>;
+  /** The address of the token received as payment of the sale proceeds */
   receivedTokenContractAddress?: Maybe<Scalars['String']>;
+  /** The id of the token received as payment of the sale proceeds */
   receivedTokenId?: Maybe<Scalars['BigInt']>;
+  /** The quantity of tokens received as payment of the sale proceeds */
   receivedTokenQuantity?: Maybe<Scalars['BigInt']>;
-  sentTokenContractAddress: Scalars['String'];
-  sentTokenContractERCStandard?: Maybe<CodegenERCStandard>;
+  sentNft?: Maybe<CodegenNFT>;
+  sentTokenContract?: Maybe<CodegenContract>;
   sentTokenId?: Maybe<Scalars['BigInt']>;
   sentTokenQuantity: Scalars['BigInt'];
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
@@ -955,15 +1012,21 @@ export type CodegenTokenSaleEvent = CodegenTokenEvent & {
 export type CodegenTokenSwapEvent = CodegenTokenEvent & {
   __typename?: 'TokenSwapEvent';
   blockNumber: Scalars['Int'];
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  receivedNft?: Maybe<CodegenNFT>;
+  receivedTokenContract?: Maybe<CodegenContract>;
   receivedTokenContractAddress?: Maybe<Scalars['String']>;
   receivedTokenId?: Maybe<Scalars['BigInt']>;
   receivedTokenQuantity?: Maybe<Scalars['BigInt']>;
+  sentNft?: Maybe<CodegenNFT>;
+  sentTokenContract?: Maybe<CodegenContract>;
   sentTokenContractAddress: Scalars['String'];
   sentTokenContractERCStandard?: Maybe<CodegenERCStandard>;
   sentTokenId?: Maybe<Scalars['BigInt']>;
   sentTokenQuantity: Scalars['BigInt'];
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
@@ -974,10 +1037,14 @@ export type CodegenTokenSwapEvent = CodegenTokenEvent & {
 export type CodegenTokenTransferEvent = CodegenTokenEvent & {
   __typename?: 'TokenTransferEvent';
   blockNumber: Scalars['Int'];
+  contract?: Maybe<CodegenContract>;
   contractAddress: Scalars['String'];
   contractERCStandard?: Maybe<CodegenERCStandard>;
+  from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
+  nft?: Maybe<CodegenNFT>;
   timestamp: Scalars['DateTime'];
+  to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
   tokenId?: Maybe<Scalars['BigInt']>;
   tokenQuantity: Scalars['BigInt'];
@@ -994,6 +1061,12 @@ export enum CodegenTokenTransferType {
   CodegenSWAP = 'SWAP',
   CodegenTRANSFER = 'TRANSFER',
 }
+
+export type CodegenTokenTransferTypeInput = {
+  eq?: InputMaybe<CodegenTokenTransferType>;
+  in?: InputMaybe<Array<CodegenTokenTransferType>>;
+  notIn?: InputMaybe<Array<CodegenTokenTransferType>>;
+};
 
 /** Token media uploads. */
 export type CodegenTokenUpload = {
@@ -1357,6 +1430,19 @@ export type CodegenWalletWalletCollectionsConnectionEdge = {
   node: CodegenWalletCollection;
 };
 
+export type CodegenEthMainnetWalletNFTsByContractAddressQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type CodegenEthMainnetWalletNFTsByContractAddressQuery = {
+  __typename?: 'Query';
+  ethereum: {
+    __typename?: 'EVMSchemaType';
+  } & CodegenNftsByContractAddressFragmentFragment;
+};
+
 export type CodegenEthMainnetWalletNFTsByAddressQueryVariables = Exact<{
   address: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
@@ -1381,6 +1467,19 @@ export type CodegenEthMainnetWalletNFTsByEnsQuery = {
   ethereum: {
     __typename?: 'EVMSchemaType';
   } & CodegenWalletByEnsFragmentFragment;
+};
+
+export type CodegenEthSepoliaWalletNFTsByContractAddressQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type CodegenEthSepoliaWalletNFTsByContractAddressQuery = {
+  __typename?: 'Query';
+  ethereumSepolia: {
+    __typename?: 'EVMSchemaType';
+  } & CodegenNftsByContractAddressFragmentFragment;
 };
 
 export type CodegenEthSepoliaWalletNFTsByAddressQueryVariables = Exact<{
@@ -1409,7 +1508,48 @@ export type CodegenEthSepoliaWalletNFTsByEnsQuery = {
   } & CodegenWalletByEnsFragmentFragment;
 };
 
-export type CodegenNftInfoFragment = {
+export type CodegenERC1155NFTNodeFragment = {
+  __typename?: 'ERC1155NFT';
+  animationUrl?: string | null;
+  collectionSlug?: string | null;
+  contractAddress: string;
+  description?: string | null;
+  externalUrl?: string | null;
+  metadata?: any | null;
+  name?: string | null;
+  tokenId: any;
+  wallets: {
+    __typename?: 'ERC1155NFTWalletsConnection';
+    edges: Array<{
+      __typename?: 'ERC1155NFTWalletsConnectionEdge';
+      node: { __typename?: 'Wallet'; address: string; ensName?: string | null };
+    }>;
+  };
+};
+
+export type CodegenERC721NFTNodeFragment = {
+  __typename?: 'ERC721NFT';
+  animationUrl?: string | null;
+  collectionSlug?: string | null;
+  contractAddress: string;
+  description?: string | null;
+  externalUrl?: string | null;
+  metadata?: any | null;
+  name?: string | null;
+  tokenId: any;
+  attributes?: Array<{
+    __typename?: 'TokenAttribute';
+    name: string;
+    value: string;
+  }> | null;
+  wallet?: {
+    __typename?: 'Wallet';
+    address: string;
+    ensName?: string | null;
+  } | null;
+};
+
+export type CodegenWalletNFTNodeFragment = {
   __typename?: 'WalletNFT';
   nft?:
     | {
@@ -1437,6 +1577,34 @@ export type CodegenNftInfoFragment = {
     | null;
 };
 
+export type CodegenNftsByContractAddressFragmentFragment = {
+  __typename?: 'EVMSchemaType';
+  collection?:
+    | {
+        __typename: 'ERC721Collection';
+        nfts: {
+          __typename?: 'ERC721CollectionTokensConnection';
+          pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
+          edges: Array<{
+            __typename?: 'ERC721CollectionTokensEdge';
+            node: { __typename?: 'ERC721NFT' } & CodegenERC721NFTNodeFragment;
+          }>;
+        };
+      }
+    | {
+        __typename: 'ERC1155Collection';
+        nfts: {
+          __typename?: 'ERC1155CollectionTokensConnection';
+          pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
+          edges: Array<{
+            __typename?: 'ERC1155CollectionTokensEdge';
+            node: { __typename?: 'ERC1155NFT' } & CodegenERC1155NFTNodeFragment;
+          }>;
+        };
+      }
+    | null;
+};
+
 export type CodegenWalletByAddressFragmentFragment = {
   __typename?: 'EVMSchemaType';
   walletByAddress?: {
@@ -1448,7 +1616,7 @@ export type CodegenWalletByAddressFragmentFragment = {
       pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
       edges: Array<{
         __typename?: 'WalletNFTsConnectionEdge';
-        node: { __typename?: 'WalletNFT' } & CodegenNftInfoFragment;
+        node: { __typename?: 'WalletNFT' } & CodegenWalletNFTNodeFragment;
       }>;
     };
   } | null;
@@ -1465,7 +1633,7 @@ export type CodegenWalletByEnsFragmentFragment = {
       pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
       edges: Array<{
         __typename?: 'WalletNFTsConnectionEdge';
-        node: { __typename?: 'WalletNFT' } & CodegenNftInfoFragment;
+        node: { __typename?: 'WalletNFT' } & CodegenWalletNFTNodeFragment;
       }>;
     };
   } | null;
@@ -1477,6 +1645,19 @@ export type CodegenPaginationFragment = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   startCursor?: string | null;
+};
+
+export type CodegenPolygonMainnetNFTsByContractAddressQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type CodegenPolygonMainnetNFTsByContractAddressQuery = {
+  __typename?: 'Query';
+  polygon: {
+    __typename?: 'EVMSchemaType';
+  } & CodegenNftsByContractAddressFragmentFragment;
 };
 
 export type CodegenPolygonMainnetWalletNFTsByAddressQueryVariables = Exact<{
@@ -1527,12 +1708,432 @@ export const CodegenPaginationFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CodegenPaginationFragment, unknown>;
-export const CodegenNftInfoFragmentDoc = {
+export const CodegenERC1155NFTNodeFragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NftInfo' },
+      name: { kind: 'Name', value: 'ERC1155NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC1155NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallets' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'address' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'ensName' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenERC1155NFTNodeFragment, unknown>;
+export const CodegenERC721NFTNodeFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ERC721NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC721NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'attributes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallet' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ensName' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenERC721NFTNodeFragment, unknown>;
+export const CodegenNftsByContractAddressFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'NftsByContractAddressFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'collection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ERC1155Collection' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nfts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'after' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'after' },
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pageInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Pagination' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'edges' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'node' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'ERC1155NFTNode',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ERC721Collection' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nfts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'after' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'after' },
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pageInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Pagination' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'edges' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'node' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'ERC721NFTNode',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ERC1155NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC1155NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallets' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'address' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'ensName' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ERC721NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC721NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'attributes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallet' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ensName' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenNftsByContractAddressFragmentFragment,
+  unknown
+>;
+export const CodegenWalletNFTNodeFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WalletNFTNode' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'WalletNFT' },
@@ -1570,7 +2171,7 @@ export const CodegenNftInfoFragmentDoc = {
       },
     },
   ],
-} as unknown as DocumentNode<CodegenNftInfoFragment, unknown>;
+} as unknown as DocumentNode<CodegenWalletNFTNodeFragment, unknown>;
 export const CodegenWalletByAddressFragmentFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -1653,7 +2254,10 @@ export const CodegenWalletByAddressFragmentFragmentDoc = {
                                 selections: [
                                   {
                                     kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'NftInfo' },
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'WalletNFTNode',
+                                    },
                                   },
                                 ],
                               },
@@ -1689,7 +2293,7 @@ export const CodegenWalletByAddressFragmentFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NftInfo' },
+      name: { kind: 'Name', value: 'WalletNFTNode' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'WalletNFT' },
@@ -1810,7 +2414,10 @@ export const CodegenWalletByEnsFragmentFragmentDoc = {
                                 selections: [
                                   {
                                     kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'NftInfo' },
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'WalletNFTNode',
+                                    },
                                   },
                                 ],
                               },
@@ -1846,7 +2453,7 @@ export const CodegenWalletByEnsFragmentFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NftInfo' },
+      name: { kind: 'Name', value: 'WalletNFTNode' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'WalletNFT' },
@@ -1885,6 +2492,375 @@ export const CodegenWalletByEnsFragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CodegenWalletByEnsFragmentFragment, unknown>;
+export const CodegenEthMainnetWalletNFTsByContractAddressDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthMainnetWalletNFTsByContractAddress' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereum' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: {
+                    kind: 'Name',
+                    value: 'NftsByContractAddressFragment',
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ERC1155NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC1155NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallets' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'address' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'ensName' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ERC721NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC721NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'attributes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallet' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ensName' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'NftsByContractAddressFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'collection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ERC1155Collection' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nfts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'after' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'after' },
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pageInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Pagination' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'edges' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'node' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'ERC1155NFTNode',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ERC721Collection' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nfts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'after' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'after' },
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pageInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Pagination' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'edges' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'node' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'ERC721NFTNode',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthMainnetWalletNFTsByContractAddressQuery,
+  CodegenEthMainnetWalletNFTsByContractAddressQueryVariables
+>;
 export const CodegenEthMainnetWalletNFTsByAddressDocument = {
   kind: 'Document',
   definitions: [
@@ -1962,7 +2938,7 @@ export const CodegenEthMainnetWalletNFTsByAddressDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NftInfo' },
+      name: { kind: 'Name', value: 'WalletNFTNode' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'WalletNFT' },
@@ -2078,7 +3054,10 @@ export const CodegenEthMainnetWalletNFTsByAddressDocument = {
                                 selections: [
                                   {
                                     kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'NftInfo' },
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'WalletNFTNode',
+                                    },
                                   },
                                 ],
                               },
@@ -2177,7 +3156,7 @@ export const CodegenEthMainnetWalletNFTsByEnsDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NftInfo' },
+      name: { kind: 'Name', value: 'WalletNFTNode' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'WalletNFT' },
@@ -2293,7 +3272,10 @@ export const CodegenEthMainnetWalletNFTsByEnsDocument = {
                                 selections: [
                                   {
                                     kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'NftInfo' },
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'WalletNFTNode',
+                                    },
                                   },
                                 ],
                               },
@@ -2314,6 +3296,375 @@ export const CodegenEthMainnetWalletNFTsByEnsDocument = {
 } as unknown as DocumentNode<
   CodegenEthMainnetWalletNFTsByEnsQuery,
   CodegenEthMainnetWalletNFTsByEnsQueryVariables
+>;
+export const CodegenEthSepoliaWalletNFTsByContractAddressDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthSepoliaWalletNFTsByContractAddress' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereumSepolia' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: {
+                    kind: 'Name',
+                    value: 'NftsByContractAddressFragment',
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ERC1155NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC1155NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallets' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'address' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'ensName' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ERC721NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC721NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'attributes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallet' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ensName' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'NftsByContractAddressFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'collection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ERC1155Collection' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nfts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'after' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'after' },
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pageInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Pagination' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'edges' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'node' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'ERC1155NFTNode',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ERC721Collection' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nfts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'after' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'after' },
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pageInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Pagination' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'edges' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'node' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'ERC721NFTNode',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthSepoliaWalletNFTsByContractAddressQuery,
+  CodegenEthSepoliaWalletNFTsByContractAddressQueryVariables
 >;
 export const CodegenEthSepoliaWalletNFTsByAddressDocument = {
   kind: 'Document',
@@ -2392,7 +3743,7 @@ export const CodegenEthSepoliaWalletNFTsByAddressDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NftInfo' },
+      name: { kind: 'Name', value: 'WalletNFTNode' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'WalletNFT' },
@@ -2508,7 +3859,10 @@ export const CodegenEthSepoliaWalletNFTsByAddressDocument = {
                                 selections: [
                                   {
                                     kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'NftInfo' },
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'WalletNFTNode',
+                                    },
                                   },
                                 ],
                               },
@@ -2607,7 +3961,7 @@ export const CodegenEthSepoliaWalletNFTsByEnsDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NftInfo' },
+      name: { kind: 'Name', value: 'WalletNFTNode' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'WalletNFT' },
@@ -2723,7 +4077,10 @@ export const CodegenEthSepoliaWalletNFTsByEnsDocument = {
                                 selections: [
                                   {
                                     kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'NftInfo' },
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'WalletNFTNode',
+                                    },
                                   },
                                 ],
                               },
@@ -2744,6 +4101,375 @@ export const CodegenEthSepoliaWalletNFTsByEnsDocument = {
 } as unknown as DocumentNode<
   CodegenEthSepoliaWalletNFTsByEnsQuery,
   CodegenEthSepoliaWalletNFTsByEnsQueryVariables
+>;
+export const CodegenPolygonMainnetNFTsByContractAddressDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'PolygonMainnetNFTsByContractAddress' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'polygon' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: {
+                    kind: 'Name',
+                    value: 'NftsByContractAddressFragment',
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ERC1155NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC1155NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallets' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'address' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'ensName' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ERC721NFTNode' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ERC721NFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'animationUrl' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'attributes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'collectionSlug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'contractAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'externalUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'metadata' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'wallet' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ensName' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'NftsByContractAddressFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'collection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ERC1155Collection' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nfts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'after' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'after' },
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pageInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Pagination' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'edges' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'node' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'ERC1155NFTNode',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ERC721Collection' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nfts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'after' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'after' },
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pageInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Pagination' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'edges' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'node' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'ERC721NFTNode',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenPolygonMainnetNFTsByContractAddressQuery,
+  CodegenPolygonMainnetNFTsByContractAddressQueryVariables
 >;
 export const CodegenPolygonMainnetWalletNFTsByAddressDocument = {
   kind: 'Document',
@@ -2822,7 +4548,7 @@ export const CodegenPolygonMainnetWalletNFTsByAddressDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NftInfo' },
+      name: { kind: 'Name', value: 'WalletNFTNode' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'WalletNFT' },
@@ -2938,7 +4664,10 @@ export const CodegenPolygonMainnetWalletNFTsByAddressDocument = {
                                 selections: [
                                   {
                                     kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'NftInfo' },
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'WalletNFTNode',
+                                    },
                                   },
                                 ],
                               },
@@ -3037,7 +4766,7 @@ export const CodegenPolygonMainnetWalletNFTsByEnsDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'NftInfo' },
+      name: { kind: 'Name', value: 'WalletNFTNode' },
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'WalletNFT' },
@@ -3153,7 +4882,10 @@ export const CodegenPolygonMainnetWalletNFTsByEnsDocument = {
                                 selections: [
                                   {
                                     kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'NftInfo' },
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'WalletNFTNode',
+                                    },
                                   },
                                 ],
                               },

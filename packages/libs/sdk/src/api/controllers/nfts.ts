@@ -14,7 +14,6 @@ import {
   WalletNFTsByAddressQueryVariablesType,
   WalletNFTsByAddressQueryType,
 } from '../types/nfts/getByWalletAddress';
-
 import {
   NFTTrendingCollectionsQueryResultBody,
   NFTTrendingCollectionFormattedResult,
@@ -51,7 +50,7 @@ import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@apollo/client';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
-import { NftErcStandards } from 'api/types/nfts';
+import { NftErcStandards } from '../types/nfts';
 
 export class NftsController {
   constructor(
@@ -168,6 +167,8 @@ export class NftsController {
       'trendingCollectionsPageInfo',
       'collection'
     );
+
+    return formattedResult;
   }
 
   @QNApolloErrorHandler

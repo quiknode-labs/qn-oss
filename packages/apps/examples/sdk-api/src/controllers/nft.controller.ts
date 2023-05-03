@@ -55,7 +55,7 @@ export default {
 
   getTrendingCollections: async (req: Request, res: Response) => {
     try {
-      const trendingCollections = await client.nfts.getTrendingCollections({
+      const trendingCollections = await nfts.getTrendingCollections({
         first: 5,
       });
       return res.status(200).send(trendingCollections);

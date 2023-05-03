@@ -124,7 +124,7 @@ const client = new QuickNode();
 
 client.nfts
   .getCollectionDetails({
-    address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
   })
   .then((response) => console.log(response));
 ```

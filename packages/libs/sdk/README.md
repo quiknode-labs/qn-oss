@@ -69,14 +69,16 @@ Returns NFTs owned by a wallet
 | ensName  | string | ✅       | Wallet ENS address              | vitalik.eth                 |
 | first    | number | ❌       | Number of results to return     | 10                          |
 | after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
-| chain    | string | ❌       | Blockchain name                 | polygon                     |
+| chain    | string | ❌       | Blockchain chain name           | polygon                     |
 
 ```ts
-import QuickNode from '@quicknode/sdk';
+import QuickNode from '@qn-oss/libs/sdk';
 
-const client = new QuickNode();
+const client = new QuickNode.API({
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
 
-client.api.nfts
+client.nfts
   .getByWalletENS({
     ensName: 'vitalik.eth',
     first: 5,
@@ -93,12 +95,14 @@ Returns NFTs owned by a wallet
 | address  | string | ✅       | Wallet address                  | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
 | first    | number | ❌       | Number of results to return     | 10                                         |
 | after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
-| chain    | string | ❌       | Blockchain name                 | polygon                                    |
+| chain    | string | ❌       | Blockchain chain name           | polygon                                    |
 
 ```ts
-import QuickNode from '@quicknode/sdk';
+import QuickNode from '@qn-oss/libs/sdk';
 
-const client = new QuickNode();
+const client = new QuickNode.API({
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
 
 client.nfts
   .getByWalletAddress({
@@ -108,14 +112,15 @@ client.nfts
   .then((response) => console.log(response));
 ```
 
-### nfts.getCollectionDetails
+### nfts.getTrendingCollections
 
-Returns the details for an NFT Collection
+Returns trending NFT Collections
 
-| Argument        | Values | Required | Description          | Example                                    |
-| --------------- | ------ | -------- | -------------------- | ------------------------------------------ |
-| contractAddress | string | ✅       | NFT contract address | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
-| chain           | string | ❌       | Blockchain name      | polygon                                    |
+| Argument | Values | Required | Description                     | Example                     |
+| -------- | ------ | -------- | ------------------------------- | --------------------------- |
+| first    | number | ❌       | Number of results to return     | 10                          |
+| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
+| chain    | string | ❌       | Blockchain chain name           | polygon                     |
 
 ```ts
 import QuickNode from '@quicknode/sdk';
@@ -123,9 +128,61 @@ import QuickNode from '@quicknode/sdk';
 const client = new QuickNode();
 
 client.nfts
-  .getCollectionDetails({
-    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+  .getTrendingCollections({
+    first: 5,
   })
+  .then((response) => console.log(response));
+```
+
+### nfts.getByContractAddress
+
+Returns NFTs by contract address. The response differs based on if they are an ERC721 or ERC1155 standard.
+
+| Argument        | Values | Required | Description                     | Example                                    |
+| --------------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | NFT contract address            | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| first           | number | ❌       | Number of results to return     | 10                                         |
+| after           | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain           | string | ❌       | Blockchain chain name           | polygon                                    |
+
+```ts
+import QuickNode from '@qn-oss/libs/sdk';
+
+const client = new QuickNode.API({
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+client.nfts
+  .getByWalletAddress({
+    address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
+### nfts.getNFTDetails
+
+Returns the details for a specified NFT
+
+| Argument        | Values | Required | Description           | Example                                    |
+| --------------- | ------ | -------- | --------------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | NFT contract address  | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| tokenId         | string | ✅       | NFT Token ID          | 1                                          |
+| chain           | string | ❌       | Blockchain chain name | polygon                                    |
+
+```ts
+import QuickNode from '@qn-oss/libs/sdk';
+
+const client = new QuickNode.API({
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+
+client.nfts
+  .getNFTDetails(
+    contractAddress: "0x2106C00Ac7dA0A3430aE667879139E832307AeAa",
+    tokenId: "1",
+  )
   .then((response) => console.log(response));
 ```
 

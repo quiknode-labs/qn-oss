@@ -1,7 +1,7 @@
 import {
   CodegenEthMainnetWalletNFTsByAddressQueryVariables,
   CodegenEthMainnetWalletNFTsByAddressQuery,
-  CodegenNftInfoFragment,
+  CodegenWalletNFTNodeFragment,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
@@ -21,7 +21,7 @@ export interface WalletNFTsByAddressQueryResultInfo {
   address: string;
   ensName: string;
   walletNFTsPageInfo: CodegenPaginationFragment;
-  walletNFTs: CodegenNftInfoFragment[];
+  walletNFTs: CodegenWalletNFTNodeFragment[];
 }
 export interface WalletNFTsByAddressQueryResultBody {
   walletByAddress: WalletNFTsByAddressQueryResultInfo;
@@ -37,6 +37,6 @@ export type WalletNFTByAddressQueryResultFull = Record<
 export type WalletNFTsByAddressFormattedResult = {
   address: string;
   ensName: string;
-  results: CodegenNftInfoFragment['nft'][];
+  results: CodegenWalletNFTNodeFragment['nft'][];
   pageInfo: CodegenPaginationFragment;
 };

@@ -8,6 +8,11 @@ router.get('/api', (req, res) => {
 
 router.get('/api/nftsByEns/:ensResource', nftController.getNFTsByEns);
 router.get('/api/nftsByAddress/:address', nftController.getNFTsByAddress);
+router.get('/api/trendingCollections', nftController.getTrendingCollections);
+router.get(
+  '/api/nftsByContractAddress/:contractAddress',
+  nftController.getNFTsByContractAddress
+);
 router.get(
   '/api/nftDetails/:contractAddress/:tokenId',
   nftController.getNFTDetails

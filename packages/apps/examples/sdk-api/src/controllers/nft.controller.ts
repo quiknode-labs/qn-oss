@@ -12,12 +12,12 @@ if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
   };
 }
 
-const client = new QuickNode.API(opts);
+const nfts = new QuickNode.API(opts).nfts;
 
 export default {
   getNFTsByEns: async (req: Request, res: Response) => {
     try {
-      const NFTs = await client.nfts.getByWalletENS({
+      const NFTs = await nfts.getByWalletENS({
         ensName: req.params.ensResource,
         first: 2,
       });
@@ -30,7 +30,7 @@ export default {
 
   getNFTsByAddress: async (req: Request, res: Response) => {
     try {
-      const NFTs = await client.nfts.getByWalletAddress({
+      const NFTs = await nfts.getByWalletAddress({
         address: req.params.address,
         first: 5,
       });
@@ -43,11 +43,35 @@ export default {
 
   getNFTDetails: async (req: Request, res: Response) => {
     try {
-      const NFT = await client.nfts.getNFTDetails({
+      const NFT = await nfts.getNFTDetails({
         contractAddress: req.params.contractAddress,
         tokenId: req.params.tokenId,
       });
       return res.status(200).send(NFT);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
+
+  getNFTsByContractAddress: async (req: Request, res: Response) => {
+    try {
+      const NFTs = await nfts.getByContractAddress({
+        contractAddress: req.params.contractAddress,
+      });
+      return res.status(200).send(NFTs);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
+
+  getTrendingCollections: async (req: Request, res: Response) => {
+    try {
+      const trendingCollections = await nfts.getTrendingCollections({
+        first: 5,
+      });
+      return res.status(200).send(trendingCollections);
     } catch (error) {
       console.error(error);
       return res.status(500).send({});

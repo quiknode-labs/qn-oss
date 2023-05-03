@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { NftInfo } from './nft';
+import { WalletNFTNode } from './WalletNft';
 import { Pagination } from './pagination';
 
 export const WalletByEnsFragment = gql`
@@ -14,12 +14,12 @@ export const WalletByEnsFragment = gql`
         }
         edges {
           node {
-            ...NftInfo
+            ...WalletNFTNode
           }
         }
       }
     }
   }
-  ${NftInfo}
+  ${WalletNFTNode}
   ${Pagination}
 `;

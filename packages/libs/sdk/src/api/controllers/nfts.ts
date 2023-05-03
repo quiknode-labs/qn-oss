@@ -22,14 +22,34 @@ import {
   NFTDetailsQueryType,
 } from '../types/nfts/getNFTDetails';
 import {
+  NFTTrendingCollectionsQueryResultBody,
+  NFTTrendingCollectionFormattedResult,
+  NFTTrendingCollectionsQueryResultFull,
+  NFTTrendingCollectionsQueryVariablesType,
+  NFTTrendingCollectionsQueryType,
+} from '../types/nfts/getTrendingCollections';
+import {
+  NFTsByContractAddressQueryResultInfo,
+  NFTsByContractAddressFormattedResult,
+  NFTsByContractAddressQueryResultFull,
+  NFTsByContractAddressQueryVariablesType,
+  NFTsByContractAddressQueryType,
+} from '../types/nfts/getByContractAddress';
+import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
+  CodegenEthMainnetWalletNFTsByContractAddressDocument,
+  CodegenEthMainnetTrendingCollectionsDocument,
   CodegenEthMainnetNFTDetailsDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
+  CodegenEthSepoliaWalletNFTsByContractAddressDocument,
+  CodegenEthSepoliaTrendingCollectionsDocument,
   CodegenEthSepoliaNFTDetailsDocument,
   CodegenPolygonMainnetWalletNFTsByAddressDocument,
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
+  CodegenPolygonMainnetNFTsByContractAddressDocument,
+  CodegenPolygonMainnetTrendingCollectionsDocument,
   CodegenPolygonMainnetNFTDetailsDocument,
 } from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
@@ -39,6 +59,7 @@ import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@apollo/client';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
+import { NftErcStandards } from '../types/nfts';
 
 export class NftsController {
   constructor(
@@ -115,6 +136,101 @@ export class NftsController {
       WalletNFTsByAddressQueryResultInfo,
       WalletNFTsByAddressFormattedResult
     >(walletByAddress, 'walletNFTs', 'walletNFTsPageInfo', 'nft');
+
+    return formattedResult;
+  }
+
+  @QNApolloErrorHandler
+  async getByContractAddress(
+    variables: NFTsByContractAddressQueryVariablesType & NonQueryInput
+  ): Promise<NFTsByContractAddressFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetWalletNFTsByContractAddressDocument,
+      polygon: CodegenPolygonMainnetNFTsByContractAddressDocument,
+      ethereumSepolia: CodegenEthSepoliaWalletNFTsByContractAddressDocument,
+    };
+
+    const {
+      data: {
+        [userChain]: { collection },
+      },
+    } = await this.client.query<
+      NFTsByContractAddressQueryVariablesType, // What the user can pass in
+      NFTsByContractAddressQueryType, // The actual unmodified result from query
+      NFTsByContractAddressQueryResultFull // the modified result (edges and nodes removed)
+    >({
+      query: query[userChain], // The actual graphql query
+      variables: queryVariables,
+      keepTypename: true,
+    });
+
+    if (!collection?.nfts?.length) {
+      return {
+        standard: null,
+        results: [],
+        pageInfo: emptyPageInfo,
+      };
+    }
+
+    const setErcStandard = (
+      results: any
+    ): NFTsByContractAddressFormattedResult => {
+      const standardMap: Record<string, NftErcStandards> = {
+        ERC1155Collection: 'ERC1155',
+        ERC721Collection: 'ERC721',
+      };
+      const { __typename, ...newResults } = results;
+      return {
+        ...newResults,
+        standard: standardMap[results['__typename']] || null,
+      };
+    };
+
+    const formattedResult = formatQueryResult<
+      NFTsByContractAddressQueryResultInfo,
+      NFTsByContractAddressFormattedResult
+    >(collection, 'nfts', 'nftsPageInfo', null, setErcStandard);
+
+    return formattedResult;
+  }
+
+  async getTrendingCollections(
+    variables: NFTTrendingCollectionsQueryVariablesType & NonQueryInput
+  ): Promise<NFTTrendingCollectionFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetTrendingCollectionsDocument,
+      polygon: CodegenPolygonMainnetTrendingCollectionsDocument,
+      ethereumSepolia: CodegenEthSepoliaTrendingCollectionsDocument,
+    };
+
+    const {
+      data: { [userChain]: trendingCollections },
+    } = await this.client.query<
+      NFTTrendingCollectionsQueryVariablesType, // What the user can pass in
+      NFTTrendingCollectionsQueryType, // The actual unmodified result from query
+      NFTTrendingCollectionsQueryResultFull // the modified result (edges and nodes removed)
+    >({
+      query: query[userChain], // The actual graphql query
+      variables: queryVariables,
+    });
+
+    if (!trendingCollections?.trendingCollections?.length) {
+      return { results: [], pageInfo: emptyPageInfo };
+    }
+
+    const formattedResult = formatQueryResult<
+      NFTTrendingCollectionsQueryResultBody,
+      NFTTrendingCollectionFormattedResult
+    >(
+      trendingCollections,
+      'trendingCollections',
+      'trendingCollectionsPageInfo',
+      'collection'
+    );
 
     return formattedResult;
   }

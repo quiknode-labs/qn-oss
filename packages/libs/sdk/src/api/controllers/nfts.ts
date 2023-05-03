@@ -140,6 +140,7 @@ export class NftsController {
     return formattedResult;
   }
 
+  @QNApolloErrorHandler
   async getTrendingCollections(
     variables: NFTTrendingCollectionsQueryVariablesType & NonQueryInput
   ): Promise<NFTTrendingCollectionFormattedResult> {

@@ -15,6 +15,13 @@ import {
   WalletNFTsByAddressQueryType,
 } from '../types/nfts/getByWalletAddress';
 import {
+  NFTDetailsQueryResultInfo,
+  NFTDetailsFormattedResult,
+  NFTDetailsQueryResultFull,
+  NFTDetailsQueryVariablesType,
+  NFTDetailsQueryType,
+} from '../types/nfts/getNFTDetails';
+import {
   NFTTrendingCollectionsQueryResultBody,
   NFTTrendingCollectionFormattedResult,
   NFTTrendingCollectionsQueryResultFull,
@@ -32,17 +39,19 @@ import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
   CodegenEthMainnetWalletNFTsByContractAddressDocument,
+  CodegenEthMainnetTrendingCollectionsDocument,
+  CodegenEthMainnetNFTDetailsDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
   CodegenEthSepoliaWalletNFTsByContractAddressDocument,
+  CodegenEthSepoliaTrendingCollectionsDocument,
+  CodegenEthSepoliaNFTDetailsDocument,
   CodegenPolygonMainnetWalletNFTsByAddressDocument,
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
-  CodegenEthMainnetTrendingCollectionsDocument,
-  CodegenEthSepoliaTrendingCollectionsDocument,
-  CodegenPolygonMainnetTrendingCollectionsDocument,
   CodegenPolygonMainnetNFTsByContractAddressDocument,
+  CodegenPolygonMainnetTrendingCollectionsDocument,
+  CodegenPolygonMainnetNFTDetailsDocument,
 } from '../graphql/generatedTypes';
-
 import { ChainName } from '../types/chains';
 import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
 import { formatQueryResult } from '../utils/postQueryFormatter';
@@ -225,5 +234,34 @@ export class NftsController {
     >(collection, 'nfts', 'nftsPageInfo', null, setErcStandard);
 
     return formattedResult;
+  }
+
+  @QNApolloErrorHandler
+  async getNFTDetails(
+    variables: NFTDetailsQueryVariablesType & NonQueryInput
+  ): Promise<NFTDetailsFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetNFTDetailsDocument,
+      polygon: CodegenPolygonMainnetNFTDetailsDocument,
+      ethereumSepolia: CodegenEthSepoliaNFTDetailsDocument,
+    };
+
+    const {
+      data: {
+        [userChain]: { nft },
+      },
+    } = await this.client.query<
+      NFTDetailsQueryVariablesType, // What the user can pass in
+      NFTDetailsQueryType, // The actual unmodified result from query
+      NFTDetailsQueryResultFull // the modified result (edges and nodes removed)
+    >({
+      query: query[userChain], // The actual graphql query
+      variables: queryVariables,
+    });
+
+    if (nft) return { nft };
+    return { nft: null };
   }
 }

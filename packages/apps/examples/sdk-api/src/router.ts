@@ -13,5 +13,9 @@ router.get(
   '/api/nftsByContractAddress/:contractAddress',
   nftController.getNFTsByContractAddress
 );
+router.get(
+  '/api/nftDetails/:contractAddress/:tokenId',
+  nftController.getNFTDetails
+);
 
 export default router;

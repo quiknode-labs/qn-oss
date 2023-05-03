@@ -160,6 +160,32 @@ client.nfts
   .then((response) => console.log(response));
 ```
 
+### nfts.getNFTDetails
+
+Returns the details for a specified NFT
+
+| Argument        | Values | Required | Description           | Example                                    |
+| --------------- | ------ | -------- | --------------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | NFT contract address  | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| tokenId         | string | ✅       | NFT Token ID          | 1                                          |
+| chain           | string | ❌       | Blockchain chain name | polygon                                    |
+
+```ts
+import QuickNode from '@qn-oss/libs/sdk';
+
+const client = new QuickNode.API({
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+
+client.nfts
+  .getNFTDetails(
+    contractAddress: "0x2106C00Ac7dA0A3430aE667879139E832307AeAa",
+    tokenId: "1",
+  )
+  .then((response) => console.log(response));
+```
+
 ## Pagination
 
 For functions that support pagination, use the `first` property to specify the amount of results to return.

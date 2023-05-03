@@ -41,6 +41,19 @@ export default {
     }
   },
 
+  getNFTDetails: async (req: Request, res: Response) => {
+    try {
+      const NFT = await nfts.getNFTDetails({
+        contractAddress: req.params.contractAddress,
+        tokenId: req.params.tokenId,
+      });
+      return res.status(200).send(NFT);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
+
   getNFTsByContractAddress: async (req: Request, res: Response) => {
     try {
       const NFTs = await nfts.getByContractAddress({

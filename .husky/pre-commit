@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+files=$(git diff --cached --name-only --diff-filter=AM)
+
+if [ -n "$files" ]; then
+    if grep -H "QQN_" $files; then
+        echo "Possible QuickNode API key found! Please double check for sensitive data before committing "
+        exit 1
+    fi
+fi

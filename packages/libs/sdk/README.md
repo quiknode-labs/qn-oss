@@ -47,14 +47,14 @@ A `defaultChain` can be set to set the chain for all calls. Currently we support
 
 The `defaultChain` in the initializer can be overridden with the `chain` argument in functions.
 
-If no `defaultChain is passed into the initializer or a `chain`argument to a function,`ethereum` is used by default.
+If no `defaultChain` is passed into the initializer or a `chain` argument to a function,`ethereum` is used by default.
 
 ### Client config API
 
-| Property     | Values | Description                                | Example     |
-| ------------ | ------ | ------------------------------------------ | ----------- |
-| gqlApiKey    | string | The QuickNode GraphQL API Key              | QN_abcd1234 |
-| defaultChain | string | The default chain to use for all functions | polygon     |
+| Property     | Values | Description                                | Example  |
+| ------------ | ------ | ------------------------------------------ | -------- |
+| gqlApiKey    | string | The QuickNode GraphQL API Key              | abcd1234 |
+| defaultChain | string | The default chain to use for all functions | polygon  |
 
 <br>
 

@@ -1,20 +1,29 @@
-name: CI
+---
+name: lint, test, build
 on:
   push:
     branches:
       - main
-  pull_request:
-
+  pull_request: null
 jobs:
   main:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 16.x
+          - 18.x
+          - 20.x
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
       - uses: nrwl/nx-set-shas@v3
       - run: yarn install --immutable
-
       - run: npx nx workspace-lint
       - run: npx nx format:check
       - run: npx nx affected --target=lint --parallel=3

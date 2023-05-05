@@ -3,7 +3,7 @@ import {
   NormalizedCacheObject,
   OperationVariables,
   QueryOptions,
-} from '@apollo/client';
+} from '@apollo/client/core';
 import {
   removeNodesAndEdges,
   ResultOutput,

@@ -11,7 +11,8 @@
     "build:lib:nft:hooks:dist:cjs:cp": "node ./tools/build-lib-nft-hooks/cpMainCjs.js",
     "build:lib:nft:hooks": "bash tools/build-lib-nft-hooks/build-lib-nft-hooks.bash",
     "pack:lib:nft:hooks": "yarn build:lib:nft:hooks && cd dist/packages/libs/ui/nft-react-hooks && npm pack",
-    "pub:lib:nft:hooks": "./tools/build-lib-nft-hooks/pub-lib-nft-hooks.bash"
+    "pub:lib:nft:hooks": "./tools/build-lib-nft-hooks/pub-lib-nft-hooks.bash",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -80,7 +81,10 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "eslint-plugin-react": "7.30.1",
     "eslint-plugin-react-hooks": "4.6.0",
-    "jest": "27.5.1",
+    "husky": "^8.0.0",
+    "jest": "^29.5.0",
+    "jest-cli": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
     "ngx-deploy-npm": "^4.1.2",
     "nx": "14.4.3",
     "prettier": "^2.6.2",
@@ -88,7 +92,7 @@
     "rollup": "^2.79.1",
     "rollup-plugin-copy": "^3.4.0",
     "supertest": "^6.2.4",
-    "ts-jest": "27.1.4",
+    "ts-jest": "29.1.0",
     "ts-loader": "^9.3.1",
     "ts-node": "~10.8.0",
     "typescript": "~4.7.2",

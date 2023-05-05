@@ -1,5 +1,5 @@
-import { apiClient } from './client';
-import withPolly from '../testSetup/pollyTestSetup';
+import { apiClient } from '../client';
+import withPolly from '../../testSetup/pollyTestSetup';
 
 const api = apiClient;
 

@@ -6,7 +6,9 @@
     "apps-examples-nft-react-hooks-e2e": "packages/apps/examples/nft-react-hooks-e2e",
     "apps-examples-sdk-api": "packages/apps/examples/sdk-api",
     "libs-sdk": "packages/libs/sdk",
+    "apps-examples-token-gate-example": "packages/apps/examples/token-gate-example",
     "libs-ui-nft-react-hooks": "packages/libs/ui/nft-react-hooks",
+    "libs-ui-token-gate": "packages/libs/ui/token-gate",
     "libs-ui-util": "packages/libs/ui/util",
     "libs-util": "packages/libs/util"
   }

@@ -21,7 +21,8 @@
       "@quicknode/icy-nft-hooks": [
         "packages/libs/ui/nft-react-hooks/src/index.ts"
       ],
-      "@quicknode/sdk": ["packages/libs/sdk/src/index.ts"]
+      "@quicknode/sdk": ["packages/libs/sdk/src/index.ts"],
+      "@quicknode/token-gate": ["packages/libs/ui/token-gate/src/index.ts"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

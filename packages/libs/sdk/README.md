@@ -11,7 +11,12 @@ Currently supports getting started with [QuickNode GraphQL API](https://docs.qui
 [![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)](https://github.com/quiknode-labs/qn-oss/issues)
 [![Discord](https://img.shields.io/discord/880505845090250794?color=g)](https://discord.gg/DkdgEqE)
 
-## Quick Start
+## Getting Started
+
+### Installation
+
+- Node.js v16 or higher
+- `npm install @quicknode/sdk` or `yarn add @quicknode/sdk`
 
 ```ts
 import QuickNode from '@qn-oss/libs/sdk';
@@ -29,6 +34,8 @@ client.nfts
 Full example app implementation [here](https://github.com/quiknode-labs/qn-oss/tree/main/packages/apps/examples/nft-sdk)
 
 ## Providing a config object to the client
+
+Sign up for a [QuickNode](https://www.quicknode.com/) account to use the multi-chain [QuickNode GraphQL API](https://docs.quicknode.com/docs/graphql/getting-started) API key in the SDK.
 
 ```ts
 import QuickNode from '@qn-oss/libs/sdk';

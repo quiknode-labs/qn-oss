@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "declaration": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": [
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "webpack.config.ts",
+    "src/spec/testSetup/**.*",
+    "codegen.ts"
+  ]
+}

@@ -15,13 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@qn-oss/libs/api/sdk": ["packages/libs/api/sdk/src/index.ts"],
+      "@qn-oss/libs/sdk": ["packages/libs/sdk/src/index.ts"],
       "@qn-oss/libs/ui/util": ["packages/libs/ui/util/src/index.ts"],
       "@qn-oss/libs/util": ["packages/libs/util/src/index.ts"],
       "@quicknode/icy-nft-hooks": [
         "packages/libs/ui/nft-react-hooks/src/index.ts"
       ],
-      "@quicknode/sdk": ["packages/libs/api/sdk/src/index.ts"],
+      "@quicknode/sdk": ["packages/libs/sdk/src/index.ts"],
       "@quicknode/token-gate": ["packages/libs/ui/token-gate/src/index.ts"]
     },
     "esModuleInterop": true,

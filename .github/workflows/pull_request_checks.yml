@@ -1,18 +1,19 @@
-name: CI
+---
+name: lint, test, build
 on:
   push:
     branches:
       - main
-  pull_request:
-
+  pull_request: null
 jobs:
   main:
     runs-on: ubuntu-latest
-
   strategy:
     matrix:
-      node-version: [16.x, 18.x, 20.x]
-
+      node-version:
+        - 16.x
+        - 18.x
+        - 20.x
   steps:
     - uses: actions/checkout@v3
       with:

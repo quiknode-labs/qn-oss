@@ -41,12 +41,11 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
     if (serverError.statusCode === 429) {
       console.warn('QuickNode SDK warning: rate limit reached');
     } else if (
-      hasOwnProperty(serverError, 'result') &&
       hasOwnProperty(serverError.result, 'errors') &&
       Array.isArray(serverError.result['errors']) &&
-      serverError.result['errors'].length > 0
+      serverError?.result?.['errors']?.length > 0
     ) {
-      serverError.result['errors'].forEach((error: any) => {
+      serverError.result['errors']?.forEach((error: any) => {
         console.error(
           '\nSomething went wrong! This is likely a bug. Please file an issue at https://github.com/quiknode-labs/qn-oss/issues'
         );

@@ -5,9 +5,9 @@ export const emptyPageInfo = {
   startCursor: null,
 };
 
-export function hasOwnProperty<X extends {}, Y extends PropertyKey>(
-  obj: X,
-  prop: Y
-): obj is X & Record<Y, unknown> {
-  return obj.hasOwnProperty(prop);
+export function hasOwnProperty<T, K extends PropertyKey>(
+  obj: T,
+  prop: K
+): obj is T & Record<K, unknown> {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
 }

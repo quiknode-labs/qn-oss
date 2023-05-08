@@ -4,7 +4,7 @@ import { CollectionEventsFragment } from '../../fragments/EventsByCollection';
 export const PolygonMainnetEventsByCollection = gql`
   query PolygonMainnetEventsByCollection(
     $contractAddress: String!
-    $filter: TokenEventFilter
+    $filter: TokenEventsFilterInput
     $after: String
     $first: Int
   ) {

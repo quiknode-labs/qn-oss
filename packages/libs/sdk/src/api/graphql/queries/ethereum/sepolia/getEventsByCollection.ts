@@ -4,7 +4,7 @@ import { CollectionEventsFragment } from '../../fragments/EventsByCollection';
 export const EthSepoliaEventsByCollection = gql`
   query EthSepoliaEventsByCollection(
     $contractAddress: String!
-    $filter: TokenEventFilter
+    $filter: TokenEventsFilterInput
     $after: String
     $first: Int
   ) {

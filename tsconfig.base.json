@@ -28,6 +28,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
     "jsx": "react-jsx",
     "strict": true
   },

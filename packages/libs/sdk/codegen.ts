@@ -1,3 +1,4 @@
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { CodegenConfig } from '@graphql-codegen/cli';
 import { readFileSync } from 'fs';
 

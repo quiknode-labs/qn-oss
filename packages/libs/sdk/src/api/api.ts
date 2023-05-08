@@ -14,6 +14,7 @@ import generatedPossibleTypes from './graphql/fragmentMatcher';
 import { NftsController } from './controllers/nfts';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
+import { hasOwnProperty } from './utils/helpers';
 
 export interface ApiArguments {
   gqlApiKey?: string;
@@ -39,7 +40,11 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
 
     if (serverError.statusCode === 429) {
       console.warn('QuickNode SDK warning: rate limit reached');
-    } else if (serverError?.result?.['errors']?.length > 0) {
+    } else if (
+      hasOwnProperty(serverError.result, 'errors') &&
+      Array.isArray(serverError.result['errors']) &&
+      serverError?.result?.['errors']?.length > 0
+    ) {
       serverError.result['errors']?.forEach((error: any) => {
         console.error(
           '\nSomething went wrong! This is likely a bug. Please file an issue at https://github.com/quiknode-labs/qn-oss/issues'

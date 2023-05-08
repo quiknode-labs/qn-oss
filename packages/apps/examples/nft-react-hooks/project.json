@@ -1,10 +1,11 @@
 {
+  "name": "apps-examples-nft-react-hooks",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/apps/examples/nft-react-hooks/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -21,7 +22,7 @@
         ],
         "styles": ["packages/apps/examples/nft-react-hooks/src/styles.css"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "@nx/react/plugins/webpack"
       },
       "configurations": {
         "development": {
@@ -47,7 +48,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nx/webpack:dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "apps-examples-nft-react-hooks:build",
@@ -64,7 +65,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
@@ -73,8 +74,10 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/apps/examples/nft-react-hooks"],
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/packages/apps/examples/nft-react-hooks"
+      ],
       "options": {
         "jestConfig": "packages/apps/examples/nft-react-hooks/jest.config.ts",
         "passWithNoTests": true

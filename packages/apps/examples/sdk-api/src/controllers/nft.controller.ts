@@ -1,18 +1,5 @@
-import QuickNode from '@qn-oss/libs/sdk';
 import { Request, Response } from 'express';
-
-const opts: any = {
-  graphApiKey: process.env['QUICKNODE_API_KEY'] || '',
-};
-
-if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
-  opts.additionalHeaders = {
-    [process.env.ADDITIONAL_SDK_HEADER_KEY]:
-      process.env.ADDITIONAL_SDK_HEADER_VALUE,
-  };
-}
-
-const nfts = new QuickNode.API(opts).nfts;
+import { nfts } from '../client';
 
 export default {
   getNFTsByEns: async (req: Request, res: Response) => {

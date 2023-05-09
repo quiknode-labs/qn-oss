@@ -204,12 +204,66 @@ Returns the details for an NFT Collection
 
 ```ts
 import QuickNode from '@quicknode/sdk';
-const qn = new QuickNode();
+const qn = new QuickNode.API({
+  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
 qn.nfts
   .getCollectionDetails({
     address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
   })
   .then((response) => console.log(response));
+```
+
+### nfts.getCollectionEvents
+
+Returns the events for an NFT Collection
+
+| Argument        | Values | Required | Description                     | Example                                    |
+| --------------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | NFT contract address            | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| chain           | string | ❌       | Blockchain name                 | polygon                                    |
+| first           | number | ❌       | Number of results to return     | 10                                         |
+| after           | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+await qn.nfts
+  .getCollectionEvents({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
+### nfts.getNFTEvents
+
+Returns the events for a specific NFT
+
+| Argument        | Values | Required | Description                     | Example                                    |
+| --------------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | NFT contract address            | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| tokenId         | string | ✅       | NFT Token ID                    | 1                                          |
+| chain           | string | ❌       | Blockchain name                 | polygon                                    |
+| first           | number | ❌       | Number of results to return     | 10                                         |
+| after           | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+await qn.nfts.getNFTEvents({
+  contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+  tokenId: '1',
+});
 ```
 
 ## Pagination

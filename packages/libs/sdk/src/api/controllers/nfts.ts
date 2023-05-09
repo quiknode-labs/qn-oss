@@ -323,8 +323,11 @@ export class NftsController {
       polygon: CodegenPolygonMainnetEventsByCollectionDocument,
       ethereumSepolia: CodegenEthSepoliaEventsByCollectionDocument,
     };
-
-    const { data } = await this.client.query<
+    const {
+      data: {
+        [userChain]: { collection },
+      },
+    } = await this.client.query<
       CollectionEventsQueryVariablesType, // What the user can pass in
       CollectionEventsQueryType, // The actual unmodified result from query
       CollectionEventsQueryResultFull // the modified result (edges and nodes removed)
@@ -333,12 +336,8 @@ export class NftsController {
       variables: queryVariables,
     });
 
-    console.log(data);
-    const {
-      [userChain]: { collection },
-    } = data;
-
-    if (collection?.tokenEvents?.length === 0)
+    console.log('collection', collection);
+    if (!collection?.tokenEvents?.length)
       return { results: [], pageInfo: emptyPageInfo };
 
     const formattedResult = formatQueryResult<

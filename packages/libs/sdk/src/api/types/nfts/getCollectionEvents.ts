@@ -1,7 +1,7 @@
 import {
   CodegenEthMainnetEventsByCollectionQuery,
   CodegenEthMainnetEventsByCollectionQueryVariables,
-  CodegenCollectionEventsFragmentFragment,
+  CodegenTokenEventInfoFragment,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
@@ -14,7 +14,7 @@ export type CollectionEventsQueryVariablesType =
   CodegenEthMainnetEventsByCollectionQueryVariables;
 
 export interface CollectionEventsQueryResultInfo {
-  tokenEvents: CodegenCollectionEventsFragmentFragment[];
+  tokenEvents: CodegenTokenEventInfoFragment[];
   tokenEventsPageInfo: CodegenPaginationFragment;
 }
 
@@ -28,6 +28,6 @@ export type CollectionEventsQueryResultFull = Record<
 >;
 
 export type CollectionEventsFormattedResult = {
-  results: CodegenCollectionEventsFragmentFragment[];
+  results: CodegenTokenEventInfoFragment[];
   pageInfo: CodegenPaginationFragment;
 };

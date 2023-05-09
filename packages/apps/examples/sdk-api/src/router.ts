@@ -26,7 +26,7 @@ router.get(
   nftController.getCollectionEvents
 );
 router.get(
-  '/api/nftCollectionEvents/:contractAddress/:tokenId',
+  '/api/nftEvents/:contractAddress/:tokenId',
   nftController.getNFTEvents
 );
 

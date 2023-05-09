@@ -48,6 +48,13 @@ import {
   CollectionEventsQueryType,
 } from '../types/nfts/getCollectionEvents';
 import {
+  NFTEventsQueryResultInfo,
+  NFTEventsFormattedResult,
+  NFTEventsQueryResultFull,
+  NFTEventsQueryVariablesType,
+  NFTEventsQueryType,
+} from '../types/nfts/getNFTEvents';
+import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
   CodegenEthMainnetWalletNFTsByContractAddressDocument,
@@ -55,6 +62,7 @@ import {
   CodegenEthMainnetNFTDetailsDocument,
   CodegenEthMainnetNftCollectionDetailsDocument,
   CodegenEthMainnetEventsByCollectionDocument,
+  CodegenEthereumMainnetEventsByNftDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
   CodegenEthSepoliaWalletNFTsByContractAddressDocument,
@@ -62,6 +70,7 @@ import {
   CodegenEthSepoliaNFTDetailsDocument,
   CodegenEthSepoliaNftCollectionDetailsDocument,
   CodegenEthSepoliaEventsByCollectionDocument,
+  CodegenEthSepoliaEventsByNftDocument,
   CodegenPolygonMainnetWalletNFTsByAddressDocument,
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
   CodegenPolygonMainnetNFTsByContractAddressDocument,
@@ -69,6 +78,7 @@ import {
   CodegenPolygonMainnetNFTDetailsDocument,
   CodegenPolygonMainnetNftCollectionDetailsDocument,
   CodegenPolygonMainnetEventsByCollectionDocument,
+  CodegenPolygonMainnetEventsByNftDocument,
 } from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
 import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
@@ -78,6 +88,7 @@ import { TypedDocumentNode } from '@apollo/client/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
 import { NftErcStandards } from '../types/nfts';
+import { format } from 'path';
 
 export class NftsController {
   constructor(
@@ -336,7 +347,6 @@ export class NftsController {
       variables: queryVariables,
     });
 
-    console.log('collection', collection);
     if (!collection?.tokenEvents?.length)
       return { results: [], pageInfo: emptyPageInfo };
 
@@ -344,6 +354,41 @@ export class NftsController {
       CollectionEventsQueryResultInfo,
       CollectionEventsFormattedResult
     >(collection, 'tokenEvents', 'tokenEventsPageInfo');
+
+    return formattedResult;
+  }
+
+  async getNFTEvents(
+    variables: NFTEventsQueryVariablesType & NonQueryInput
+  ): Promise<NFTEventsFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthereumMainnetEventsByNftDocument,
+      polygon: CodegenPolygonMainnetEventsByNftDocument,
+      ethereumSepolia: CodegenEthSepoliaEventsByNftDocument,
+    };
+    const {
+      data: {
+        [userChain]: { nft },
+      },
+    } = await this.client.query<
+      NFTEventsQueryVariablesType, // What the user can pass in
+      NFTEventsQueryType, // The actual unmodified result from query
+      NFTEventsQueryResultFull // the modified result (edges and nodes removed)
+    >({
+      query: query[userChain], // The actual graphql query
+      variables: queryVariables,
+    });
+
+    if (!nft?.tokenEvents?.length)
+      return { results: [], pageInfo: emptyPageInfo };
+
+    const formattedResult = formatQueryResult<
+      NFTEventsQueryResultInfo,
+      NFTEventsFormattedResult
+    >(nft, 'tokenEvents', 'tokenEventsPageInfo');
+
     return formattedResult;
   }
 }

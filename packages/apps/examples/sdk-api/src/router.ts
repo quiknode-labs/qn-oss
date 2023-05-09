@@ -25,5 +25,9 @@ router.get(
   '/api/nftCollectionEvents/:contractAddress',
   nftController.getCollectionEvents
 );
+router.get(
+  '/api/nftCollectionEvents/:contractAddress/:tokenId',
+  nftController.getNFTEvents
+);
 
 export default router;

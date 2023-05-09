@@ -106,11 +106,8 @@ export class API {
 
     const cacheStructure = new InMemoryCache({
       possibleTypes: generatedPossibleTypes.possibleTypes,
-      typePolicies: {
-        NFT: {
-          keyFields: ['contractAddress', 'tokenId'],
-        },
-      },
+      // TODO: Figure out type policies
+      typePolicies: {},
     });
 
     const rawClient = new ApolloClient({

@@ -3,18 +3,20 @@ import withPolly from '../../testSetup/pollyTestSetup';
 
 const api = apiClient;
 
-describe('nfts.getCollectionEvents', () => {
+describe('nfts.getNFTEvents', () => {
   it('executes correctly', async () => {
     await withPolly(
       {
-        recordingName: 'query-getNFTsByCollectionEvents-base',
+        recordingName: 'query-getNFTEvents-base',
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getCollectionEvents({
+        const data = await api.nfts.getNFTEvents({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+          tokenId: '1263',
           first: 2,
         });
+        console.log(data);
         expect(data).toStrictEqual({
           results: [
             {
@@ -31,20 +33,20 @@ describe('nfts.getCollectionEvents', () => {
               tokenQuantity: 1,
             },
             {
-              blockNumber: 13150035,
+              blockNumber: 13156479,
               fromAddress: '0x0000000000000000000000000000000000000000',
-              timestamp: '2021-09-03T02:25:20.000Z',
-              toAddress: '0x502668b661000c9035a30525362ca3aa0f726451',
+              timestamp: '2021-09-04T02:14:32.000Z',
+              toAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
               transactionHash:
-                '0x5bf6a52a989748a42ccfc3f6ef6ac8981c9923b6afc294c99368dc88c07773f7',
-              transferIndex: 200,
+                '0x3dc4e2baf115d582443d074292c28b7e856b29f4f06b40a699f7f20cc791c086',
+              transferIndex: 363,
               type: 'MINT',
               tokenQuantity: 1,
             },
           ],
           pageInfo: {
             endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
-            hasNextPage: true,
+            hasNextPage: false,
             hasPreviousPage: false,
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
@@ -56,44 +58,48 @@ describe('nfts.getCollectionEvents', () => {
   it('can iterate events', async () => {
     await withPolly(
       {
-        recordingName: 'query-getNFTsByCollectionEvents-iterate',
+        recordingName: 'query-getNFTEvents-iterate',
         recordIfMissing: true,
       },
       async () => {
-        const data1 = await api.nfts.getCollectionEvents({
+        const data1 = await api.nfts.getNFTEvents({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+          tokenId: '1518',
           first: 2,
         });
-        const data2 = await api.nfts.getCollectionEvents({
+        const data2 = await api.nfts.getNFTEvents({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+          tokenId: '1518',
           first: 2,
           after: data1?.pageInfo?.endCursor,
         });
         expect(data1).toStrictEqual({
           results: [
             {
-              blockNumber: 13188760,
-              fromAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
-              timestamp: '2021-09-09T01:59:43.000Z',
-              toAddress: '0x032b7405695143334709076a574529fd02211a3e',
+              blockNumber: 13158918,
+              fromAddress: '0x0000000000000000000000000000000000000000',
+              timestamp: '2021-09-04T11:29:13.000Z',
+              toAddress: '0x4036b344e3efe9af30cd179ecb9a54a792c164d8',
               transactionHash:
-                '0x28de9822480129ae999ee2b8d698606357e4db41a6405bc77ebeb41a8c683522',
-              transferIndex: 280,
-              type: 'TRANSFER',
-              tokenId: 1263,
-              contractAddress: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
+                '0x93399fe3ae06883aa4dd05340a3fa3c3c93150b5a0541211d595d6165a04d5d4',
+              transferIndex: 208,
+              type: 'MINT',
               tokenQuantity: 1,
             },
             {
-              blockNumber: 13150035,
-              fromAddress: '0x0000000000000000000000000000000000000000',
-              timestamp: '2021-09-03T02:25:20.000Z',
-              toAddress: '0x502668b661000c9035a30525362ca3aa0f726451',
+              blockNumber: 13363089,
+              fromAddress: '0x7ab5fbb6f543fb7d9664bf115badcb857d3139df',
+              timestamp: '2021-10-06T03:41:19.000Z',
+              toAddress: '0x1ce99932fd278e00911814dc4bd403e1293d8ed2',
               transactionHash:
-                '0x5bf6a52a989748a42ccfc3f6ef6ac8981c9923b6afc294c99368dc88c07773f7',
-              transferIndex: 200,
-              type: 'MINT',
-              tokenQuantity: 1,
+                '0x59c6f447e77e2d804331fefa2143729d1eca6ba40ab0b54b9097c52185d8b5a1',
+              transferIndex: 182,
+              type: 'SALE',
+              marketplace: 'OPENSEA',
+              receivedTokenContractAddress:
+                '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+              receivedTokenId: null,
+              sentTokenId: 1518,
             },
           ],
           pageInfo: {
@@ -106,31 +112,37 @@ describe('nfts.getCollectionEvents', () => {
         expect(data2).toStrictEqual({
           results: [
             {
-              blockNumber: 13150050,
-              fromAddress: '0x0000000000000000000000000000000000000000',
-              timestamp: '2021-09-03T02:28:30.000Z',
-              toAddress: '0xfbf84d500f02fb1cf2707445ecb098b87f91f4b8',
+              blockNumber: 13355777,
+              fromAddress: '0x4036b344e3efe9af30cd179ecb9a54a792c164d8',
+              timestamp: '2021-10-05T00:15:56.000Z',
+              toAddress: '0x7ab5fbb6f543fb7d9664bf115badcb857d3139df',
               transactionHash:
-                '0xc36f8199862d04f166126574e471c5436f5be0c87fc9c1cc5e0f49def49ef719',
-              transferIndex: 223,
-              type: 'MINT',
-              tokenQuantity: 1,
+                '0x3de6fab59c49b2b9b4bb9710bba764ea7a0d63d897f061ed0b2e3ed14c800ca3',
+              transferIndex: 102,
+              type: 'SALE',
+              marketplace: 'OPENSEA',
+              receivedTokenContractAddress:
+                '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+              receivedTokenId: null,
+              sentTokenId: 1518,
             },
             {
-              blockNumber: 13150050,
-              fromAddress: '0x0000000000000000000000000000000000000000',
-              timestamp: '2021-09-03T02:28:30.000Z',
-              toAddress: '0xfbf84d500f02fb1cf2707445ecb098b87f91f4b8',
+              blockNumber: 17162646,
+              fromAddress: '0x1ce99932fd278e00911814dc4bd403e1293d8ed2',
+              timestamp: '2023-05-01T01:13:11.000Z',
+              toAddress: '0x130f0002b4cf5e67adf4c7147ac80abee7b3fe0a',
               transactionHash:
-                '0xc36f8199862d04f166126574e471c5436f5be0c87fc9c1cc5e0f49def49ef719',
-              transferIndex: 224,
-              type: 'MINT',
+                '0x5a518611101abe7b87130666ea0ac1a78b367c9c357ba5b343a24e09c0bacc60',
+              transferIndex: 178,
+              type: 'TRANSFER',
+              tokenId: 1518,
+              contractAddress: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
               tokenQuantity: 1,
             },
           ],
           pageInfo: {
             endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoz',
-            hasNextPage: true,
+            hasNextPage: false,
             hasPreviousPage: true,
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoy',
           },
@@ -142,12 +154,13 @@ describe('nfts.getCollectionEvents', () => {
   it('can handle no results', async () => {
     await withPolly(
       {
-        recordingName: 'query-getNFTsByCollectionEvents-no-results',
+        recordingName: 'query-getNFTEvents-no-results',
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getCollectionEvents({
-          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307fake',
+        const data = await api.nfts.getNFTEvents({
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307aaaa',
+          tokenId: '103240319',
           first: 2,
         });
         expect(data).toStrictEqual({

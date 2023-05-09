@@ -89,4 +89,18 @@ export default {
       return res.status(500).send({});
     }
   },
+
+  getNFTEvents: async (req: Request, res: Response) => {
+    try {
+      const NFTEvents = await nfts.getNFTEvents({
+        contractAddress: req.params.contractAddress,
+        tokenId: req.params.tokenId,
+        first: 5,
+      });
+      return res.status(200).send(NFTEvents);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
 };

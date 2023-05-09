@@ -2,6 +2,7 @@ import {
   CodegenEthMainnetTrendingCollectionsQuery,
   CodegenEthMainnetTrendingCollectionsQueryVariables,
   CodegenTrendingCollectionInfoFragment,
+  CodegenTokenEventsFilterInput,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';

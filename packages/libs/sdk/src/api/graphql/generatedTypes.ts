@@ -1471,7 +1471,6 @@ export type CodegenEthMainnetWalletNFTsByEnsQuery = {
 
 export type CodegenEthMainnetEventsByCollectionQueryVariables = Exact<{
   contractAddress: Scalars['String'];
-  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
 }>;
@@ -1555,7 +1554,6 @@ export type CodegenEthSepoliaWalletNFTsByEnsQuery = {
 
 export type CodegenEthSepoliaEventsByCollectionQueryVariables = Exact<{
   contractAddress: Scalars['String'];
-  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
 }>;
@@ -2144,7 +2142,6 @@ export type CodegenPolygonMainnetWalletNFTsByEnsQuery = {
 
 export type CodegenPolygonMainnetEventsByCollectionQueryVariables = Exact<{
   contractAddress: Scalars['String'];
-  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
 }>;
@@ -2345,10 +2342,18 @@ export const CodegenCollectionEventsFragmentFragmentDoc = {
                   arguments: [
                     {
                       kind: 'Argument',
-                      name: { kind: 'Name', value: 'filter' },
+                      name: { kind: 'Name', value: 'after' },
                       value: {
                         kind: 'Variable',
-                        name: { kind: 'Name', value: 'filter' },
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
                       },
                     },
                   ],
@@ -4667,17 +4672,6 @@ export const CodegenEthMainnetEventsByCollectionDocument = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TokenEventsFilterInput' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'after' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
@@ -4855,10 +4849,18 @@ export const CodegenEthMainnetEventsByCollectionDocument = {
                   arguments: [
                     {
                       kind: 'Argument',
-                      name: { kind: 'Name', value: 'filter' },
+                      name: { kind: 'Name', value: 'after' },
                       value: {
                         kind: 'Variable',
-                        name: { kind: 'Name', value: 'filter' },
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
                       },
                     },
                   ],
@@ -6373,17 +6375,6 @@ export const CodegenEthSepoliaEventsByCollectionDocument = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TokenEventsFilterInput' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'after' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
@@ -6561,10 +6552,18 @@ export const CodegenEthSepoliaEventsByCollectionDocument = {
                   arguments: [
                     {
                       kind: 'Argument',
-                      name: { kind: 'Name', value: 'filter' },
+                      name: { kind: 'Name', value: 'after' },
                       value: {
                         kind: 'Variable',
-                        name: { kind: 'Name', value: 'filter' },
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
                       },
                     },
                   ],
@@ -8079,17 +8078,6 @@ export const CodegenPolygonMainnetEventsByCollectionDocument = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'filter' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TokenEventsFilterInput' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'after' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
@@ -8267,10 +8255,18 @@ export const CodegenPolygonMainnetEventsByCollectionDocument = {
                   arguments: [
                     {
                       kind: 'Argument',
-                      name: { kind: 'Name', value: 'filter' },
+                      name: { kind: 'Name', value: 'after' },
                       value: {
                         kind: 'Variable',
-                        name: { kind: 'Name', value: 'filter' },
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
                       },
                     },
                   ],

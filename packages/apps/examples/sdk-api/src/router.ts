@@ -1,6 +1,5 @@
 import express from 'express';
 import nftController from './controllers/nft.controller';
-import eventsController from './controllers/events.controller';
 const router = express.Router();
 
 router.get('/api', (req, res) => {
@@ -23,8 +22,8 @@ router.get(
   nftController.getCollectionDetails
 );
 router.get(
-  '/api/contractEvents/:contractAddress',
-  eventsController.getContractEvents
+  '/api/nftCollectionEvents/:contractAddress',
+  nftController.getCollectionEvents
 );
 
 export default router;

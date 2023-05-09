@@ -6,7 +6,7 @@ import { Pagination } from './pagination';
 export const CollectionEventsFragment = gql`
   fragment CollectionEventsFragment on EVMSchemaType {
     collection(contractAddress: $contractAddress) {
-      tokenEvents(filter: $filter) {
+      tokenEvents(after: $after, first: $first) {
         pageInfo {
           ...Pagination
         }

@@ -41,24 +41,34 @@ import {
   NFTsByContractAddressQueryType,
 } from '../types/nfts/getByContractAddress';
 import {
+  CollectionEventsQueryResultInfo,
+  CollectionEventsFormattedResult,
+  CollectionEventsQueryResultFull,
+  CollectionEventsQueryVariablesType,
+  CollectionEventsQueryType,
+} from '../types/nfts/getCollectionEvents';
+import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
   CodegenEthMainnetWalletNFTsByContractAddressDocument,
   CodegenEthMainnetTrendingCollectionsDocument,
   CodegenEthMainnetNFTDetailsDocument,
   CodegenEthMainnetNftCollectionDetailsDocument,
+  CodegenEthMainnetEventsByCollectionDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
   CodegenEthSepoliaWalletNFTsByContractAddressDocument,
   CodegenEthSepoliaTrendingCollectionsDocument,
   CodegenEthSepoliaNFTDetailsDocument,
   CodegenEthSepoliaNftCollectionDetailsDocument,
+  CodegenEthSepoliaEventsByCollectionDocument,
   CodegenPolygonMainnetWalletNFTsByAddressDocument,
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
   CodegenPolygonMainnetNFTsByContractAddressDocument,
   CodegenPolygonMainnetTrendingCollectionsDocument,
   CodegenPolygonMainnetNFTDetailsDocument,
   CodegenPolygonMainnetNftCollectionDetailsDocument,
+  CodegenPolygonMainnetEventsByCollectionDocument,
 } from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
 import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
@@ -300,5 +310,41 @@ export class NftsController {
 
     if (collection) return { collection };
     return { collection: null };
+  }
+
+  @QNApolloErrorHandler
+  async getCollectionEvents(
+    variables: CollectionEventsQueryVariablesType & NonQueryInput
+  ): Promise<CollectionEventsFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetEventsByCollectionDocument,
+      polygon: CodegenPolygonMainnetEventsByCollectionDocument,
+      ethereumSepolia: CodegenEthSepoliaEventsByCollectionDocument,
+    };
+
+    const { data } = await this.client.query<
+      CollectionEventsQueryVariablesType, // What the user can pass in
+      CollectionEventsQueryType, // The actual unmodified result from query
+      CollectionEventsQueryResultFull // the modified result (edges and nodes removed)
+    >({
+      query: query[userChain], // The actual graphql query
+      variables: queryVariables,
+    });
+
+    console.log(data);
+    const {
+      [userChain]: { collection },
+    } = data;
+
+    if (collection?.tokenEvents?.length === 0)
+      return { results: [], pageInfo: emptyPageInfo };
+
+    const formattedResult = formatQueryResult<
+      CollectionEventsQueryResultInfo,
+      CollectionEventsFormattedResult
+    >(collection, 'tokenEvents', 'tokenEventsPageInfo');
+    return formattedResult;
   }
 }

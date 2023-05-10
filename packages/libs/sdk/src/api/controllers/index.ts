@@ -1,0 +1,1 @@
+export { NftsController } from './nfts';

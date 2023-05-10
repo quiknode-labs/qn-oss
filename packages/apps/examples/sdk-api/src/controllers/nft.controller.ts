@@ -1,18 +1,5 @@
-import QuickNode from '@qn-oss/libs/sdk';
 import { Request, Response } from 'express';
-
-const opts: any = {
-  graphApiKey: process.env['QUICKNODE_API_KEY'] || '',
-};
-
-if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
-  opts.additionalHeaders = {
-    [process.env.ADDITIONAL_SDK_HEADER_KEY]:
-      process.env.ADDITIONAL_SDK_HEADER_VALUE,
-  };
-}
-
-const nfts = new QuickNode.API(opts).nfts;
+import { nfts } from '../client';
 
 export default {
   getNFTsByEns: async (req: Request, res: Response) => {
@@ -84,6 +71,33 @@ export default {
         contractAddress: req.params.contractAddress,
       });
       return res.status(200).send(collectionDetails);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
+
+  getCollectionEvents: async (req: Request, res: Response) => {
+    try {
+      const collectionEvents = await nfts.getCollectionEvents({
+        contractAddress: req.params.contractAddress,
+        first: 5,
+      });
+      return res.status(200).send(collectionEvents);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
+
+  getNFTEvents: async (req: Request, res: Response) => {
+    try {
+      const NFTEvents = await nfts.getNFTEvents({
+        contractAddress: req.params.contractAddress,
+        tokenId: req.params.tokenId,
+        first: 5,
+      });
+      return res.status(200).send(NFTEvents);
     } catch (error) {
       console.error(error);
       return res.status(500).send({});

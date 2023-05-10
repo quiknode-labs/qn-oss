@@ -1469,6 +1469,19 @@ export type CodegenEthMainnetWalletNFTsByEnsQuery = {
   } & CodegenWalletByEnsFragmentFragment;
 };
 
+export type CodegenEthMainnetEventsByCollectionQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type CodegenEthMainnetEventsByCollectionQuery = {
+  __typename?: 'Query';
+  ethereum: {
+    __typename?: 'EVMSchemaType';
+  } & CodegenCollectionEventsFragmentFragment;
+};
+
 export type CodegenEthMainnetNFTDetailsQueryVariables = Exact<{
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
@@ -1477,6 +1490,18 @@ export type CodegenEthMainnetNFTDetailsQueryVariables = Exact<{
 export type CodegenEthMainnetNFTDetailsQuery = {
   __typename?: 'Query';
   ethereum: { __typename?: 'EVMSchemaType' } & CodegenNftDetailsFragment;
+};
+
+export type CodegenEthereumMainnetEventsByNftQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+  tokenId: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type CodegenEthereumMainnetEventsByNftQuery = {
+  __typename?: 'Query';
+  ethereum: { __typename?: 'EVMSchemaType' } & CodegenNftEventsFragmentFragment;
 };
 
 export type CodegenEthMainnetNftCollectionDetailsQueryVariables = Exact<{
@@ -1539,6 +1564,19 @@ export type CodegenEthSepoliaWalletNFTsByEnsQuery = {
   } & CodegenWalletByEnsFragmentFragment;
 };
 
+export type CodegenEthSepoliaEventsByCollectionQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type CodegenEthSepoliaEventsByCollectionQuery = {
+  __typename?: 'Query';
+  ethereumSepolia: {
+    __typename?: 'EVMSchemaType';
+  } & CodegenCollectionEventsFragmentFragment;
+};
+
 export type CodegenEthSepoliaNFTDetailsQueryVariables = Exact<{
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
@@ -1547,6 +1585,20 @@ export type CodegenEthSepoliaNFTDetailsQueryVariables = Exact<{
 export type CodegenEthSepoliaNFTDetailsQuery = {
   __typename?: 'Query';
   ethereumSepolia: { __typename?: 'EVMSchemaType' } & CodegenNftDetailsFragment;
+};
+
+export type CodegenEthSepoliaEventsByNftQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+  tokenId: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type CodegenEthSepoliaEventsByNftQuery = {
+  __typename?: 'Query';
+  ethereumSepolia: {
+    __typename?: 'EVMSchemaType';
+  } & CodegenNftEventsFragmentFragment;
 };
 
 export type CodegenEthSepoliaNftCollectionDetailsQueryVariables = Exact<{
@@ -1611,6 +1663,122 @@ export type CodegenERC721NFTNodeFragment = {
     address: string;
     ensName?: string | null;
   } | null;
+};
+
+export type CodegenCollectionEventsFragmentFragment = {
+  __typename?: 'EVMSchemaType';
+  collection?:
+    | {
+        __typename?: 'ERC721Collection';
+        tokenEvents: {
+          __typename?: 'CollectionTokenEventsConnection';
+          pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
+          edges: Array<{
+            __typename?: 'CollectionTokenEventsConnectionEdge';
+            node:
+              | ({
+                  __typename?: 'TokenBurnEvent';
+                } & CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenMintEvent';
+                } & CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenSaleEvent';
+                } & CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenSwapEvent';
+                } & CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenTransferEvent';
+                } & CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment);
+          }>;
+        };
+      }
+    | {
+        __typename?: 'ERC1155Collection';
+        tokenEvents: {
+          __typename?: 'CollectionTokenEventsConnection';
+          pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
+          edges: Array<{
+            __typename?: 'CollectionTokenEventsConnectionEdge';
+            node:
+              | ({
+                  __typename?: 'TokenBurnEvent';
+                } & CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenMintEvent';
+                } & CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenSaleEvent';
+                } & CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenSwapEvent';
+                } & CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenTransferEvent';
+                } & CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment);
+          }>;
+        };
+      }
+    | null;
+};
+
+export type CodegenNftEventsFragmentFragment = {
+  __typename?: 'EVMSchemaType';
+  nft?:
+    | {
+        __typename?: 'ERC721NFT';
+        tokenEvents: {
+          __typename?: 'NFTTokenEventsConnection';
+          pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
+          edges: Array<{
+            __typename?: 'NFTTokenEventsConnectionEdge';
+            node:
+              | ({
+                  __typename?: 'TokenBurnEvent';
+                } & CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenMintEvent';
+                } & CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenSaleEvent';
+                } & CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenSwapEvent';
+                } & CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenTransferEvent';
+                } & CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment);
+          }>;
+        };
+      }
+    | {
+        __typename?: 'ERC1155NFT';
+        tokenEvents: {
+          __typename?: 'NFTTokenEventsConnection';
+          pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
+          edges: Array<{
+            __typename?: 'NFTTokenEventsConnectionEdge';
+            node:
+              | ({
+                  __typename?: 'TokenBurnEvent';
+                } & CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenMintEvent';
+                } & CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenSaleEvent';
+                } & CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenSwapEvent';
+                } & CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment)
+              | ({
+                  __typename?: 'TokenTransferEvent';
+                } & CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment);
+          }>;
+        };
+      }
+    | null;
 };
 
 export type CodegenNftCollectionInfoFragment = {
@@ -1945,6 +2113,78 @@ export type CodegenPaginationFragment = {
   startCursor?: string | null;
 };
 
+export type CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment = {
+  __typename?: 'TokenBurnEvent';
+  tokenId?: any | null;
+  tokenQuantity: any;
+  blockNumber: number;
+  fromAddress: string;
+  timestamp: any;
+  toAddress: string;
+  transactionHash?: string | null;
+  transferIndex: number;
+  type: CodegenTokenTransferType;
+};
+
+export type CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment = {
+  __typename?: 'TokenMintEvent';
+  tokenQuantity: any;
+  blockNumber: number;
+  fromAddress: string;
+  timestamp: any;
+  toAddress: string;
+  transactionHash?: string | null;
+  transferIndex: number;
+  type: CodegenTokenTransferType;
+};
+
+export type CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment = {
+  __typename?: 'TokenSaleEvent';
+  marketplace?: CodegenMarketplace | null;
+  receivedTokenContractAddress?: string | null;
+  receivedTokenId?: any | null;
+  sentTokenId?: any | null;
+  blockNumber: number;
+  fromAddress: string;
+  timestamp: any;
+  toAddress: string;
+  transactionHash?: string | null;
+  transferIndex: number;
+  type: CodegenTokenTransferType;
+};
+
+export type CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment = {
+  __typename?: 'TokenSwapEvent';
+  blockNumber: number;
+  fromAddress: string;
+  timestamp: any;
+  toAddress: string;
+  transactionHash?: string | null;
+  transferIndex: number;
+  type: CodegenTokenTransferType;
+};
+
+export type CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment = {
+  __typename?: 'TokenTransferEvent';
+  tokenId?: any | null;
+  contractAddress: string;
+  tokenQuantity: any;
+  blockNumber: number;
+  fromAddress: string;
+  timestamp: any;
+  toAddress: string;
+  transactionHash?: string | null;
+  transferIndex: number;
+  type: CodegenTokenTransferType;
+};
+
+export type CodegenTokenEventInfoFragment =
+  | CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment
+  | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment
+  | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment
+  | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment
+  | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment;
+
 export type CodegenPolygonMainnetNFTsByContractAddressQueryVariables = Exact<{
   contractAddress: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
@@ -1984,6 +2224,19 @@ export type CodegenPolygonMainnetWalletNFTsByEnsQuery = {
   } & CodegenWalletByEnsFragmentFragment;
 };
 
+export type CodegenPolygonMainnetEventsByCollectionQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type CodegenPolygonMainnetEventsByCollectionQuery = {
+  __typename?: 'Query';
+  polygon: {
+    __typename?: 'EVMSchemaType';
+  } & CodegenCollectionEventsFragmentFragment;
+};
+
 export type CodegenPolygonMainnetNFTDetailsQueryVariables = Exact<{
   contractAddress: Scalars['String'];
   tokenId: Scalars['String'];
@@ -1992,6 +2245,18 @@ export type CodegenPolygonMainnetNFTDetailsQueryVariables = Exact<{
 export type CodegenPolygonMainnetNFTDetailsQuery = {
   __typename?: 'Query';
   polygon: { __typename?: 'EVMSchemaType' } & CodegenNftDetailsFragment;
+};
+
+export type CodegenPolygonMainnetEventsByNftQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+  tokenId: Scalars['String'];
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+export type CodegenPolygonMainnetEventsByNftQuery = {
+  __typename?: 'Query';
+  polygon: { __typename?: 'EVMSchemaType' } & CodegenNftEventsFragmentFragment;
 };
 
 export type CodegenPolygonMainnetNftCollectionDetailsQueryVariables = Exact<{
@@ -2015,6 +2280,567 @@ export type CodegenPolygonMainnetTrendingCollectionsQuery = {
   } & CodegenNftTrendingCollectionsFragment;
 };
 
+export const CodegenPaginationFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenPaginationFragment, unknown>;
+export const CodegenTokenEventInfoFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TokenEventInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TokenEvent' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fromAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'toAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transferIndex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenBurnEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenTransferEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenMintEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenSaleEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'marketplace' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenContractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenId' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'sentTokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenTokenEventInfoFragment, unknown>;
+export const CodegenCollectionEventsFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CollectionEventsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'collection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenEvents' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Pagination' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'TokenEventInfo',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TokenEventInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TokenEvent' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fromAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'toAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transferIndex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenBurnEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenTransferEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenMintEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenSaleEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'marketplace' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenContractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenId' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'sentTokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenCollectionEventsFragmentFragment, unknown>;
+export const CodegenNftEventsFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'NftEventsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nft' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'tokenId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'tokenId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenEvents' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Pagination' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'TokenEventInfo',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TokenEventInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TokenEvent' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fromAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'toAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transferIndex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenBurnEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenTransferEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenMintEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenSaleEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'marketplace' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenContractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenId' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'sentTokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenNftEventsFragmentFragment, unknown>;
 export const CodegenNftCollectionInfoFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -2342,28 +3168,6 @@ export const CodegenNftDetailsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CodegenNftDetailsFragment, unknown>;
-export const CodegenPaginationFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'Pagination' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'PageInfo' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<CodegenPaginationFragment, unknown>;
 export const CodegenTrendingCollectionInfoFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -4161,6 +4965,279 @@ export const CodegenEthMainnetWalletNFTsByEnsDocument = {
   CodegenEthMainnetWalletNFTsByEnsQuery,
   CodegenEthMainnetWalletNFTsByEnsQueryVariables
 >;
+export const CodegenEthMainnetEventsByCollectionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthMainnetEventsByCollection' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereum' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CollectionEventsFragment' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TokenEventInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TokenEvent' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fromAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'toAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transferIndex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenBurnEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenTransferEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenMintEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenSaleEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'marketplace' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenContractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenId' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'sentTokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CollectionEventsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'collection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenEvents' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Pagination' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'TokenEventInfo',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthMainnetEventsByCollectionQuery,
+  CodegenEthMainnetEventsByCollectionQueryVariables
+>;
 export const CodegenEthMainnetNFTDetailsDocument = {
   kind: 'Document',
   definitions: [
@@ -4360,6 +5437,301 @@ export const CodegenEthMainnetNFTDetailsDocument = {
 } as unknown as DocumentNode<
   CodegenEthMainnetNFTDetailsQuery,
   CodegenEthMainnetNFTDetailsQueryVariables
+>;
+export const CodegenEthereumMainnetEventsByNftDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthereumMainnetEventsByNft' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tokenId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereum' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'NftEventsFragment' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TokenEventInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TokenEvent' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fromAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'toAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transferIndex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenBurnEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenTransferEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenMintEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenSaleEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'marketplace' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenContractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenId' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'sentTokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'NftEventsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nft' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'tokenId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'tokenId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenEvents' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Pagination' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'TokenEventInfo',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthereumMainnetEventsByNftQuery,
+  CodegenEthereumMainnetEventsByNftQueryVariables
 >;
 export const CodegenEthMainnetNftCollectionDetailsDocument = {
   kind: 'Document',
@@ -5591,6 +6963,279 @@ export const CodegenEthSepoliaWalletNFTsByEnsDocument = {
   CodegenEthSepoliaWalletNFTsByEnsQuery,
   CodegenEthSepoliaWalletNFTsByEnsQueryVariables
 >;
+export const CodegenEthSepoliaEventsByCollectionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthSepoliaEventsByCollection' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereumSepolia' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CollectionEventsFragment' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TokenEventInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TokenEvent' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fromAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'toAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transferIndex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenBurnEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenTransferEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenMintEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenSaleEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'marketplace' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenContractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenId' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'sentTokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CollectionEventsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'collection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenEvents' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Pagination' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'TokenEventInfo',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthSepoliaEventsByCollectionQuery,
+  CodegenEthSepoliaEventsByCollectionQueryVariables
+>;
 export const CodegenEthSepoliaNFTDetailsDocument = {
   kind: 'Document',
   definitions: [
@@ -5790,6 +7435,301 @@ export const CodegenEthSepoliaNFTDetailsDocument = {
 } as unknown as DocumentNode<
   CodegenEthSepoliaNFTDetailsQuery,
   CodegenEthSepoliaNFTDetailsQueryVariables
+>;
+export const CodegenEthSepoliaEventsByNftDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthSepoliaEventsByNft' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tokenId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereumSepolia' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'NftEventsFragment' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TokenEventInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TokenEvent' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fromAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'toAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transferIndex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenBurnEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenTransferEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenMintEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenSaleEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'marketplace' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenContractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenId' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'sentTokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'NftEventsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nft' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'tokenId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'tokenId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenEvents' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Pagination' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'TokenEventInfo',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthSepoliaEventsByNftQuery,
+  CodegenEthSepoliaEventsByNftQueryVariables
 >;
 export const CodegenEthSepoliaNftCollectionDetailsDocument = {
   kind: 'Document',
@@ -7021,6 +8961,279 @@ export const CodegenPolygonMainnetWalletNFTsByEnsDocument = {
   CodegenPolygonMainnetWalletNFTsByEnsQuery,
   CodegenPolygonMainnetWalletNFTsByEnsQueryVariables
 >;
+export const CodegenPolygonMainnetEventsByCollectionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'PolygonMainnetEventsByCollection' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'polygon' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CollectionEventsFragment' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TokenEventInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TokenEvent' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fromAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'toAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transferIndex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenBurnEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenTransferEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenMintEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenSaleEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'marketplace' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenContractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenId' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'sentTokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CollectionEventsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'collection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenEvents' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Pagination' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'TokenEventInfo',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenPolygonMainnetEventsByCollectionQuery,
+  CodegenPolygonMainnetEventsByCollectionQueryVariables
+>;
 export const CodegenPolygonMainnetNFTDetailsDocument = {
   kind: 'Document',
   definitions: [
@@ -7220,6 +9433,301 @@ export const CodegenPolygonMainnetNFTDetailsDocument = {
 } as unknown as DocumentNode<
   CodegenPolygonMainnetNFTDetailsQuery,
   CodegenPolygonMainnetNFTDetailsQueryVariables
+>;
+export const CodegenPolygonMainnetEventsByNftDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'PolygonMainnetEventsByNft' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tokenId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'polygon' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'NftEventsFragment' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Pagination' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasPreviousPage' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'startCursor' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TokenEventInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TokenEvent' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'fromAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'toAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transactionHash' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'transferIndex' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenBurnEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenTransferEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenMintEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenQuantity' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenSaleEvent' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'marketplace' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenContractAddress' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'receivedTokenId' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'sentTokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'NftEventsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nft' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'tokenId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'tokenId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tokenEvents' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Pagination' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'TokenEventInfo',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenPolygonMainnetEventsByNftQuery,
+  CodegenPolygonMainnetEventsByNftQueryVariables
 >;
 export const CodegenPolygonMainnetNftCollectionDetailsDocument = {
   kind: 'Document',

@@ -2,7 +2,7 @@
 
 An SDK from [QuickNode](https://www.quicknode.com/) making it easy for developers to interact with the blockchain.
 
-Currently supports getting started with [QuickNode GraphQL API](https://docs.quicknode.com/docs/graphql/getting-started) in a blink!
+Currently supports getting started with [QuickNode GraphQL API](https://www.quicknode.com/graph-api) in a blink!
 
 [![npm](https://img.shields.io/npm/dm/@quicknode/sdk)](https://www.npmjs.com/package/@quicknode/sdk)
 [![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g)](https://www.npmjs.com/package/@quicknode/sdk)
@@ -15,15 +15,15 @@ Currently supports getting started with [QuickNode GraphQL API](https://docs.qui
 
 ### Installation
 
-- Node.js v16 or higher
+- Requires Node.js v16 or higher
 - `npm install @quicknode/sdk` or `yarn add @quicknode/sdk`
 
 ```ts
-import QuickNode from '@qn-oss/libs/sdk';
+import QuickNode from '@quicknode/sdk';
 
-const client = new QuickNode.API({ gqlApiKey: 'my-api-key' });
+const qn = new QuickNode.API({ graphApiKey: 'my-api-key' });
 
-client.nfts
+qn.nfts
   .getByWalletENS({
     ensName: 'vitalik.eth',
     first: 5,
@@ -31,17 +31,17 @@ client.nfts
   .then((response) => console.log(response));
 ```
 
-Full example app implementation [here](https://github.com/quiknode-labs/qn-oss/tree/main/packages/apps/examples/nft-sdk)
+Full example app implementation [here](https://github.com/quiknode-labs/qn-oss/tree/main/packages/apps/examples/sdk-api)
 
 ## Providing a config object to the client
 
-Sign up for a [QuickNode](https://www.quicknode.com/) account to use the multi-chain [QuickNode GraphQL API](https://docs.quicknode.com/docs/graphql/getting-started) API key in the SDK.
+Sign up for a [QuickNode](https://www.quicknode.com/) account to use the multi-chain [QuickNode GraphQL API](https://www.quicknode.com/graph-api) API key in the SDK.
 
 ```ts
-import QuickNode from '@qn-oss/libs/sdk';
+import QuickNode from '@quicknode/sdk';
 
-const client = new QuickNode.API({
-  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
   defaultChain: 'polygon',
 });
 ```
@@ -60,7 +60,7 @@ If no `defaultChain` is passed into the initializer or a `chain` argument to a f
 
 | Property     | Values | Description                                | Example  |
 | ------------ | ------ | ------------------------------------------ | -------- |
-| gqlApiKey    | string | The QuickNode GraphQL API Key              | abcd1234 |
+| graphApiKey  | string | The QuickNode GraphQL API Key              | abcd1234 |
 | defaultChain | string | The default chain to use for all functions | polygon  |
 
 <br>
@@ -79,13 +79,13 @@ Returns NFTs owned by a wallet
 | chain    | string | ❌       | Blockchain name                 | polygon                     |
 
 ```ts
-import QuickNode from '@qn-oss/libs/sdk';
+import QuickNode from '@quicknode/sdk';
 
-const client = new QuickNode.API({
-  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
-client.nfts
+qn.nfts
   .getByWalletENS({
     ensName: 'vitalik.eth',
     first: 5,
@@ -105,13 +105,13 @@ Returns NFTs owned by a wallet
 | chain    | string | ❌       | Blockchain name                 | polygon                                    |
 
 ```ts
-import QuickNode from '@qn-oss/libs/sdk';
+import QuickNode from '@quicknode/sdk';
 
-const client = new QuickNode.API({
-  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
-client.nfts
+qn.nfts
   .getByWalletAddress({
     address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
     first: 5,
@@ -132,9 +132,9 @@ Returns trending NFT Collections
 ```ts
 import QuickNode from '@quicknode/sdk';
 
-const client = new QuickNode();
+const qn = new QuickNode();
 
-client.nfts
+qn.nfts
   .getTrendingCollections({
     first: 5,
   })
@@ -153,13 +153,13 @@ Returns NFTs by contract address. The response differs based on if they are an E
 | chain           | string | ❌       | Blockchain name                 | polygon                                    |
 
 ```ts
-import QuickNode from '@qn-oss/libs/sdk';
+import QuickNode from '@quicknode/sdk';
 
-const client = new QuickNode.API({
-  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
-client.nfts
+qn.nfts
   .getByWalletAddress({
     address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
     first: 5,
@@ -178,14 +178,14 @@ Returns the details for a specified NFT
 | chain           | string | ❌       | Blockchain name      | polygon                                    |
 
 ```ts
-import QuickNode from '@qn-oss/libs/sdk';
+import QuickNode from '@quicknode/sdk';
 
-const client = new QuickNode.API({
-  gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
 
-client.nfts
+qn.nfts
   .getNFTDetails(
     contractAddress: "0x2106C00Ac7dA0A3430aE667879139E832307AeAa",
     tokenId: "1",
@@ -204,8 +204,8 @@ Returns the details for an NFT Collection
 
 ```ts
 import QuickNode from '@quicknode/sdk';
-const client = new QuickNode();
-client.nfts
+const qn = new QuickNode();
+qn.nfts
   .getCollectionDetails({
     address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
   })
@@ -223,10 +223,13 @@ The returned `data.tokensPageInfo.endCursor` property in the response can be use
 For example, if a response contains:
 
 ```json
-"data": {
-  "tokensPageInfo": {
+{
+  "results": [],
+  "pageInfo": {
+    "endCursor": "T2Zmc2V0Q29ubmVjdGlvbjox",
     "hasNextPage": true,
-    "endCursor": 'YXJyYXljb25uZWN0aW9uOlk='
+    "hasPreviousPage": false,
+    "startCursor": "T2Zmc2V0Q29ubmVjdGlvbjow"
   }
 }
 ```
@@ -234,10 +237,10 @@ For example, if a response contains:
 calling the following will get the next page of results
 
 ```typescript
-client.nfts.getByWalletENS({
+qn.nfts.getByWalletENS({
   ensName: 'vitalik.eth',
   first: 5,
-  after: 'YXJyYXljb25uZWN0aW9uOlk=',
+  after: 'T2Zmc2V0Q29ubmVjdGlvbjox',
 });
 ```
 

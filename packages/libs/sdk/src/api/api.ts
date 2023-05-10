@@ -17,7 +17,7 @@ import { DEFAULT_CHAIN } from './utils/constants';
 import { hasOwnProperty } from './utils/helpers';
 
 export interface ApiArguments {
-  gqlApiKey?: string;
+  graphApiKey?: string;
   additionalHeaders?: Record<string, string>;
   defaultChain?: ChainName;
 }
@@ -64,23 +64,23 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
 export class API {
   readonly apolloClient: ApolloClient<NormalizedCacheObject>;
   private customApolloClient: CustomApolloClient;
-  private gqlApiKey?: string;
+  private graphApiKey?: string;
   private additionalHeaders?: Record<string, string>;
   readonly defaultChain: ChainName;
   readonly nfts: NftsController;
 
   constructor({
-    gqlApiKey,
+    graphApiKey,
     additionalHeaders,
     defaultChain,
   }: ApiArguments = {}) {
-    if (!gqlApiKey && process.env['NODE_ENV'] !== 'test') {
+    if (!graphApiKey && process.env['NODE_ENV'] !== 'test') {
       console.warn(
         'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
       );
     }
 
-    this.gqlApiKey = gqlApiKey;
+    this.graphApiKey = graphApiKey;
     this.additionalHeaders = additionalHeaders;
     this.apolloClient = this.createApolloClient();
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
@@ -93,7 +93,7 @@ export class API {
       return {
         headers: {
           ...headers,
-          ...{ 'x-api-key': this.gqlApiKey },
+          ...{ 'x-api-key': this.graphApiKey },
           ...this.additionalHeaders,
         },
       };

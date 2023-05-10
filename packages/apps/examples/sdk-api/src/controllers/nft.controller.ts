@@ -2,7 +2,7 @@ import QuickNode from '@qn-oss/libs/sdk';
 import { Request, Response } from 'express';
 
 const opts: any = {
-  gqlApiKey: process.env['QUICKNODE_API_KEY'] || '',
+  graphApiKey: process.env['QUICKNODE_API_KEY'] || '',
 };
 
 if (process.env.ADDITIONAL_SDK_HEADER_KEY) {

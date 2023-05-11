@@ -272,10 +272,10 @@ qn.nfts
 
 A way to send GraphQL queries directly to the [QuickNode GraphQL API](https://www.quicknode.com/graph-api). For more information about the query structure, see the [Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)
 
-| Argument  | Values       | Required | Description                  |
-| --------- | ------------ | -------- | ---------------------------- |
-| query     | DocumentNode | ✅       | A GraphQL query              |
-| variables | Object       | ❌       | Variables to be passed in to |
+| Argument  | Values       | Required | Description                            |
+| --------- | ------------ | -------- | -------------------------------------- |
+| query     | DocumentNode | ✅       | A GraphQL query                        |
+| variables | Object       | ❌       | Variables to be passed in to the query |
 
 ```ts
 import QuickNode, { gql } from '@quicknode/sdk';

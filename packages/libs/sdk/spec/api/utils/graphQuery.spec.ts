@@ -26,7 +26,48 @@ describe('utils.graphQuery', () => {
           }
         `;
 
-        const data = await api.utils.graphQuery(query);
+        const data = await api.utils.graphQuery({ query });
+        expect(data).toStrictEqual({
+          data: {
+            ethereum: {
+              __typename: 'EVMSchemaType',
+              collection: {
+                __typename: 'ERC721Collection',
+                name: 'Loopy Donuts',
+                symbol: 'DONUT',
+                totalSupply: 10000,
+              },
+            },
+          },
+          loading: false,
+          networkStatus: 7,
+        });
+      }
+    );
+  });
+
+  it('executes correctly with variables', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-graphQuery-variables',
+        recordIfMissing: true,
+      },
+      async () => {
+        const query = gql`
+          query ($contractAddress: String!) {
+            ethereum {
+              collection(contractAddress: $contractAddress) {
+                name
+                symbol
+                totalSupply
+              }
+            }
+          }
+        `;
+        const variables = {
+          contractAddress: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
+        };
+        const data = await api.utils.graphQuery({ query, variables });
         expect(data).toStrictEqual({
           data: {
             ethereum: {
@@ -68,7 +109,7 @@ describe('utils.graphQuery', () => {
         `;
 
         expect(
-          async () => await api.utils.graphQuery(query)
+          async () => await api.utils.graphQuery({ query })
         ).rejects.toThrowError();
       }
     );

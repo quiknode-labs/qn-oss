@@ -19,7 +19,7 @@ export default {
         }
       `;
 
-      const result = await utils.graphQuery(query);
+      const result = await utils.graphQuery({ query });
       return res.status(200).send(result);
     } catch (error) {
       console.error(error);

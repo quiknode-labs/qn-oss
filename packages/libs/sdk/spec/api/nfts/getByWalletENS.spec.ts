@@ -224,7 +224,7 @@ describe('getNFTsByWalletENS', () => {
   it('can filter by contract addresses', async () => {
     await withPolly(
       {
-        recordingName: 'query-getNFTsByWalletAddress-contractAddresses',
+        recordingName: 'query-getNFTsByWalletENS-contractAddresses',
         recordIfMissing: true,
       },
       async () => {

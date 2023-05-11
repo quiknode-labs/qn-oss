@@ -2,7 +2,7 @@ import {
   ApolloClient,
   QueryOptions,
   NormalizedCacheObject,
-} from '@apollo/client';
+} from '@apollo/client/core';
 
 interface GraphQueryOptions {
   query: QueryOptions['query'];

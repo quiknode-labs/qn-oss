@@ -241,7 +241,6 @@ describe('getNFTsByWalletAddress', () => {
             contractAddressIn: ['0xc92ceddfb8dd984a89fb494c376f9a48b999aafc'],
           },
         });
-        console.log(JSON.stringify(data, null, 2));
         expect(data).toStrictEqual({
           results: [
             {

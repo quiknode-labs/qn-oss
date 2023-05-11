@@ -1,7 +1,7 @@
 import QuickNode from '@qn-oss/libs/sdk';
 
 const opts: any = {
-  gqlApiKey: process.env['QUICKNODE_API_KEY'] || '',
+  graphApiKey: process.env['QUICKNODE_API_KEY'] || '',
 };
 
 if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
@@ -10,5 +10,6 @@ if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
       process.env.ADDITIONAL_SDK_HEADER_VALUE,
   };
 }
-
-export const nfts = new QuickNode.API(opts).nfts;
+export const api = new QuickNode.API(opts);
+export const nfts = api.nfts;
+export const utils = api.utils;

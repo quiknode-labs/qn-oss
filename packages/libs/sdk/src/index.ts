@@ -1,5 +1,6 @@
 import QuickNode from './client';
-import { API } from './api';
+export { API } from './api';
+// re-export from libraries for convenience
+export { gql } from '@apollo/client';
 
 export default QuickNode;
-export { API };

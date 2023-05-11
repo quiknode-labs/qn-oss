@@ -88,7 +88,6 @@ import { TypedDocumentNode } from '@apollo/client/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
 import { NftErcStandards } from '../types/nfts';
-import { format } from 'path';
 
 export class NftsController {
   constructor(
@@ -136,7 +135,7 @@ export class NftsController {
   async getByWalletAddress(
     variables: WalletNFTsByAddressQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByAddressFormattedResult> {
-    const { chain, ...queryVariables } = variables;
+    const { chain, contractAddresses, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetWalletNFTsByAddressDocument,

@@ -1447,6 +1447,7 @@ export type CodegenEthMainnetWalletNFTsByAddressQueryVariables = Exact<{
   address: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<CodegenWalletNFTsFilterInput>;
 }>;
 
 export type CodegenEthMainnetWalletNFTsByAddressQuery = {
@@ -1460,6 +1461,7 @@ export type CodegenEthMainnetWalletNFTsByEnsQueryVariables = Exact<{
   ensName: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<CodegenWalletNFTsFilterInput>;
 }>;
 
 export type CodegenEthMainnetWalletNFTsByEnsQuery = {
@@ -1542,6 +1544,7 @@ export type CodegenEthSepoliaWalletNFTsByAddressQueryVariables = Exact<{
   address: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<CodegenWalletNFTsFilterInput>;
 }>;
 
 export type CodegenEthSepoliaWalletNFTsByAddressQuery = {
@@ -1555,6 +1558,7 @@ export type CodegenEthSepoliaWalletNFTsByEnsQueryVariables = Exact<{
   ensName: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<CodegenWalletNFTsFilterInput>;
 }>;
 
 export type CodegenEthSepoliaWalletNFTsByEnsQuery = {
@@ -2202,6 +2206,7 @@ export type CodegenPolygonMainnetWalletNFTsByAddressQueryVariables = Exact<{
   address: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<CodegenWalletNFTsFilterInput>;
 }>;
 
 export type CodegenPolygonMainnetWalletNFTsByAddressQuery = {
@@ -2215,6 +2220,7 @@ export type CodegenPolygonMainnetWalletNFTsByEnsQueryVariables = Exact<{
   ensName: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  filter?: InputMaybe<CodegenWalletNFTsFilterInput>;
 }>;
 
 export type CodegenPolygonMainnetWalletNFTsByEnsQuery = {
@@ -3891,6 +3897,14 @@ export const CodegenWalletByAddressFragmentFragmentDoc = {
                         name: { kind: 'Name', value: 'first' },
                       },
                     },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
+                      },
+                    },
                   ],
                   selectionSet: {
                     kind: 'SelectionSet',
@@ -4049,6 +4063,14 @@ export const CodegenWalletByEnsFragmentFragmentDoc = {
                       value: {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
                       },
                     },
                   ],
@@ -4567,6 +4589,17 @@ export const CodegenEthMainnetWalletNFTsByAddressDocument = {
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
         },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'WalletNFTsFilterInput' },
+          },
+        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -4691,6 +4724,14 @@ export const CodegenEthMainnetWalletNFTsByAddressDocument = {
                         name: { kind: 'Name', value: 'first' },
                       },
                     },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
+                      },
+                    },
                   ],
                   selectionSet: {
                     kind: 'SelectionSet',
@@ -4784,6 +4825,17 @@ export const CodegenEthMainnetWalletNFTsByEnsDocument = {
             name: { kind: 'Name', value: 'first' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'WalletNFTsFilterInput' },
+          },
         },
       ],
       selectionSet: {
@@ -4907,6 +4959,14 @@ export const CodegenEthMainnetWalletNFTsByEnsDocument = {
                       value: {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
                       },
                     },
                   ],
@@ -6565,6 +6625,17 @@ export const CodegenEthSepoliaWalletNFTsByAddressDocument = {
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
         },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'WalletNFTsFilterInput' },
+          },
+        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -6689,6 +6760,14 @@ export const CodegenEthSepoliaWalletNFTsByAddressDocument = {
                         name: { kind: 'Name', value: 'first' },
                       },
                     },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
+                      },
+                    },
                   ],
                   selectionSet: {
                     kind: 'SelectionSet',
@@ -6782,6 +6861,17 @@ export const CodegenEthSepoliaWalletNFTsByEnsDocument = {
             name: { kind: 'Name', value: 'first' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'WalletNFTsFilterInput' },
+          },
         },
       ],
       selectionSet: {
@@ -6905,6 +6995,14 @@ export const CodegenEthSepoliaWalletNFTsByEnsDocument = {
                       value: {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
                       },
                     },
                   ],
@@ -8563,6 +8661,17 @@ export const CodegenPolygonMainnetWalletNFTsByAddressDocument = {
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
         },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'WalletNFTsFilterInput' },
+          },
+        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -8687,6 +8796,14 @@ export const CodegenPolygonMainnetWalletNFTsByAddressDocument = {
                         name: { kind: 'Name', value: 'first' },
                       },
                     },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
+                      },
+                    },
                   ],
                   selectionSet: {
                     kind: 'SelectionSet',
@@ -8780,6 +8897,17 @@ export const CodegenPolygonMainnetWalletNFTsByEnsDocument = {
             name: { kind: 'Name', value: 'first' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'WalletNFTsFilterInput' },
+          },
         },
       ],
       selectionSet: {
@@ -8903,6 +9031,14 @@ export const CodegenPolygonMainnetWalletNFTsByEnsDocument = {
                       value: {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filter' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filter' },
                       },
                     },
                   ],

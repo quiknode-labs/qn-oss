@@ -6,6 +6,7 @@ export const EthMainnetWalletNFTsByAddress = gql`
     $address: String!
     $after: String
     $first: Int
+    $filter: WalletNFTsFilterInput
   ) {
     ethereum {
       ...WalletByAddressFragment

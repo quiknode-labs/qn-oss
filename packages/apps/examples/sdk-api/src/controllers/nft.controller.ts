@@ -7,6 +7,9 @@ export default {
       const NFTs = await nfts.getByWalletENS({
         ensName: req.params.ensResource,
         first: 2,
+        filter: {
+          contractAddressIn: ['0xc92ceddfb8dd984a89fb494c376f9a48b999aafc'],
+        },
       });
       return res.status(200).send(NFTs);
     } catch (error) {

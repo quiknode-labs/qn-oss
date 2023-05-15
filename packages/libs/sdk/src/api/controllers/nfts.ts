@@ -401,7 +401,7 @@ export class NftsController {
     return formattedResult;
   }
 
-  async verifyNFTOwner(
+  async verifyOwnership(
     variables: VerifyOwnershipUserVariablesType & NonQueryInput
   ): Promise<boolean> {
     const { chain, walletAddress, contractAddresses } = variables;

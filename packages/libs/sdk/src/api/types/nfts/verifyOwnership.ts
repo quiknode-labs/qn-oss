@@ -13,7 +13,7 @@ export type VerifyOwnershipQueryType = {
 export type VerifyOwnershipQueryVariablesType =
   CodegenEthMainnetVerifyOwnershipQueryVariables;
 
-// What the user can pass in the
+// What the user can pass in the function
 export type VerifyOwnershipUserVariablesType = {
   walletAddress: string;
   contractAddresses: string[];

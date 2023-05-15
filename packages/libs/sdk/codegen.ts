@@ -8,7 +8,7 @@ const additionalHeaders: Record<string, string> = JSON.parse(
 
 const config: CodegenConfig = {
   overwrite: true,
-  documents: ['src/**/*.gql', 'src/**/!(*.d).{ts,tsx}'],
+  documents: ['src/api/graphql/queries/**/*'],
   schema: [
     {
       'https://api.quicknode.com/graphql': {
@@ -20,7 +20,7 @@ const config: CodegenConfig = {
     },
   ],
   generates: {
-    'src/api/graphql/generatedTypes.ts': {
+    'src/api/graphql/codegen/': {
       preset: 'client',
       plugins: [],
       presetConfig: {
@@ -32,7 +32,7 @@ const config: CodegenConfig = {
         inlineFragmentTypes: 'combine',
       },
     },
-    'src/api/graphql/fragmentMatcher.ts': {
+    'src/api/graphql/codegen/fragmentMatcher.ts': {
       plugins: ['fragment-matcher'],
     },
   },

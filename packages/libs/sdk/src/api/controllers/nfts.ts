@@ -84,13 +84,19 @@ import { ChainName } from '../types/chains';
 import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
-import { TypedDocumentNode } from '@apollo/client/core';
+import {
+  ApolloClient,
+  NormalizedCache,
+  NormalizedCacheObject,
+  TypedDocumentNode,
+} from '@apollo/client/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
 import { NftErcStandards } from '../types/nfts';
 
 export class NftsController {
   constructor(
+    private apolloClient: ApolloClient<NormalizedCacheObject>,
     private client: CustomApolloClient,
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
@@ -379,6 +385,22 @@ export class NftsController {
       query: query[userChain], // The actual graphql query
       variables: queryVariables,
     });
+
+    const withoutSpecifiedChain = await this.apolloClient.query({
+      query: query[userChain], // The actual graphql query
+      variables: queryVariables,
+    });
+
+    // This is ApolloQueryResult<any> because we don't know the chain yet
+    console.log(withoutSpecifiedChain);
+
+    const withSpecifiedChain = await this.apolloClient.query({
+      query: CodegenEthereumMainnetEventsByNftDocument, // The actual graphql query
+      variables: queryVariables,
+    });
+
+    // This is ApolloQueryResult<CodegenEthereumMainnetEventsByNftQuery> because we specified the chain
+    console.log(withSpecifiedChain.data.ethereum);
 
     if (!nft?.tokenEvents?.length)
       return { results: [], pageInfo: emptyPageInfo };

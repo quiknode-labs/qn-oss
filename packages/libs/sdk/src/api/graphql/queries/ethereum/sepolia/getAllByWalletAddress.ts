@@ -6,6 +6,7 @@ export const EthSepoliaWalletNFTsByAddress = gql`
     $address: String!
     $after: String
     $first: Int
+    $filter: WalletNFTsFilterInput
   ) {
     ethereumSepolia {
       ...WalletByAddressFragment

@@ -6,6 +6,7 @@ export const PolygonMainnetWalletNFTsByEns = gql`
     $ensName: String!
     $after: String
     $first: Int
+    $filter: WalletNFTsFilterInput
   ) {
     polygon {
       ...WalletByEnsFragment

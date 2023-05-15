@@ -71,12 +71,19 @@ If no `defaultChain` is passed into the initializer or a `chain` argument to a f
 
 Returns NFTs owned by a wallet
 
-| Argument | Values | Required | Description                     | Example                     |
-| -------- | ------ | -------- | ------------------------------- | --------------------------- |
-| ensName  | string | ✅       | Wallet ENS address              | vitalik.eth                 |
-| first    | number | ❌       | Number of results to return     | 10                          |
-| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
-| chain    | string | ❌       | Blockchain name                 | polygon                     |
+| Argument | Values | Required | Description                                         | Example                            |
+| -------- | ------ | -------- | --------------------------------------------------- | ---------------------------------- |
+| ensName  | string | ✅       | Wallet ENS address                                  | vitalik.eth                        |
+| first    | number | ❌       | Number of results to return                         | 10                                 |
+| after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=        |
+| chain    | string | ❌       | Blockchain name                                     | polygon                            |
+| filter   | object | ❌       | An object with the optional filters for the request | { contractAddressIn: ["0x00..."] } |
+
+`filter` Parameters
+
+| Argument          | Values | Description                        | Example                                        |
+| ----------------- | ------ | ---------------------------------- | ---------------------------------------------- |
+| contractAddressIn | Array  | An array of NFT contract addresses | ["0x2106C00Ac7dA0A3430aE667879139E832307AeAa"] |
 
 ```ts
 import QuickNode from '@quicknode/sdk';
@@ -97,12 +104,19 @@ qn.nfts
 
 Returns NFTs owned by a wallet
 
-| Argument | Values | Required | Description                     | Example                                    |
-| -------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
-| address  | string | ✅       | Wallet address                  | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
-| first    | number | ❌       | Number of results to return     | 10                                         |
-| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
-| chain    | string | ❌       | Blockchain name                 | polygon                                    |
+| Argument | Values | Required | Description                                         | Example                                    |
+| -------- | ------ | -------- | --------------------------------------------------- | ------------------------------------------ |
+| address  | string | ✅       | Wallet address                                      | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
+| first    | number | ❌       | Number of results to return                         | 10                                         |
+| after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain    | string | ❌       | Blockchain name                                     | polygon                                    |
+| filter   | object | ❌       | An object with the optional filters for the request | { contractAddressIn: ["0x00..."] }         |
+
+`filter` Parameters
+
+| Argument          | Values | Description                        | Example                                        |
+| ----------------- | ------ | ---------------------------------- | ---------------------------------------------- |
+| contractAddressIn | Array  | An array of NFT contract addresses | ["0x2106C00Ac7dA0A3430aE667879139E832307AeAa"] |
 
 ```ts
 import QuickNode from '@quicknode/sdk';

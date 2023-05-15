@@ -15,7 +15,9 @@ export type WalletNFTsByAddressQueryType = {
 // Using the generated CodegenEthMainnetWalletNFTsByAddressQueryVariables as a base for the type here
 // since the variables will be the same for each query
 export type WalletNFTsByAddressQueryVariablesType =
-  CodegenEthMainnetWalletNFTsByAddressQueryVariables;
+  CodegenEthMainnetWalletNFTsByAddressQueryVariables & {
+    contractAddresses?: string[];
+  };
 
 export interface WalletNFTsByAddressQueryResultInfo {
   address: string;

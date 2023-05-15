@@ -6,6 +6,7 @@ export const EthSepoliaWalletNFTsByEns = gql`
     $ensName: String!
     $after: String
     $first: Int
+    $filter: WalletNFTsFilterInput
   ) {
     ethereumSepolia {
       ...WalletByEnsFragment

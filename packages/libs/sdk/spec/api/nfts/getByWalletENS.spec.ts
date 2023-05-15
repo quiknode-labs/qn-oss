@@ -220,4 +220,128 @@ describe('getNFTsByWalletENS', () => {
       }
     );
   });
+
+  it('can filter by contract addresses', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getNFTsByWalletENS-contractAddresses',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.nfts.getByWalletENS({
+          ensName: 'shaq.eth',
+          first: 2,
+          filter: {
+            contractAddressIn: ['0xc92ceddfb8dd984a89fb494c376f9a48b999aafc'],
+          },
+        });
+        expect(data).toStrictEqual({
+          results: [
+            {
+              animationUrl: null,
+              collectionSlug: null,
+              contractAddress: '0xc92ceddfb8dd984a89fb494c376f9a48b999aafc',
+              description:
+                'Welcome to The Creature World. You have arrived in a nearby magical dimension of love, divine intervention, and possibility. 10,000 unique Creatures are here to guide you on this journey. Follow their lead. Created with love by NYC-based artist Danny Cole. www.creature.world.',
+              externalUrl: null,
+              metadata: {
+                name: 'Creature #9299',
+                image:
+                  'https://creature.mypinata.cloud/ipfs/QmeZGc1CL3eb9QJatKXTGT7ekgLMq9FyZUWckQ4oWdc53a/9299.jpg',
+                attributes: [
+                  {
+                    value: 'Field',
+                    trait_type: 'Background',
+                  },
+                  {
+                    value: 'Violet',
+                    trait_type: 'Creature',
+                  },
+                  {
+                    value: 'Gold Polkadots',
+                    trait_type: 'Decoration',
+                  },
+                  {
+                    value: 'Black',
+                    trait_type: 'Eyes',
+                  },
+                  {
+                    value: 'Happy',
+                    trait_type: 'Mouth',
+                  },
+                  {
+                    value: 'Crush',
+                    trait_type: 'Foreground',
+                  },
+                ],
+                description:
+                  'Welcome to The Creature World. You have arrived in a nearby magical dimension of love, divine intervention, and possibility. 10,000 unique Creatures are here to guide you on this journey. Follow their lead. Created with love by NYC-based artist Danny Cole. www.creature.world.',
+              },
+              name: 'Creature #9299',
+              tokenId: 9299,
+            },
+            {
+              animationUrl: null,
+              collectionSlug: null,
+              contractAddress: '0xc92ceddfb8dd984a89fb494c376f9a48b999aafc',
+              description:
+                'Welcome to The Creature World. You have arrived in a nearby magical dimension of love, divine intervention, and possibility. 10,000 unique Creatures are here to guide you on this journey. Follow their lead. Created with love by NYC-based artist Danny Cole. www.creature.world.',
+              externalUrl: null,
+              metadata: {
+                name: 'Creature #9018',
+                image:
+                  'https://creature.mypinata.cloud/ipfs/QmeZGc1CL3eb9QJatKXTGT7ekgLMq9FyZUWckQ4oWdc53a/9018.jpg',
+                attributes: [
+                  {
+                    value: 'Scarlet',
+                    trait_type: 'Background',
+                  },
+                  {
+                    value: 'Clouds',
+                    trait_type: 'Overlay',
+                  },
+                  {
+                    value: 'Violet',
+                    trait_type: 'Creature',
+                  },
+                  {
+                    value: 'Ocean Tranteum',
+                    trait_type: 'Decoration',
+                  },
+                  {
+                    value: 'Raincoat',
+                    trait_type: 'Outfit',
+                  },
+                  {
+                    value: 'Ocean',
+                    trait_type: 'Eyes',
+                  },
+                  {
+                    value: 'Happy',
+                    trait_type: 'Mouth',
+                  },
+                  {
+                    value: 'Clouds',
+                    trait_type: 'Foreground',
+                  },
+                ],
+                description:
+                  'Welcome to The Creature World. You have arrived in a nearby magical dimension of love, divine intervention, and possibility. 10,000 unique Creatures are here to guide you on this journey. Follow their lead. Created with love by NYC-based artist Danny Cole. www.creature.world.',
+              },
+              name: 'Creature #9018',
+              tokenId: 9018,
+            },
+          ],
+          pageInfo: {
+            endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
+          },
+          address: '0x3c6aeff92b4b35c2e1b196b57d0f8ffb56884a17',
+          ensName: 'shaq.eth',
+        });
+      }
+    );
+  });
 });

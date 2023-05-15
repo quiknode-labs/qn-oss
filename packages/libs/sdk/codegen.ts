@@ -21,12 +21,15 @@ const config: CodegenConfig = {
   ],
   generates: {
     'src/api/graphql/generatedTypes.ts': {
-      plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
+      preset: 'client',
+      plugins: [],
+      presetConfig: {
+        fragmentMasking: false,
+      },
       config: {
         namingConvention: './codegenCustomNaming',
         exportFragmentSpreadSubTypes: true,
         inlineFragmentTypes: 'combine',
-        fragmentMasking: false,
       },
     },
     'src/api/graphql/fragmentMatcher.ts': {

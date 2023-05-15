@@ -3,7 +3,7 @@ import {
   CodegenEthMainnetTrendingCollectionsQueryVariables,
   CodegenTrendingCollectionInfoFragment,
   CodegenPaginationFragment,
-} from '../../graphql/generatedTypes';
+} from '../../graphql/codegen/graphql';
 import { ChainName } from '../chains';
 
 export type NFTTrendingCollectionsQueryType = {

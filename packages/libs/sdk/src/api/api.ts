@@ -10,7 +10,7 @@ import { setContext } from '@apollo/client/link/context';
 import { onError, ErrorResponse } from '@apollo/client/link/error';
 import fetch from 'cross-fetch';
 import { CustomApolloClient } from './graphql/customApolloClient';
-import generatedPossibleTypes from './graphql/fragmentMatcher';
+import generatedPossibleTypes from './graphql/codegen/fragmentMatcher';
 import { NftsController } from './controllers';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';

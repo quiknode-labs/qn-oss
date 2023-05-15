@@ -4,7 +4,7 @@ import {
   CodegenERC721NFTNodeFragment,
   CodegenERC1155NFTNodeFragment,
   CodegenPaginationFragment,
-} from '../../graphql/generatedTypes';
+} from '../../graphql/codegen/graphql';
 import { ChainName } from '../chains';
 import { NftErcStandards } from '../nfts';
 

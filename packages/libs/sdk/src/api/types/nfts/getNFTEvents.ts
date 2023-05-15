@@ -3,7 +3,7 @@ import {
   CodegenEthereumMainnetEventsByNftQueryVariables,
   CodegenTokenEventInfoFragment,
   CodegenPaginationFragment,
-} from '../../graphql/generatedTypes';
+} from '../../graphql/codegen/graphql';
 import { ChainName } from '../chains';
 
 export type NFTEventsQueryType = {

@@ -3,7 +3,7 @@ import {
   CodegenEthMainnetWalletNFTsByEnsQuery,
   CodegenWalletNFTNodeFragment,
   CodegenPaginationFragment,
-} from '../../graphql/generatedTypes';
+} from '../../graphql/codegen/graphql';
 import { ChainName } from '../chains';
 
 // Using the generated CodegenEthMainnetWalletNFTsByEnsQuery as a base for the type here

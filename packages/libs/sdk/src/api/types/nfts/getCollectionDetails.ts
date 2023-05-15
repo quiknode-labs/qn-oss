@@ -2,7 +2,7 @@ import {
   CodegenEthMainnetNftCollectionDetailsQuery,
   CodegenEthMainnetNftCollectionDetailsQueryVariables,
   CodegenNftCollectionInfoFragment,
-} from '../../graphql/generatedTypes';
+} from '../../graphql/codegen/graphql';
 import { ChainName } from '../chains';
 
 export type NftCollectionDetailsQueryType = {

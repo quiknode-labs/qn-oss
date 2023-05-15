@@ -1,4 +1,4 @@
-import { CodegenPageInfo } from '../graphql/generatedTypes';
+import { CodegenPageInfo } from '../graphql/codegen';
 
 interface Edge {
   __typename?: 'TokenEdge';

@@ -79,7 +79,7 @@ import {
   CodegenPolygonMainnetNftCollectionDetailsDocument,
   CodegenPolygonMainnetEventsByCollectionDocument,
   CodegenPolygonMainnetEventsByNftDocument,
-} from '../graphql/generatedTypes';
+} from '../graphql/codegen/graphql';
 import { ChainName } from '../types/chains';
 import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
 import { formatQueryResult } from '../utils/postQueryFormatter';
@@ -88,7 +88,6 @@ import { TypedDocumentNode } from '@apollo/client/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
 import { NftErcStandards } from '../types/nfts';
-import { format } from 'path';
 
 export class NftsController {
   constructor(

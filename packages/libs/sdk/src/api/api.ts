@@ -11,7 +11,7 @@ import { onError, ErrorResponse } from '@apollo/client/link/error';
 import fetch from 'cross-fetch';
 import { CustomApolloClient } from './graphql/customApolloClient';
 import generatedPossibleTypes from './graphql/fragmentMatcher';
-import { NftsController, UtilsController } from './controllers';
+import { NftsController } from './controllers';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
 import { hasOwnProperty } from './utils/helpers';
@@ -65,7 +65,7 @@ export class API {
   private additionalHeaders?: Record<string, string>;
   readonly defaultChain: ChainName;
   readonly nfts: NftsController;
-  readonly utils: UtilsController;
+  readonly graphApiClient: ApolloClient<NormalizedCacheObject>;
 
   constructor({
     graphApiKey,
@@ -84,7 +84,8 @@ export class API {
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
     this.defaultChain = defaultChain || DEFAULT_CHAIN;
     this.nfts = new NftsController(this.customApolloClient, this.defaultChain);
-    this.utils = new UtilsController(this.apolloClient);
+    // Re-export the apolloClient configured to use the Graph API for use with custom queries
+    this.graphApiClient = this.apolloClient;
   }
 
   private createApolloClient(): ApolloClient<NormalizedCacheObject> {

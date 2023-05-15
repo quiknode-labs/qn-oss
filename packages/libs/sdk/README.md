@@ -268,14 +268,9 @@ qn.nfts
   .then((response) => console.log(response));
 ```
 
-### utils.graphQuery
+### graphApiClient.query
 
-A way to send GraphQL queries directly to the [QuickNode GraphQL API](https://www.quicknode.com/graph-api). For more information about the query structure, see the [Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)
-
-| Argument  | Values       | Required | Description                            |
-| --------- | ------------ | -------- | -------------------------------------- |
-| query     | DocumentNode | ✅       | A GraphQL query                        |
-| variables | Object       | ❌       | Variables to be passed in to the query |
+A way to send GraphQL queries directly to the [QuickNode GraphQL API](https://www.quicknode.com/graph-api). `graphApiClient` is an [ApolloClient](https://www.apollographql.com/docs/react/api/core/ApolloClient/) instance configured to use QuickNode's Graph API. For more information about the query structure, see the [Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)
 
 ```ts
 import QuickNode, { gql } from '@quicknode/sdk';
@@ -300,7 +295,7 @@ const variables = {
   contractAddress: "0x2106c00ac7da0a3430ae667879139e832307aeaa"
 }
 
-qn.utils.graphQuery({ query, variables });
+qn.graphApiClient.query({ query, variables });
   .then((response) => console.log(response));
 ```
 

@@ -289,7 +289,6 @@ describe('nfts.getByContractAddress', () => {
           contractAddress: '0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           first: 2,
         });
-        console.log(JSON.stringify(data, null, 2));
         expect(data).toStrictEqual({
           results: [],
           pageInfo: {

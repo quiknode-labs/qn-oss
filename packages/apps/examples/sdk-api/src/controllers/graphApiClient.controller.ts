@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { utils } from '../client';
+import { api } from '../client';
 import { gql } from '@qn-oss/libs/sdk';
 
 export default {
@@ -19,7 +19,7 @@ export default {
         }
       `;
 
-      const result = await utils.graphQuery({ query });
+      const result = await api.graphApiClient.query({ query });
       return res.status(200).send(result);
     } catch (error) {
       console.error(error);

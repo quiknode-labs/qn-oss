@@ -69,5 +69,21 @@ describe('nfts.verifyOwnership', () => {
         }
       );
     });
+
+    it('when no contract addresses are passed in', async () => {
+      await withPolly(
+        {
+          recordingName: 'verifyNFTOwnerNoContractAddresses',
+          recordIfMissing: true,
+        },
+        async () => {
+          const data = await apiClient.nfts.verifyOwnership({
+            walletAddress: '0x7eb413211a9DE1cd2FE8b8Bb6055636c43F7d206',
+            contractAddresses: [],
+          });
+          expect(data).toBe(false);
+        }
+      );
+    });
   });
 });

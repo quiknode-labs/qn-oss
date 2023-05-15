@@ -424,6 +424,9 @@ export class NftsController {
       variables: { address: walletAddress, contractAddresses },
     });
 
+    // Return false by default if no contract addresses are passed in
+    if (!contractAddresses?.length) return false;
+
     return !!walletByAddress?.walletNFTs?.length;
   }
 }

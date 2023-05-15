@@ -109,7 +109,7 @@ export default {
 
   verifyOwnership: async (req: Request, res: Response) => {
     try {
-      const verifyOwnership = await nfts.verifyNFTOwner({
+      const verifyOwnership = await nfts.verifyOwnership({
         walletAddress: req.params.walletAddress,
         contractAddresses: [req.params.contractAddress],
       });

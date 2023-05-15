@@ -247,7 +247,7 @@ const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
-await qn.nfts
+qn.nfts
   .getCollectionEvents({
     contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
     first: 5,
@@ -274,10 +274,37 @@ const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
-await qn.nfts.getNFTEvents({
-  contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
-  tokenId: '1',
+qn.nfts
+  .getNFTEvents({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    tokenId: '1',
+  })
+  .then((response) => console.log(response));
+```
+
+### nfts.verifyOwnership
+
+Check if the wallet address is an owner of any of the provided NFT contract addresses. Returns a boolean if they own and NFT from _any_ of the provided contract addresses.
+
+| Argument          | Values | Required | Description                                  | Example                                        |
+| ----------------- | ------ | -------- | -------------------------------------------- | ---------------------------------------------- |
+| walletAddress     | string | ✅       | Address of wallet to check as owner          | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17     |
+| contractAddresses | array  | ✅       | NFT contract addresses to check ownership of | ["0x2106C00Ac7dA0A3430aE667879139E832307AeAa"] |
+| chain             | string | ❌       | Blockchain name                              | polygon                                        |
+
+```typescript
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
+
+qn.nfts
+  .verifyOwnership({
+    walletAddress: '0x46EFbAedc92067E6d60E84ED6395099723252496',
+    contractAddresses: ['0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D'],
+  })
+  .then((response) => console.log(response));
 ```
 
 ## Pagination

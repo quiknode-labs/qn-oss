@@ -55,6 +55,12 @@ import {
   NFTEventsQueryType,
 } from '../types/nfts/getNFTEvents';
 import {
+  VerifyOwnershipQueryResultInfo,
+  VerifyOwnershipQueryResultFull,
+  VerifyOwnershipQueryType,
+  VerifyOwnershipQueryVariablesType,
+} from '../types/nfts/verifyOwnership';
+import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
   CodegenEthMainnetWalletNFTsByContractAddressDocument,

@@ -9,11 +9,20 @@ export type VerifyOwnershipQueryType = {
   [k in ChainName]: CodegenEthMainnetVerifyOwnershipQuery['ethereum'];
 };
 
+// What the query takes as input
 export type VerifyOwnershipQueryVariablesType =
   CodegenEthMainnetVerifyOwnershipQueryVariables;
 
+// What the user can pass in the
+export type VerifyOwnershipUserVariablesType = {
+  walletAddress: string;
+  contractAddresses: string[];
+};
+
 export interface VerifyOwnershipQueryResultInfo {
-  verifyOwnership: CodegenVerifyOwnershipInfoFragment;
+  walletByAddress: {
+    walletNFTs: CodegenVerifyOwnershipInfoFragment[];
+  };
 }
 
 // What the graphQL query returns after the edges and nodes are removed

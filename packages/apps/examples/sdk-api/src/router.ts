@@ -29,5 +29,9 @@ router.get(
   '/api/nftEvents/:contractAddress/:tokenId',
   nftController.getNFTEvents
 );
+router.get(
+  '/api/verfiyOwnership/:walletAddress/:contractAddress',
+  nftController.verifyOwnership
+);
 
 export default router;

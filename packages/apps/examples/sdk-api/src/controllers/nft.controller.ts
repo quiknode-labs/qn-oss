@@ -106,4 +106,17 @@ export default {
       return res.status(500).send({});
     }
   },
+
+  verifyOwnership: async (req: Request, res: Response) => {
+    try {
+      const verifyOwnership = await nfts.verifyNFTOwner({
+        walletAddress: req.params.walletAddress,
+        contractAddresses: [req.params.contractAddress],
+      });
+      return res.status(200).send(verifyOwnership);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
 };

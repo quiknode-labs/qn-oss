@@ -59,6 +59,7 @@ import {
   VerifyOwnershipQueryResultFull,
   VerifyOwnershipQueryType,
   VerifyOwnershipQueryVariablesType,
+  VerifyOwnershipUserVariablesType,
 } from '../types/nfts/verifyOwnership';
 import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
@@ -69,6 +70,7 @@ import {
   CodegenEthMainnetNftCollectionDetailsDocument,
   CodegenEthMainnetEventsByCollectionDocument,
   CodegenEthereumMainnetEventsByNftDocument,
+  CodegenEthMainnetVerifyOwnershipDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
   CodegenEthSepoliaWalletNFTsByContractAddressDocument,
@@ -77,6 +79,7 @@ import {
   CodegenEthSepoliaNftCollectionDetailsDocument,
   CodegenEthSepoliaEventsByCollectionDocument,
   CodegenEthSepoliaEventsByNftDocument,
+  CodegenEthSepoliaVerifyOwnershipDocument,
   CodegenPolygonMainnetWalletNFTsByAddressDocument,
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
   CodegenPolygonMainnetNFTsByContractAddressDocument,
@@ -85,6 +88,7 @@ import {
   CodegenPolygonMainnetNftCollectionDetailsDocument,
   CodegenPolygonMainnetEventsByCollectionDocument,
   CodegenPolygonMainnetEventsByNftDocument,
+  CodegenPolygonMainnetVerifyOwnershipDocument,
 } from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
 import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
@@ -395,5 +399,31 @@ export class NftsController {
     >(nft, 'tokenEvents', 'tokenEventsPageInfo');
 
     return formattedResult;
+  }
+
+  async verifyNFTOwner(
+    variables: VerifyOwnershipUserVariablesType & NonQueryInput
+  ): Promise<boolean> {
+    const { chain, walletAddress, contractAddresses } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetVerifyOwnershipDocument,
+      polygon: CodegenPolygonMainnetVerifyOwnershipDocument,
+      ethereumSepolia: CodegenEthSepoliaVerifyOwnershipDocument,
+    };
+    const {
+      data: {
+        [userChain]: { walletByAddress },
+      },
+    } = await this.client.query<
+      VerifyOwnershipQueryVariablesType, // What the user can pass in
+      VerifyOwnershipQueryType, // The actual unmodified result from query
+      VerifyOwnershipQueryResultFull // the modified result (edges and nodes removed)
+    >({
+      query: query[userChain], // The actual graphql query
+      variables: { address: walletAddress, contractAddresses },
+    });
+
+    return !!walletByAddress?.walletNFTs?.length;
   }
 }

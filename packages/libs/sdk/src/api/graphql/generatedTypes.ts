@@ -1987,22 +1987,18 @@ export type CodegenVerifyOwnershipInfoFragment = {
         __typename?: 'WalletNFTsConnectionEdge';
         node: {
           __typename?: 'WalletNFT';
-          nft?:
-            | {
-                __typename?: 'ERC721NFT';
-                contractAddress: string;
-                tokenId: any;
-              }
-            | {
-                __typename?: 'ERC1155NFT';
-                contractAddress: string;
-                tokenId: any;
-              }
-            | null;
-        };
+        } & CodegenVerifyOwnershipNFTDetailsFragment;
       }>;
     };
   } | null;
+};
+
+export type CodegenVerifyOwnershipNFTDetailsFragment = {
+  __typename?: 'WalletNFT';
+  nft?:
+    | { __typename?: 'ERC721NFT'; contractAddress: string; tokenId: any }
+    | { __typename?: 'ERC1155NFT'; contractAddress: string; tokenId: any }
+    | null;
 };
 
 export type CodegenWalletNFTNodeFragment = {
@@ -3094,6 +3090,38 @@ export const CodegenNftCollectionInfoFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CodegenNftCollectionInfoFragment, unknown>;
+export const CodegenVerifyOwnershipNFTDetailsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VerifyOwnershipNFTDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'WalletNFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nft' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenVerifyOwnershipNFTDetailsFragment, unknown>;
 export const CodegenVerifyOwnershipInfoFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -3164,26 +3192,10 @@ export const CodegenVerifyOwnershipInfoFragmentDoc = {
                                 kind: 'SelectionSet',
                                 selections: [
                                   {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'nft' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'contractAddress',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'tokenId',
-                                          },
-                                        },
-                                      ],
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'VerifyOwnershipNFTDetails',
                                     },
                                   },
                                 ],
@@ -3195,6 +3207,33 @@ export const CodegenVerifyOwnershipInfoFragmentDoc = {
                     ],
                   },
                 },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VerifyOwnershipNFTDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'WalletNFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nft' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
               ],
             },
           },
@@ -6455,6 +6494,33 @@ export const CodegenEthMainnetVerifyOwnershipDocument = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VerifyOwnershipNFTDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'WalletNFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nft' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'VerifyOwnershipInfo' },
       typeCondition: {
         kind: 'NamedType',
@@ -6520,26 +6586,10 @@ export const CodegenEthMainnetVerifyOwnershipDocument = {
                                 kind: 'SelectionSet',
                                 selections: [
                                   {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'nft' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'contractAddress',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'tokenId',
-                                          },
-                                        },
-                                      ],
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'VerifyOwnershipNFTDetails',
                                     },
                                   },
                                 ],
@@ -8662,6 +8712,33 @@ export const CodegenEthSepoliaVerifyOwnershipDocument = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VerifyOwnershipNFTDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'WalletNFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nft' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'VerifyOwnershipInfo' },
       typeCondition: {
         kind: 'NamedType',
@@ -8727,26 +8804,10 @@ export const CodegenEthSepoliaVerifyOwnershipDocument = {
                                 kind: 'SelectionSet',
                                 selections: [
                                   {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'nft' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'contractAddress',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'tokenId',
-                                          },
-                                        },
-                                      ],
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'VerifyOwnershipNFTDetails',
                                     },
                                   },
                                 ],
@@ -10869,6 +10930,33 @@ export const CodegenPolygonMainnetVerifyOwnershipDocument = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VerifyOwnershipNFTDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'WalletNFT' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'nft' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'VerifyOwnershipInfo' },
       typeCondition: {
         kind: 'NamedType',
@@ -10934,26 +11022,10 @@ export const CodegenPolygonMainnetVerifyOwnershipDocument = {
                                 kind: 'SelectionSet',
                                 selections: [
                                   {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'nft' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'contractAddress',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'tokenId',
-                                          },
-                                        },
-                                      ],
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'VerifyOwnershipNFTDetails',
                                     },
                                   },
                                 ],

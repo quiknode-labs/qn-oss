@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { VerifyOwnershipNFTDetails } from './VerifyOwnershipNFTDetails';
 
 export const VerifyOwnershipInfo = gql`
   fragment VerifyOwnershipInfo on EVMSchemaType {
@@ -6,13 +7,11 @@ export const VerifyOwnershipInfo = gql`
       walletNFTs(filter: { contractAddressIn: $contractAddresses }) {
         edges {
           node {
-            nft {
-              contractAddress
-              tokenId
-            }
+            ...VerifyOwnershipNFTDetails
           }
         }
       }
     }
   }
+  ${VerifyOwnershipNFTDetails}
 `;

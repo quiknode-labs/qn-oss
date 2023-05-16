@@ -103,23 +103,28 @@ export class API {
       possibleTypes: generatedPossibleTypes.possibleTypes,
       // TODO: Figure out type policies
       typePolicies: {
+        EVMSchemaType: {
+          // Always merge EVMSchemaType objects
+          // Added because of warning: "Cache data may be lost when replacing the ethereum field of a Query object."
+          merge: true,
+        },
         NFT: {
           keyFields: ['contractAddress', 'tokenId'],
         },
         Collection: {
-          keyFields: ['contractAddress'], // Do we have to worry about collisions with other chains?
+          keyFields: ['address'], // Do we have to worry about collisions with other chains?
         },
         Contract: {
-          keyFields: ['contractAddress'],
+          keyFields: ['address'],
         },
         TokenEvent: {
-          keyFields: ['transactionHash'], // Do we need transferIndex too?
+          keyFields: ['transactionHash', 'transferIndex'], // Do we need transferIndex too?
         },
         Transaction: {
           keyFields: ['hash'],
         },
         TrendingCollection: {
-          keyFields: ['Collection', ['contractAddress']],
+          keyFields: ['collection', ['address']],
         },
         Wallet: {
           keyFields: ['address'],

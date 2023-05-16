@@ -249,7 +249,8 @@ export class NftsController {
         ERC1155Collection: 'ERC1155',
         ERC721Collection: 'ERC721',
       };
-      const { __typename, ...newResults } = results;
+      // Remove address too since it was only used as a key field
+      const { __typename, address, ...newResults } = results;
       return {
         ...newResults,
         standard: standardMap[results['__typename']] || null,
@@ -349,10 +350,14 @@ export class NftsController {
     if (!collection?.tokenEvents?.length)
       return { results: [], pageInfo: emptyPageInfo };
 
+    function removeKeyFields(results: any): CollectionEventsFormattedResult {
+      const { address, ...newResults } = results;
+      return newResults;
+    }
     const formattedResult = formatQueryResult<
       CollectionEventsQueryResultInfo,
       CollectionEventsFormattedResult
-    >(collection, 'tokenEvents', 'tokenEventsPageInfo');
+    >(collection, 'tokenEvents', 'tokenEventsPageInfo', null, removeKeyFields);
 
     return formattedResult;
   }
@@ -384,10 +389,15 @@ export class NftsController {
     if (!nft?.tokenEvents?.length)
       return { results: [], pageInfo: emptyPageInfo };
 
+    function removeKeyFields(results: any): NFTEventsFormattedResult {
+      const { contractAddress, tokenId, ...newResults } = results;
+      return newResults;
+    }
+
     const formattedResult = formatQueryResult<
       NFTEventsQueryResultInfo,
       NFTEventsFormattedResult
-    >(nft, 'tokenEvents', 'tokenEventsPageInfo');
+    >(nft, 'tokenEvents', 'tokenEventsPageInfo', null, removeKeyFields);
 
     return formattedResult;
   }

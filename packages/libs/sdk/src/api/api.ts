@@ -120,13 +120,13 @@ export class API {
           keyFields: ['contractAddress', 'tokenId'],
         },
         Collection: {
-          keyFields: ['address'], // Do we have to worry about collisions with other chains?
+          keyFields: ['address'],
         },
         Contract: {
           keyFields: ['address'],
         },
         TokenEvent: {
-          keyFields: ['transactionHash', 'transferIndex'], // Do we need transferIndex too?
+          keyFields: ['transactionHash', 'transferIndex'],
         },
         Transaction: {
           keyFields: ['hash'],

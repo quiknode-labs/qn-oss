@@ -2,8 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "types": ["node"],
-    "target": "es2015",
-    "module": "es6",
+    "target": "ES2016",
+    "module": "ES6",
     "declaration": true,
     "declarationDir": "../../../../dist/dts"
   },

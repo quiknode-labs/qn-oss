@@ -17,6 +17,8 @@ export default {
     sourcemapExcludeSources: true,
   },
   plugins: [
+    dts(), // Rollup the type declarations .d.ts files to one file
+    terser(), // Minify library code
     typescript({
       tsconfig: toAbsoluteDir('tsconfig.esm.json'),
     }),
@@ -28,8 +30,6 @@ export default {
         },
       ],
     }),
-    terser({}), // Minify library code
-    dts(), // Rollup the type declarations .d.ts files to one file
     // TODO: Add https://api-extractor.com/
   ],
   external: [/node_modules/],

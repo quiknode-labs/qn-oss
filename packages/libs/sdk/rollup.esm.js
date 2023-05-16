@@ -1,7 +1,7 @@
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
+import { apiExtractor } from 'rollup-plugin-api-extractor';
 import { terser } from 'rollup-plugin-terser';
-import dts from 'rollup-plugin-dts';
 import path from 'path';
 
 const rootDir = path.resolve(__dirname);
@@ -17,8 +17,6 @@ export default {
     sourcemapExcludeSources: true,
   },
   plugins: [
-    dts(), // Rollup the type declarations .d.ts files to one file
-    terser(), // Minify library code
     typescript({
       tsconfig: toAbsoluteDir('tsconfig.esm.json'),
     }),
@@ -30,7 +28,17 @@ export default {
         },
       ],
     }),
-    // TODO: Add https://api-extractor.com/
+    // Minify library code
+    terser(),
+    // Using API Extractor to rollup the ts declarations into one file
+    apiExtractor({
+      configuration: {
+        projectFolder: '.',
+        compiler: {
+          tsconfigFilePath: toAbsoluteDir('tsconfig.esm.json'),
+        },
+      },
+    }),
   ],
   external: [/node_modules/],
 };

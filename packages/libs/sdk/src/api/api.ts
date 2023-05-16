@@ -32,7 +32,7 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
 
   if (graphQLErrors) {
     graphQLErrors.map((error) => {
-      if (error?.message) errorsArray.push('Error message:' + error.message);
+      if (error?.message) errorsArray.push('Error message: ' + error.message);
       if (error?.extensions) errorsArray.push(JSON.stringify(error.extensions));
       if (error?.originalError)
         errorsArray.push('Error stack:' + error?.originalError?.stack);
@@ -50,7 +50,7 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
       serverError?.result?.['errors']?.length > 0
     ) {
       serverError.result['errors']?.forEach((error: any) => {
-        if (error?.message) errorsArray.push('Error message:' + error.message);
+        if (error?.message) errorsArray.push('Error message: ' + error.message);
         if (error?.extensions)
           errorsArray.push(JSON.stringify(error.extensions));
         if (error?.originalError)
@@ -58,7 +58,7 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
       });
     } else {
       errorsArray.push('Something went wrong!');
-      errorsArray.push('Error message:' + serverError?.message);
+      errorsArray.push('Error message: ' + serverError?.message);
     }
   }
 

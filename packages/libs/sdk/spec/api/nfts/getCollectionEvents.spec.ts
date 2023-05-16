@@ -4,11 +4,10 @@ import withPolly from '../../testSetup/pollyTestSetup';
 const api = apiClient;
 
 describe('nfts.getCollectionEvents', () => {
-  it('executes correctly', async () => {
+  it.only('executes correctly', async () => {
     await withPolly(
       {
         recordingName: 'query-getNFTsByCollectionEvents-base',
-        recordIfMissing: true,
       },
       async () => {
         const data = await api.nfts.getCollectionEvents({

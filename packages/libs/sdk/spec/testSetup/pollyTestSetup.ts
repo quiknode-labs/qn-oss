@@ -36,7 +36,7 @@ export default async function withPolly(
     logging: false,
     matchRequestsBy: {
       headers: {
-        exclude: ['X-API-KEY', 'x-api-key'],
+        exclude: ['X-API-KEY', 'x-api-key', 'content-length'],
       },
       order: false,
       // @ts-ignore

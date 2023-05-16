@@ -1,13 +1,12 @@
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 import { terser } from 'rollup-plugin-terser';
+import dts from 'rollup-plugin-dts';
+import path from 'path';
 
-const path = require('path');
 const rootDir = path.resolve(__dirname);
 
 const toAbsoluteDir = (relativeDir) => path.resolve(rootDir, relativeDir);
-
-const EXTERNALS = ['cross-fetch', 'graphql'];
 
 export default {
   input: toAbsoluteDir('./src/index.ts'),
@@ -20,9 +19,6 @@ export default {
   plugins: [
     typescript({
       tsconfig: toAbsoluteDir('tsconfig.esm.json'),
-      declaration: false,
-      sourceMap: false, // Conflicts with rollup sourcemap option
-      inlineSources: true,
     }),
     copy({
       targets: [
@@ -32,7 +28,9 @@ export default {
         },
       ],
     }),
-    terser(), // Minify
+    terser({}), // Minify library code
+    dts(), // Rollup the type declarations .d.ts files to one file
+    // TODO: Add https://api-extractor.com/
   ],
-  external: EXTERNALS,
+  external: [/node_modules/],
 };

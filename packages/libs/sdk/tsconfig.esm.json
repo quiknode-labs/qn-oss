@@ -4,7 +4,8 @@
     "types": ["node"],
     "target": "es2015",
     "module": "es6",
-    "declaration": true
+    "declaration": true,
+    "declarationDir": "../../../../dist/dts"
   },
   "include": ["**/*.ts"],
   "exclude": [

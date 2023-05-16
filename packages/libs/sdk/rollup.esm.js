@@ -1,6 +1,6 @@
-import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
+import { terser } from 'rollup-plugin-terser';
 
 const path = require('path');
 const rootDir = path.resolve(__dirname);
@@ -11,18 +11,19 @@ const EXTERNALS = ['cross-fetch', 'graphql'];
 
 export default {
   input: toAbsoluteDir('./src/index.ts'),
-  output: [
-    {
-      file: 'dist/packages/libs/sdk/src/index.esm.js',
-      format: 'esm',
-    },
-  ],
+  output: {
+    file: 'dist/packages/libs/sdk/src/index.esm.js',
+    format: 'esm',
+    sourcemap: 'inline',
+    sourcemapExcludeSources: true,
+  },
   plugins: [
     typescript({
       tsconfig: toAbsoluteDir('tsconfig.esm.json'),
       declaration: false,
+      sourceMap: false, // Conflicts with rollup sourcemap option
+      inlineSources: true,
     }),
-    nodeResolve({ include: ['node_modules/**'], skip: EXTERNALS }),
     copy({
       targets: [
         {
@@ -31,6 +32,7 @@ export default {
         },
       ],
     }),
+    terser(), // Minify
   ],
   external: EXTERNALS,
 };

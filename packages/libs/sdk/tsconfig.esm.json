@@ -2,15 +2,19 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "types": ["node"],
+    "target": "es2015",
+    "module": "es6",
     "declaration": true
   },
   "include": ["**/*.ts"],
   "exclude": [
     "jest.config.ts",
+    "spec",
     "**/*.spec.ts",
     "**/*.test.ts",
     "webpack.config.ts",
     "src/spec/testSetup/**.*",
+    "node_modules",
     "codegen.ts"
   ]
 }

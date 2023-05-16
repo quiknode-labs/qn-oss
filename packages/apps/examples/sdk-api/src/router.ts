@@ -1,5 +1,6 @@
 import express from 'express';
 import nftController from './controllers/nft.controller';
+import graphController from './controllers/graphApiClient.controller';
 const router = express.Router();
 
 router.get('/api', (req, res) => {
@@ -33,5 +34,6 @@ router.get(
   '/api/verfiyOwnership/:walletAddress/:contractAddress',
   nftController.verifyOwnership
 );
+router.get('/api/graphQuery', graphController.graphQuery);
 
 export default router;

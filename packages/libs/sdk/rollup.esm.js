@@ -13,17 +13,13 @@ export default {
   input: toAbsoluteDir('./src/index.ts'),
   output: [
     {
-      file: 'dist/packages/libs/sdk/src/index.js',
-      format: 'cjs',
-    },
-    {
       file: 'dist/packages/libs/sdk/src/index.esm.js',
       format: 'esm',
     },
   ],
   plugins: [
     typescript({
-      tsconfig: toAbsoluteDir('tsconfig.lib.json'),
+      tsconfig: toAbsoluteDir('tsconfig.esm.json'),
       declaration: false,
     }),
     nodeResolve({ include: ['node_modules/**'], skip: EXTERNALS }),

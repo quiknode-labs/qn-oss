@@ -81,7 +81,6 @@ import {
   CodegenPolygonMainnetEventsByNftDocument,
 } from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
-import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@apollo/client/core';
@@ -95,7 +94,6 @@ export class NftsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
-  @QNApolloErrorHandler
   async getByWalletENS(
     variables: WalletNFTsByEnsQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByEnsFormattedResult> {
@@ -131,7 +129,6 @@ export class NftsController {
     return formattedResult;
   }
 
-  @QNApolloErrorHandler
   async getByWalletAddress(
     variables: WalletNFTsByAddressQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByAddressFormattedResult> {
@@ -168,7 +165,6 @@ export class NftsController {
     return formattedResult;
   }
 
-  @QNApolloErrorHandler
   async getTrendingCollections(
     variables: NFTTrendingCollectionsQueryVariablesType & NonQueryInput
   ): Promise<NFTTrendingCollectionFormattedResult> {
@@ -208,7 +204,6 @@ export class NftsController {
     return formattedResult;
   }
 
-  @QNApolloErrorHandler
   async getByContractAddress(
     variables: NFTsByContractAddressQueryVariablesType & NonQueryInput
   ): Promise<NFTsByContractAddressFormattedResult> {
@@ -265,7 +260,6 @@ export class NftsController {
     return formattedResult;
   }
 
-  @QNApolloErrorHandler
   async getNFTDetails(
     variables: NFTDetailsQueryVariablesType & NonQueryInput
   ): Promise<NFTDetailsFormattedResult> {
@@ -294,7 +288,6 @@ export class NftsController {
     return { nft: null };
   }
 
-  @QNApolloErrorHandler
   async getCollectionDetails(
     variables: NftCollectionDetailsQueryVariablesType & NonQueryInput
   ): Promise<NftCollectionDetailsFormattedResult> {
@@ -323,7 +316,6 @@ export class NftsController {
     return { collection: null };
   }
 
-  @QNApolloErrorHandler
   async getCollectionEvents(
     variables: CollectionEventsQueryVariablesType & NonQueryInput
   ): Promise<CollectionEventsFormattedResult> {
@@ -362,7 +354,6 @@ export class NftsController {
     return formattedResult;
   }
 
-  @QNApolloErrorHandler
   async getNFTEvents(
     variables: NFTEventsQueryVariablesType & NonQueryInput
   ): Promise<NFTEventsFormattedResult> {

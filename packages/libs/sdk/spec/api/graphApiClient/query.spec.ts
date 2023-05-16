@@ -113,7 +113,7 @@ describe('graphApiClient.query', () => {
           }
         `;
 
-        expect(
+        await expect(
           async () => await api.graphApiClient.query({ query })
         ).rejects.toThrowError();
       }

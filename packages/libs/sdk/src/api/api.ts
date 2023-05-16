@@ -106,6 +106,24 @@ export class API {
         NFT: {
           keyFields: ['contractAddress', 'tokenId'],
         },
+        Collection: {
+          keyFields: ['contractAddress'], // Do we have to worry about collisions with other chains?
+        },
+        Contract: {
+          keyFields: ['contractAddress'],
+        },
+        TokenEvent: {
+          keyFields: ['transactionHash'], // Do we need transferIndex too?
+        },
+        Transaction: {
+          keyFields: ['hash'],
+        },
+        TrendingCollection: {
+          keyFields: ['Collection', ['contractAddress']],
+        },
+        Wallet: {
+          keyFields: ['address'],
+        },
       },
     });
 

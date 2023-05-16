@@ -357,6 +357,7 @@ export class NftsController {
     return formattedResult;
   }
 
+  @QNApolloErrorHandler
   async getNFTEvents(
     variables: NFTEventsQueryVariablesType & NonQueryInput
   ): Promise<NFTEventsFormattedResult> {

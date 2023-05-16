@@ -8,6 +8,5 @@ export default {
   moduleFileExtensions: ['ts', 'js', 'html'],
   setupFiles: ['./spec/testSetup/jestSetup.ts'],
   setupFilesAfterEnv: ['./spec/testSetup/jestSetupAfterEnv.ts'],
-  testTimeout: 30000,
   testEnvironment: 'node',
 };

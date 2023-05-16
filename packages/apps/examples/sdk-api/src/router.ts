@@ -1,5 +1,6 @@
 import express from 'express';
 import nftController from './controllers/nft.controller';
+import graphController from './controllers/graphApiClient.controller';
 const router = express.Router();
 
 router.get('/api', (req, res) => {
@@ -29,5 +30,6 @@ router.get(
   '/api/nftEvents/:contractAddress/:tokenId',
   nftController.getNFTEvents
 );
+router.get('/api/graphQuery', graphController.graphQuery);
 
 export default router;

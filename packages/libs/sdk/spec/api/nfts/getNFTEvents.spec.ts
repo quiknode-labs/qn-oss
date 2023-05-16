@@ -16,7 +16,6 @@ describe('nfts.getNFTEvents', () => {
           tokenId: '1263',
           first: 2,
         });
-        console.log(data);
         expect(data).toStrictEqual({
           results: [
             {

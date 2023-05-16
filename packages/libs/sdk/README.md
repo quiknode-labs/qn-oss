@@ -247,7 +247,7 @@ const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
-await qn.nfts
+qn.nfts
   .getCollectionEvents({
     contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
     first: 5,
@@ -274,10 +274,43 @@ const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
-await qn.nfts.getNFTEvents({
-  contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
-  tokenId: '1',
+qn.nfts
+  .getNFTEvents({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    tokenId: '1',
+  })
+  .then((response) => console.log(response));
+```
+
+### graphApiClient.query
+
+A way to send GraphQL queries directly to the [QuickNode GraphQL API](https://www.quicknode.com/graph-api). `graphApiClient` is an [ApolloClient](https://www.apollographql.com/docs/react/api/core/ApolloClient/) instance configured to use QuickNode's Graph API. For more information about the query structure, see the [Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)
+
+```ts
+import QuickNode, { gql } from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
+
+
+const query = gql`
+  query ($contractAddress: String!) {
+    ethereum {
+      collection(contractAddress: $contractAddress) {
+        name
+        symbol
+        totalSupply
+      }
+    }
+  }
+`;
+const variables = {
+  contractAddress: "0x2106c00ac7da0a3430ae667879139e832307aeaa"
+}
+
+qn.graphApiClient.query({ query, variables });
+  .then((response) => console.log(response));
 ```
 
 ## Pagination

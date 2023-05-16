@@ -10,5 +10,5 @@ if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
       process.env.ADDITIONAL_SDK_HEADER_VALUE,
   };
 }
-
-export const nfts = new QuickNode.API(opts).nfts;
+export const api = new QuickNode.API(opts);
+export const nfts = api.nfts;

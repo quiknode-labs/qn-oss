@@ -46,9 +46,6 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
       serverError?.result?.['errors']?.length > 0
     ) {
       serverError.result['errors']?.forEach((error: any) => {
-        console.error(
-          '\nSomething went wrong! This is likely a bug. Please file an issue at https://github.com/quiknode-labs/qn-oss/issues'
-        );
         // TODO MIGRATION: See if we can not repeat errors when there are graphQLErrors along with networkErrors
         if (error?.message) console.error('Error message:', error.message);
         if (error?.extensions) console.error(JSON.stringify(error.extensions));
@@ -68,6 +65,7 @@ export class API {
   private additionalHeaders?: Record<string, string>;
   readonly defaultChain: ChainName;
   readonly nfts: NftsController;
+  readonly graphApiClient: ApolloClient<NormalizedCacheObject>;
 
   constructor({
     graphApiKey,
@@ -86,6 +84,8 @@ export class API {
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
     this.defaultChain = defaultChain || DEFAULT_CHAIN;
     this.nfts = new NftsController(this.customApolloClient, this.defaultChain);
+    // Re-export the apolloClient configured to use the Graph API for use with custom queries
+    this.graphApiClient = this.apolloClient;
   }
 
   private createApolloClient(): ApolloClient<NormalizedCacheObject> {

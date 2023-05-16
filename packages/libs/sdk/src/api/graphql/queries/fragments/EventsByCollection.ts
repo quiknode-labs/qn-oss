@@ -6,7 +6,7 @@ import { Pagination } from './pagination';
 export const CollectionEventsFragment = gql`
   fragment CollectionEventsFragment on EVMSchemaType {
     collection(contractAddress: $contractAddress) {
-      address # key field
+      address # using as key field for apollo caching
       tokenEvents(after: $after, first: $first) {
         pageInfo {
           ...Pagination

@@ -296,6 +296,7 @@ const query = gql`
   query ($contractAddress: String!) {
     ethereum {
       collection(contractAddress: $contractAddress) {
+        address
         name
         symbol
         totalSupply

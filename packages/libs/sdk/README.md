@@ -25,7 +25,7 @@ const qn = new QuickNode.API({ graphApiKey: 'my-api-key' });
 
 qn.nfts
   .getByWalletENS({
-    ensName: 'vitalik.eth',
+    ensName: 'example.eth',
     first: 5,
   })
   .then((response) => console.log(response));
@@ -42,7 +42,7 @@ import QuickNode from '@quicknode/sdk';
 
 const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
-  defaultChain: 'polygon',
+  defaultChain: 'ethereum',
 });
 ```
 
@@ -73,7 +73,7 @@ Returns NFTs owned by a wallet
 
 | Argument | Values | Required | Description                                         | Example                            |
 | -------- | ------ | -------- | --------------------------------------------------- | ---------------------------------- |
-| ensName  | string | ✅       | Wallet ENS address                                  | vitalik.eth                        |
+| ensName  | string | ✅       | Wallet ENS address                                  | example.eth                        |
 | first    | number | ❌       | Number of results to return                         | 10                                 |
 | after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=        |
 | chain    | string | ❌       | Blockchain name                                     | polygon                            |
@@ -198,12 +198,11 @@ const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
-
 qn.nfts
-  .getNFTDetails(
-    contractAddress: "0x2106C00Ac7dA0A3430aE667879139E832307AeAa",
-    tokenId: "1",
-  )
+  .getNFTDetails({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    tokenId: '1',
+  })
   .then((response) => console.log(response));
 ```
 
@@ -293,7 +292,6 @@ const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
-
 const query = gql`
   query ($contractAddress: String!) {
     ethereum {
@@ -306,11 +304,10 @@ const query = gql`
   }
 `;
 const variables = {
-  contractAddress: "0x2106c00ac7da0a3430ae667879139e832307aeaa"
-}
+  contractAddress: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
+};
 
-qn.graphApiClient.query({ query, variables });
-  .then((response) => console.log(response));
+qn.graphApiClient.query({ query, variables }).then((response) => console.log(response));
 ```
 
 ## Pagination
@@ -339,7 +336,7 @@ calling the following will get the next page of results
 
 ```typescript
 qn.nfts.getByWalletENS({
-  ensName: 'vitalik.eth',
+  ensName: 'example.eth',
   first: 5,
   after: 'T2Zmc2V0Q29ubmVjdGlvbjox',
 });

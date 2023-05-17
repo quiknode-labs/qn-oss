@@ -1,5 +1,7 @@
 # QuickNode SDK
 
+> :warning: **This is an alpha release** This release is not feature-complete or production-ready yet and only meant as a technical preview. The API could break in subsequent alpha and beta releases until the 1.0.0 release is finalized.
+
 An SDK from [QuickNode](https://www.quicknode.com/) making it easy for developers to interact with the blockchain.
 
 Currently supports getting started with [QuickNode GraphQL API](https://www.quicknode.com/graph-api) in a blink!

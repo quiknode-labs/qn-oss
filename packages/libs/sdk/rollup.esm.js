@@ -33,7 +33,7 @@ export default {
     // Using API Extractor to rollup the ts declarations into one file
     apiExtractor({
       configuration: {
-        projectFolder: '.',
+        projectFolder: toAbsoluteDir('.'),
         compiler: {
           tsconfigFilePath: toAbsoluteDir('tsconfig.esm.json'),
         },

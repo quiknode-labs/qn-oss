@@ -7,9 +7,10 @@
   },
   "license": "MIT",
   "version": "1.0.0-alpha.0",
-  "main": "./src/index.js",
-  "module": "./src/index.esm.js",
-  "types": "./src/index.d.ts",
+  "type": "module",
+  "main": "./src/cjs/index.js",
+  "module": "./src/esm/index.js",
+  "types": "./src/esm/index.d.ts",
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@types/mocha": "^10.0.1",
@@ -33,5 +34,10 @@
   },
   "scripts": {
     "codegen": "graphql-codegen --config codegen.ts"
+  },
+  "exports": {
+    ".": {
+      "import": "./esm/index.js"
+    }
   }
 }

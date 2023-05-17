@@ -27,7 +27,7 @@ const qn = new QuickNode.API({ graphApiKey: 'my-api-key' });
 
 qn.nfts
   .getByWalletENS({
-    ensName: 'example.eth',
+    ensName: 'quicknode.eth',
     first: 5,
   })
   .then((response) => console.log(response));
@@ -75,7 +75,7 @@ Returns NFTs owned by a wallet
 
 | Argument | Values | Required | Description                                         | Example                            |
 | -------- | ------ | -------- | --------------------------------------------------- | ---------------------------------- |
-| ensName  | string | ✅       | Wallet ENS address                                  | example.eth                        |
+| ensName  | string | ✅       | Wallet ENS address                                  | quicknode.eth                      |
 | first    | number | ❌       | Number of results to return                         | 10                                 |
 | after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=        |
 | chain    | string | ❌       | Blockchain name                                     | polygon                            |
@@ -96,7 +96,7 @@ const qn = new QuickNode.API({
 
 qn.nfts
   .getByWalletENS({
-    ensName: 'example.eth',
+    ensName: 'quicknode.eth',
     first: 5,
   })
   .then((response) => console.log(response));
@@ -339,7 +339,7 @@ calling the following will get the next page of results
 
 ```typescript
 qn.nfts.getByWalletENS({
-  ensName: 'example.eth',
+  ensName: 'quicknode.eth',
   first: 5,
   after: 'T2Zmc2V0Q29ubmVjdGlvbjox',
 });

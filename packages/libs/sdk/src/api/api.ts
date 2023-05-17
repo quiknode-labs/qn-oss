@@ -28,10 +28,14 @@ const httpLink = new HttpLink({
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
+  const errorsArray: any[] = [];
+
   if (graphQLErrors) {
     graphQLErrors.map((error) => {
-      if (error?.message) console.error('Error message:', error.message);
-      if (error?.extensions) console.error(JSON.stringify(error.extensions));
+      if (error?.message) errorsArray.push('Error message: ' + error.message);
+      if (error?.extensions) errorsArray.push(JSON.stringify(error.extensions));
+      if (error?.originalError)
+        errorsArray.push('Error stack:' + error?.originalError?.stack);
     });
   }
 
@@ -39,22 +43,26 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
     const serverError = networkError as ServerError;
 
     if (serverError.statusCode === 429) {
-      console.warn('QuickNode SDK warning: rate limit reached');
+      errorsArray.push('QuickNode SDK warning: rate limit reached');
     } else if (
       hasOwnProperty(serverError.result, 'errors') &&
       Array.isArray(serverError.result['errors']) &&
       serverError?.result?.['errors']?.length > 0
     ) {
       serverError.result['errors']?.forEach((error: any) => {
-        // TODO MIGRATION: See if we can not repeat errors when there are graphQLErrors along with networkErrors
-        if (error?.message) console.error('Error message:', error.message);
-        if (error?.extensions) console.error(JSON.stringify(error.extensions));
+        if (error?.message) errorsArray.push('Error message: ' + error.message);
+        if (error?.extensions)
+          errorsArray.push(JSON.stringify(error.extensions));
+        if (error?.originalError)
+          errorsArray.push('Error stack:' + error?.originalError?.stack);
       });
     } else {
-      console.error('Something went wrong!');
-      console.error('Error message:', serverError?.message);
+      errorsArray.push('Something went wrong!');
+      errorsArray.push('Error message: ' + serverError?.message);
     }
   }
+
+  console.error(errorsArray.join('\n'));
   return;
 });
 
@@ -102,7 +110,34 @@ export class API {
     const cacheStructure = new InMemoryCache({
       possibleTypes: generatedPossibleTypes.possibleTypes,
       // TODO: Figure out type policies
-      typePolicies: {},
+      typePolicies: {
+        EVMSchemaType: {
+          // Always merge EVMSchemaType objects
+          // Added because of warning: "Cache data may be lost when replacing the ethereum field of a Query object."
+          merge: true,
+        },
+        NFT: {
+          keyFields: ['contractAddress', 'tokenId'],
+        },
+        Collection: {
+          keyFields: ['address'],
+        },
+        Contract: {
+          keyFields: ['address'],
+        },
+        TokenEvent: {
+          keyFields: ['transactionHash', 'transferIndex'],
+        },
+        Transaction: {
+          keyFields: ['hash'],
+        },
+        TrendingCollection: {
+          keyFields: ['collection', ['address']],
+        },
+        Wallet: {
+          keyFields: ['address'],
+        },
+      },
     });
 
     const rawClient = new ApolloClient({

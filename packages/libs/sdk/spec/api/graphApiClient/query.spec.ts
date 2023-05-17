@@ -18,6 +18,7 @@ describe('graphApiClient.query', () => {
               collection(
                 contractAddress: "0x2106c00ac7da0a3430ae667879139e832307aeaa"
               ) {
+                address
                 name
                 symbol
                 totalSupply
@@ -33,6 +34,7 @@ describe('graphApiClient.query', () => {
               __typename: 'EVMSchemaType',
               collection: {
                 __typename: 'ERC721Collection',
+                address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
                 name: 'Loopy Donuts',
                 symbol: 'DONUT',
                 totalSupply: 10000,
@@ -57,6 +59,7 @@ describe('graphApiClient.query', () => {
           query ($contractAddress: String!) {
             ethereum {
               collection(contractAddress: $contractAddress) {
+                address
                 name
                 symbol
                 totalSupply
@@ -74,6 +77,7 @@ describe('graphApiClient.query', () => {
               __typename: 'EVMSchemaType',
               collection: {
                 __typename: 'ERC721Collection',
+                address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
                 name: 'Loopy Donuts',
                 symbol: 'DONUT',
                 totalSupply: 10000,
@@ -101,6 +105,7 @@ describe('graphApiClient.query', () => {
               collection(
                 contractAddress: "0x2106c00ac7da0a3430ae667879139e832307aeaa"
               ) {
+                address
                 name
                 notafieldshoulderror
               }
@@ -108,7 +113,7 @@ describe('graphApiClient.query', () => {
           }
         `;
 
-        expect(
+        await expect(
           async () => await api.graphApiClient.query({ query })
         ).rejects.toThrowError();
       }

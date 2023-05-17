@@ -1674,6 +1674,7 @@ export type CodegenCollectionEventsFragmentFragment = {
   collection?:
     | {
         __typename?: 'ERC721Collection';
+        address: string;
         tokenEvents: {
           __typename?: 'CollectionTokenEventsConnection';
           pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
@@ -1700,6 +1701,7 @@ export type CodegenCollectionEventsFragmentFragment = {
       }
     | {
         __typename?: 'ERC1155Collection';
+        address: string;
         tokenEvents: {
           __typename?: 'CollectionTokenEventsConnection';
           pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
@@ -1732,6 +1734,8 @@ export type CodegenNftEventsFragmentFragment = {
   nft?:
     | {
         __typename?: 'ERC721NFT';
+        contractAddress: string;
+        tokenId: any;
         tokenEvents: {
           __typename?: 'NFTTokenEventsConnection';
           pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
@@ -1758,6 +1762,8 @@ export type CodegenNftEventsFragmentFragment = {
       }
     | {
         __typename?: 'ERC1155NFT';
+        contractAddress: string;
+        tokenId: any;
         tokenEvents: {
           __typename?: 'NFTTokenEventsConnection';
           pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
@@ -2052,6 +2058,7 @@ export type CodegenNftsByContractAddressFragmentFragment = {
   collection?:
     | {
         __typename: 'ERC721Collection';
+        address: string;
         nfts: {
           __typename?: 'ERC721CollectionTokensConnection';
           pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
@@ -2063,6 +2070,7 @@ export type CodegenNftsByContractAddressFragmentFragment = {
       }
     | {
         __typename: 'ERC1155Collection';
+        address: string;
         nfts: {
           __typename?: 'ERC1155CollectionTokensConnection';
           pageInfo: { __typename?: 'PageInfo' } & CodegenPaginationFragment;
@@ -2438,6 +2446,7 @@ export const CodegenCollectionEventsFragmentFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'tokenEvents' },
@@ -2661,6 +2670,11 @@ export const CodegenNftEventsFragmentFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'tokenEvents' },
@@ -3520,6 +3534,7 @@ export const CodegenNftsByContractAddressFragmentFragmentDoc = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
                 { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
                 {
                   kind: 'InlineFragment',
@@ -4385,6 +4400,7 @@ export const CodegenEthMainnetWalletNFTsByContractAddressDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
                 { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
                 {
                   kind: 'InlineFragment',
@@ -5222,6 +5238,7 @@ export const CodegenEthMainnetEventsByCollectionDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'tokenEvents' },
@@ -5717,6 +5734,11 @@ export const CodegenEthereumMainnetEventsByNftDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'tokenEvents' },
@@ -6421,6 +6443,7 @@ export const CodegenEthSepoliaWalletNFTsByContractAddressDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
                 { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
                 {
                   kind: 'InlineFragment',
@@ -7258,6 +7281,7 @@ export const CodegenEthSepoliaEventsByCollectionDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'tokenEvents' },
@@ -7753,6 +7777,11 @@ export const CodegenEthSepoliaEventsByNftDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'tokenEvents' },
@@ -8457,6 +8486,7 @@ export const CodegenPolygonMainnetNFTsByContractAddressDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
                 { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
                 {
                   kind: 'InlineFragment',
@@ -9294,6 +9324,7 @@ export const CodegenPolygonMainnetEventsByCollectionDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'tokenEvents' },
@@ -9789,6 +9820,11 @@ export const CodegenPolygonMainnetEventsByNftDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'tokenId' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'tokenEvents' },

@@ -364,8 +364,7 @@ We recommend using the example application to develop
 
 Run `nx test libs-sdk` to execute the tests via [Jest](https://jestjs.io).
 
-API responses are recorded using [polly.js](https://github.com/Netflix/pollyjs). You can re-record live requests by passing in an API key as an environment variable.
-`QUICKNODE_GQL_API_KEY=REPLACEME nx test libs-sdk`
+API responses are recorded using [polly.js](https://github.com/Netflix/pollyjs). You can re-record live requests by passing in an API key, copy `.env.test.example` to `.env.test` and fill out with your API key.
 
 ## Running lint
 

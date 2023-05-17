@@ -7,6 +7,7 @@ import { ERC721NFTNodeFragment } from './ERC721Node';
 export const NftsByContractAddressFragment = gql`
   fragment NftsByContractAddressFragment on EVMSchemaType {
     collection(contractAddress: $contractAddress) {
+      address # using as key field for apollo caching
       __typename
       ... on ERC1155Collection {
         nfts(first: $first, after: $after) {

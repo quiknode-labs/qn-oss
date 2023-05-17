@@ -81,7 +81,6 @@ import {
   CodegenPolygonMainnetEventsByNftDocument,
 } from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
-import { QNApolloErrorHandler } from '../utils/QNApolloErrorHandler';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@apollo/client/core';
@@ -95,7 +94,6 @@ export class NftsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
-  @QNApolloErrorHandler
   async getByWalletENS(
     variables: WalletNFTsByEnsQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByEnsFormattedResult> {
@@ -131,7 +129,6 @@ export class NftsController {
     return formattedResult;
   }
 
-  @QNApolloErrorHandler
   async getByWalletAddress(
     variables: WalletNFTsByAddressQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByAddressFormattedResult> {
@@ -168,7 +165,6 @@ export class NftsController {
     return formattedResult;
   }
 
-  @QNApolloErrorHandler
   async getTrendingCollections(
     variables: NFTTrendingCollectionsQueryVariablesType & NonQueryInput
   ): Promise<NFTTrendingCollectionFormattedResult> {
@@ -208,7 +204,6 @@ export class NftsController {
     return formattedResult;
   }
 
-  @QNApolloErrorHandler
   async getByContractAddress(
     variables: NFTsByContractAddressQueryVariablesType & NonQueryInput
   ): Promise<NFTsByContractAddressFormattedResult> {
@@ -249,7 +244,8 @@ export class NftsController {
         ERC1155Collection: 'ERC1155',
         ERC721Collection: 'ERC721',
       };
-      const { __typename, ...newResults } = results;
+      // Remove address too since it was only used as a key field
+      const { __typename, address, ...newResults } = results;
       return {
         ...newResults,
         standard: standardMap[results['__typename']] || null,
@@ -264,7 +260,6 @@ export class NftsController {
     return formattedResult;
   }
 
-  @QNApolloErrorHandler
   async getNFTDetails(
     variables: NFTDetailsQueryVariablesType & NonQueryInput
   ): Promise<NFTDetailsFormattedResult> {
@@ -293,7 +288,6 @@ export class NftsController {
     return { nft: null };
   }
 
-  @QNApolloErrorHandler
   async getCollectionDetails(
     variables: NftCollectionDetailsQueryVariablesType & NonQueryInput
   ): Promise<NftCollectionDetailsFormattedResult> {
@@ -322,7 +316,6 @@ export class NftsController {
     return { collection: null };
   }
 
-  @QNApolloErrorHandler
   async getCollectionEvents(
     variables: CollectionEventsQueryVariablesType & NonQueryInput
   ): Promise<CollectionEventsFormattedResult> {
@@ -349,10 +342,14 @@ export class NftsController {
     if (!collection?.tokenEvents?.length)
       return { results: [], pageInfo: emptyPageInfo };
 
+    function removeKeyFields(results: any): CollectionEventsFormattedResult {
+      const { address, ...newResults } = results;
+      return newResults;
+    }
     const formattedResult = formatQueryResult<
       CollectionEventsQueryResultInfo,
       CollectionEventsFormattedResult
-    >(collection, 'tokenEvents', 'tokenEventsPageInfo');
+    >(collection, 'tokenEvents', 'tokenEventsPageInfo', null, removeKeyFields);
 
     return formattedResult;
   }
@@ -383,10 +380,15 @@ export class NftsController {
     if (!nft?.tokenEvents?.length)
       return { results: [], pageInfo: emptyPageInfo };
 
+    function removeKeyFields(results: any): NFTEventsFormattedResult {
+      const { contractAddress, tokenId, ...newResults } = results;
+      return newResults;
+    }
+
     const formattedResult = formatQueryResult<
       NFTEventsQueryResultInfo,
       NFTEventsFormattedResult
-    >(nft, 'tokenEvents', 'tokenEventsPageInfo');
+    >(nft, 'tokenEvents', 'tokenEventsPageInfo', null, removeKeyFields);
 
     return formattedResult;
   }

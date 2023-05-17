@@ -127,7 +127,7 @@ const qn = new QuickNode.API({
 
 qn.nfts
   .getByWalletAddress({
-    address: 'example.eth',
+    address: '0x51ABa267A6e8e1E76B44183a73E881D73A102F26',
     first: 5,
   })
   .then((response) => console.log(response));
@@ -174,8 +174,8 @@ const qn = new QuickNode.API({
 });
 
 qn.nfts
-  .getByWalletAddress({
-    address: '0x51ABa267A6e8e1E76B44183a73E881D73A102F26',
+  .getByContractAddress({
+    address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
     first: 5,
   })
   .then((response) => console.log(response));

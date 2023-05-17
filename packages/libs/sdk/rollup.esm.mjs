@@ -1,11 +1,13 @@
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
-import { apiExtractor } from 'rollup-plugin-api-extractor';
 import { terser } from 'rollup-plugin-terser';
 import path from 'path';
+import externals from 'rollup-plugin-node-externals';
+import { URL } from 'url';
 
+// esm patch for __dirname
+const __dirname = new URL('.', import.meta.url).pathname;
 const rootDir = path.resolve(__dirname);
-
 const toAbsoluteDir = (relativeDir) => path.resolve(rootDir, relativeDir);
 
 export default {
@@ -19,6 +21,7 @@ export default {
   plugins: [
     typescript({
       tsconfig: toAbsoluteDir('tsconfig.esm.json'),
+      declaration: false, // using dts-bundle-generator CLI for declaration files
     }),
     copy({
       targets: [
@@ -30,15 +33,7 @@ export default {
     }),
     // Minify library code
     terser(),
-    // Using API Extractor to rollup the ts declarations into one file
-    apiExtractor({
-      configuration: {
-        projectFolder: toAbsoluteDir('.'),
-        compiler: {
-          tsconfigFilePath: toAbsoluteDir('tsconfig.esm.json'),
-        },
-      },
-    }),
+    // Ignore all external dependencies and builtin modules
+    externals(),
   ],
-  external: [/node_modules/],
 };

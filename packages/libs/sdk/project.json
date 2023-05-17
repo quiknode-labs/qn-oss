@@ -9,8 +9,8 @@
       "options": {
         "commands": [
           "rm -rf ./dist/packages/libs/sdk",
-          "./node_modules/rollup/dist/bin/rollup --config packages/libs/sdk/rollup.config.js",
-          "yarn tsc --project packages/libs/sdk/tsconfig.lib.json --declarationDir dist --emitDeclarationOnly"
+          "./node_modules/rollup/dist/bin/rollup --config packages/libs/sdk/rollup.esm.mjs",
+          "./node_modules/.bin/dts-bundle-generator -o ./dist/packages/libs/sdk/src/index.d.ts --project ./packages/libs/sdk/tsconfig.esm.json ./packages/libs/sdk/src/index.ts"
         ],
         "outputPath": "dist/packages/libs/sdk"
       }

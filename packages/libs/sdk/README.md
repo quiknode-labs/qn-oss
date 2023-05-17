@@ -94,7 +94,7 @@ const qn = new QuickNode.API({
 
 qn.nfts
   .getByWalletENS({
-    ensName: 'vitalik.eth',
+    ensName: 'example.eth',
     first: 5,
   })
   .then((response) => console.log(response));
@@ -127,7 +127,7 @@ const qn = new QuickNode.API({
 
 qn.nfts
   .getByWalletAddress({
-    address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
+    address: 'example.eth',
     first: 5,
   })
   .then((response) => console.log(response));
@@ -175,7 +175,7 @@ const qn = new QuickNode.API({
 
 qn.nfts
   .getByWalletAddress({
-    address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    address: '0x51ABa267A6e8e1E76B44183a73E881D73A102F26',
     first: 5,
   })
   .then((response) => console.log(response));

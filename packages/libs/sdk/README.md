@@ -175,7 +175,7 @@ const qn = new QuickNode.API({
 
 qn.nfts
   .getByContractAddress({
-    address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
     first: 5,
   })
   .then((response) => console.log(response));
@@ -223,7 +223,7 @@ const qn = new QuickNode.API({
 
 qn.nfts
   .getCollectionDetails({
-    address: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
   })
   .then((response) => console.log(response));
 ```

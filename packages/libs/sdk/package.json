@@ -8,9 +8,9 @@
   "license": "MIT",
   "version": "1.0.0-alpha.0",
   "type": "module",
-  "main": "./src/cjs/index.js",
-  "module": "./src/esm/index.js",
-  "types": "./src/esm/index.d.ts",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "types": "./esm/index.d.ts",
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "cross-fetch": "^3.1.5",
@@ -29,7 +29,6 @@
     "@types/node": "^18.13.0",
     "@types/supertest": "^2.0.12",
     "eslint-plugin-no-only-tests": "^3.1.0",
-    "rollup-plugin-api-extractor": "^0.2.5",
     "supertest": "^6.2.4"
   },
   "scripts": {

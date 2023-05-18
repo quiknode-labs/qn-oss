@@ -50,6 +50,6 @@ Thumbs.db
 graphqlHeaders.json
 
 # bundling
-.rollup/
+.rollup.cache/
 
 

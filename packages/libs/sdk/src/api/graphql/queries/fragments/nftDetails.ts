@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@apollo/client';
 
 export const NftDetails = gql`
   fragment NftDetails on EVMSchemaType {

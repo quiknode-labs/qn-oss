@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@apollo/client';
 import { NftTrendingCollections } from '../../fragments/nftTrendingCollections';
 
 export const EthMainnetTrendingCollections = gql`

@@ -5,7 +5,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
   ServerError,
-} from '@apollo/client/core';
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError, ErrorResponse } from '@apollo/client/link/error';
 import fetch from 'cross-fetch';

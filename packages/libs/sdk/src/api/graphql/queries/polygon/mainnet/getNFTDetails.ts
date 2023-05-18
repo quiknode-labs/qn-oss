@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@apollo/client';
 import { NftDetails } from '../../fragments/nftDetails';
 
 export const PolygonMainnetNFTDetails = gql`

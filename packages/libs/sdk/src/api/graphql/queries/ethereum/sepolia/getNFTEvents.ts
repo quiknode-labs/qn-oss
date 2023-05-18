@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@apollo/client';
 import { NftEventsFragment } from '../../fragments/EventsByNft';
 
 export const EthSepoliaEventsByNft = gql`

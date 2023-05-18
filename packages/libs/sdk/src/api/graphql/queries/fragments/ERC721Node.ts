@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@apollo/client/core/index.js';
 
 export const ERC721NFTNodeFragment = gql`
   fragment ERC721NFTNode on ERC721NFT {

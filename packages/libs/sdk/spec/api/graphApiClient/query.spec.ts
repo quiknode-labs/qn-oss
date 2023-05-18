@@ -1,6 +1,6 @@
 import { apiClient } from '../client';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { gql } from '@apollo/client/core';
+import { gql } from '@apollo/client';
 
 const api = apiClient;
 

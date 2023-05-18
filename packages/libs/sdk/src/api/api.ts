@@ -1,3 +1,5 @@
+// Need to specify index.js to avoid issues when bundling for ESM
+// See https://github.com/apollographql/apollo-feature-requests/issues/287
 import {
   ApolloClient,
   from,
@@ -5,9 +7,9 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
   ServerError,
-} from '@apollo/client/core';
-import { setContext } from '@apollo/client/link/context';
-import { onError, ErrorResponse } from '@apollo/client/link/error';
+} from '@apollo/client/core/index.js';
+import { setContext } from '@apollo/client/link/context/index.js';
+import { onError, ErrorResponse } from '@apollo/client/link/error/index.js';
 import fetch from 'cross-fetch';
 import { CustomApolloClient } from './graphql/customApolloClient';
 import generatedPossibleTypes from './graphql/fragmentMatcher';

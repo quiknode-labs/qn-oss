@@ -1,7 +1,9 @@
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 //import { terser } from 'rollup-plugin-terser';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+import externals from 'rollup-plugin-node-externals'
+import commonjs from '@rollup/plugin-commonjs';
+import localResolve from 'rollup-plugin-local-resolve';
 import path from 'path';
 import { URL } from 'url';
 
@@ -9,7 +11,6 @@ import { URL } from 'url';
 const __dirname = new URL('.', import.meta.url).pathname;
 const rootDir = path.resolve(__dirname);
 const toAbsoluteDir = (relativeDir) => path.resolve(rootDir, relativeDir);
-const EXTERNALS = ['cross-fetch', 'graphql'];
 
 export default {
   input: toAbsoluteDir('./src/index.ts'),
@@ -20,10 +21,12 @@ export default {
     sourcemapExcludeSources: true,
   },
   plugins: [
+    externals(),
     typescript({
       tsconfig: toAbsoluteDir('tsconfig.esm.json'),
     }),
-    nodeResolve({ include: ['node_modules/**'], skip: EXTERNALS }),
+    localResolve(),
+    commonjs(),
     copy({
       targets: [
         {
@@ -33,5 +36,4 @@ export default {
       ],
     }),
   ],
-  external: EXTERNALS,
 };

@@ -1,5 +1,7 @@
-// Need to specify index.js to avoid issues when bundling for ESM
+// Need to specify index.js for @apollo/client directory imports to avoid issues when bundling for ESM
 // See https://github.com/apollographql/apollo-feature-requests/issues/287
+// and https://stackoverflow.com/questions/65873101/node-requires-file-extension-for-import-statement/65874173#65874173
+// (and despite the suggestions "moduleResolution: nodenext" isn't working the the tsconfig)
 import {
   ApolloClient,
   from,

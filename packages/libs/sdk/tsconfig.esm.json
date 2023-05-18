@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "types": ["node"],
-    "target": "ES2016",
+    "target": "ES2017",
     "module": "ES6",
     "declaration": false, // using dts-bundle-generator CLI for declaration files
   },
@@ -16,5 +16,5 @@
     "src/spec/testSetup/**.*",
     "node_modules",
     "codegen.ts"
-  ]
+  ],
 }

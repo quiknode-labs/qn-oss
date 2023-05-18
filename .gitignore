@@ -48,3 +48,8 @@ Thumbs.db
 
 # secrets
 graphqlHeaders.json
+
+# bundling
+.rollup/
+
+

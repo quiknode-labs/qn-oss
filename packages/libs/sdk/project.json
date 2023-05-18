@@ -10,7 +10,8 @@
         "commands": [
           "rm -rf ./dist/packages/libs/sdk",
           "./node_modules/rollup/dist/bin/rollup --config packages/libs/sdk/rollup.esm.mjs",
-          "./node_modules/.bin/dts-bundle-generator -o ./dist/packages/libs/sdk/esm/index.d.ts --project ./packages/libs/sdk/tsconfig.esm.json ./packages/libs/sdk/src/index.ts",
+          "./node_modules/rollup/dist/bin/rollup --config packages/libs/sdk/rollup.cjs.mjs",
+          "./node_modules/.bin/dts-bundle-generator -o ./dist/packages/libs/sdk/index.d.ts --project ./packages/libs/sdk/tsconfig.esm.json ./packages/libs/sdk/src/index.ts",
           "node ./tools/scripts/sdk_package_json.mjs"
         ],
         "parallel": false

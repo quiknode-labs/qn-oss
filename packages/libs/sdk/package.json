@@ -10,7 +10,7 @@
   "type": "module",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
-  "types": "./esm/index.d.ts",
+  "types": "./index.d.ts",
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "cross-fetch": "^3.1.5",
@@ -36,7 +36,8 @@
   },
   "exports": {
     ".": {
-      "import": "./esm/index.js"
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js"
     }
   }
 }

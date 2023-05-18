@@ -7,10 +7,15 @@ const __dirname = new URL('.', import.meta.url).pathname;
 const rootDir = path.resolve(__dirname);
 const toAbsoluteDir = (relativeDir) => path.resolve(rootDir, relativeDir);
 
-const packageJson = {
+const esmPackageJson = {
   type: 'module',
 }
 
-// create and write to file
-// create file first
-fs.writeFileSync(toAbsoluteDir('../../dist/packages/libs/sdk/esm/package.json'), JSON.stringify(packageJson, null, 2))
+const cjsPackageJson = {
+  type: "commonjs",
+}
+
+// esm package.json
+fs.writeFileSync(toAbsoluteDir('../../dist/packages/libs/sdk/esm/package.json'), JSON.stringify(esmPackageJson, null, 2))
+// cjs package.json
+fs.writeFileSync(toAbsoluteDir('../../dist/packages/libs/sdk/cjs/package.json'), JSON.stringify(cjsPackageJson, null, 2))

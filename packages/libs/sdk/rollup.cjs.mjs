@@ -1,4 +1,6 @@
 import typescript from '@rollup/plugin-typescript';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
 import externals from 'rollup-plugin-node-externals'
 import path from 'path';
@@ -12,8 +14,8 @@ const toAbsoluteDir = (relativeDir) => path.resolve(rootDir, relativeDir);
 export default {
   input: toAbsoluteDir('./src/index.ts'),
   output: {
-    file: 'dist/packages/libs/sdk/esm/index.js',
-    format: 'esm',
+    file: 'dist/packages/libs/sdk/cjs/index.js',
+    format: 'cjs',
     sourcemap: "inline", // Include source map for debugging
     sourcemapExcludeSources: true,  // Exclude external package sources from source map
   },

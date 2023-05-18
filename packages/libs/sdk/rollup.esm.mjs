@@ -2,8 +2,6 @@ import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 //import { terser } from 'rollup-plugin-terser';
 import externals from 'rollup-plugin-node-externals'
-import commonjs from '@rollup/plugin-commonjs';
-import localResolve from 'rollup-plugin-local-resolve';
 import path from 'path';
 import { URL } from 'url';
 
@@ -17,16 +15,14 @@ export default {
   output: {
     file: 'dist/packages/libs/sdk/esm/index.js',
     format: 'esm',
-    sourcemap: 'inline',
-    sourcemapExcludeSources: true,
+    sourcemap: 'inline', // Include source map for debugging
+    sourcemapExcludeSources: true,  // Exclude externals sources from source map
   },
   plugins: [
-    externals(),
+    externals(), // Exclude node_modules from bundle
     typescript({
       tsconfig: toAbsoluteDir('tsconfig.esm.json'),
     }),
-    localResolve(),
-    commonjs(),
     copy({
       targets: [
         {

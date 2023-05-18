@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client/core';
 
 import { TokenEventInfo } from './tokenEvent';
 import { Pagination } from './pagination';

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client/core';
 import { CollectionEventsFragment } from '../../fragments/EventsByCollection';
 
 export const PolygonMainnetEventsByCollection = gql`

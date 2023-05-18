@@ -11,7 +11,6 @@ import commonjs from '@rollup/plugin-commonjs';
 const __dirname = new URL('.', import.meta.url).pathname;
 const rootDir = path.resolve(__dirname);
 const toAbsoluteDir = (relativeDir) => path.resolve(rootDir, relativeDir);
-const EXTERNALS = ['cross-fetch', 'graphql'];
 
 export default {
   input: toAbsoluteDir('./src/index.ts'),
@@ -22,12 +21,14 @@ export default {
     sourcemapExcludeSources: true,
   },
   plugins: [
-    externals(), // Ignore all external dependencies and builtin modules
-    nodeResolve(),
-    commonjs(),
     typescript({
       tsconfig: toAbsoluteDir('tsconfig.esm.json'),
     }),
+    nodeResolve({
+        preferBuiltins: true,
+        extensions: ['.js', '.ts']
+    }), // resolves third party modules from node_modules
+    commonjs(), // transform CommonJS modules to ES6, so they can be included in a Rollup bundle
     copy({
       targets: [
         {
@@ -36,8 +37,5 @@ export default {
         },
       ],
     }),
-    // Minify library code
-    //terser(),
   ],
-  externals: EXTERNALS,
 };

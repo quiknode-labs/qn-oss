@@ -1,6 +1,7 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
+    "types": ["node"],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -8,11 +9,9 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "declaration": true,
     "baseUrl": "./src"
   },
   "files": [],
-  "include": [],
   "references": [
     {
       "path": "./tsconfig.esm.json"
@@ -20,5 +19,16 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "include": ["**/*.ts"],
+  "exclude": [
+    "jest.config.ts",
+    "spec",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "webpack.config.ts",
+    "src/spec/testSetup/**.*",
+    "node_modules",
+    "codegen.ts"
+  ],
 }

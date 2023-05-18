@@ -20,6 +20,7 @@ export default {
   plugins: [
     externals(), // Exclude node_modules from bundle
     typescript({
+      // using dts-bundle-generator CLI for declaration files
       tsconfig: toAbsoluteDir('tsconfig.esm.json'),
     }),
     copy({

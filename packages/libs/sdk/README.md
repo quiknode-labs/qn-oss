@@ -283,6 +283,56 @@ qn.nfts
   .then((response) => console.log(response));
 ```
 
+### tokens.getBalancesByWalletENS
+
+Returns ERC20 token balances for a wallet
+
+| Argument | Values | Required | Description                     | Example                     |
+| -------- | ------ | -------- | ------------------------------- | --------------------------- |
+| ensName  | string | ✅       | Wallet ENS address              | quicknode.eth               |
+| first    | number | ❌       | Number of results to return     | 10                          |
+| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
+| chain    | string | ❌       | Blockchain name                 | polygon                     |
+
+```ts
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.tokens
+  .getBalancesByWalletENS({
+    ensName: 'quicknode.eth',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
+### tokens.getBalancesByWalletAddress
+
+Returns ERC20 token balances for a wallet
+
+| Argument | Values | Required | Description                     | Example                                    |
+| -------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
+| address  | string | ✅       | Wallet address                  | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
+| first    | number | ❌       | Number of results to return     | 10                                         |
+| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain    | string | ❌       | Blockchain name                 | polygon                                    |
+
+|
+
+```ts
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.tokens
+  .getBalancesByWalletAddress({
+    address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
 ### graphApiClient.query
 
 A way to send GraphQL queries directly to the [QuickNode GraphQL API](https://www.quicknode.com/graph-api). `graphApiClient` is an [ApolloClient](https://www.apollographql.com/docs/react/api/core/ApolloClient/) instance configured to use QuickNode's Graph API. For more information about the query structure, see the [Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)

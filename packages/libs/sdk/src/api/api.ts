@@ -10,7 +10,7 @@ import {
   NormalizedCacheObject,
   ServerError,
 } from '@apollo/client/core/index.js';
-import { setContext } from '@apollo/client/link/context/index.js';
+import { setContext } from '@apollo/client/link/context/index.js'
 import { onError, ErrorResponse } from '@apollo/client/link/error/index.js';
 import fetch from 'cross-fetch';
 import { CustomApolloClient } from './graphql/customApolloClient';

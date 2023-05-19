@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core/index.js';
+import { gql } from '@apollo/client/core';
 import { NftsByContractAddressFragment } from '../../fragments/nftsByContractAddress';
 
 export const EthMainnetWalletNFTsByContractAddress = gql`

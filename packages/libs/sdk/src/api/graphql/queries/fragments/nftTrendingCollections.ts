@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client/core';
 
-import { TrendingCollectionInfo } from './TrendingCollection';
+import { TrendingCollectionInfo } from './nodes/TrendingCollection';
 import { Pagination } from './pagination';
 
 export const NftTrendingCollections = gql`

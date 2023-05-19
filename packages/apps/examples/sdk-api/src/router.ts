@@ -36,5 +36,9 @@ router.get(
   '/api/getBalancesByWalletENS/:ensResource',
   tokenController.getBalancesByWalletEns
 );
+router.get(
+  '/api/getBalancesByWalletAddress/:address',
+  tokenController.getBalancesByWalletAddress
+);
 
 export default router;

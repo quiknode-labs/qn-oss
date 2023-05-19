@@ -10,9 +10,19 @@ import {
   BalancesByWalletENSQueryType,
 } from '../types/tokens/getBalancesByWalletENS';
 import {
+  BalancesByWalletAddressQueryResultInfo,
+  BalancesByWalletAddressFormattedResult,
+  BalancesByWalletAddressQueryResultFull,
+  BalancesByWalletAddressQueryVariablesType,
+  BalancesByWalletAddressQueryType,
+} from '../types/tokens/getBalancesByWalletAddress';
+import {
   CodegenEthMainnetBalancesByWalletENSDocument,
+  CodegenEthMainnetBalancesByWalletAddressDocument,
   CodegenEthSepoliaBalancesByWalletENSDocument,
+  CodegenEthSepoliaBalancesByWalletAddressDocument,
   CodegenPolygonMainnetBalancesByWalletENSDocument,
+  CodegenPolygonMainnetBalancesByWalletAddressDocument,
 } from '../graphql/generatedTypes';
 import { TypedDocumentNode } from '@apollo/client/core';
 import { emptyPageInfo } from '../utils/helpers';
@@ -52,21 +62,6 @@ export class TokensController {
       return { address: '', ensName: '', results: [], pageInfo: emptyPageInfo };
     }
 
-    // Remove the contract key to flatten the result objects
-    const removeContractKey = (
-      response: any
-    ): BalancesByWalletENSFormattedResult => {
-      const modifiedResults = response.results.map((result: any) => {
-        const {
-          contract: { ...contractInfo },
-          ...balanceInfo
-        } = result;
-        return { ...balanceInfo, ...contractInfo };
-      });
-      response.results = modifiedResults;
-      return response;
-    };
-
     const formattedResult = formatQueryResult<
       BalancesByWalletENSQueryResultInfo,
       BalancesByWalletENSFormattedResult
@@ -75,9 +70,65 @@ export class TokensController {
       'tokenBalances',
       'tokenBalancesPageInfo',
       null,
-      removeContractKey
+      this.flattenBalanceResponses // Remove the "contract" key and move info to balance result body
     );
 
     return formattedResult;
+  }
+
+  async getBalancesByWalletAddress(
+    variables: BalancesByWalletAddressQueryVariablesType & NonQueryInput
+  ): Promise<BalancesByWalletAddressFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetBalancesByWalletAddressDocument,
+      polygon: CodegenPolygonMainnetBalancesByWalletAddressDocument,
+      ethereumSepolia: CodegenEthSepoliaBalancesByWalletAddressDocument,
+    };
+
+    const {
+      data: {
+        [userChain]: { walletByAddress },
+      },
+    } = await this.client.query<
+      BalancesByWalletAddressQueryVariablesType,
+      BalancesByWalletAddressQueryType,
+      BalancesByWalletAddressQueryResultFull
+    >({
+      variables: queryVariables,
+      query: query[userChain],
+    });
+
+    if (!walletByAddress?.tokenBalances?.length) {
+      return { address: '', ensName: '', results: [], pageInfo: emptyPageInfo };
+    }
+
+    const formattedResult = formatQueryResult<
+      BalancesByWalletAddressQueryResultInfo,
+      BalancesByWalletAddressFormattedResult
+    >(
+      walletByAddress,
+      'tokenBalances',
+      'tokenBalancesPageInfo',
+      null,
+      this.flattenBalanceResponses // Remove the "contract" key and move info to balance result body
+    );
+
+    return formattedResult;
+  }
+
+  private flattenBalanceResponses(
+    response: any
+  ): BalancesByWalletENSFormattedResult {
+    const modifiedResults = response.results.map((result: any) => {
+      const {
+        contract: { ...contractInfo },
+        ...balanceInfo
+      } = result;
+      return { ...balanceInfo, ...contractInfo };
+    });
+    response.results = modifiedResults;
+    return response;
   }
 }

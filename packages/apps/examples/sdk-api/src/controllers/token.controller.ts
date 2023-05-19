@@ -14,4 +14,17 @@ export default {
       return res.status(500).send({});
     }
   },
+
+  getBalancesByWalletAddress: async (req: Request, res: Response) => {
+    try {
+      const balances = await tokens.getBalancesByWalletAddress({
+        address: req.params.address,
+        first: 5,
+      });
+      return res.status(200).send(balances);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
 };

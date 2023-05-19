@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { WalletByAddressFragment } from '../../fragments/nftsByWalletAddress';
+import { WalletByAddressFragment } from '../../../fragments/nftsByWalletAddress';
 
 export const PolygonMainnetWalletNFTsByAddress = gql`
   query PolygonMainnetWalletNFTsByAddress(

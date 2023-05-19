@@ -1,6 +1,7 @@
 import express from 'express';
 import nftController from './controllers/nft.controller';
 import graphController from './controllers/graphApiClient.controller';
+import tokenController from './controllers/token.controller';
 const router = express.Router();
 
 router.get('/api', (req, res) => {
@@ -31,5 +32,9 @@ router.get(
   nftController.getNFTEvents
 );
 router.get('/api/graphQuery', graphController.graphQuery);
+router.get(
+  '/api/getBalancesByWalletENS/:ensResource',
+  tokenController.getBalancesByWalletEns
+);
 
 export default router;

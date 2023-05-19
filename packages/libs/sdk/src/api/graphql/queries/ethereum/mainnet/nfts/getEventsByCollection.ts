@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client/core';
-import { CollectionEventsFragment } from '../../fragments/EventsByCollection';
+import { CollectionEventsFragment } from '../../../fragments/EventsByCollection';
 
-export const EthSepoliaEventsByCollection = gql`
-  query EthSepoliaEventsByCollection(
+export const EthMainnetEventsByCollection = gql`
+  query EthMainnetEventsByCollection(
     $contractAddress: String!
     $after: String
     $first: Int
   ) {
-    ethereumSepolia {
+    ethereum {
       ...CollectionEventsFragment
     }
   }

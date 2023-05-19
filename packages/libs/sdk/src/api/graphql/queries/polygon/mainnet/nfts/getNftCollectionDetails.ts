@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { NftCollectionInfo } from '../../fragments/NftCollectionInfo';
+import { NftCollectionInfo } from '../../../fragments/NftCollectionInfo';
 
 export const PolygonMainnetNftCollectionDetails = gql`
 query PolygonMainnetNftCollectionDetails($contractAddress: String!) {

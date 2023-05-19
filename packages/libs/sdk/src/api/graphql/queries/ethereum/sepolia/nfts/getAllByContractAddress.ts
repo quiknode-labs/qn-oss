@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { NftsByContractAddressFragment } from '../../fragments/nftsByContractAddress';
+import { NftsByContractAddressFragment } from '../../../fragments/nftsByContractAddress';
 
 export const EthSepoliaWalletNFTsByContractAddress = gql`
   query EthSepoliaWalletNFTsByContractAddress(

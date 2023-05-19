@@ -11,7 +11,7 @@ import { onError, ErrorResponse } from '@apollo/client/link/error';
 import fetch from 'cross-fetch';
 import { CustomApolloClient } from './graphql/customApolloClient';
 import generatedPossibleTypes from './graphql/fragmentMatcher';
-import { NftsController } from './controllers';
+import { NftsController, TokensController } from './controllers';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
 import { hasOwnProperty } from './utils/helpers';
@@ -73,6 +73,7 @@ export class API {
   private additionalHeaders?: Record<string, string>;
   readonly defaultChain: ChainName;
   readonly nfts: NftsController;
+  readonly tokens: TokensController;
   readonly graphApiClient: ApolloClient<NormalizedCacheObject>;
 
   constructor({
@@ -92,6 +93,10 @@ export class API {
     this.customApolloClient = new CustomApolloClient(this.apolloClient);
     this.defaultChain = defaultChain || DEFAULT_CHAIN;
     this.nfts = new NftsController(this.customApolloClient, this.defaultChain);
+    this.tokens = new TokensController(
+      this.customApolloClient,
+      this.defaultChain
+    );
     // Re-export the apolloClient configured to use the Graph API for use with custom queries
     this.graphApiClient = this.apolloClient;
   }
@@ -109,7 +114,6 @@ export class API {
 
     const cacheStructure = new InMemoryCache({
       possibleTypes: generatedPossibleTypes.possibleTypes,
-      // TODO: Figure out type policies
       typePolicies: {
         EVMSchemaType: {
           // Always merge EVMSchemaType objects

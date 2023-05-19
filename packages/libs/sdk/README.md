@@ -318,8 +318,6 @@ Returns ERC20 token balances for a wallet
 | after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
 | chain    | string | ❌       | Blockchain name                 | polygon                                    |
 
-|
-
 ```ts
 const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup

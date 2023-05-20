@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 
 import { TrendingCollectionInfo } from './nodes/TrendingCollection';
 import { Pagination } from './pagination';

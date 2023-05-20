@@ -1,6 +1,6 @@
 import { apiClient } from '../client';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 
 const api = apiClient;
 
@@ -27,7 +27,7 @@ describe('graphApiClient.query', () => {
           }
         `;
 
-        const data = await api.graphApiClient.query({ query });
+        const data = await api.graphApiClient.query(query, {});
         expect(data).toStrictEqual({
           data: {
             ethereum: {
@@ -70,7 +70,7 @@ describe('graphApiClient.query', () => {
         const variables = {
           contractAddress: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
         };
-        const data = await api.graphApiClient.query({ query, variables });
+        const data = await api.graphApiClient.query(query, variables);
         expect(data).toStrictEqual({
           data: {
             ethereum: {
@@ -114,7 +114,7 @@ describe('graphApiClient.query', () => {
         `;
 
         await expect(
-          async () => await api.graphApiClient.query({ query })
+          async () => await api.graphApiClient.query(query, {})
         ).rejects.toThrowError();
       }
     );

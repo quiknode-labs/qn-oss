@@ -19,7 +19,7 @@ export default {
         }
       `;
 
-      const result = await api.graphApiClient.query({ query });
+      const result = await api.graphApiClient.query(query, {});
       return res.status(200).send(result);
     } catch (error) {
       console.error(error);

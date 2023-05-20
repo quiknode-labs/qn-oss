@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 
 import { WalletNFTNode } from './WalletNft';
 import { Pagination } from './pagination';

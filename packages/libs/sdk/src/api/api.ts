@@ -1,24 +1,9 @@
-// Need to specify index.js for @apollo/client directory imports to avoid issues when bundling for ESM
-// See https://github.com/apollographql/apollo-feature-requests/issues/287
-// and https://stackoverflow.com/questions/65873101/node-requires-file-extension-for-import-statement/65874173#65874173
-// (and despite the suggestions "moduleResolution: nodenext" isn't working the the tsconfig)
-import {
-  ApolloClient,
-  from,
-  HttpLink,
-  InMemoryCache,
-  NormalizedCacheObject,
-  ServerError,
-} from '@apollo/client/core/index.js';
-import { setContext } from '@apollo/client/link/context/index.js'
-import { onError, ErrorResponse } from '@apollo/client/link/error/index.js';
-import fetch from 'cross-fetch';
-import { CustomApolloClient } from './graphql/customApolloClient';
-import generatedPossibleTypes from './graphql/fragmentMatcher';
+import { Client, cacheExchange, fetchExchange } from '@urql/core';
+import { CustomUrqlClient } from './graphql/customUrqlClient';
 import { NftsController } from './controllers';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
-import { hasOwnProperty } from './utils/helpers';
+import fetch from 'cross-fetch';
 
 export interface ApiArguments {
   graphApiKey?: string;
@@ -26,58 +11,14 @@ export interface ApiArguments {
   defaultChain?: ChainName;
 }
 
-const httpLink = new HttpLink({
-  uri: process.env['NX_GRAPHQL_API_URI'] || 'https://api.quicknode.com/graphql',
-  fetch,
-});
-
-const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse) => {
-  const errorsArray: any[] = [];
-
-  if (graphQLErrors) {
-    graphQLErrors.map((error) => {
-      if (error?.message) errorsArray.push('Error message: ' + error.message);
-      if (error?.extensions) errorsArray.push(JSON.stringify(error.extensions));
-      if (error?.originalError)
-        errorsArray.push('Error stack:' + error?.originalError?.stack);
-    });
-  }
-
-  if (networkError && 'statusCode' in networkError) {
-    const serverError = networkError as ServerError;
-
-    if (serverError.statusCode === 429) {
-      errorsArray.push('QuickNode SDK warning: rate limit reached');
-    } else if (
-      hasOwnProperty(serverError.result, 'errors') &&
-      Array.isArray(serverError.result['errors']) &&
-      serverError?.result?.['errors']?.length > 0
-    ) {
-      serverError.result['errors']?.forEach((error: any) => {
-        if (error?.message) errorsArray.push('Error message: ' + error.message);
-        if (error?.extensions)
-          errorsArray.push(JSON.stringify(error.extensions));
-        if (error?.originalError)
-          errorsArray.push('Error stack:' + error?.originalError?.stack);
-      });
-    } else {
-      errorsArray.push('Something went wrong!');
-      errorsArray.push('Error message: ' + serverError?.message);
-    }
-  }
-
-  console.error(errorsArray.join('\n'));
-  return;
-});
-
 export class API {
-  readonly apolloClient: ApolloClient<NormalizedCacheObject>;
-  private customApolloClient: CustomApolloClient;
+  readonly urqlClient: Client;
+  private customUrqlClient: CustomUrqlClient;
   private graphApiKey?: string;
   private additionalHeaders?: Record<string, string>;
   readonly defaultChain: ChainName;
   readonly nfts: NftsController;
-  readonly graphApiClient: ApolloClient<NormalizedCacheObject>;
+  readonly graphApiClient: Client;
 
   constructor({
     graphApiKey,
@@ -92,62 +33,29 @@ export class API {
 
     this.graphApiKey = graphApiKey;
     this.additionalHeaders = additionalHeaders;
-    this.apolloClient = this.createApolloClient();
-    this.customApolloClient = new CustomApolloClient(this.apolloClient);
+    this.urqlClient = this.createUrqlClient();
+    this.customUrqlClient = new CustomUrqlClient(this.urqlClient);
     this.defaultChain = defaultChain || DEFAULT_CHAIN;
-    this.nfts = new NftsController(this.customApolloClient, this.defaultChain);
+    this.nfts = new NftsController(this.customUrqlClient, this.defaultChain);
     // Re-export the apolloClient configured to use the Graph API for use with custom queries
-    this.graphApiClient = this.apolloClient;
+    this.graphApiClient = this.urqlClient;
   }
 
-  private createApolloClient(): ApolloClient<NormalizedCacheObject> {
-    const authLink = setContext(async (_, { headers }) => {
-      return {
-        headers: {
-          ...headers,
-          ...{ 'x-api-key': this.graphApiKey },
-          ...this.additionalHeaders,
-        },
-      };
+  private createUrqlClient(): Client {
+    const headers = { ...this.additionalHeaders };
+    if (this.graphApiKey) headers['x-api-key'] = this.graphApiKey;
+
+    const client = new Client({
+      fetch,
+      url:
+        process.env['NX_GRAPHQL_API_URI'] ||
+        'https://api.quicknode.com/graphql',
+      exchanges: [cacheExchange, fetchExchange],
+      fetchOptions: () => ({ headers }),
     });
 
-    const cacheStructure = new InMemoryCache({
-      possibleTypes: generatedPossibleTypes.possibleTypes,
-      // TODO: Figure out type policies
-      typePolicies: {
-        EVMSchemaType: {
-          // Always merge EVMSchemaType objects
-          // Added because of warning: "Cache data may be lost when replacing the ethereum field of a Query object."
-          merge: true,
-        },
-        NFT: {
-          keyFields: ['contractAddress', 'tokenId'],
-        },
-        Collection: {
-          keyFields: ['address'],
-        },
-        Contract: {
-          keyFields: ['address'],
-        },
-        TokenEvent: {
-          keyFields: ['transactionHash', 'transferIndex'],
-        },
-        Transaction: {
-          keyFields: ['hash'],
-        },
-        TrendingCollection: {
-          keyFields: ['collection', ['address']],
-        },
-        Wallet: {
-          keyFields: ['address'],
-        },
-      },
-    });
+    // TODO: Urql caching, possible types?
 
-    const rawClient = new ApolloClient({
-      link: from([authLink, errorLink, httpLink]),
-      cache: cacheStructure,
-    });
-    return rawClient;
+    return client;
   }
 }

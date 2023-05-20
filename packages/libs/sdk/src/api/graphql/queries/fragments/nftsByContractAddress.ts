@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 
 import { Pagination } from './pagination';
 import { ERC1155NFTNodeFragment } from './ERC1155Node';

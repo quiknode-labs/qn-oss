@@ -12,8 +12,9 @@
   "module": "./esm/index.js",
   "types": "./index.d.ts",
   "dependencies": {
+    "@urql/core": "^4.0.7",
     "cross-fetch": "^3.1.6",
-    "graphql": "^16.5.0"
+    "tslib": "^2.5.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.13.8",
@@ -28,7 +29,9 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.13.0",
     "@types/supertest": "^2.0.12",
+    "dts-bundle-generator": "^8.0.1",
     "eslint-plugin-no-only-tests": "^3.1.0",
+    "graphql": "^16.6.0",
     "supertest": "^6.2.4"
   },
   "scripts": {

@@ -3,13 +3,13 @@ import withPolly from '../../testSetup/pollyTestSetup';
 
 const api = apiClient;
 
-describe('getNFTsByWalletENS', () => {
+describe('getNFTsByWallet with ENS', () => {
   it('executes correctly', async () => {
     await withPolly(
       { recordingName: 'query-getNFTsByWalletENS-base', recordIfMissing: true },
       async () => {
-        const data = await api.nfts.getByWalletENS({
-          ensName: 'shaq.eth',
+        const data = await api.nfts.getByWallet({
+          address: 'shaq.eth',
           first: 2,
         });
         expect(data).toStrictEqual({
@@ -88,12 +88,12 @@ describe('getNFTsByWalletENS', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data1 = await api.nfts.getByWalletENS({
-          ensName: 'shaq.eth',
+        const data1 = await api.nfts.getByWallet({
+          address: 'shaq.eth',
           first: 2,
         });
-        const data2 = await api.nfts.getByWalletENS({
-          ensName: 'shaq.eth',
+        const data2 = await api.nfts.getByWallet({
+          address: 'shaq.eth',
           first: 2,
           after: data1?.pageInfo?.endCursor,
         });
@@ -198,17 +198,43 @@ describe('getNFTsByWalletENS', () => {
     );
   });
 
-  it('can handle no response', async () => {
+  it('can handle a non-existent ENS address', async () => {
     await withPolly(
       { recordingName: 'query-getNFTsByWalletENS-null', recordIfMissing: true },
       async () => {
-        const data = await api.nfts.getByWalletENS({
-          ensName: 'fakefakefakedoesnotexist.eth',
+        const data = await api.nfts.getByWallet({
+          address: 'fakefakefakedoesnotexist.eth',
           first: 2,
         });
         expect(data).toStrictEqual({
           address: '',
           ensName: '',
+          pageInfo: {
+            endCursor: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: null,
+          },
+          results: [],
+        });
+      }
+    );
+  });
+
+  it('can handle an existing but empty wallet', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getNFTsByWalletENS-empty',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.nfts.getByWallet({
+          address: '0xce1e62F71bc7D7bb593Ec2540e62C870Dc7187bc',
+          first: 2,
+        });
+        expect(data).toStrictEqual({
+          address: '0xce1e62f71bc7d7bb593ec2540e62c870dc7187bc',
+          ensName: 'foo.eth',
           pageInfo: {
             endCursor: null,
             hasNextPage: false,
@@ -228,8 +254,8 @@ describe('getNFTsByWalletENS', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getByWalletENS({
-          ensName: 'shaq.eth',
+        const data = await api.nfts.getByWallet({
+          address: 'shaq.eth',
           first: 2,
           filter: {
             contractAddressIn: ['0xc92ceddfb8dd984a89fb494c376f9a48b999aafc'],

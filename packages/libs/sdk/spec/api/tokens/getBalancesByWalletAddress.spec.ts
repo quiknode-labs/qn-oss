@@ -117,7 +117,7 @@ describe('tokens.getBalancesByWallet with address', () => {
     );
   });
 
-  it('can return empty results', async () => {
+  it('can return empty results for non-existant wallet', async () => {
     await withPolly(
       {
         recordingName: 'query-getTokenBalancesByWalletAddress-empty',
@@ -129,7 +129,7 @@ describe('tokens.getBalancesByWallet with address', () => {
           first: 2,
         });
         expect(balances).toStrictEqual({
-          address: '',
+          address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c8aaaa',
           ensName: '',
           pageInfo: {
             endCursor: null,

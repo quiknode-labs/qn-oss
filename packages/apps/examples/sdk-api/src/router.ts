@@ -8,8 +8,7 @@ router.get('/api', (req, res) => {
   res.send({ message: "Welcome to QuickNode's sdk api example!" });
 });
 
-router.get('/api/nftsByEns/:ensResource', nftController.getNFTsByEns);
-router.get('/api/nftsByAddress/:address', nftController.getNFTsByAddress);
+router.get('/api/nftsByWallet/:address', nftController.getNFTsByWallet);
 router.get('/api/trendingCollections', nftController.getTrendingCollections);
 router.get(
   '/api/nftsByContractAddress/:contractAddress',

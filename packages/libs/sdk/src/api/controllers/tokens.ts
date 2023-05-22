@@ -76,7 +76,15 @@ export class TokensController {
     });
 
     if (!walletByENS?.tokenBalances?.length) {
-      return { address: '', ensName: '', results: [], pageInfo: emptyPageInfo };
+      // Address can still be valid ENS name, but not have any balances
+      const address = walletByENS?.address || '';
+      const ensName = walletByENS?.ensName || '';
+      return {
+        address: address,
+        ensName: ensName,
+        results: [],
+        pageInfo: emptyPageInfo,
+      };
     }
 
     const formattedResult = formatQueryResult<
@@ -118,7 +126,15 @@ export class TokensController {
     });
 
     if (!walletByAddress?.tokenBalances?.length) {
-      return { address: '', ensName: '', results: [], pageInfo: emptyPageInfo };
+      // Address can still be valid address, but not have any balances
+      const address = walletByAddress?.address || '';
+      const ensName = walletByAddress?.ensName || '';
+      return {
+        address: address,
+        ensName: ensName,
+        results: [],
+        pageInfo: emptyPageInfo,
+      };
     }
 
     const formattedResult = formatQueryResult<

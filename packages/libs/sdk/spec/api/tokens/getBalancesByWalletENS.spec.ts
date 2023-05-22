@@ -117,7 +117,7 @@ describe('tokens.getBalancesByWallet with ENS', () => {
     );
   });
 
-  it('can return empty results', async () => {
+  it('can return empty results for non-existent address', async () => {
     await withPolly(
       {
         recordingName: 'query-getTokenBalancesByWalletENS-empty',
@@ -131,6 +131,31 @@ describe('tokens.getBalancesByWallet with ENS', () => {
         expect(balances).toStrictEqual({
           address: '',
           ensName: '',
+          pageInfo: {
+            endCursor: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: null,
+          },
+          results: [],
+        });
+      }
+    );
+  });
+
+  it('can return empty results for existing but empty ENS name', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getTokenBalancesByWalletENS-exist',
+        recordIfMissing: true,
+      },
+      async () => {
+        const balances = await tokens.getBalancesByWallet({
+          address: 'zenwatch.eth',
+        });
+        expect(balances).toStrictEqual({
+          address: '0xc77abe8077794f30036eb13475c7d0a658098a67',
+          ensName: 'zenwatch.eth',
           pageInfo: {
             endCursor: null,
             hasNextPage: false,

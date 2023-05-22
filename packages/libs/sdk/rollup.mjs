@@ -4,7 +4,6 @@ import externals from 'rollup-plugin-node-externals';
 import dts from 'rollup-plugin-dts';
 import path from 'path';
 import { URL } from 'url';
-import nodeResolve from '@rollup/plugin-node-resolve';
 
 // esm patch for __dirname
 const __dirname = new URL('.', import.meta.url).pathname;

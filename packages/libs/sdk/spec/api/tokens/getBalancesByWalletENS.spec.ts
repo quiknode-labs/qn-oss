@@ -3,7 +3,7 @@ import withPolly from '../../testSetup/pollyTestSetup';
 
 const tokens = apiClient.tokens;
 
-describe('tokens.getBalancesByWalletENS', () => {
+describe('tokens.getBalancesByWallet with ENS', () => {
   it('should return a list of token balances for a given ENS name', async () => {
     await withPolly(
       {
@@ -11,8 +11,8 @@ describe('tokens.getBalancesByWalletENS', () => {
         recordIfMissing: true,
       },
       async () => {
-        const balances = await tokens.getBalancesByWalletENS({
-          ensName: 'quicknode.eth',
+        const balances = await tokens.getBalancesByWallet({
+          address: 'quicknode.eth',
           first: 2,
         });
         expect(balances).toStrictEqual({
@@ -52,12 +52,12 @@ describe('tokens.getBalancesByWalletENS', () => {
         recordIfMissing: true,
       },
       async () => {
-        const balances1 = await tokens.getBalancesByWalletENS({
-          ensName: 'quicknode.eth',
+        const balances1 = await tokens.getBalancesByWallet({
+          address: 'quicknode.eth',
           first: 2,
         });
-        const balances2 = await tokens.getBalancesByWalletENS({
-          ensName: 'quicknode.eth',
+        const balances2 = await tokens.getBalancesByWallet({
+          address: 'quicknode.eth',
           first: 2,
           after: balances1.pageInfo.endCursor,
         });
@@ -124,8 +124,8 @@ describe('tokens.getBalancesByWalletENS', () => {
         recordIfMissing: true,
       },
       async () => {
-        const balances = await tokens.getBalancesByWalletENS({
-          ensName: 'sdjkfhskdfhkshfksdjdskf.eth',
+        const balances = await tokens.getBalancesByWallet({
+          address: 'sdjkfhskdfhkshfksdjdskf.eth',
           first: 2,
         });
         expect(balances).toStrictEqual({

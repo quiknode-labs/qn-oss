@@ -3,7 +3,7 @@ import withPolly from '../../testSetup/pollyTestSetup';
 
 const tokens = apiClient.tokens;
 
-describe('tokens.getBalancesByWalletAddress', () => {
+describe('tokens.getBalancesByWallet with address', () => {
   it('should return a list of token balances for a given address', async () => {
     await withPolly(
       {
@@ -11,7 +11,7 @@ describe('tokens.getBalancesByWalletAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const balances = await tokens.getBalancesByWalletAddress({
+        const balances = await tokens.getBalancesByWallet({
           address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
           first: 2,
         });
@@ -52,11 +52,11 @@ describe('tokens.getBalancesByWalletAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const balances1 = await tokens.getBalancesByWalletAddress({
+        const balances1 = await tokens.getBalancesByWallet({
           address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
           first: 2,
         });
-        const balances2 = await tokens.getBalancesByWalletAddress({
+        const balances2 = await tokens.getBalancesByWallet({
           address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
           first: 2,
           after: balances1.pageInfo.endCursor,
@@ -124,7 +124,7 @@ describe('tokens.getBalancesByWalletAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const balances = await tokens.getBalancesByWalletAddress({
+        const balances = await tokens.getBalancesByWallet({
           address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c8aaaa',
           first: 2,
         });

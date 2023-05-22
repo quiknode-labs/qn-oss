@@ -33,12 +33,8 @@ router.get(
 );
 router.get('/api/graphQuery', graphController.graphQuery);
 router.get(
-  '/api/getBalancesByWalletENS/:ensResource',
-  tokenController.getBalancesByWalletEns
-);
-router.get(
-  '/api/getBalancesByWalletAddress/:address',
-  tokenController.getBalancesByWalletAddress
+  '/api/getBalancesByWallet/:address',
+  tokenController.getBalancesByWallet
 );
 
 export default router;

@@ -27,6 +27,7 @@ import {
 import { TypedDocumentNode } from '@apollo/client/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
+import { isValidENSAddress } from '../utils/isValidENSAddress';
 
 export class TokensController {
   constructor(
@@ -34,7 +35,23 @@ export class TokensController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
-  async getBalancesByWalletENS(
+  async getBalancesByWallet(
+    variables: BalancesByWalletAddressQueryVariablesType & NonQueryInput
+  ): Promise<BalancesByWalletENSFormattedResult> {
+    const { address, ...allVariables } = variables;
+    if (isValidENSAddress(address)) {
+      return this.getBalancesByWalletENS({
+        ensName: address,
+        ...allVariables,
+      });
+    }
+    return this.getBalancesByWalletAddress({
+      address,
+      ...allVariables,
+    });
+  }
+
+  private async getBalancesByWalletENS(
     variables: BalancesByWalletENSQueryVariablesType & NonQueryInput
   ): Promise<BalancesByWalletENSFormattedResult> {
     const { chain, ...queryVariables } = variables;
@@ -76,7 +93,7 @@ export class TokensController {
     return formattedResult;
   }
 
-  async getBalancesByWalletAddress(
+  private async getBalancesByWalletAddress(
     variables: BalancesByWalletAddressQueryVariablesType & NonQueryInput
   ): Promise<BalancesByWalletAddressFormattedResult> {
     const { chain, ...queryVariables } = variables;

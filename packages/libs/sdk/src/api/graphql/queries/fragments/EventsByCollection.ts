@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client/core';
 
-import { TokenEventInfo } from './tokenEvent';
+import { TokenEventInfo } from './nodes/tokenEvent';
 import { Pagination } from './pagination';
 
 export const CollectionEventsFragment = gql`

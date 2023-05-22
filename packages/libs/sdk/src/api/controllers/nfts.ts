@@ -87,6 +87,7 @@ import { TypedDocumentNode } from '@apollo/client/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
 import { NftErcStandards } from '../types/nfts';
+import { isValidENSAddress } from '../utils/isValidENSAddress';
 
 export class NftsController {
   constructor(
@@ -94,7 +95,24 @@ export class NftsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
-  async getByWalletENS(
+  async getByWallet(
+    variables: WalletNFTsByAddressQueryVariablesType & NonQueryInput
+  ): Promise<WalletNFTsByAddressFormattedResult> {
+    const { address, ...allVariables } = variables;
+    if (isValidENSAddress(address)) {
+      return this.getByWalletENS({
+        ensName: address,
+        ...allVariables,
+      });
+    }
+
+    return this.getByWalletAddress({
+      address,
+      ...allVariables,
+    });
+  }
+
+  private async getByWalletENS(
     variables: WalletNFTsByEnsQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByEnsFormattedResult> {
     const { chain, ...queryVariables } = variables;
@@ -118,8 +136,17 @@ export class NftsController {
       variables: queryVariables,
     });
 
-    if (!walletByENS?.walletNFTs?.length)
-      return { address: '', ensName: '', results: [], pageInfo: emptyPageInfo };
+    if (!walletByENS?.walletNFTs?.length) {
+      // Address can still be valid ENS name, but not have any NFTs
+      const address = walletByENS?.address || '';
+      const ensName = walletByENS?.ensName || '';
+      return {
+        address: address,
+        ensName: ensName,
+        results: [],
+        pageInfo: emptyPageInfo,
+      };
+    }
 
     const formattedResult = formatQueryResult<
       WalletNFTsByEnsQueryResultInfo,
@@ -129,7 +156,7 @@ export class NftsController {
     return formattedResult;
   }
 
-  async getByWalletAddress(
+  private async getByWalletAddress(
     variables: WalletNFTsByAddressQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByAddressFormattedResult> {
     const { chain, contractAddresses, ...queryVariables } = variables;
@@ -154,7 +181,14 @@ export class NftsController {
     });
 
     if (!walletByAddress?.walletNFTs?.length) {
-      return { address: '', ensName: '', results: [], pageInfo: emptyPageInfo };
+      const address = walletByAddress?.address || '';
+      const ensName = walletByAddress?.ensName || '';
+      return {
+        address: address,
+        ensName: ensName,
+        results: [],
+        pageInfo: emptyPageInfo,
+      };
     }
 
     const formattedResult = formatQueryResult<

@@ -3,7 +3,7 @@ import withPolly from '../../testSetup/pollyTestSetup';
 
 const api = apiClient;
 
-describe('getNFTsByWalletAddress', () => {
+describe('getNFTsByWallet with address', () => {
   it('executes correctly', async () => {
     await withPolly(
       {
@@ -11,7 +11,7 @@ describe('getNFTsByWalletAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getByWalletAddress({
+        const data = await api.nfts.getByWallet({
           address: '0x3c6aeff92b4b35c2e1b196b57d0f8ffb56884a17',
           first: 2,
         });
@@ -91,11 +91,11 @@ describe('getNFTsByWalletAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data1 = await api.nfts.getByWalletAddress({
+        const data1 = await api.nfts.getByWallet({
           address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
           first: 2,
         });
-        const data2 = await api.nfts.getByWalletAddress({
+        const data2 = await api.nfts.getByWallet({
           address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17',
           first: 2,
           after: data1?.pageInfo?.endCursor,
@@ -201,20 +201,46 @@ describe('getNFTsByWalletAddress', () => {
     );
   });
 
-  it('can handle no response', async () => {
+  it('can handle a non-existent wallet address', async () => {
     await withPolly(
       {
         recordingName: 'query-getNFTsByWalletAddress-null',
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getByWalletAddress({
-          address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB568ABCD',
+        const data = await api.nfts.getByWallet({
+          address: '0x3C6aEFF92b4B35C2e1b196B57d0f8FFB568AAAA',
           first: 2,
         });
         expect(data).toStrictEqual({
-          address: '',
+          address: '0x3c6aeff92b4b35c2e1b196b57d0f8ffb568aaaa',
           ensName: '',
+          pageInfo: {
+            endCursor: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: null,
+          },
+          results: [],
+        });
+      }
+    );
+  });
+
+  it('can handle an existing but empty wallet', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getNFTsByWalletAddress-empty',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.nfts.getByWallet({
+          address: '0xce1e62F71bc7D7bb593Ec2540e62C870Dc7187bc',
+          first: 2,
+        });
+        expect(data).toStrictEqual({
+          address: '0xce1e62f71bc7d7bb593ec2540e62c870dc7187bc',
+          ensName: 'foo.eth',
           pageInfo: {
             endCursor: null,
             hasNextPage: false,
@@ -234,7 +260,7 @@ describe('getNFTsByWalletAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getByWalletAddress({
+        const data = await api.nfts.getByWallet({
           address: '0x3c6aeff92b4b35c2e1b196b57d0f8ffb56884a17',
           first: 2,
           filter: {

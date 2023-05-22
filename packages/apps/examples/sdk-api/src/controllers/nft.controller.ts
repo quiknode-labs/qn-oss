@@ -2,25 +2,9 @@ import { Request, Response } from 'express';
 import { nfts } from '../client';
 
 export default {
-  getNFTsByEns: async (req: Request, res: Response) => {
+  getNFTsByWallet: async (req: Request, res: Response) => {
     try {
-      const NFTs = await nfts.getByWalletENS({
-        ensName: req.params.ensResource,
-        first: 2,
-        filter: {
-          contractAddressIn: ['0xc92ceddfb8dd984a89fb494c376f9a48b999aafc'],
-        },
-      });
-      return res.status(200).send(NFTs);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).send({});
-    }
-  },
-
-  getNFTsByAddress: async (req: Request, res: Response) => {
-    try {
-      const NFTs = await nfts.getByWalletAddress({
+      const NFTs = await nfts.getByWallet({
         address: req.params.address,
         first: 5,
       });

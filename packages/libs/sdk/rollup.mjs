@@ -38,6 +38,7 @@ export default [
       sourcemapExcludeSources: true, // Exclude external package sources from source map
     },
     plugins: [
+      externals(), // Exclude node_modules from bundle
       typescript({
         tsconfig: toAbsoluteDir('tsconfig.lib.json'),
       }),

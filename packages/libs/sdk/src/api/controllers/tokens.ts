@@ -1,4 +1,4 @@
-import { CustomApolloClient } from '../graphql/customApolloClient';
+import { CustomUrqlClient } from '../graphql/customUrqlClient';
 import { ChainName } from '../types/chains';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
@@ -31,7 +31,7 @@ import { isValidENSAddress } from '../utils/isValidENSAddress';
 
 export class TokensController {
   constructor(
-    private client: CustomApolloClient,
+    private client: CustomUrqlClient,
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 

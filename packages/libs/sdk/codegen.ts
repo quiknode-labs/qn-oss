@@ -34,9 +34,6 @@ const config: CodegenConfig = {
     },
     'src/api/graphql/schema.json': {
       plugins: ['introspection'],
-      config: {
-        minify: true,
-      },
     },
   },
 };

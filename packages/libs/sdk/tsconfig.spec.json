@@ -5,6 +5,5 @@
     "module": "commonjs",
     "types": ["jest", "node", "mocha"]
   },
-  "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts"],
-  "exclude": ["node_modules"]
+  "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts"]
 }

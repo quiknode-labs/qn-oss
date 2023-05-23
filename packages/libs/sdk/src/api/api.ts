@@ -97,8 +97,6 @@ export class API {
       fetchOptions: () => ({ headers }),
     });
 
-    // TODO: Urql caching, possible types?
-
     return client;
   }
 }

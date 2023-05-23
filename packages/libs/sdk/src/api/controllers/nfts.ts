@@ -1,4 +1,4 @@
-import { CustomUrqlClient } from '../graphql/customUrqlClient';
+import { CustomApolloClient } from '../graphql/customApolloClient';
 
 import {
   WalletNFTsByEnsQueryResultInfo,
@@ -83,14 +83,14 @@ import {
 import { ChainName } from '../types/chains';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
-import { TypedDocumentNode } from '@urql/core';
+import { TypedDocumentNode } from '@apollo/client';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NonQueryInput } from '../types/input';
 import { NftErcStandards } from '../types/nfts';
 
 export class NftsController {
   constructor(
-    private client: CustomUrqlClient,
+    private client: CustomApolloClient,
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 

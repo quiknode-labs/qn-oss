@@ -1,4 +1,4 @@
-import { gql } from '@urql/core';
+import { gql } from '@apollo/client/core';
 
 export const WalletNFTNode = gql`
   fragment WalletNFTNode on WalletNFT {

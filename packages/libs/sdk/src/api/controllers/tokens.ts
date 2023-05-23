@@ -24,7 +24,7 @@ import {
   CodegenPolygonMainnetBalancesByWalletENSDocument,
   CodegenPolygonMainnetBalancesByWalletAddressDocument,
 } from '../graphql/generatedTypes';
-import { TypedDocumentNode } from '@apollo/client/core';
+import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';

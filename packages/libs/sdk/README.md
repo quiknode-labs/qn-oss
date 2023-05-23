@@ -294,7 +294,7 @@ qn.tokens
 
 ### graphApiClient.query
 
-A way to send GraphQL queries directly to the [QuickNode GraphQL API](https://www.quicknode.com/graph-api). `graphApiClient` is an [ApolloClient](https://www.apollographql.com/docs/react/api/core/ApolloClient/) instance configured to use QuickNode's Graph API. For more information about the query structure, see the [Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)
+A way to send GraphQL queries directly to the [QuickNode GraphQL API](https://www.quicknode.com/graph-api). `graphApiClient` is an [Urql client](https://formidable.com/open-source/urql/docs/api/core/#client) instance configured to use QuickNode's Graph API. For more information about the query structure, see the [Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)
 
 ```ts
 import QuickNode, { gql } from '@quicknode/sdk';
@@ -319,7 +319,7 @@ const variables = {
   contractAddress: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
 };
 
-qn.graphApiClient.query({ query, variables }).then((response) => console.log(response));
+qn.graphApiClient.query({ query, variables }).then(({ data }) => console.log(data));
 ```
 
 ## Pagination

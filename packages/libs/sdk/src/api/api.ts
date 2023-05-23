@@ -1,9 +1,12 @@
 import fetch from 'cross-fetch';
 import { CustomUrqlClient } from './graphql/customUrqlClient';
-import { Client, cacheExchange, fetchExchange } from '@urql/core';
+import { Client, fetchExchange } from '@urql/core';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { Data, cacheExchange } from '@urql/exchange-graphcache';
 import { NftsController, TokensController } from './controllers';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
+import schema from './graphql/schema.json';
 
 export interface ApiArguments {
   graphApiKey?: string;
@@ -42,20 +45,56 @@ export class API {
       this.customUrqlClient,
       this.defaultChain
     );
-    // Re-export the apolloClient configured to use the Graph API for use with custom queries
+    // Re-export the Urql client configured to use the Graph API for use with custom queries
     this.graphApiClient = this.urqlClient;
   }
 
   private createUrqlClient(): Client {
     const headers = { ...this.additionalHeaders };
     if (this.graphApiKey) headers['x-api-key'] = this.graphApiKey;
+    const useNftKey = (data: Data) =>
+      `${data['contractAddress']}:${data['tokenId']}`;
+    const useAddressAsKey = (data: Data) => `${data['address']}`;
+    const useTransactionHashAndIndex = (data: Data) =>
+      `${data['transactionHash']}:${data['transferIndex']}`;
+    const urqlCache = cacheExchange({
+      schema,
+      keys: {
+        EVMSchemaType: () => null, // tells Graphcache that the entity has no key and not to cache
+        Collection: useAddressAsKey,
+        CollectionOHLCVChart: () => null, // Entities without keys will be embedded directly on the parent entity.
+        Contract: (data) => `${data['address']}`,
+        ERC721NFT: useNftKey,
+        ERC721Collection: useAddressAsKey,
+        ERC1155NFT: useNftKey,
+        ERC1155Collection: useAddressAsKey,
+        NFT: useNftKey,
+        NFTContract: useAddressAsKey,
+        TokenAttribute: () => null, // Entities without keys will be embedded directly on the parent entity.
+        TokenContract: useAddressAsKey,
+        TokenEvent: useTransactionHashAndIndex,
+        TokenMintEvent: useTransactionHashAndIndex,
+        TokenBurnEvent: useTransactionHashAndIndex,
+        TokenSaleEvent: useTransactionHashAndIndex,
+        TokenSwapEvent: useTransactionHashAndIndex,
+        TokenTransferEvent: useTransactionHashAndIndex,
+        TokenUpload: (data) => `${data['url']}`,
+        OpenSeaMetadata: () => null, // Entities without keys will be embedded directly on the parent entity.
+        Transaction: (data) => `${data['hash']}`,
+        TrendingCollection: (data) =>
+          `${data['collection']}:${data['address']}`,
+        Wallet: (data) => `${data['address']}`,
+        WalletNFT: (data) => `${data['address']}:${data['tokenId']}`,
+        WalletTokenBalance: () => null, // Entities without keys will be embedded directly on the parent entity.
+      },
+    });
 
     const client = new Client({
       fetch,
       url:
         process.env['NX_GRAPHQL_API_URI'] ||
         'https://api.quicknode.com/graphql',
-      exchanges: [cacheExchange, fetchExchange],
+      exchanges: [urqlCache, fetchExchange],
       fetchOptions: () => ({ headers }),
     });
 

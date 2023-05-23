@@ -60,7 +60,7 @@ export class API {
     const urqlCache = cacheExchange({
       schema,
       keys: {
-        EVMSchemaType: () => null, // tells Graphcache that the entity has no key and not to cache
+        EVMSchemaType: () => null, // The entity has no key and no parent entity so effectively won't cache
         Collection: useAddressAsKey,
         CollectionOHLCVChart: () => null, // Entities without keys will be embedded directly on the parent entity.
         Contract: (data) => `${data['address']}`,
@@ -70,7 +70,7 @@ export class API {
         ERC1155Collection: useAddressAsKey,
         NFT: useNftKey,
         NFTContract: useAddressAsKey,
-        TokenAttribute: () => null, // Entities without keys will be embedded directly on the parent entity.
+        TokenAttribute: () => null,
         TokenContract: useAddressAsKey,
         TokenEvent: useTransactionHashAndIndex,
         TokenMintEvent: useTransactionHashAndIndex,
@@ -78,14 +78,13 @@ export class API {
         TokenSaleEvent: useTransactionHashAndIndex,
         TokenSwapEvent: useTransactionHashAndIndex,
         TokenTransferEvent: useTransactionHashAndIndex,
-        TokenUpload: (data) => `${data['url']}`,
-        OpenSeaMetadata: () => null, // Entities without keys will be embedded directly on the parent entity.
+        TokenUpload: () => null,
+        OpenSeaMetadata: () => null,
         Transaction: (data) => `${data['hash']}`,
-        TrendingCollection: (data) =>
-          `${data['collection']}:${data['address']}`,
+        TrendingCollection: () => null,
         Wallet: (data) => `${data['address']}`,
-        WalletNFT: (data) => `${data['address']}:${data['tokenId']}`,
-        WalletTokenBalance: () => null, // Entities without keys will be embedded directly on the parent entity.
+        WalletNFT: () => null,
+        WalletTokenBalance: () => null,
       },
     });
 

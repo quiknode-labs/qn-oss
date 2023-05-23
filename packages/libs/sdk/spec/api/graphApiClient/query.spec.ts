@@ -30,9 +30,7 @@ describe('graphApiClient.query', () => {
         const { data } = await api.graphApiClient.query(query, {});
         expect(data).toStrictEqual({
           ethereum: {
-            __typename: 'EVMSchemaType',
             collection: {
-              __typename: 'ERC721Collection',
               address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
               name: 'Loopy Donuts',
               symbol: 'DONUT',
@@ -69,9 +67,7 @@ describe('graphApiClient.query', () => {
         const { data } = await api.graphApiClient.query(query, variables);
         expect(data).toStrictEqual({
           ethereum: {
-            __typename: 'EVMSchemaType',
             collection: {
-              __typename: 'ERC721Collection',
               address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
               name: 'Loopy Donuts',
               symbol: 'DONUT',

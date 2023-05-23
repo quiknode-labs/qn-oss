@@ -6,7 +6,7 @@ export default {
     try {
       const NFTs = await nfts.getByWallet({
         address: req.params.address,
-        first: 5,
+        first: 2,
       });
       return res.status(200).send(NFTs);
     } catch (error) {

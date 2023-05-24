@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 import { GetBalancesByWalletENSFragment } from '../../../fragments/getBalancesByWalletENS';
 
 export const EthMainnetBalancesByWalletENS = gql`

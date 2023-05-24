@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 import { Pagination } from './pagination';
 import { TokenBalanceNode } from './nodes/tokenBalanceNode';
 

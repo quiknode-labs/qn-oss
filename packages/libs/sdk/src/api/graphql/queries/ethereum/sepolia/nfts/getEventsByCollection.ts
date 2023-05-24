@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 import { CollectionEventsFragment } from '../../../fragments/EventsByCollection';
 
 export const EthSepoliaEventsByCollection = gql`

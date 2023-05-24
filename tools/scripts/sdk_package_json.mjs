@@ -1,4 +1,6 @@
-// Write a package.json in the dist/packages/libs/sdk/esm/ directory with "type": "module"
+// Write a package.json in the dist/packages/libs/sdk/esm/ and dist/packages/libs/sdk/esm/ directory
+// to override the type field in the package.json in the root directory. This allows us to use
+// both module systems in the same package.
 import fs from 'fs';
 import path from 'path';
 import { URL } from 'url';

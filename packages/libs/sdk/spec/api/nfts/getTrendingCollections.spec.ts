@@ -18,68 +18,37 @@ describe('getTrendingCollections', () => {
         expect(data).toStrictEqual({
           results: [
             {
-              address: '0x4ebb2384cc1e86f578e37f2057b336b9027cb95a',
-              baseTokenUri: null,
-              circulatingSupply: null,
-              description:
-                "Introducing World App, the first wallet for the Worldcoin ecosystem.\n\nIt’s designed by TFH to be simple, and you can use it to authenticate with World ID to prove you’re a real person, get your Worldcoin tokens and send digital money anywhere.\n\nWe're excited to celebrate this milestone with the Worldcoin community.",
+              address: '0xbe9371326f91345777b04394448c23e2bfeaa826',
+              baseTokenUri:
+                'ipfs://bafybeihqqmdxzslqafnqasuawlxk32n4qhg5rhshku7dkhlaz2bm5zamyq/',
+              circulatingSupply: 89453,
+              description: null,
               externalUrl: null,
-              image: [
-                {
-                  height: 100,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/xs/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 100,
-                },
-                {
-                  height: 200,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/sm/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 200,
-                },
-                {
-                  height: 400,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/md/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 400,
-                },
-                {
-                  height: 800,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/lg/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 800,
-                },
-                {
-                  height: 1200,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/xl/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 1200,
-                },
-              ],
-              name: 'Introducing World App',
+              image: null,
+              name: 'Gemesis',
               openseaMetadata: {
                 isHidden: false,
                 isVerified: false,
-                unsafeSlug: 'world-app',
+                unsafeSlug: 'gemesis-4',
               },
-              symbol: 'WLDAPP',
+              symbol: 'OSP',
               totalSupply: null,
               twitterUsername: null,
             },
             {
-              address: '0x6609e542e0626bc3fc2110f0ead172030fbe97ab',
+              address: '0x884ba86faa29745b6c40b7098567a393e91335cf',
               baseTokenUri: null,
-              circulatingSupply: 10987,
+              circulatingSupply: 9999,
               description: null,
               externalUrl: null,
               image: null,
-              name: 'This Artwork Is Subject To Change',
+              name: 'Saved Souls',
               openseaMetadata: {
                 isHidden: false,
                 isVerified: false,
-                unsafeSlug: 'this-artwork-is-subject-to-change',
+                unsafeSlug: 'saved-souls-1',
               },
-              symbol: 'TAISTC',
+              symbol: 'SS',
               totalSupply: null,
               twitterUsername: null,
             },
@@ -114,130 +83,22 @@ describe('getTrendingCollections', () => {
         expect(data1).toStrictEqual({
           results: [
             {
-              address: '0x4ebb2384cc1e86f578e37f2057b336b9027cb95a',
-              baseTokenUri: null,
-              circulatingSupply: null,
-              description:
-                "Introducing World App, the first wallet for the Worldcoin ecosystem.\n\nIt’s designed by TFH to be simple, and you can use it to authenticate with World ID to prove you’re a real person, get your Worldcoin tokens and send digital money anywhere.\n\nWe're excited to celebrate this milestone with the Worldcoin community.",
-              externalUrl: null,
-              image: [
-                {
-                  height: 100,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/xs/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 100,
-                },
-                {
-                  height: 200,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/sm/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 200,
-                },
-                {
-                  height: 400,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/md/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 400,
-                },
-                {
-                  height: 800,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/lg/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 800,
-                },
-                {
-                  height: 1200,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/xl/catalog/unprocessed/chains/ethereum-mainnet/token-images/3ca97d13395840dfb8cb5aaa8cc1c5835d9af691',
-                  width: 1200,
-                },
-              ],
-              name: 'Introducing World App',
-              openseaMetadata: {
-                isHidden: false,
-                isVerified: false,
-                unsafeSlug: 'world-app',
-              },
-              symbol: 'WLDAPP',
-              totalSupply: null,
-              twitterUsername: null,
-            },
-            {
-              address: '0x6609e542e0626bc3fc2110f0ead172030fbe97ab',
-              baseTokenUri: null,
-              circulatingSupply: 10987,
+              address: '0xbe9371326f91345777b04394448c23e2bfeaa826',
+              baseTokenUri:
+                'ipfs://bafybeihqqmdxzslqafnqasuawlxk32n4qhg5rhshku7dkhlaz2bm5zamyq/',
+              circulatingSupply: 89453,
               description: null,
               externalUrl: null,
               image: null,
-              name: 'This Artwork Is Subject To Change',
+              name: 'Gemesis',
               openseaMetadata: {
                 isHidden: false,
                 isVerified: false,
-                unsafeSlug: 'this-artwork-is-subject-to-change',
+                unsafeSlug: 'gemesis-4',
               },
-              symbol: 'TAISTC',
+              symbol: 'OSP',
               totalSupply: null,
               twitterUsername: null,
-            },
-          ],
-          pageInfo: {
-            endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
-            hasNextPage: true,
-            hasPreviousPage: false,
-            startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
-          },
-        });
-
-        expect(data2).toStrictEqual({
-          results: [
-            {
-              address: '0x4b15a9c28034dc83db40cd810001427d3bd7163d',
-              baseTokenUri: null,
-              circulatingSupply: 26213,
-              description:
-                'The HV-MTL (Heavy Metal) collection is made up of 30,000 Mechs derived from 8 different Power Source types. Beginning March 15, 2023, eligible Sewer Passes can be burned to summon a Power Source that will reveal an Evo 1 Mech. Evo 1 holders can participate in future minigame sets with their Evo 1s to unlock additional HV-MTL evolution stages.',
-              externalUrl: 'https://mdvmm.xyz/',
-              image: [
-                {
-                  height: 100,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/xs/catalog/unprocessed/chains/ethereum-mainnet/collection-images/d99eebb276327d1656cd551ec300d75367e5dca7',
-                  width: 100,
-                },
-                {
-                  height: 200,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/sm/catalog/unprocessed/chains/ethereum-mainnet/collection-images/d99eebb276327d1656cd551ec300d75367e5dca7',
-                  width: 200,
-                },
-                {
-                  height: 400,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/md/catalog/unprocessed/chains/ethereum-mainnet/collection-images/d99eebb276327d1656cd551ec300d75367e5dca7',
-                  width: 400,
-                },
-                {
-                  height: 800,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/lg/catalog/unprocessed/chains/ethereum-mainnet/collection-images/d99eebb276327d1656cd551ec300d75367e5dca7',
-                  width: 800,
-                },
-                {
-                  height: 1200,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/xl/catalog/unprocessed/chains/ethereum-mainnet/collection-images/d99eebb276327d1656cd551ec300d75367e5dca7',
-                  width: 1200,
-                },
-              ],
-              name: 'HV-MTL',
-              openseaMetadata: {
-                isHidden: false,
-                isVerified: true,
-                unsafeSlug: 'hv-mtl',
-              },
-              symbol: 'HV-MTL',
-              totalSupply: null,
-              twitterUsername: 'BoredApeYC',
             },
             {
               address: '0x884ba86faa29745b6c40b7098567a393e91335cf',
@@ -253,6 +114,83 @@ describe('getTrendingCollections', () => {
                 unsafeSlug: 'saved-souls-1',
               },
               symbol: 'SS',
+              totalSupply: null,
+              twitterUsername: null,
+            },
+          ],
+          pageInfo: {
+            endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
+            hasNextPage: true,
+            hasPreviousPage: false,
+            startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
+          },
+        });
+
+        expect(data2).toStrictEqual({
+          results: [
+            {
+              address: '0x20d93d65ada7ee46235f95f5995ae5c5dc5ac44c',
+              baseTokenUri: '',
+              circulatingSupply: null,
+              description: null,
+              externalUrl: null,
+              image: null,
+              name: 'IllegalMemes',
+              openseaMetadata: {
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
+              },
+              symbol: 'MEMES',
+              totalSupply: null,
+              twitterUsername: null,
+            },
+            {
+              address: '0xd79e4cc964e5a2c1e400fe5a8488c71d9fd9847e',
+              baseTokenUri: null,
+              circulatingSupply: 7776,
+              description:
+                'DenDekaDen is a community-driven narrative franchise launched between Strata and Toei Animation.\nWith Kyoto as its stage, DenDekaDen introduces a modern legend that connects Japan and the world in new ways,\ninterweaving Japanese traditions and mythologies with the digital world of blockchain, empowered by community participation. \n\nSpirit Key Avatars are avatars (PFPs) representing believers of the 7 DenDekaDen deities. \nHolders may customize certain attributes and equip relics to their avatars.\nBound by our shared beliefs, we, the circle of creators, curators, and believers are here to write a new chapter.\n\nOur beliefs create gods.\nDo you believe?',
+              externalUrl: 'https://www.dendekaden.com/',
+              image: [
+                {
+                  height: 100,
+                  mimeType: 'image/png',
+                  url: 'https://images.quicknode.workers.dev/xs/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  width: 100,
+                },
+                {
+                  height: 200,
+                  mimeType: 'image/png',
+                  url: 'https://images.quicknode.workers.dev/sm/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  width: 200,
+                },
+                {
+                  height: 400,
+                  mimeType: 'image/png',
+                  url: 'https://images.quicknode.workers.dev/md/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  width: 400,
+                },
+                {
+                  height: 800,
+                  mimeType: 'image/png',
+                  url: 'https://images.quicknode.workers.dev/lg/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  width: 800,
+                },
+                {
+                  height: 1200,
+                  mimeType: 'image/png',
+                  url: 'https://images.quicknode.workers.dev/xl/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  width: 1200,
+                },
+              ],
+              name: 'DenDekaDen Spirit Key Avatars',
+              openseaMetadata: {
+                isHidden: false,
+                isVerified: false,
+                unsafeSlug: 'dendekaden-spirit-key-avatar',
+              },
+              symbol: '$KEY',
               totalSupply: null,
               twitterUsername: null,
             },

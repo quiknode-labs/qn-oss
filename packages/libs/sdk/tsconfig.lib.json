@@ -3,10 +3,7 @@
   "types": ["node"],
   "files": [],
   "compilerOptions": {
-    // Targeting nodejs 16+
-    // https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
     "target": "ES2020",
-    // https://node.green/
     "module": "ES2020",
     "outDir": "dist",
     "rootDir": "src"

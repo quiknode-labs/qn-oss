@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 
-import { WalletNFTNode } from './WalletNft';
+import { WalletNFTNode } from './nodes/WalletNft';
 import { Pagination } from './pagination';
 
 export const WalletByEnsFragment = gql`

@@ -32,6 +32,9 @@ const config: CodegenConfig = {
     'src/api/graphql/fragmentMatcher.ts': {
       plugins: ['fragment-matcher'],
     },
+    'src/api/graphql/schema.json': {
+      plugins: ['introspection'],
+    },
   },
 };
 

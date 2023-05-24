@@ -1,8 +1,8 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 
 import { Pagination } from './pagination';
-import { ERC1155NFTNodeFragment } from './ERC1155Node';
-import { ERC721NFTNodeFragment } from './ERC721Node';
+import { ERC1155NFTNodeFragment } from './nodes/ERC1155Node';
+import { ERC721NFTNodeFragment } from './nodes/ERC721Node';
 
 export const NftsByContractAddressFragment = gql`
   fragment NftsByContractAddressFragment on EVMSchemaType {

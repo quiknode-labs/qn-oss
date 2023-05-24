@@ -19,8 +19,8 @@ export default {
         }
       `;
 
-      const result = await api.graphApiClient.query({ query });
-      return res.status(200).send(result);
+      const { data } = await api.graphApiClient.query(query, {});
+      return res.status(200).send(data);
     } catch (error) {
       console.error(error);
       return res.status(500).send({});

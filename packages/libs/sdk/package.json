@@ -13,19 +13,23 @@
   "types": "./index.d.ts",
   "dependencies": {
     "@urql/core": "^4.0.7",
+    "@urql/exchange-graphcache": "^6.0.4",
     "cross-fetch": "^3.1.6",
-    "tslib": "^2.5.2"
+    "tslib": "^2.5.2",
+    "graphql": "^16.5.0"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.1",
     "@graphql-codegen/cli": "2.13.8",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
+    "@graphql-codegen/introspection": "^3.0.1",
     "@graphql-codegen/typed-document-node": "^4.0.1",
     "@graphql-codegen/typescript": "2.8.0",
     "@graphql-codegen/typescript-operations": "^2.5.5",
     "@pollyjs/adapter-node-http": "^6.0.5",
     "@pollyjs/core": "^6.0.5",
     "@pollyjs/persister-fs": "^6.0.5",
+    "@types/jest": "^29.5.1",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^18.13.0",
     "@types/supertest": "^2.0.12",
     "eslint-plugin-no-only-tests": "^3.1.0",

@@ -12,3 +12,4 @@ if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
 }
 export const api = new QuickNode.API(opts);
 export const nfts = api.nfts;
+export const tokens = api.tokens;

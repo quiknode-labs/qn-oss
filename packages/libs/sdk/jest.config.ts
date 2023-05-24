@@ -8,4 +8,5 @@ export default {
   moduleFileExtensions: ['ts', 'js', 'html'],
   setupFiles: ['./spec/testSetup/jestSetup.ts'],
   testEnvironment: 'node',
+  slowTestThreshold: 15,
 };

@@ -1,7 +1,6 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node"],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -12,9 +11,10 @@
     "baseUrl": "./src"
   },
   "files": [],
+  "include": [],
   "references": [
     {
-      "path": "./tsconfig.esm.json"
+      "path": "./tsconfig.json"
     },
     {
       "path": "./tsconfig.spec.json"

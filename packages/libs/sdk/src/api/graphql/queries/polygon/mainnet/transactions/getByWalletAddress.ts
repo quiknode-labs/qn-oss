@@ -1,5 +1,5 @@
 import { gql } from '@urql/core';
-import { GetTransactionsByWalletAddressFragment } from '../../../fragments/getTransactionsByWalletAddress';
+import { TransactionsByWalletAddress } from '../../../fragments/transactionsByWalletAddress';
 
 export const PolygonMainnetTransactionsByWalletAddress = gql`
   query PolygonMainnetTransactionsByWalletAddress(
@@ -9,8 +9,8 @@ export const PolygonMainnetTransactionsByWalletAddress = gql`
     $orderDirection: OrderDirection
   ) {
     polygon {
-      ...GetTransactionsByWalletAddressFragment
+      ...TransactionsByWalletAddress
     }
   }
-  ${GetTransactionsByWalletAddressFragment}
+  ${TransactionsByWalletAddress}
 `;

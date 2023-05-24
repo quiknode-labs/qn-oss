@@ -1,5 +1,5 @@
 import { gql } from '@urql/core';
-import { GetTransactionsByWalletAddressFragment } from '../../../fragments/getTransactionsByWalletAddress';
+import { TransactionsByWalletAddress } from '../../../fragments/transactionsByWalletAddress';
 
 export const EthSepoliaTransactionsByWalletAddress = gql`
   query EthSepoliaTransactionsByWalletAddress(
@@ -9,8 +9,8 @@ export const EthSepoliaTransactionsByWalletAddress = gql`
     $orderDirection: OrderDirection
   ) {
     ethereumSepolia {
-      ...GetTransactionsByWalletAddressFragment
+      ...TransactionsByWalletAddress
     }
   }
-  ${GetTransactionsByWalletAddressFragment}
+  ${TransactionsByWalletAddress}
 `;

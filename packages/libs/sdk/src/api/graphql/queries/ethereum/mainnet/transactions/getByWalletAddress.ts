@@ -1,5 +1,5 @@
 import { gql } from '@urql/core';
-import { GetTransactionsByWalletAddressFragment } from '../../../fragments/getTransactionsByWalletAddress';
+import { TransactionsByWalletAddress } from '../../../fragments/transactionsByWalletAddress';
 
 export const EthMainnetTransactionsByWalletAddress = gql`
   query EthMainnetTransactionsByWalletAddress(
@@ -9,8 +9,8 @@ export const EthMainnetTransactionsByWalletAddress = gql`
     $orderDirection: OrderDirection
   ) {
     ethereum {
-      ...GetTransactionsByWalletAddressFragment
+      ...TransactionsByWalletAddress
     }
   }
-  ${GetTransactionsByWalletAddressFragment}
+  ${TransactionsByWalletAddress}
 `;

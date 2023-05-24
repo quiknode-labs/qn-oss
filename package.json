@@ -61,6 +61,7 @@
     "@pollyjs/adapter-node-http": "^6.0.5",
     "@pollyjs/core": "^6.0.5",
     "@pollyjs/persister-fs": "^6.0.5",
+    "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-typescript": "^8.5.0",
     "@svgr/webpack": "^6.1.2",
     "@testing-library/react": "13.4.0",

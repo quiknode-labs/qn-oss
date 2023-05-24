@@ -2,6 +2,7 @@ import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 import externals from 'rollup-plugin-node-externals';
 import dts from 'rollup-plugin-dts';
+import json from '@rollup/plugin-json';
 import path from 'path';
 import { URL } from 'url';
 
@@ -15,20 +16,29 @@ const bundle = (config) => ({
   ...config,
 });
 
+// The shared rollup plugins for esm and cjs bundles
+const sharedPlugins = [
+  externals(), // Exclude node_modules from bundle
+  json({ compact: true }),
+  typescript({
+    tsconfig: toAbsoluteDir('tsconfig.lib.json'),
+  }),
+];
+
+// The shared rollup output config for esm and cjs bundles
+const sharedOutput = {
+  sourcemap: 'inline', // Include source map for debugging
+  sourcemapExcludeSources: true, // Exclude external package sources from source map
+};
+
 export default [
   bundle({
     output: {
       file: 'dist/packages/libs/sdk/esm/index.js',
       format: 'esm',
-      sourcemap: 'inline', // Include source map for debugging
-      sourcemapExcludeSources: true, // Exclude external package sources from source map
+      ...sharedOutput,
     },
-    plugins: [
-      externals(), // Exclude node_modules from bundle
-      typescript({
-        tsconfig: toAbsoluteDir('tsconfig.lib.json'),
-      }),
-    ],
+    plugins: [...sharedPlugins],
   }),
   bundle({
     output: {
@@ -38,10 +48,7 @@ export default [
       sourcemapExcludeSources: true, // Exclude external package sources from source map
     },
     plugins: [
-      externals(), // Exclude node_modules from bundle
-      typescript({
-        tsconfig: toAbsoluteDir('tsconfig.lib.json'),
-      }),
+      ...sharedPlugins,
       copy({
         targets: [
           {

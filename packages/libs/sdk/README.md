@@ -364,7 +364,7 @@ Please submit any questions, issues, or feedback as an [issue in Github](https:/
 
 We recommend using the example application to develop
 
-1. cd `packages/apps/examples/sdk-api`
+1. cd `packages/apps/examples/sdk-api` from `qn-oss` monorepo root
 2. `cp .env.example .env` and add api key
 3. `nx serve apps-examples-sdk-api`
 4. Then you can send requests to the API, for example: `curl http://localhost:3333/api/nftsByAddress/0xbc08dadccc79c00587d7e6a75bb68ff5fd30f9e0`
@@ -383,6 +383,6 @@ Run `nx lint libs-sdk` to execute the lint via [ESLint](https://eslint.org/).
 
 Generate graphql typings via [Codegen](https://www.the-guild.dev/graphql/codegen).
 
-1. cd `packages/libs/sdk`
-2. add a `graphqlHeaders.json` with any authorization headers you want to pass to graphql API
-3. run `yarn run codegen`
+1. navigate to `packages/libs/sdk` from `qn-oss` monorepo root
+1. `cp .env.example .env` and add api key
+1. run `yarn run codegen`

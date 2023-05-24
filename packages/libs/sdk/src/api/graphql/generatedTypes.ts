@@ -754,6 +754,7 @@ export type CodegenGasPrice = {
   blockNumber: Scalars['Int'];
   ceiling: Scalars['Float'];
   floor: Scalars['Float'];
+  median: Scalars['Float'];
   total: Scalars['Float'];
 };
 

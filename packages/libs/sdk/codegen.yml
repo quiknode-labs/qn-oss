@@ -1,0 +1,29 @@
+overwrite: true
+documents:
+  - src/**/*.gql
+  - src/**/!(*.d).{ts,tsx}
+hooks:
+  afterAllFileWrite:
+    - cd ../../.. && nx format:write && cd -
+schema:
+  - https://api.quicknode.com/graphql:
+      headers:
+        content-type: application/json
+        x-api-key: '${QUICKNODE_GRAPH_API_KEY}'
+generates:
+  src/api/graphql/generatedTypes.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typed-document-node
+    config:
+      namingConvention: ./codegenCustomNaming.cjs
+      exportFragmentSpreadSubTypes: true
+      inlineFragmentTypes: combine
+      fragmentMasking: false
+  src/api/graphql/fragmentMatcher.ts:
+    plugins:
+      - fragment-matcher
+  src/api/graphql/schema.json:
+    plugins:
+      - introspection

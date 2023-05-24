@@ -9,13 +9,19 @@ const toAbsoluteDir = (relativeDir) => path.resolve(rootDir, relativeDir);
 
 const esmPackageJson = {
   type: 'module',
-}
+};
 
 const cjsPackageJson = {
-  type: "commonjs",
-}
+  type: 'commonjs',
+};
 
 // esm package.json
-fs.writeFileSync(toAbsoluteDir('../../dist/packages/libs/sdk/esm/package.json'), JSON.stringify(esmPackageJson, null, 2))
+fs.writeFileSync(
+  toAbsoluteDir('../../dist/packages/libs/sdk/esm/package.json'),
+  JSON.stringify(esmPackageJson, null, 2)
+);
 // cjs package.json
-fs.writeFileSync(toAbsoluteDir('../../dist/packages/libs/sdk/cjs/package.json'), JSON.stringify(cjsPackageJson, null, 2))
+fs.writeFileSync(
+  toAbsoluteDir('../../dist/packages/libs/sdk/cjs/package.json'),
+  JSON.stringify(cjsPackageJson, null, 2)
+);

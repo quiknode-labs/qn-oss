@@ -25,18 +25,11 @@ const sharedPlugins = [
   }),
 ];
 
-// The shared rollup output config for esm and cjs bundles
-const sharedOutput = {
-  sourcemap: 'inline', // Include source map for debugging
-  sourcemapExcludeSources: true, // Exclude external package sources from source map
-};
-
 export default [
   bundle({
     output: {
       file: 'dist/packages/libs/sdk/esm/index.js',
       format: 'esm',
-      ...sharedOutput,
     },
     plugins: [...sharedPlugins],
   }),
@@ -44,8 +37,7 @@ export default [
     output: {
       file: 'dist/packages/libs/sdk/cjs/index.js',
       format: 'cjs',
-      sourcemap: 'inline', // Include source map for debugging
-      sourcemapExcludeSources: true, // Exclude external package sources from source map
+      exports: 'named'
     },
     plugins: [
       ...sharedPlugins,

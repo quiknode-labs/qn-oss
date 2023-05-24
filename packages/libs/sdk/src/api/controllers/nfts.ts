@@ -159,7 +159,7 @@ export class NftsController {
   private async getByWalletAddress(
     variables: WalletNFTsByAddressQueryVariablesType & NonQueryInput
   ): Promise<WalletNFTsByAddressFormattedResult> {
-    const { chain, contractAddresses, ...queryVariables } = variables;
+    const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetWalletNFTsByAddressDocument,

@@ -37,7 +37,7 @@ export default [
     output: {
       file: 'dist/packages/libs/sdk/cjs/index.js',
       format: 'cjs',
-      exports: 'named'
+      exports: 'named',
     },
     plugins: [
       ...sharedPlugins,

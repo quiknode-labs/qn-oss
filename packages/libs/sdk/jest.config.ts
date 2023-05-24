@@ -7,6 +7,7 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   setupFiles: ['./spec/testSetup/jestSetup.ts'],
+  setupFilesAfterEnv: ['./spec/testSetup/jestSetupAfterEnv.ts'],
   testEnvironment: 'node',
   slowTestThreshold: 15,
 };

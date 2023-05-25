@@ -23,6 +23,12 @@ export class CustomUrqlClient {
       additionalOptions
     );
 
+    const { error } = result;
+    if (error) {
+      console.error(error.stack);
+      throw error.message;
+    }
+
     return {
       ...result,
       data:

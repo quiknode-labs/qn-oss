@@ -196,6 +196,7 @@ Returns the details for an NFT Collection
 
 ```ts
 import QuickNode from '@quicknode/sdk';
+
 const qn = new QuickNode.API({
   gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
@@ -272,6 +273,8 @@ Returns ERC20 token balances for a wallet
 | chain    | string | ❌       | Blockchain name                 | polygon                                    |
 
 ```ts
+import QuickNode from '@quicknode/sdk';
+
 const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
@@ -286,6 +289,40 @@ qn.tokens
 // Can pass in ENS domain
 qn.tokens
   .getBalancesByWallet({
+    address: 'quicknode.eth',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
+### transactions.getByWallet
+
+Returns transactions for a wallet
+
+| Argument | Values | Required | Description                     | Example                                    |
+| -------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
+| address  | string | ✅       | Wallet address or ENS domain    | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
+| first    | number | ❌       | Number of results to return     | 10                                         |
+| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain    | string | ❌       | Blockchain name                 | polygon                                    |
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.transactions
+  .getByWallet({
+    address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+
+// Can pass in ENS domain
+qn.transactions
+  .getByWallet({
     address: 'quicknode.eth',
     first: 5,
   })

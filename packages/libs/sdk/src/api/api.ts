@@ -11,6 +11,7 @@ import {
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
 import schema from './graphql/schema.json';
+import { TransactionsController } from './controllers/transactions';
 
 export interface ApiArguments {
   graphApiKey?: string;
@@ -27,6 +28,7 @@ export class API {
   readonly nfts: NftsController;
   readonly tokens: TokensController;
   readonly contracts: ContractsController;
+  readonly transactions: TransactionsController;
   readonly graphApiClient: Client;
 
   constructor({
@@ -51,6 +53,10 @@ export class API {
       this.defaultChain
     );
     this.contracts = new ContractsController(
+      this.customUrqlClient,
+      this.defaultChain
+    );
+    this.transactions = new TransactionsController(
       this.customUrqlClient,
       this.defaultChain
     );

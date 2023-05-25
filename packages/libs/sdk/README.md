@@ -295,6 +295,29 @@ qn.tokens
   .then((response) => console.log(response));
 ```
 
+### contracts.getDetails
+
+Get the details and ABI for a contract address
+
+| Argument        | Values | Required | Description      | Example                                    |
+| --------------- | ------ | -------- | ---------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | contract address | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| chain           | string | ❌       | Blockchain name  | polygon                                    |
+
+```ts
+import QuickNode, { gql } from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.contracts
+  .getDetails({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+  })
+  .then((response) => console.log(response));
+```
+
 ### transactions.getByWallet
 
 Returns transactions for a wallet
@@ -308,11 +331,6 @@ Returns transactions for a wallet
 
 ```ts
 import QuickNode from '@quicknode/sdk';
-
-const qn = new QuickNode.API({
-  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
-});
-
 qn.transactions
   .getByWallet({
     address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',

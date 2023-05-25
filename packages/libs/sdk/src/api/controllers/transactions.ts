@@ -71,8 +71,8 @@ export class TransactionsController {
     }
 
     const formattedResult = formatQueryResult<
-      TransactionsByWalletAddressQueryResultInfo,
-      TransactionsByWalletAddressFormattedResult
+      TransactionsByWalletAddressQueryResultInfo, // this is the same as TransactionsByWalletENSQueryResultInfo
+      TransactionsByWalletAddressFormattedResult // this is the same as TransactionsByWalletENSFormattedResult
     >(queryResult, 'transactions', 'transactionsPageInfo');
 
     return formattedResult;

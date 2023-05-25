@@ -56,7 +56,6 @@ export class TransactionsController {
         ...allVariables,
       });
     }
-    console.log('queryResult', queryResult);
 
     if (!queryResult?.transactions?.length) {
       // Address can still be valid address, but not have any transactions

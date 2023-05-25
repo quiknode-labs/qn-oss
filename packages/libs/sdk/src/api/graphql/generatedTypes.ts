@@ -754,6 +754,7 @@ export type CodegenGasPrice = {
   blockNumber: Scalars['Int'];
   ceiling: Scalars['Float'];
   floor: Scalars['Float'];
+  median: Scalars['Float'];
   total: Scalars['Float'];
 };
 
@@ -1585,6 +1586,15 @@ export type CodegenEthMainnetBalancesByWalletENSQuery = {
   } & CodegenGetBalancesByWalletENSFragmentFragment;
 };
 
+export type CodegenEthMainnetGasPricesQueryVariables = Exact<{
+  filter?: InputMaybe<CodegenGasPriceFilterInput>;
+}>;
+
+export type CodegenEthMainnetGasPricesQuery = {
+  __typename?: 'Query';
+  ethereum: { __typename?: 'EVMSchemaType' } & CodegenGasPriceFragment;
+};
+
 export type CodegenEthSepoliaWalletNFTsByContractAddressQueryVariables = Exact<{
   contractAddress: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
@@ -1712,6 +1722,15 @@ export type CodegenEthSepoliaBalancesByWalletENSQuery = {
   } & CodegenGetBalancesByWalletENSFragmentFragment;
 };
 
+export type CodegenEthSepoliaGasPricesQueryVariables = Exact<{
+  filter?: InputMaybe<CodegenGasPriceFilterInput>;
+}>;
+
+export type CodegenEthSepoliaGasPricesQuery = {
+  __typename?: 'Query';
+  ethereumSepolia: { __typename?: 'EVMSchemaType' } & CodegenGasPriceFragment;
+};
+
 export type CodegenCollectionEventsFragmentFragment = {
   __typename?: 'EVMSchemaType';
   collection?:
@@ -1832,6 +1851,13 @@ export type CodegenNftEventsFragmentFragment = {
         };
       }
     | null;
+};
+
+export type CodegenGasPriceFragment = {
+  __typename?: 'EVMSchemaType';
+  gasPrices?: Array<
+    { __typename?: 'GasPrice' } & CodegenGasPriceInfoFragment
+  > | null;
 };
 
 export type CodegenNftCollectionInfoFragment = {
@@ -2239,6 +2265,16 @@ export type CodegenWalletNFTNodeFragment = {
     | null;
 };
 
+export type CodegenGasPriceInfoFragment = {
+  __typename?: 'GasPrice';
+  blockNumber: number;
+  total: number;
+  average: number;
+  ceiling: number;
+  floor: number;
+  median: number;
+};
+
 export type CodegenTokenBalanceNodeFragment = {
   __typename?: 'WalletTokenBalance';
   totalBalance: any;
@@ -2452,6 +2488,15 @@ export type CodegenPolygonMainnetBalancesByWalletENSQuery = {
   polygon: {
     __typename?: 'EVMSchemaType';
   } & CodegenGetBalancesByWalletENSFragmentFragment;
+};
+
+export type CodegenPolygonMainnetGasPricesQueryVariables = Exact<{
+  filter?: InputMaybe<CodegenGasPriceFilterInput>;
+}>;
+
+export type CodegenPolygonMainnetGasPricesQuery = {
+  __typename?: 'Query';
+  polygon: { __typename?: 'EVMSchemaType' } & CodegenGasPriceFragment;
 };
 
 export const CodegenPaginationFragmentDoc = {
@@ -3021,6 +3066,90 @@ export const CodegenNftEventsFragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CodegenNftEventsFragmentFragment, unknown>;
+export const CodegenGasPriceInfoFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'GasPriceInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'GasPrice' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'average' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'ceiling' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'floor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'median' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenGasPriceInfoFragment, unknown>;
+export const CodegenGasPriceFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'GasPrice' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'gasPrices' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filter' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'filter' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'GasPriceInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'GasPriceInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'GasPrice' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'average' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'ceiling' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'floor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'median' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenGasPriceFragment, unknown>;
 export const CodegenNftCollectionInfoFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -7152,6 +7281,105 @@ export const CodegenEthMainnetBalancesByWalletENSDocument = {
   CodegenEthMainnetBalancesByWalletENSQuery,
   CodegenEthMainnetBalancesByWalletENSQueryVariables
 >;
+export const CodegenEthMainnetGasPricesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthMainnetGasPrices' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'GasPriceFilterInput' },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereum' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'GasPrice' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'GasPriceInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'GasPrice' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'average' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'ceiling' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'floor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'median' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'GasPrice' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'gasPrices' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filter' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'filter' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'GasPriceInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthMainnetGasPricesQuery,
+  CodegenEthMainnetGasPricesQueryVariables
+>;
 export const CodegenEthSepoliaWalletNFTsByContractAddressDocument = {
   kind: 'Document',
   definitions: [
@@ -9613,6 +9841,105 @@ export const CodegenEthSepoliaBalancesByWalletENSDocument = {
   CodegenEthSepoliaBalancesByWalletENSQuery,
   CodegenEthSepoliaBalancesByWalletENSQueryVariables
 >;
+export const CodegenEthSepoliaGasPricesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthSepoliaGasPrices' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'GasPriceFilterInput' },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereumSepolia' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'GasPrice' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'GasPriceInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'GasPrice' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'average' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'ceiling' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'floor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'median' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'GasPrice' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'gasPrices' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filter' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'filter' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'GasPriceInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthSepoliaGasPricesQuery,
+  CodegenEthSepoliaGasPricesQueryVariables
+>;
 export const CodegenPolygonMainnetNFTsByContractAddressDocument = {
   kind: 'Document',
   definitions: [
@@ -12073,4 +12400,103 @@ export const CodegenPolygonMainnetBalancesByWalletENSDocument = {
 } as unknown as DocumentNode<
   CodegenPolygonMainnetBalancesByWalletENSQuery,
   CodegenPolygonMainnetBalancesByWalletENSQueryVariables
+>;
+export const CodegenPolygonMainnetGasPricesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'PolygonMainnetGasPrices' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filter' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'GasPriceFilterInput' },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'polygon' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'GasPrice' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'GasPriceInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'GasPrice' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'blockNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'average' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'ceiling' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'floor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'median' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'GasPrice' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'gasPrices' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filter' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'filter' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'GasPriceInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenPolygonMainnetGasPricesQuery,
+  CodegenPolygonMainnetGasPricesQueryVariables
 >;

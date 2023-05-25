@@ -3,7 +3,11 @@ import { CustomUrqlClient } from './graphql/customUrqlClient';
 import { Client, fetchExchange } from '@urql/core';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Data, cacheExchange } from '@urql/exchange-graphcache';
-import { NftsController, TokensController } from './controllers';
+import {
+  NftsController,
+  TokensController,
+  UtilsController,
+} from './controllers';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
 import schema from './graphql/schema.json';
@@ -22,6 +26,7 @@ export class API {
   readonly defaultChain: ChainName;
   readonly nfts: NftsController;
   readonly tokens: TokensController;
+  readonly utils: UtilsController;
   readonly graphApiClient: Client;
 
   constructor({
@@ -45,6 +50,7 @@ export class API {
       this.customUrqlClient,
       this.defaultChain
     );
+    this.utils = new UtilsController(this.customUrqlClient, this.defaultChain);
     // Re-export the Urql client configured to use the Graph API for use with custom queries
     this.graphApiClient = this.urqlClient;
   }
@@ -68,6 +74,7 @@ export class API {
         ERC721Collection: useAddressAsKey,
         ERC1155NFT: useNftKey,
         ERC1155Collection: useAddressAsKey,
+        GasPrice: () => null,
         NFT: useNftKey,
         NFTContract: useAddressAsKey,
         TokenAttribute: () => null,

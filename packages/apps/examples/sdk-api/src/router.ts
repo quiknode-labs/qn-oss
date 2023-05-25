@@ -2,6 +2,7 @@ import express from 'express';
 import nftController from './controllers/nft.controller';
 import graphController from './controllers/graphApiClient.controller';
 import tokenController from './controllers/token.controller';
+import utilController from './controllers/util.controller';
 const router = express.Router();
 
 router.get('/api', (req, res) => {
@@ -35,5 +36,6 @@ router.get(
   '/api/getBalancesByWallet/:address',
   tokenController.getBalancesByWallet
 );
+router.get('/api/getGasPrices', utilController.getGasPrices);
 
 export default router;

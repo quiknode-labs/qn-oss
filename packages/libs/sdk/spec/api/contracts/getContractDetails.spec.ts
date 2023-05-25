@@ -1132,7 +1132,7 @@ describe('contract.getDetails', () => {
     withPolly(
       {
         recordingName: 'query-getContractDetails-missing',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         const data = await api.contracts.getDetails({

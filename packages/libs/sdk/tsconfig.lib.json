@@ -1,8 +1,12 @@
 {
   "extends": "./tsconfig.json",
+  "types": ["node"],
+  "files": [],
   "compilerOptions": {
-    "types": ["node"],
-    "declaration": true
+    "target": "ES2020",
+    "module": "ES2020",
+    "outDir": "dist",
+    "rootDir": "src"
   },
   "include": ["**/*.ts"],
   "exclude": [

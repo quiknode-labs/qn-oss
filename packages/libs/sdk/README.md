@@ -292,6 +292,29 @@ qn.tokens
   .then((response) => console.log(response));
 ```
 
+### contracts.getDetails
+
+Get the details and ABI for a contract address
+
+| Argument        | Values | Required | Description      | Example                                    |
+| --------------- | ------ | -------- | ---------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | contract address | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| chain           | string | ❌       | Blockchain name  | polygon                                    |
+
+```ts
+import QuickNode, { gql } from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.contracts
+  .getDetails({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+  })
+  .then((response) => console.log(response));
+```
+
 ### graphApiClient.query
 
 A way to send GraphQL queries directly to the [QuickNode GraphQL API](https://www.quicknode.com/graph-api). `graphApiClient` is an [Urql client](https://formidable.com/open-source/urql/docs/api/core/#client) instance configured to use QuickNode's Graph API. For more information about the query structure, see the [Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)

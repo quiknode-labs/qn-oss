@@ -120,7 +120,6 @@ export class TokensController {
       variables: queryVariables,
       query: query[userChain],
     });
-    console.log(result);
     const {
       data: {
         [userChain]: { walletByAddress },

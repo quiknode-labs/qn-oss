@@ -4,7 +4,7 @@ import { transactions } from '../client';
 export default {
   getTransactionsByWallet: async (req: Request, res: Response) => {
     try {
-      const transactionsByWallet = await transactions.getByWalletAddress({
+      const transactionsByWallet = await transactions.getByWallet({
         address: req.params.address,
         first: 5,
       });

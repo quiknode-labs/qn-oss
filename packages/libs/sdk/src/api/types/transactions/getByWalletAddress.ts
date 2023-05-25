@@ -20,8 +20,8 @@ export type TransactionsByWalletAddressQueryVariablesType =
 export interface TransactionsByWalletAddressQueryResultInfo {
   address: string;
   ensName: string;
-  walletTransactionsPageInfo: CodegenPaginationFragment;
-  walletTransactions: CodegenTransactionsNodeFragment[];
+  transactionsPageInfo: CodegenPaginationFragment;
+  transactions: CodegenTransactionsNodeFragment[];
 }
 
 export interface TransactionsByWalletAddressQueryResultBody {

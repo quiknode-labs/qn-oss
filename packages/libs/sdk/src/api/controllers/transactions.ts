@@ -10,13 +10,24 @@ import {
   TransactionsByWalletAddressQueryType,
 } from '../types/transactions/getByWalletAddress';
 import {
+  TransactionsByWalletENSQueryResultInfo,
+  TransactionsByWalletENSFormattedResult,
+  TransactionsByWalletENSQueryResultFull,
+  TransactionsByWalletENSQueryVariablesType,
+  TransactionsByWalletENSQueryType,
+} from '../types/transactions/getByWalletENS';
+import {
   CodegenEthMainnetTransactionsByWalletAddressDocument,
+  CodegenEthMainnetTransactionsByWalletENSDocument,
   CodegenEthSepoliaTransactionsByWalletAddressDocument,
+  CodegenEthSepoliaTransactionsByWalletENSDocument,
   CodegenPolygonMainnetTransactionsByWalletAddressDocument,
+  CodegenPolygonMainnetTransactionsByWalletENSDocument,
 } from '../graphql/generatedTypes';
 import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
+import { isValidENSAddress } from '../utils/isValidENSAddress';
 
 export class TransactionsController {
   constructor(
@@ -24,9 +35,52 @@ export class TransactionsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
-  async getByWalletAddress(
+  async getByWallet(
     variables: TransactionsByWalletAddressQueryVariablesType & NonQueryInput
-  ): Promise<TransactionsByWalletAddressFormattedResult> {
+  ): Promise<
+    | TransactionsByWalletAddressFormattedResult
+    | TransactionsByWalletENSFormattedResult
+  > {
+    const { address, ...allVariables } = variables;
+    let queryResult:
+      | TransactionsByWalletAddressQueryResultInfo
+      | TransactionsByWalletENSQueryResultInfo;
+    if (isValidENSAddress(address)) {
+      queryResult = await this.getByWalletENS({
+        ensName: address,
+        ...allVariables,
+      });
+    } else {
+      queryResult = await this.getByWalletAddress({
+        address,
+        ...allVariables,
+      });
+    }
+    console.log('queryResult', queryResult);
+
+    if (!queryResult?.transactions?.length) {
+      // Address can still be valid address, but not have any transactions
+      const address = queryResult?.address || '';
+      const ensName = queryResult?.ensName || '';
+      return {
+        address: address,
+        ensName: ensName,
+        results: [],
+        pageInfo: emptyPageInfo,
+      };
+    }
+
+    const formattedResult = formatQueryResult<
+      TransactionsByWalletAddressQueryResultInfo,
+      TransactionsByWalletAddressFormattedResult
+    >(queryResult, 'transactions', 'transactionsPageInfo');
+
+    return formattedResult;
+  }
+
+  private async getByWalletAddress(
+    variables: TransactionsByWalletAddressQueryVariablesType & NonQueryInput
+  ): Promise<TransactionsByWalletAddressQueryResultInfo> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -47,23 +101,32 @@ export class TransactionsController {
       query: query[userChain],
     });
 
-    if (!walletByAddress?.transactions?.length) {
-      // Address can still be valid address, but not have any transactions
-      const address = walletByAddress?.address || '';
-      const ensName = walletByAddress?.ensName || '';
-      return {
-        address: address,
-        ensName: ensName,
-        results: [],
-        pageInfo: emptyPageInfo,
-      };
-    }
+    return walletByAddress;
+  }
 
-    const formattedResult = formatQueryResult<
-      TransactionsByWalletAddressQueryResultInfo,
-      TransactionsByWalletAddressFormattedResult
-    >(walletByAddress, 'walletTransactions', 'walletTransactionsPageInfo');
+  private async getByWalletENS(
+    variables: TransactionsByWalletENSQueryVariablesType & NonQueryInput
+  ): Promise<TransactionsByWalletENSQueryResultInfo> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetTransactionsByWalletENSDocument,
+      polygon: CodegenPolygonMainnetTransactionsByWalletENSDocument,
+      ethereumSepolia: CodegenEthSepoliaTransactionsByWalletENSDocument,
+    };
+    const {
+      data: {
+        [userChain]: { walletByENS },
+      },
+    } = await this.client.query<
+      TransactionsByWalletENSQueryVariablesType,
+      TransactionsByWalletENSQueryType,
+      TransactionsByWalletENSQueryResultFull
+    >({
+      variables: queryVariables,
+      query: query[userChain],
+    });
 
-    return formattedResult;
+    return walletByENS;
   }
 }

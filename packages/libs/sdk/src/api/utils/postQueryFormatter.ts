@@ -14,6 +14,7 @@ export function formatQueryResult<
   resultsKeyToRemove?: string | null, // Key that the results are nested under to remove for each entry
   additionalModification?: (arg: Record<string, any>) => FormattedResultType
 ): FormattedResultType {
+  console.log(queryResult);
   const additionaProperties: Record<string, any> = Object.fromEntries(
     Object.entries(queryResult).filter(
       ([key]) => key !== resultsKey && key !== paginationKey

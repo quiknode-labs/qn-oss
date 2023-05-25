@@ -21,7 +21,7 @@ export class ContractsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
-  async getContractDetails(
+  async getDetails(
     variables: ContractDetailsQueryVariablesType & NonQueryInput
   ): Promise<ContractDetailsFormattedResult> {
     const { chain, ...queryVariables } = variables;

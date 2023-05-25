@@ -754,6 +754,7 @@ export type CodegenGasPrice = {
   blockNumber: Scalars['Int'];
   ceiling: Scalars['Float'];
   floor: Scalars['Float'];
+  median: Scalars['Float'];
   total: Scalars['Float'];
 };
 
@@ -1462,6 +1463,15 @@ export type CodegenWalletWalletCollectionsConnectionEdge = {
   node: CodegenWalletCollection;
 };
 
+export type CodegenEthMainnetContractDetailsQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+}>;
+
+export type CodegenEthMainnetContractDetailsQuery = {
+  __typename?: 'Query';
+  ethereum: { __typename?: 'EVMSchemaType' } & CodegenContractDetailsFragment;
+};
+
 export type CodegenEthMainnetWalletNFTsByContractAddressQueryVariables = Exact<{
   contractAddress: Scalars['String'];
   after?: InputMaybe<Scalars['String']>;
@@ -1583,6 +1593,17 @@ export type CodegenEthMainnetBalancesByWalletENSQuery = {
   ethereum: {
     __typename?: 'EVMSchemaType';
   } & CodegenGetBalancesByWalletENSFragmentFragment;
+};
+
+export type CodegenEthSepoliaContractDetailsQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+}>;
+
+export type CodegenEthSepoliaContractDetailsQuery = {
+  __typename?: 'Query';
+  ethereumSepolia: {
+    __typename?: 'EVMSchemaType';
+  } & CodegenContractDetailsFragment;
 };
 
 export type CodegenEthSepoliaWalletNFTsByContractAddressQueryVariables = Exact<{
@@ -1944,6 +1965,18 @@ export type CodegenNftCollectionInfoFragment = {
     | null;
 };
 
+export type CodegenContractDetailsFragment = {
+  __typename?: 'EVMSchemaType';
+  contract?:
+    | ({
+        __typename?: 'NFTContract';
+      } & CodegenContractInfo_CodegenNFTContract_CodegenFragment)
+    | ({
+        __typename?: 'TokenContract';
+      } & CodegenContractInfo_CodegenTokenContract_CodegenFragment)
+    | null;
+};
+
 export type CodegenGetBalancesByWalletAddressFragmentFragment = {
   __typename?: 'EVMSchemaType';
   walletByAddress?: {
@@ -2239,6 +2272,31 @@ export type CodegenWalletNFTNodeFragment = {
     | null;
 };
 
+export type CodegenContractInfo_CodegenNFTContract_CodegenFragment = {
+  __typename?: 'NFTContract';
+  abi?: any | null;
+  address: string;
+  isVerified?: boolean | null;
+  name?: string | null;
+  supportedErcInterfaces?: Array<string> | null;
+  symbol?: string | null;
+};
+
+export type CodegenContractInfo_CodegenTokenContract_CodegenFragment = {
+  __typename?: 'TokenContract';
+  decimals?: any | null;
+  abi?: any | null;
+  address: string;
+  isVerified?: boolean | null;
+  name?: string | null;
+  supportedErcInterfaces?: Array<string> | null;
+  symbol?: string | null;
+};
+
+export type CodegenContractInfoFragment =
+  | CodegenContractInfo_CodegenNFTContract_CodegenFragment
+  | CodegenContractInfo_CodegenTokenContract_CodegenFragment;
+
 export type CodegenTokenBalanceNodeFragment = {
   __typename?: 'WalletTokenBalance';
   totalBalance: any;
@@ -2329,6 +2387,15 @@ export type CodegenPaginationFragment = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   startCursor?: string | null;
+};
+
+export type CodegenPolygonMainnetContractDetailsQueryVariables = Exact<{
+  contractAddress: Scalars['String'];
+}>;
+
+export type CodegenPolygonMainnetContractDetailsQuery = {
+  __typename?: 'Query';
+  polygon: { __typename?: 'EVMSchemaType' } & CodegenContractDetailsFragment;
 };
 
 export type CodegenPolygonMainnetNFTsByContractAddressQueryVariables = Exact<{
@@ -3204,6 +3271,122 @@ export const CodegenNftCollectionInfoFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CodegenNftCollectionInfoFragment, unknown>;
+export const CodegenContractInfoFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContractInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Contract' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'abi' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isVerified' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'supportedErcInterfaces' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenContract' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenContractInfoFragment, unknown>;
+export const CodegenContractDetailsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContractDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'contract' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ContractInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContractInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Contract' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'abi' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isVerified' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'supportedErcInterfaces' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenContract' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CodegenContractDetailsFragment, unknown>;
 export const CodegenTokenBalanceNodeFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -4691,6 +4874,124 @@ export const CodegenWalletByEnsFragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CodegenWalletByEnsFragmentFragment, unknown>;
+export const CodegenEthMainnetContractDetailsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthMainnetContractDetails' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereum' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ContractDetails' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContractInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Contract' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'abi' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isVerified' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'supportedErcInterfaces' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenContract' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContractDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'contract' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ContractInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthMainnetContractDetailsQuery,
+  CodegenEthMainnetContractDetailsQueryVariables
+>;
 export const CodegenEthMainnetWalletNFTsByContractAddressDocument = {
   kind: 'Document',
   definitions: [
@@ -7152,6 +7453,124 @@ export const CodegenEthMainnetBalancesByWalletENSDocument = {
   CodegenEthMainnetBalancesByWalletENSQuery,
   CodegenEthMainnetBalancesByWalletENSQueryVariables
 >;
+export const CodegenEthSepoliaContractDetailsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'EthSepoliaContractDetails' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'ethereumSepolia' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ContractDetails' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContractInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Contract' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'abi' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isVerified' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'supportedErcInterfaces' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenContract' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContractDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'contract' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ContractInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenEthSepoliaContractDetailsQuery,
+  CodegenEthSepoliaContractDetailsQueryVariables
+>;
 export const CodegenEthSepoliaWalletNFTsByContractAddressDocument = {
   kind: 'Document',
   definitions: [
@@ -9612,6 +10031,124 @@ export const CodegenEthSepoliaBalancesByWalletENSDocument = {
 } as unknown as DocumentNode<
   CodegenEthSepoliaBalancesByWalletENSQuery,
   CodegenEthSepoliaBalancesByWalletENSQueryVariables
+>;
+export const CodegenPolygonMainnetContractDetailsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'PolygonMainnetContractDetails' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'contractAddress' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'polygon' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ContractDetails' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContractInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Contract' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'abi' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'address' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isVerified' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'supportedErcInterfaces' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
+          {
+            kind: 'InlineFragment',
+            typeCondition: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'TokenContract' },
+            },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContractDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'EVMSchemaType' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'contract' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'contractAddress' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'contractAddress' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ContractInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CodegenPolygonMainnetContractDetailsQuery,
+  CodegenPolygonMainnetContractDetailsQueryVariables
 >;
 export const CodegenPolygonMainnetNFTsByContractAddressDocument = {
   kind: 'Document',

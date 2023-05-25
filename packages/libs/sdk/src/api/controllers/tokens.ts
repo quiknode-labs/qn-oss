@@ -112,11 +112,7 @@ export class TokensController {
       ethereumSepolia: CodegenEthSepoliaBalancesByWalletAddressDocument,
     };
 
-    const {
-      data: {
-        [userChain]: { walletByAddress },
-      },
-    } = await this.client.query<
+    const result = await this.client.query<
       BalancesByWalletAddressQueryVariablesType,
       BalancesByWalletAddressQueryType,
       BalancesByWalletAddressQueryResultFull
@@ -124,7 +120,12 @@ export class TokensController {
       variables: queryVariables,
       query: query[userChain],
     });
-
+    console.log(result);
+    const {
+      data: {
+        [userChain]: { walletByAddress },
+      },
+    } = result;
     if (!walletByAddress?.tokenBalances?.length) {
       // Address can still be valid address, but not have any balances
       const address = walletByAddress?.address || '';

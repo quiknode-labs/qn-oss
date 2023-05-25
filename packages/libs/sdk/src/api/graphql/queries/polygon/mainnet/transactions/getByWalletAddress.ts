@@ -6,7 +6,6 @@ export const PolygonMainnetTransactionsByWalletAddress = gql`
     $address: String!
     $first: Int
     $after: String
-    $orderDirection: OrderDirection
   ) {
     polygon {
       ...TransactionsByWalletAddress

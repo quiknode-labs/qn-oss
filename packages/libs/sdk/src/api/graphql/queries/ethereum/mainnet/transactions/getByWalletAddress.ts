@@ -6,7 +6,6 @@ export const EthMainnetTransactionsByWalletAddress = gql`
     $address: String!
     $first: Int
     $after: String
-    $orderDirection: OrderDirection
   ) {
     ethereum {
       ...TransactionsByWalletAddress

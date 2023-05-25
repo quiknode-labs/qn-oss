@@ -6,7 +6,6 @@ export const EthSepoliaTransactionsByWalletAddress = gql`
     $address: String!
     $first: Int
     $after: String
-    $orderDirection: OrderDirection
   ) {
     ethereumSepolia {
       ...TransactionsByWalletAddress

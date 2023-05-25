@@ -1590,7 +1590,6 @@ export type CodegenEthMainnetTransactionsByWalletAddressQueryVariables = Exact<{
   address: Scalars['String'];
   first?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
-  orderDirection?: InputMaybe<CodegenOrderDirection>;
 }>;
 
 export type CodegenEthMainnetTransactionsByWalletAddressQuery = {
@@ -1731,7 +1730,6 @@ export type CodegenEthSepoliaTransactionsByWalletAddressQueryVariables = Exact<{
   address: Scalars['String'];
   first?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
-  orderDirection?: InputMaybe<CodegenOrderDirection>;
 }>;
 
 export type CodegenEthSepoliaTransactionsByWalletAddressQuery = {
@@ -2526,7 +2524,6 @@ export type CodegenPolygonMainnetTransactionsByWalletAddressQueryVariables =
     address: Scalars['String'];
     first?: InputMaybe<Scalars['Int']>;
     after?: InputMaybe<Scalars['String']>;
-    orderDirection?: InputMaybe<CodegenOrderDirection>;
   }>;
 
 export type CodegenPolygonMainnetTransactionsByWalletAddressQuery = {
@@ -4860,14 +4857,6 @@ export const CodegenTransactionsByWalletAddressFragmentDoc = {
                       value: {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'after' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'orderDirection' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'orderDirection' },
                       },
                     },
                   ],
@@ -7475,17 +7464,6 @@ export const CodegenEthMainnetTransactionsByWalletAddressDocument = {
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'orderDirection' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'OrderDirection' },
-          },
-        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -7602,14 +7580,6 @@ export const CodegenEthMainnetTransactionsByWalletAddressDocument = {
                       value: {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'after' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'orderDirection' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'orderDirection' },
                       },
                     },
                   ],
@@ -10167,17 +10137,6 @@ export const CodegenEthSepoliaTransactionsByWalletAddressDocument = {
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'orderDirection' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'OrderDirection' },
-          },
-        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -10294,14 +10253,6 @@ export const CodegenEthSepoliaTransactionsByWalletAddressDocument = {
                       value: {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'after' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'orderDirection' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'orderDirection' },
                       },
                     },
                   ],
@@ -12862,17 +12813,6 @@ export const CodegenPolygonMainnetTransactionsByWalletAddressDocument = {
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'orderDirection' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'OrderDirection' },
-          },
-        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -12989,14 +12929,6 @@ export const CodegenPolygonMainnetTransactionsByWalletAddressDocument = {
                       value: {
                         kind: 'Variable',
                         name: { kind: 'Name', value: 'after' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'orderDirection' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'orderDirection' },
                       },
                     },
                   ],

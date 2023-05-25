@@ -7,11 +7,7 @@ export const TransactionsByWalletAddress = gql`
     walletByAddress(address: $address) {
       address
       ensName
-      transactions(
-        first: $first
-        after: $after
-        orderDirection: $orderDirection
-      ) {
+      transactions(first: $first, after: $after) {
         edges {
           node {
             ...TransactionsNode

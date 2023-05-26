@@ -15,6 +15,7 @@
     "**/*.test.ts",
     "webpack.config.ts",
     "src/spec/testSetup/**.*",
-    "codegen.ts"
+    "codegen.ts",
+    "spec"
   ]
 }

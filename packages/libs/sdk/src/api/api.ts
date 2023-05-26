@@ -6,6 +6,7 @@ import { Data, cacheExchange } from '@urql/exchange-graphcache';
 import {
   NftsController,
   TokensController,
+  UtilsController,
   ContractsController,
 } from './controllers';
 import { ChainName } from './types/chains';
@@ -27,6 +28,7 @@ export class API {
   readonly defaultChain: ChainName;
   readonly nfts: NftsController;
   readonly tokens: TokensController;
+  readonly utils: UtilsController;
   readonly contracts: ContractsController;
   readonly transactions: TransactionsController;
   readonly graphApiClient: Client;
@@ -52,6 +54,7 @@ export class API {
       this.customUrqlClient,
       this.defaultChain
     );
+    this.utils = new UtilsController(this.customUrqlClient, this.defaultChain);
     this.contracts = new ContractsController(
       this.customUrqlClient,
       this.defaultChain
@@ -83,6 +86,7 @@ export class API {
         ERC721Collection: useAddressAsKey,
         ERC1155NFT: useNftKey,
         ERC1155Collection: useAddressAsKey,
+        GasPrice: () => null,
         NFT: useNftKey,
         NFTContract: useAddressAsKey,
         TokenAttribute: () => null,

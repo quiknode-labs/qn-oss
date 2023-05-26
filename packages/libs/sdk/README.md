@@ -331,6 +331,11 @@ Returns transactions for a wallet
 
 ```ts
 import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
 qn.transactions
   .getByWallet({
     address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
@@ -343,6 +348,44 @@ qn.transactions
   .getByWallet({
     address: 'quicknode.eth',
     first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
+### utils.getGasPrices
+
+Returns historical gas prices by block number. Defaults to returning values in wei.
+
+| Argument     | Values  | Required | Description                                         | Example                           |
+| ------------ | ------- | -------- | --------------------------------------------------- | --------------------------------- |
+| chain        | string  | ❌       | Blockchain name                                     | polygon                           |
+| returnInGwei | boolean | ❌       | Return gas values in Gwei                           | true                              |
+| filter       | object  | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 17343891 } } |
+
+`filter` Parameters
+
+| Argument    | Values | Description                                                               | Example                        |
+| ----------- | ------ | ------------------------------------------------------------------------- | ------------------------------ |
+| blockNumber | object | An object with any combination of `eq`, `gt`, `gte`, `in`, `lt`, or `lte` | { lt: 17343891, gt: 17343881 } |
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+// Get the latest data
+qn.utils.getGasPrices({}).then((response) => console.log(response));
+
+// Get filtered data
+qn.utils
+  .getGasPrices({
+    filter: {
+      blockNumber: {
+        eq: 17343891,
+      },
+    },
   })
   .then((response) => console.log(response));
 ```

@@ -10,7 +10,7 @@ export type GasPricesQueryType = {
 };
 
 export type GasPricesQueryVariablesType =
-  CodegenEthMainnetGasPricesQueryVariables;
+  CodegenEthMainnetGasPricesQueryVariables & { returnInGwei?: boolean };
 
 export interface GasPricesQueryResultInfo {
   gasPrices: CodegenGasPrice[];

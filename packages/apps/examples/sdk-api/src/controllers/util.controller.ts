@@ -4,7 +4,9 @@ import { utils } from '../client';
 export default {
   getGasPrices: async (req: Request, res: Response) => {
     try {
-      const gasPrices = await utils.getGasPrices({});
+      const gasPrices = await utils.getGasPrices({
+        returnInGwei: true,
+      });
       return res.status(200).send(gasPrices);
     } catch (error) {
       console.error(error);

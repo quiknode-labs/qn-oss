@@ -847,4 +847,36 @@ describe('utils.getGasPrices', () => {
       }
     );
   });
+
+  it('returns correctly with returnInGwei option', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getGasPrices-filter-and-gwei',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.utils.getGasPrices({
+          filter: {
+            blockNumber: {
+              eq: 17343891,
+            },
+          },
+          returnInGwei: true,
+        });
+
+        expect(data).toStrictEqual({
+          gasPrices: [
+            {
+              blockNumber: 17343891,
+              total: 7011.32,
+              average: 40.06,
+              ceiling: 435.71,
+              floor: 34.92,
+              median: 35.5,
+            },
+          ],
+        });
+      }
+    );
+  });
 });

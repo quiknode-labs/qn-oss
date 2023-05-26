@@ -354,12 +354,13 @@ qn.transactions
 
 ### utils.getGasPrices
 
-Returns historical gas prices by block number
+Returns historical gas prices by block number. Defaults to returning values in wei.
 
-| Argument | Values | Required | Description                                         | Example                           |
-| -------- | ------ | -------- | --------------------------------------------------- | --------------------------------- |
-| chain    | string | ❌       | Blockchain name                                     | polygon                           |
-| filter   | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 17343891 } } |
+| Argument     | Values  | Required | Description                                         | Example                           |
+| ------------ | ------- | -------- | --------------------------------------------------- | --------------------------------- |
+| chain        | string  | ❌       | Blockchain name                                     | polygon                           |
+| returnInGwei | boolean | ❌       | Return gas values in Gwei                           | true                              |
+| filter       | object  | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 17343891 } } |
 
 `filter` Parameters
 

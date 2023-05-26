@@ -14,3 +14,5 @@ export const api = new QuickNode.API(opts);
 export const nfts = api.nfts;
 export const tokens = api.tokens;
 export const utils = api.utils;
+export const contracts = api.contracts;
+export const transactions = api.transactions;

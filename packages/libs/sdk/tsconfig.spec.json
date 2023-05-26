@@ -1,9 +1,14 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../../dist",
-    "module": "commonjs",
-    "types": ["jest", "node", "mocha"]
+    "outDir": "dist"
   },
-  "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts"]
+  "exclude": [],
+  "include": [
+    "spec/**/*.ts",
+    "jest.config.ts",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.d.ts"
+  ]
 }

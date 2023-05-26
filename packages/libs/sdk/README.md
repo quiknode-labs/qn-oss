@@ -196,6 +196,7 @@ Returns the details for an NFT Collection
 
 ```ts
 import QuickNode from '@quicknode/sdk';
+
 const qn = new QuickNode.API({
   gqlApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
@@ -272,6 +273,8 @@ Returns ERC20 token balances for a wallet
 | chain    | string | ❌       | Blockchain name                 | polygon                                    |
 
 ```ts
+import QuickNode from '@quicknode/sdk';
+
 const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
@@ -286,6 +289,58 @@ qn.tokens
 // Can pass in ENS domain
 qn.tokens
   .getBalancesByWallet({
+    address: 'quicknode.eth',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+```
+
+### contracts.getDetails
+
+Get the details and ABI for a contract address
+
+| Argument        | Values | Required | Description      | Example                                    |
+| --------------- | ------ | -------- | ---------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | contract address | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| chain           | string | ❌       | Blockchain name  | polygon                                    |
+
+```ts
+import QuickNode, { gql } from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.contracts
+  .getDetails({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+  })
+  .then((response) => console.log(response));
+```
+
+### transactions.getByWallet
+
+Returns transactions for a wallet
+
+| Argument | Values | Required | Description                     | Example                                    |
+| -------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
+| address  | string | ✅       | Wallet address or ENS domain    | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
+| first    | number | ❌       | Number of results to return     | 10                                         |
+| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain    | string | ❌       | Blockchain name                 | polygon                                    |
+
+```ts
+import QuickNode from '@quicknode/sdk';
+qn.transactions
+  .getByWallet({
+    address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+
+// Can pass in ENS domain
+qn.transactions
+  .getByWallet({
     address: 'quicknode.eth',
     first: 5,
   })
@@ -364,7 +419,7 @@ Please submit any questions, issues, or feedback as an [issue in Github](https:/
 
 We recommend using the example application to develop
 
-1. cd `packages/apps/examples/sdk-api`
+1. cd `packages/apps/examples/sdk-api` from `qn-oss` monorepo root
 2. `cp .env.example .env` and add api key
 3. `nx serve apps-examples-sdk-api`
 4. Then you can send requests to the API, for example: `curl http://localhost:3333/api/nftsByAddress/0xbc08dadccc79c00587d7e6a75bb68ff5fd30f9e0`
@@ -383,6 +438,6 @@ Run `nx lint libs-sdk` to execute the lint via [ESLint](https://eslint.org/).
 
 Generate graphql typings via [Codegen](https://www.the-guild.dev/graphql/codegen).
 
-1. cd `packages/libs/sdk`
-2. add a `graphqlHeaders.json` with any authorization headers you want to pass to graphql API
-3. run `yarn run codegen`
+1. navigate to `packages/libs/sdk` from `qn-oss` monorepo root
+1. `cp .env.example .env` and add api key
+1. run `yarn run codegen`

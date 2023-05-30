@@ -2,8 +2,8 @@ import { gql } from '@urql/core';
 import { Pagination } from './pagination';
 import { TransactionsNode } from './nodes/TransactionsNode';
 
-export const TransactionsByBlockNumber = gql`
-  fragment TransactionsByBlockNumber on EVMSchemaType {
+export const TransactionsBySearch = gql`
+  fragment TransactionsBySearch on EVMSchemaType {
     transactions(filter: $filter, after: $after, first: $first) {
       edges {
         node {

@@ -17,22 +17,22 @@ import {
   TransactionsByWalletENSQueryType,
 } from '../types/transactions/getByWalletENS';
 import {
-  TransactionsByBlockNumberQueryResultInfo,
-  TransactionsByBlockNumberFormattedResult,
-  TransactionsByBlockNumberQueryResultFull,
-  TransactionsByBlockNumberQueryVariablesType,
-  TransactionsByBlockNumberQueryType,
-} from '../types/transactions/getByBlockNumber';
+  TransactionsBySearchQueryResultInfo,
+  TransactionsBySearchFormattedResult,
+  TransactionsBySearchQueryResultFull,
+  TransactionsBySearchQueryVariablesType,
+  TransactionsBySearchQueryType,
+} from '../types/transactions/getBySearch';
 import {
   CodegenEthMainnetTransactionsByWalletAddressDocument,
   CodegenEthMainnetTransactionsByWalletENSDocument,
-  CodegenEthMainnetTransactionsByBlockNumberDocument,
+  CodegenEthMainnetTransactionsBySearchDocument,
   CodegenEthSepoliaTransactionsByWalletAddressDocument,
   CodegenEthSepoliaTransactionsByWalletENSDocument,
-  CodegenEthSepoliaTransactionsByBlockNumberDocument,
+  CodegenEthSepoliaTransactionsBySearchDocument,
   CodegenPolygonMainnetTransactionsByWalletAddressDocument,
   CodegenPolygonMainnetTransactionsByWalletENSDocument,
-  CodegenPolygonMainnetTransactionsByBlockNumberDocument,
+  CodegenPolygonMainnetTransactionsBySearchDocument,
 } from '../graphql/generatedTypes';
 import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
@@ -140,29 +140,29 @@ export class TransactionsController {
   }
 
   async search(
-    variables: TransactionsByBlockNumberQueryVariablesType & NonQueryInput
-  ): Promise<TransactionsByBlockNumberFormattedResult> {
+    variables: TransactionsBySearchQueryVariablesType & NonQueryInput
+  ): Promise<TransactionsBySearchFormattedResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetTransactionsByBlockNumberDocument,
-      polygon: CodegenPolygonMainnetTransactionsByBlockNumberDocument,
-      ethereumSepolia: CodegenEthSepoliaTransactionsByBlockNumberDocument,
+      ethereum: CodegenEthMainnetTransactionsBySearchDocument,
+      polygon: CodegenPolygonMainnetTransactionsBySearchDocument,
+      ethereumSepolia: CodegenEthSepoliaTransactionsBySearchDocument,
     };
     const {
       data: { [userChain]: transactions },
     } = await this.client.query<
-      TransactionsByBlockNumberQueryVariablesType,
-      TransactionsByBlockNumberQueryType,
-      TransactionsByBlockNumberQueryResultFull
+      TransactionsBySearchQueryVariablesType,
+      TransactionsBySearchQueryType,
+      TransactionsBySearchQueryResultFull
     >({
       variables: queryVariables,
       query: query[userChain],
     });
 
     const formattedResult = formatQueryResult<
-      TransactionsByBlockNumberQueryResultInfo,
-      TransactionsByBlockNumberFormattedResult
+      TransactionsBySearchQueryResultInfo,
+      TransactionsBySearchFormattedResult
     >(transactions, 'transactions', 'transactionsPageInfo');
 
     return formattedResult;

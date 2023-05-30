@@ -15,9 +15,9 @@ export default {
     }
   },
 
-  getTransactionsByBlockNumber: async (req: Request, res: Response) => {
+  getTransactionsBySearch: async (req: Request, res: Response) => {
     try {
-      const transactionsByBlockNumber = await transactions.search({
+      const transactionsBySearch = await transactions.search({
         filter: {
           blockNumber: {
             eq: parseInt(req.params.blockNumber),
@@ -25,7 +25,7 @@ export default {
         },
         first: 5,
       });
-      return res.status(200).send(transactionsByBlockNumber);
+      return res.status(200).send(transactionsBySearch);
     } catch (error) {
       console.error(error);
       return res.status(500).send({});

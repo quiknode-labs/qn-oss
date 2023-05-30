@@ -17,12 +17,22 @@ import {
   TransactionsByWalletENSQueryType,
 } from '../types/transactions/getByWalletENS';
 import {
+  TransactionsByBlockNumberQueryResultInfo,
+  TransactionsByBlockNumberFormattedResult,
+  TransactionsByBlockNumberQueryResultFull,
+  TransactionsByBlockNumberQueryVariablesType,
+  TransactionsByBlockNumberQueryType,
+} from '../types/transactions/getByBlockNumber';
+import {
   CodegenEthMainnetTransactionsByWalletAddressDocument,
   CodegenEthMainnetTransactionsByWalletENSDocument,
+  CodegenEthMainnetTransactionsByBlockNumberDocument,
   CodegenEthSepoliaTransactionsByWalletAddressDocument,
   CodegenEthSepoliaTransactionsByWalletENSDocument,
+  CodegenEthSepoliaTransactionsByBlockNumberDocument,
   CodegenPolygonMainnetTransactionsByWalletAddressDocument,
   CodegenPolygonMainnetTransactionsByWalletENSDocument,
+  CodegenPolygonMainnetTransactionsByBlockNumberDocument,
 } from '../graphql/generatedTypes';
 import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
@@ -127,5 +137,34 @@ export class TransactionsController {
     });
 
     return walletByENS;
+  }
+
+  async search(
+    variables: TransactionsByBlockNumberQueryVariablesType & NonQueryInput
+  ): Promise<TransactionsByBlockNumberFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetTransactionsByBlockNumberDocument,
+      polygon: CodegenPolygonMainnetTransactionsByBlockNumberDocument,
+      ethereumSepolia: CodegenEthSepoliaTransactionsByBlockNumberDocument,
+    };
+    const {
+      data: { [userChain]: transactions },
+    } = await this.client.query<
+      TransactionsByBlockNumberQueryVariablesType,
+      TransactionsByBlockNumberQueryType,
+      TransactionsByBlockNumberQueryResultFull
+    >({
+      variables: queryVariables,
+      query: query[userChain],
+    });
+
+    const formattedResult = formatQueryResult<
+      TransactionsByBlockNumberQueryResultInfo,
+      TransactionsByBlockNumberFormattedResult
+    >(transactions, 'transactions', 'transactionsPageInfo');
+
+    return formattedResult;
   }
 }

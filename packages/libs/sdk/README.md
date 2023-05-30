@@ -382,7 +382,7 @@ const qn = new QuickNode.API({
 });
 
 // Use the filters
-transactions
+qn.transactions
   .search({
     filter: {
       blockNumber: {
@@ -394,7 +394,7 @@ transactions
   .then((response) => console.log(response));
 
 // Filters can be left blank to get the latest data
-transactions.search({ filter: {}, first: 5 }).then((response) => console.log(response));
+qn.transactions.search({ filter: {}, first: 5 }).then((response) => console.log(response));
 ```
 
 ### utils.getGasPrices

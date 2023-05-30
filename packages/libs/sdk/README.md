@@ -352,6 +352,51 @@ qn.transactions
   .then((response) => console.log(response));
 ```
 
+### transactions.search
+
+Returns transactions filtered by search parameters
+
+| Argument | Values | Required | Description                                         | Example                         |
+| -------- | ------ | -------- | --------------------------------------------------- | ------------------------------- |
+| first    | number | ❌       | Number of results to return                         | 10                              |
+| after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
+| chain    | string | ❌       | Blockchain name                                     | polygon                         |
+| filter   | object | ✅       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } } |
+
+`filter` Parameters
+
+| Argument    | Values | Description                                                                                      | Example                                                   |
+| ----------- | ------ | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------- |
+| fromAddress | string | Filter transactions sent from address                                                            | fromAddress: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" |
+| toAddress   | string | Filter transactions sent to address                                                              | toAddress: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6"   |
+| blockNumber | object | An object with any combination of `eq`, `gt`, `gte`, `in`, `lt`, or `lte`                        | { lt: 17343891, gt: 17343881 }                            |
+| timestamp   | object | An object with any combination of `eq`, `gt`, `gte`, `in`, `lt`, or `lte` with a valid timestamp | { lt: "2022-12-03T10:15:30Z" }                            |
+
+_timestamp can be a date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-time format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar._
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+// Use the filters
+transactions
+  .search({
+    filter: {
+      blockNumber: {
+        eq: 17372310,
+      },
+      fromAddress: '0x41407a3c41da7970d30a0343cda8b9db70c145fb',
+    },
+  })
+  .then((response) => console.log(response));
+
+// Filters can be left blank to get the latest data
+transactions.search({ filter: {}, first: 5 }).then((response) => console.log(response));
+```
+
 ### utils.getGasPrices
 
 Returns historical gas prices by block number. Defaults to returning values in wei.

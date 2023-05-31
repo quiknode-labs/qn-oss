@@ -52,5 +52,9 @@ router.get(
   '/api/getEventsByContract/:contractAddress',
   eventsController.getEventsByContract
 );
+router.get(
+  '/api/getAllTransactions/:blockNumber',
+  transactionsController.getAllTransactions
+);
 
 export default router;

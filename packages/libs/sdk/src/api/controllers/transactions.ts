@@ -17,12 +17,22 @@ import {
   TransactionsByWalletENSQueryType,
 } from '../types/transactions/getByWalletENS';
 import {
+  TransactionsBySearchQueryResultInfo,
+  TransactionsBySearchFormattedResult,
+  TransactionsBySearchQueryResultFull,
+  TransactionsBySearchQueryVariablesType,
+  TransactionsBySearchQueryType,
+} from '../types/transactions/getBySearch';
+import {
   CodegenEthMainnetTransactionsByWalletAddressDocument,
   CodegenEthMainnetTransactionsByWalletENSDocument,
+  CodegenEthMainnetTransactionsBySearchDocument,
   CodegenEthSepoliaTransactionsByWalletAddressDocument,
   CodegenEthSepoliaTransactionsByWalletENSDocument,
+  CodegenEthSepoliaTransactionsBySearchDocument,
   CodegenPolygonMainnetTransactionsByWalletAddressDocument,
   CodegenPolygonMainnetTransactionsByWalletENSDocument,
+  CodegenPolygonMainnetTransactionsBySearchDocument,
 } from '../graphql/generatedTypes';
 import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
@@ -127,5 +137,34 @@ export class TransactionsController {
     });
 
     return walletByENS;
+  }
+
+  async getAll(
+    variables: TransactionsBySearchQueryVariablesType & NonQueryInput
+  ): Promise<TransactionsBySearchFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetTransactionsBySearchDocument,
+      polygon: CodegenPolygonMainnetTransactionsBySearchDocument,
+      ethereumSepolia: CodegenEthSepoliaTransactionsBySearchDocument,
+    };
+    const {
+      data: { [userChain]: transactions },
+    } = await this.client.query<
+      TransactionsBySearchQueryVariablesType,
+      TransactionsBySearchQueryType,
+      TransactionsBySearchQueryResultFull
+    >({
+      variables: queryVariables,
+      query: query[userChain],
+    });
+
+    const formattedResult = formatQueryResult<
+      TransactionsBySearchQueryResultInfo,
+      TransactionsBySearchFormattedResult
+    >(transactions, 'transactions', 'transactionsPageInfo');
+
+    return formattedResult;
   }
 }

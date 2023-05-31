@@ -5,6 +5,7 @@ import tokenController from './controllers/token.controller';
 import utilController from './controllers/util.controller';
 import contractsController from './controllers/contracts.controller';
 import transactionsController from './controllers/transactions.controller';
+import eventsController from './controllers/events.controller';
 const router = express.Router();
 
 router.get('/api', (req, res) => {
@@ -46,6 +47,10 @@ router.get(
 router.get(
   '/api/getTransactionsByWallet/:address',
   transactionsController.getTransactionsByWallet
+);
+router.get(
+  '/api/getEventsByContract/:contractAddress',
+  eventsController.getEventsByContract
 );
 
 export default router;

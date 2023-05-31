@@ -352,7 +352,7 @@ qn.transactions
   .then((response) => console.log(response));
 ```
 
-### transactions.search
+### transactions.getAll
 
 Returns transactions filtered by search parameters
 
@@ -383,7 +383,7 @@ const qn = new QuickNode.API({
 
 // Use the filters
 qn.transactions
-  .search({
+  .getAll({
     filter: {
       blockNumber: {
         eq: 17372310,
@@ -394,7 +394,7 @@ qn.transactions
   .then((response) => console.log(response));
 
 // Filters can be left blank to get the latest data
-qn.transactions.search({ filter: {}, first: 5 }).then((response) => console.log(response));
+qn.transactions.getAll({ filter: {}, first: 5 }).then((response) => console.log(response));
 ```
 
 ### utils.getGasPrices

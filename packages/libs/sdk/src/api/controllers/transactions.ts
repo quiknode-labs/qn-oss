@@ -139,7 +139,7 @@ export class TransactionsController {
     return walletByENS;
   }
 
-  async search(
+  async getAll(
     variables: TransactionsBySearchQueryVariablesType & NonQueryInput
   ): Promise<TransactionsBySearchFormattedResult> {
     const { chain, ...queryVariables } = variables;

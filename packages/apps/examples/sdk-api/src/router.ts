@@ -48,8 +48,8 @@ router.get(
   transactionsController.getTransactionsByWallet
 );
 router.get(
-  '/api/getTransactionsBySearch/:blockNumber',
-  transactionsController.getTransactionsBySearch
+  '/api/getAllTransactions/:blockNumber',
+  transactionsController.getAllTransactions
 );
 
 export default router;

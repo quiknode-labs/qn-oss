@@ -3,7 +3,7 @@ import withPolly from '../../testSetup/pollyTestSetup';
 
 const transactions = apiClient.transactions;
 
-describe('transactions.search', () => {
+describe('transactions.getAll', () => {
   it('should return transactions by block number', async () => {
     await withPolly(
       {
@@ -11,7 +11,7 @@ describe('transactions.search', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await transactions.search({
+        const data = await transactions.getAll({
           filter: {
             blockNumber: {
               eq: 17372301,
@@ -80,7 +80,7 @@ describe('transactions.search', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await transactions.search({
+        const data = await transactions.getAll({
           filter: {
             timestamp: {
               gt: '2021-05-30T14:21:10.000Z',
@@ -149,7 +149,7 @@ describe('transactions.search', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await transactions.search({
+        const data = await transactions.getAll({
           filter: {
             blockNumber: {
               eq: 17372310,
@@ -198,7 +198,7 @@ describe('transactions.search', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await transactions.search({ filter: {}, first: 2 });
+        const data = await transactions.getAll({ filter: {}, first: 2 });
         expect(data).toEqual({
           results: [
             {

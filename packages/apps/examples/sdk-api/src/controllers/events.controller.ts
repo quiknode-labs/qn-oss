@@ -6,6 +6,14 @@ export default {
     try {
       const eventsByContract = await events.getByContract({
         contractAddress: req.params.contractAddress,
+        filter: {
+          type: {
+            eq: 'TRANSFER',
+          },
+          marketplace: {
+            eq: 'OPENSEA',
+          },
+        },
       });
       return res.status(200).send(eventsByContract);
     } catch (error) {

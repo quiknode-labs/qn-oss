@@ -134,18 +134,17 @@ export type CodegenCollectionOHLCVChart = {
 };
 
 /** Filter by input interval */
-export enum CodegenCollectionOHLCVChartInterval {
-  CodegenFIFTEEN_MINUTES = 'FIFTEEN_MINUTES',
-  CodegenFIVE_MINUTES = 'FIVE_MINUTES',
-  CodegenONE_DAY = 'ONE_DAY',
-  CodegenONE_HOUR = 'ONE_HOUR',
-  CodegenONE_MINUTE = 'ONE_MINUTE',
-  CodegenSEVEN_DAYS = 'SEVEN_DAYS',
-  CodegenSIX_HOURS = 'SIX_HOURS',
-  CodegenTHIRTY_DAYS = 'THIRTY_DAYS',
-  CodegenTHIRTY_MINUTES = 'THIRTY_MINUTES',
-  CodegenTWELVE_HOURS = 'TWELVE_HOURS'
-}
+export type CodegenCollectionOHLCVChartInterval =
+  | 'FIFTEEN_MINUTES'
+  | 'FIVE_MINUTES'
+  | 'ONE_DAY'
+  | 'ONE_HOUR'
+  | 'ONE_MINUTE'
+  | 'SEVEN_DAYS'
+  | 'SIX_HOURS'
+  | 'THIRTY_DAYS'
+  | 'THIRTY_MINUTES'
+  | 'TWELVE_HOURS';
 
 export type CodegenCollectionOhlcvChartInput = {
   confirmedAtGte?: InputMaybe<Scalars['DateTime']>;
@@ -179,10 +178,9 @@ export type CodegenCollectionSale = {
   quantitySold?: Maybe<Scalars['Float']>;
 };
 
-export enum CodegenCollectionStandard {
-  CodegenERC721 = 'ERC721',
-  CodegenERC1155 = 'ERC1155'
-}
+export type CodegenCollectionStandard =
+  | 'ERC721'
+  | 'ERC1155';
 
 export type CodegenCollectionStandardInput = {
   eq?: InputMaybe<CodegenCollectionStandard>;
@@ -252,11 +250,10 @@ export type CodegenContractCodegentokenEventsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export enum CodegenContractStandard {
-  CodegenERC20 = 'ERC20',
-  CodegenERC721 = 'ERC721',
-  CodegenERC1155 = 'ERC1155'
-}
+export type CodegenContractStandard =
+  | 'ERC20'
+  | 'ERC721'
+  | 'ERC1155';
 
 export type CodegenContractStandardInput = {
   eq?: InputMaybe<CodegenContractStandard>;
@@ -621,11 +618,10 @@ export type CodegenERC1155NFTWalletsConnectionEdge = {
   node: CodegenWallet;
 };
 
-export enum CodegenERCStandard {
-  CodegenERC20 = 'ERC20',
-  CodegenERC721 = 'ERC721',
-  CodegenERC1155 = 'ERC1155'
-}
+export type CodegenERCStandard =
+  | 'ERC20'
+  | 'ERC721'
+  | 'ERC1155';
 
 export type CodegenEVMSchemaType = {
   __typename?: 'EVMSchemaType';
@@ -808,16 +804,15 @@ export type CodegenIntegerInput = {
 };
 
 /** Marketplace where the token was sold */
-export enum CodegenMarketplace {
-  CodegenBLUR = 'BLUR',
-  CodegenCRYPTOPUNKS = 'CRYPTOPUNKS',
-  CodegenLOOKSRARE = 'LOOKSRARE',
-  CodegenNIFTY_GATEWAY = 'NIFTY_GATEWAY',
-  CodegenOPENSEA = 'OPENSEA',
-  CodegenSEAPORT = 'SEAPORT',
-  CodegenX2Y2 = 'X2Y2',
-  CodegenZEROX = 'ZEROX'
-}
+export type CodegenMarketplace =
+  | 'BLUR'
+  | 'CRYPTOPUNKS'
+  | 'LOOKSRARE'
+  | 'NIFTY_GATEWAY'
+  | 'OPENSEA'
+  | 'SEAPORT'
+  | 'X2Y2'
+  | 'ZEROX';
 
 export type CodegenMarketplaceInput = {
   eq?: InputMaybe<CodegenMarketplace>;
@@ -907,10 +902,9 @@ export type CodegenOpenSeaMetadata = {
 };
 
 /** Sort ascending (A-Z) or descending (Z-A) */
-export enum CodegenOrderDirection {
-  CodegenASC = 'ASC',
-  CodegenDESC = 'DESC'
-}
+export type CodegenOrderDirection =
+  | 'ASC'
+  | 'DESC';
 
 export type CodegenPageInfo = {
   __typename?: 'PageInfo';
@@ -1125,13 +1119,12 @@ export type CodegenTokenTransferEvent = CodegenTokenEvent & {
   type: CodegenTokenTransferType;
 };
 
-export enum CodegenTokenTransferType {
-  CodegenBURN = 'BURN',
-  CodegenMINT = 'MINT',
-  CodegenSALE = 'SALE',
-  CodegenSWAP = 'SWAP',
-  CodegenTRANSFER = 'TRANSFER'
-}
+export type CodegenTokenTransferType =
+  | 'BURN'
+  | 'MINT'
+  | 'SALE'
+  | 'SWAP'
+  | 'TRANSFER';
 
 export type CodegenTokenTransferTypeInput = {
   eq?: InputMaybe<CodegenTokenTransferType>;
@@ -1211,22 +1204,20 @@ export type CodegenTrendingCollectionsFilterInput = {
   timeRange?: InputMaybe<CodegenDateTimeInput>;
 };
 
-export enum CodegenTrendingOrderBy {
-  CodegenAVERAGE = 'AVERAGE',
-  CodegenSALES = 'SALES',
-  CodegenVOLUME = 'VOLUME'
-}
+export type CodegenTrendingOrderBy =
+  | 'AVERAGE'
+  | 'SALES'
+  | 'VOLUME';
 
-export enum CodegenTrendingPeriod {
-  CodegenFIFTEEN_MINUTES = 'FIFTEEN_MINUTES',
-  CodegenFIVE_MINUTES = 'FIVE_MINUTES',
-  CodegenONE_DAY = 'ONE_DAY',
-  CodegenONE_HOUR = 'ONE_HOUR',
-  CodegenONE_MINUTE = 'ONE_MINUTE',
-  CodegenSEVEN_DAYS = 'SEVEN_DAYS',
-  CodegenTHIRTY_MINUTES = 'THIRTY_MINUTES',
-  CodegenTWELVE_HOURS = 'TWELVE_HOURS'
-}
+export type CodegenTrendingPeriod =
+  | 'FIFTEEN_MINUTES'
+  | 'FIVE_MINUTES'
+  | 'ONE_DAY'
+  | 'ONE_HOUR'
+  | 'ONE_MINUTE'
+  | 'SEVEN_DAYS'
+  | 'THIRTY_MINUTES'
+  | 'TWELVE_HOURS';
 
 export type CodegenWallet = {
   __typename?: 'Wallet';
@@ -1366,10 +1357,9 @@ export type CodegenWalletCollection = {
   nftsCount: Scalars['BigInt'];
 };
 
-export enum CodegenWalletCollectionOrderBy {
-  CodegenDATE_ACQUIRED = 'DATE_ACQUIRED',
-  CodegenNAME = 'NAME'
-}
+export type CodegenWalletCollectionOrderBy =
+  | 'DATE_ACQUIRED'
+  | 'NAME';
 
 /** Filter of collections in a wallet */
 export type CodegenWalletCollectionsFilterInput = {
@@ -1441,10 +1431,9 @@ export type CodegenWalletNFTsFilterInput = {
   contractAddressIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
-export enum CodegenWalletNFTsOrderBy {
-  CodegenDATE_ACQUIRED = 'DATE_ACQUIRED',
-  CodegenNAME = 'NAME'
-}
+export type CodegenWalletNFTsOrderBy =
+  | 'DATE_ACQUIRED'
+  | 'NAME';
 
 export type CodegenWalletTokenBalance = {
   __typename?: 'WalletTokenBalance';
@@ -1454,12 +1443,11 @@ export type CodegenWalletTokenBalance = {
 };
 
 /** Sort wallet token balance */
-export enum CodegenWalletTokenBalanceOrder {
-  CodegenCONTRACT_ADDRESS = 'CONTRACT_ADDRESS',
-  CodegenNAME = 'NAME',
-  CodegenSYMBOL = 'SYMBOL',
-  CodegenTOTAL_BALANCE = 'TOTAL_BALANCE'
-}
+export type CodegenWalletTokenBalanceOrder =
+  | 'CONTRACT_ADDRESS'
+  | 'NAME'
+  | 'SYMBOL'
+  | 'TOTAL_BALANCE';
 
 export type CodegenWalletTokenBalancesConnection = {
   __typename?: 'WalletTokenBalancesConnection';

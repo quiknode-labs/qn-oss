@@ -397,6 +397,64 @@ qn.transactions
 qn.transactions.getAll({ filter: {}, first: 5 }).then((response) => console.log(response));
 ```
 
+### events.getByContract
+
+Returns events by contract address
+
+| Argument | Values | Required | Description                                         | Example                         |
+| -------- | ------ | -------- | --------------------------------------------------- | ------------------------------- |
+| first    | number | ❌       | Number of results to return                         | 10                              |
+| after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
+| chain    | string | ❌       | Blockchain name                                     | polygon                         |
+| filter   | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } } |
+
+`filter` Parameters
+
+| Argument         | Values | Description                                                                                                                 | Example                                                                      |
+| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| blockNumber      | object | An object with any combination of `eq`, `gt`, `gte`, `in`, `lt`, or `lte`                                                   | { lt: 17343891, gt: 17343881 }                                               |
+| contractAddress  | object | A contract address with `eq`, `in`, or `notIn`                                                                              | { eq: "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984" }                         |
+| contractStandard | object | A valid contract standard `ERC20`, `ERC721`, `ERC1155` with `eq`, `in`, or `notIn`                                          | { eq: "ERC20" }                                                              |
+| fromAddress      | object | Filter events sent from address with `eq`, `in`, or `notIn`                                                                 | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
+| marketplace      | object | `BLUR`, `CRYPTOPUNKS`, `LOOKSRARE`, `NIFTY_GATEWAY`, `OPENSEA`, `SEAPORT`, `X2Y2`, `ZEROX` with with `eq`, `in`, or `notIn` | { eq: "OPENSEA" }                                                            |
+| timestamp        | object | An object with any combination of `eq`, `gt`, `gte`, `in`, `lt`, or `lte` with a valid timestamp                            | { lt: "2022-12-03T10:15:30Z" }                                               |
+| toAddress        | object | Filter events sent to address with `eq`, `in`, or `notIn`                                                                   | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
+| transactionHash  | object | A transaction hash with with `eq`, `in`, or `notIn`                                                                         | { eq: "0xdd652cfd936f7a22ab217a69c1f4356a6d15a4c8d61e30d87a4cd8abca30046f" } |
+| type             | object | `TRANSFER`, `MINT`, `SALE`, `SWAP`, or `BURN` with `eq`, `in`, or `notIn`                                                   | { in: ["TRANSFER", "MINT"] }                                                 |
+| walletAddress    | object | A valid wallet address with `eq`, `in`, or `notIn`                                                                          | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
+
+_timestamp can be a date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-time format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar._
+
+```typescript
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.events
+  .getByContract({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+  })
+  .then((response) => console.log(response));
+
+// Using filters
+qn.events
+  .getByContract({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    filter: {
+      fromAddress: {
+        eq: '0x10fa1c188eca954419a85112f975155f717ad8ea',
+      },
+      type: {
+        in: ['TRANSFER'],
+      },
+    }
+  })
+  .then((response) => console.log(response));
+`
+```
+
 ### utils.getGasPrices
 
 Returns historical gas prices by block number. Defaults to returning values in wei.

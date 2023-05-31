@@ -6,7 +6,7 @@ import { Pagination } from './pagination';
 export const EventsByContract = gql`
   fragment EventsByContract on EVMSchemaType {
     contract(contractAddress: $contractAddress) {
-      tokenEvents {
+      tokenEvents(filter: $filter) {
         edges {
           node {
             ...TokenEventInfo

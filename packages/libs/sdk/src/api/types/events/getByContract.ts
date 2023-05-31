@@ -3,11 +3,6 @@ import {
   CodegenEthereumMainnetEventsByContractQueryVariables,
   CodegenTokenEventInfoFragment,
   CodegenPaginationFragment,
-  CodegenTokenEventsFilterInput,
-  CodegenMarketplace,
-  CodegenContractStandard,
-  CodegenTokenTransferType,
-  InputMaybe,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
 

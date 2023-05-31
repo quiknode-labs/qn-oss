@@ -5,6 +5,8 @@ export const EthereumSepoliaEventsByContract = gql`
   query EthereumSepoliaEventsByContract(
     $contractAddress: String!
     $filter: TokenEventsFilterInput
+    $after: String
+    $first: Int
   ) {
     ethereumSepolia {
       ...EventsByContract

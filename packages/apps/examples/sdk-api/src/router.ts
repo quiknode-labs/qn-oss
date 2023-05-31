@@ -47,5 +47,9 @@ router.get(
   '/api/getTransactionsByWallet/:address',
   transactionsController.getTransactionsByWallet
 );
+router.get(
+  '/api/getAllTransactions/:blockNumber',
+  transactionsController.getAllTransactions
+);
 
 export default router;

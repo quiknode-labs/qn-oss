@@ -14,4 +14,21 @@ export default {
       return res.status(500).send({});
     }
   },
+
+  getAllTransactions: async (req: Request, res: Response) => {
+    try {
+      const allTransactions = await transactions.getAll({
+        filter: {
+          blockNumber: {
+            eq: parseInt(req.params.blockNumber),
+          },
+        },
+        first: 5,
+      });
+      return res.status(200).send(allTransactions);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
 };

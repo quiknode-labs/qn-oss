@@ -3,7 +3,7 @@ import withPolly from '../../testSetup/pollyTestSetup';
 
 const api = apiClient;
 
-describe('nfts.getNFTEvents', () => {
+describe('events.getByNFT', () => {
   it('executes correctly', async () => {
     await withPolly(
       {
@@ -11,7 +11,7 @@ describe('nfts.getNFTEvents', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getNFTEvents({
+        const data = await api.events.getByNFT({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           tokenId: '1263',
           first: 2,
@@ -61,12 +61,12 @@ describe('nfts.getNFTEvents', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data1 = await api.nfts.getNFTEvents({
+        const data1 = await api.events.getByNFT({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           tokenId: '1518',
           first: 2,
         });
-        const data2 = await api.nfts.getNFTEvents({
+        const data2 = await api.events.getByNFT({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           tokenId: '1518',
           first: 2,
@@ -157,7 +157,7 @@ describe('nfts.getNFTEvents', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getNFTEvents({
+        const data = await api.events.getByNFT({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307aaaa',
           tokenId: '103240319',
           first: 2,
@@ -169,6 +169,48 @@ describe('nfts.getNFTEvents', () => {
             hasNextPage: false,
             hasPreviousPage: false,
             startCursor: null,
+          },
+        });
+      }
+    );
+  });
+
+  it('can filter events', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getNFTEvents-filter',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.events.getByNFT({
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+          tokenId: '1518',
+          first: 2,
+          filter: {
+            blockNumber: {
+              eq: 13158918,
+            },
+          },
+        });
+        expect(data).toStrictEqual({
+          results: [
+            {
+              blockNumber: 13158918,
+              fromAddress: '0x0000000000000000000000000000000000000000',
+              timestamp: '2021-09-04T11:29:13.000Z',
+              toAddress: '0x4036b344e3efe9af30cd179ecb9a54a792c164d8',
+              transactionHash:
+                '0x93399fe3ae06883aa4dd05340a3fa3c3c93150b5a0541211d595d6165a04d5d4',
+              transferIndex: 208,
+              type: 'MINT',
+              tokenQuantity: 1,
+            },
+          ],
+          pageInfo: {
+            endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
         });
       }

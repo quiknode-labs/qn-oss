@@ -208,59 +208,6 @@ qn.nfts
   .then((response) => console.log(response));
 ```
 
-### nfts.getCollectionEvents
-
-Returns the events for an NFT Collection
-
-| Argument        | Values | Required | Description                     | Example                                    |
-| --------------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
-| contractAddress | string | ✅       | NFT contract address            | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
-| chain           | string | ❌       | Blockchain name                 | polygon                                    |
-| first           | number | ❌       | Number of results to return     | 10                                         |
-| after           | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
-
-```ts
-import QuickNode from '@quicknode/sdk';
-
-const qn = new QuickNode.API({
-  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
-});
-
-qn.nfts
-  .getCollectionEvents({
-    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
-    first: 5,
-  })
-  .then((response) => console.log(response));
-```
-
-### nfts.getNFTEvents
-
-Returns the events for a specific NFT
-
-| Argument        | Values | Required | Description                     | Example                                    |
-| --------------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
-| contractAddress | string | ✅       | NFT contract address            | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
-| tokenId         | string | ✅       | NFT Token ID                    | 1                                          |
-| chain           | string | ❌       | Blockchain name                 | polygon                                    |
-| first           | number | ❌       | Number of results to return     | 10                                         |
-| after           | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
-
-```ts
-import QuickNode from '@quicknode/sdk';
-
-const qn = new QuickNode.API({
-  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
-});
-
-qn.nfts
-  .getNFTEvents({
-    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
-    tokenId: '1',
-  })
-  .then((response) => console.log(response));
-```
-
 ### tokens.getBalancesByWallet
 
 Returns ERC20 token balances for a wallet
@@ -410,20 +357,7 @@ Returns events by contract address
 
 `filter` Parameters
 
-| Argument         | Values | Description                                                                                                                 | Example                                                                      |
-| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| blockNumber      | object | An object with any combination of `eq`, `gt`, `gte`, `in`, `lt`, or `lte`                                                   | { lt: 17343891, gt: 17343881 }                                               |
-| contractAddress  | object | A contract address with `eq`, `in`, or `notIn`                                                                              | { eq: "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984" }                         |
-| contractStandard | object | A valid contract standard `ERC20`, `ERC721`, `ERC1155` with `eq`, `in`, or `notIn`                                          | { eq: "ERC20" }                                                              |
-| fromAddress      | object | Filter events sent from address with `eq`, `in`, or `notIn`                                                                 | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
-| marketplace      | object | `BLUR`, `CRYPTOPUNKS`, `LOOKSRARE`, `NIFTY_GATEWAY`, `OPENSEA`, `SEAPORT`, `X2Y2`, `ZEROX` with with `eq`, `in`, or `notIn` | { eq: "OPENSEA" }                                                            |
-| timestamp        | object | An object with any combination of `eq`, `gt`, `gte`, `in`, `lt`, or `lte` with a valid timestamp                            | { lt: "2022-12-03T10:15:30Z" }                                               |
-| toAddress        | object | Filter events sent to address with `eq`, `in`, or `notIn`                                                                   | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
-| transactionHash  | object | A transaction hash with with `eq`, `in`, or `notIn`                                                                         | { eq: "0xdd652cfd936f7a22ab217a69c1f4356a6d15a4c8d61e30d87a4cd8abca30046f" } |
-| type             | object | `TRANSFER`, `MINT`, `SALE`, `SWAP`, or `BURN` with `eq`, `in`, or `notIn`                                                   | { in: ["TRANSFER", "MINT"] }                                                 |
-| walletAddress    | object | A valid wallet address with `eq`, `in`, or `notIn`                                                                          | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
-
-_timestamp can be a date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-time format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar._
+Please see the [Token Event Filters section](#token-event-filters) for all options
 
 ```typescript
 import QuickNode from '@quicknode/sdk';
@@ -453,6 +387,94 @@ qn.events
   })
   .then((response) => console.log(response));
 `
+```
+
+### events.getByNFTCollection
+
+Returns the events for an NFT Collection
+
+| Argument        | Values | Required | Description                                         | Example                                    |
+| --------------- | ------ | -------- | --------------------------------------------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | NFT contract address                                | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| chain           | string | ❌       | Blockchain name                                     | polygon                                    |
+| first           | number | ❌       | Number of results to return                         | 10                                         |
+| after           | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| filter          | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } }            |
+
+`filter` Parameters
+
+Please see the [Token Event Filters section](#token-event-filters) for all options
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.events
+  .getByNFTCollection({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    first: 5,
+  })
+  .then((response) => console.log(response));
+
+// Can pass in filters
+qn.events
+  .getByNftCollection({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    first: 5,
+    filter: {
+      type: {
+        eq: 'TRANSFER',
+      },
+    },
+  })
+  .then((response) => console.log(response));
+```
+
+### events.getByNFT
+
+Returns the events for a specific NFT
+
+| Argument        | Values | Required | Description                                         | Example                                    |
+| --------------- | ------ | -------- | --------------------------------------------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | NFT contract address                                | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| tokenId         | string | ✅       | NFT Token ID                                        | 1                                          |
+| chain           | string | ❌       | Blockchain name                                     | polygon                                    |
+| first           | number | ❌       | Number of results to return                         | 10                                         |
+| after           | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| filter          | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } }            |
+
+`filter` Parameters
+
+Please see the [Token Event Filters section](#token-event-filters) for all options
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.events
+  .getByNFT({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    tokenId: '1',
+  })
+  .then((response) => console.log(response));
+
+qn.events
+  .getByNFT({
+    contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+    tokenId: '1',
+    filter: {
+      type: {
+        eq: 'TRANSFER',
+      },
+    },
+  })
+  .then((response) => console.log(response));
 ```
 
 ### utils.getGasPrices
@@ -522,6 +544,27 @@ const variables = {
 
 qn.graphApiClient.query({ query, variables }).then(({ data }) => console.log(data));
 ```
+
+## Filters
+
+Some filters are shared between queries
+
+### Token Event Filters
+
+| Argument         | Values | Description                                                                                                                 | Example                                                                      |
+| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| blockNumber      | object | An object with any combination of `eq`, `gt`, `gte`, `in`, `lt`, or `lte`                                                   | { lt: 17343891, gt: 17343881 }                                               |
+| contractAddress  | object | A contract address with `eq`, `in`, or `notIn`                                                                              | { eq: "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984" }                         |
+| contractStandard | object | A valid contract standard `ERC20`, `ERC721`, `ERC1155` with `eq`, `in`, or `notIn`                                          | { eq: "ERC20" }                                                              |
+| fromAddress      | object | Filter events sent from address with `eq`, `in`, or `notIn`                                                                 | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
+| marketplace      | object | `BLUR`, `CRYPTOPUNKS`, `LOOKSRARE`, `NIFTY_GATEWAY`, `OPENSEA`, `SEAPORT`, `X2Y2`, `ZEROX` with with `eq`, `in`, or `notIn` | { eq: "OPENSEA" }                                                            |
+| timestamp        | object | An object with any combination of `eq`, `gt`, `gte`, `in`, `lt`, or `lte` with a valid timestamp                            | { lt: "2022-12-03T10:15:30Z" }                                               |
+| toAddress        | object | Filter events sent to address with `eq`, `in`, or `notIn`                                                                   | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
+| transactionHash  | object | A transaction hash with with `eq`, `in`, or `notIn`                                                                         | { eq: "0xdd652cfd936f7a22ab217a69c1f4356a6d15a4c8d61e30d87a4cd8abca30046f" } |
+| type             | object | `TRANSFER`, `MINT`, `SALE`, `SWAP`, or `BURN` with `eq`, `in`, or `notIn`                                                   | { in: ["TRANSFER", "MINT"] }                                                 |
+| walletAddress    | object | A valid wallet address with `eq`, `in`, or `notIn`                                                                          | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
+
+_timestamp can be a date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-time format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar._
 
 ## Pagination
 

@@ -145,7 +145,7 @@ describe('events.getByContract', () => {
   it('can filter events', async () => {
     await withPolly(
       {
-        recordingName: 'query-getEventsByContract-base',
+        recordingName: 'query-getEventsByContract-filter',
         recordIfMissing: true,
       },
       async () => {

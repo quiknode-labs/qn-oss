@@ -2,9 +2,9 @@
 
 > :warning: **This is an alpha release** This release is not feature-complete or production-ready yet and only meant as a technical preview. The API could break in subsequent alpha and beta releases until the 1.0.0 release is finalized.
 
-An SDK from [QuickNode](https://www.quicknode.com/) making it easy for developers to interact with QuickNode's services.
+An SDK from [QuickNode](https://www.quicknode.com/) making it easy for developers to interact with the blockchain.
 
-Currently the SDK makes it even easier to use the [QuickNode Graph API](https://www.quicknode.com/graph-api) to query market insights, trading data, transactions by wallets and contracts, cached NFT images, and more!
+Currently supports getting started with [QuickNode GraphQL API](https://www.quicknode.com/graph-api) in a blink!
 
 [![npm](https://img.shields.io/npm/dm/@quicknode/sdk)](https://www.npmjs.com/package/@quicknode/sdk)
 [![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g)](https://www.npmjs.com/package/@quicknode/sdk)
@@ -13,51 +13,12 @@ Currently the SDK makes it even easier to use the [QuickNode Graph API](https://
 [![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)](https://github.com/quiknode-labs/qn-oss/issues)
 [![Discord](https://img.shields.io/discord/880505845090250794?color=g)](https://discord.gg/DkdgEqE)
 
-<br>
-
-- [QuickNode SDK](#quicknode-sdk)
-  - [Getting Started](#getting-started)
-    - [Installation](#installation)
-    - [Quickstart](#quickstart)
-  - [API functions](#api-functions)
-    - [Configuration](#configuration)
-    - [Configuration Arguments](#configuration-arguments)
-    - [nfts.getByWallet](#nftsgetbywallet)
-    - [nfts.getTrendingCollections](#nftsgettrendingcollections)
-    - [nfts.getByContractAddress](#nftsgetbycontractaddress)
-    - [nfts.getNFTDetails](#nftsgetnftdetails)
-    - [nfts.getCollectionDetails](#nftsgetcollectiondetails)
-    - [tokens.getBalancesByWallet](#tokensgetbalancesbywallet)
-    - [contracts.getDetails](#contractsgetdetails)
-    - [transactions.getByWallet](#transactionsgetbywallet)
-    - [transactions.getAll](#transactionsgetall)
-    - [events.getByContract](#eventsgetbycontract)
-    - [events.getByNFTCollection](#eventsgetbynftcollection)
-    - [events.getByNFT](#eventsgetbynft)
-    - [utils.getGasPrices](#utilsgetgasprices)
-    - [graphApiClient.query](#graphapiclientquery)
-  - [Filters](#filters)
-    - [Token Event Filters](#token-event-filters)
-  - [Pagination](#pagination)
-  - [Contributing corner](#contributing-corner)
-    - [Issues](#issues)
-    - [Development](#development)
-    - [Running tests](#running-tests)
-    - [Running linting](#running-linting)
-    - [Generate graphql codegen typings](#generate-graphql-codegen-typings)
-
-<br>
-
 ## Getting Started
 
 ### Installation
 
 - Requires Node.js v16 or higher
 - `npm install @quicknode/sdk` or `yarn add @quicknode/sdk`
-
-<br>
-
-### Quickstart
 
 ```ts
 import QuickNode from '@quicknode/sdk';
@@ -74,15 +35,7 @@ qn.nfts
 
 Full example app implementation [here](https://github.com/quiknode-labs/qn-oss/tree/main/packages/apps/examples/sdk-api)
 
-<br>
-
-## API functions
-
-These functions return data from the powerful [QuickNode Graph API](https://www.quicknode.com/graph-api), making it even easier to use.
-
-<br>
-
-### Configuration
+## Providing a config object to the client
 
 Sign up for a [QuickNode](https://www.quicknode.com/) account to use the multi-chain [QuickNode GraphQL API](https://www.quicknode.com/graph-api) API key in the SDK.
 
@@ -105,18 +58,16 @@ The `defaultChain` in the initializer can be overridden with the `chain` argumen
 
 If no `defaultChain` is passed into the initializer or a `chain` argument to a function,`ethereum` is used by default.
 
-if
+### Client config API
+
+| Property     | Values | Description                                | Example  |
+| ------------ | ------ | ------------------------------------------ | -------- |
+| graphApiKey  | string | The QuickNode GraphQL API Key              | abcd1234 |
+| defaultChain | string | The default chain to use for all functions | polygon  |
 
 <br>
 
-### Configuration Arguments
-
-| Property     | Values | Required | Description                                | Example  |
-| ------------ | ------ | -------- | ------------------------------------------ | -------- |
-| graphApiKey  | string | ❌       | The QuickNode GraphQL API Key              | abcd1234 |
-| defaultChain | string | ❌       | The default chain to use for all functions | polygon  |
-
-<br>
+## Methods
 
 ### nfts.getByWallet
 
@@ -159,8 +110,6 @@ qn.nfts
   .then((response) => console.log(response));
 ```
 
-<br>
-
 ### nfts.getTrendingCollections
 
 Returns trending NFT Collections
@@ -184,8 +133,6 @@ qn.nfts
   })
   .then((response) => console.log(response));
 ```
-
-<br>
 
 ### nfts.getByContractAddress
 
@@ -213,8 +160,6 @@ qn.nfts
   .then((response) => console.log(response));
 ```
 
-<br>
-
 ### nfts.getNFTDetails
 
 Returns the details for a specified NFT
@@ -240,8 +185,6 @@ qn.nfts
   .then((response) => console.log(response));
 ```
 
-<br>
-
 ### nfts.getCollectionDetails
 
 Returns the details for an NFT Collection
@@ -264,8 +207,6 @@ qn.nfts
   })
   .then((response) => console.log(response));
 ```
-
-<br>
 
 ### tokens.getBalancesByWallet
 
@@ -301,8 +242,6 @@ qn.tokens
   .then((response) => console.log(response));
 ```
 
-<br>
-
 ### contracts.getDetails
 
 Get the details and ABI for a contract address
@@ -325,8 +264,6 @@ qn.contracts
   })
   .then((response) => console.log(response));
 ```
-
-<br>
 
 ### transactions.getByWallet
 
@@ -361,8 +298,6 @@ qn.transactions
   })
   .then((response) => console.log(response));
 ```
-
-<br>
 
 ### transactions.getAll
 
@@ -409,8 +344,6 @@ qn.transactions
 qn.transactions.getAll({ filter: {}, first: 5 }).then((response) => console.log(response));
 ```
 
-<br>
-
 ### events.getByContract
 
 Returns events by contract address
@@ -456,8 +389,6 @@ qn.events
 `
 ```
 
-<br>
-
 ### events.getByNFTCollection
 
 Returns the events for an NFT Collection
@@ -501,8 +432,6 @@ qn.events
   })
   .then((response) => console.log(response));
 ```
-
-<br>
 
 ### events.getByNFT
 
@@ -548,8 +477,6 @@ qn.events
   .then((response) => console.log(response));
 ```
 
-<br>
-
 ### utils.getGasPrices
 
 Returns historical gas prices by block number. Defaults to returning values in wei.
@@ -588,8 +515,6 @@ qn.utils
   .then((response) => console.log(response));
 ```
 
-<br>
-
 ### graphApiClient.query
 
 A way to send GraphQL queries directly to the [QuickNode GraphQL API](https://www.quicknode.com/graph-api). `graphApiClient` is an [Urql client](https://formidable.com/open-source/urql/docs/api/core/#client) instance configured to use QuickNode's Graph API. For more information about the query structure, see the [Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)
@@ -620,13 +545,9 @@ const variables = {
 qn.graphApiClient.query({ query, variables }).then(({ data }) => console.log(data));
 ```
 
-<br>
-
 ## Filters
 
 Some filters are shared between queries
-
-<br>
 
 ### Token Event Filters
 
@@ -644,8 +565,6 @@ Some filters are shared between queries
 | walletAddress    | object | A valid wallet address with `eq`, `in`, or `notIn`                                                                          | { eq: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6" }                         |
 
 _timestamp can be a date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-time format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar._
-
-<br>
 
 ## Pagination
 
@@ -679,19 +598,13 @@ qn.nfts.getByWallet({
 });
 ```
 
-<br>
+# Contributing corner
 
-## Contributing corner
-
-<br>
-
-### Issues
+## Issues
 
 Please submit any questions, issues, or feedback as an [issue in Github](https://github.com/quiknode-labs/qn-oss/issues).
 
-<br>
-
-### Development
+## Development
 
 We recommend using the example application to develop
 
@@ -700,23 +613,17 @@ We recommend using the example application to develop
 3. `nx serve apps-examples-sdk-api`
 4. Then you can send requests to the API, for example: `curl http://localhost:3333/api/nftsByAddress/0xbc08dadccc79c00587d7e6a75bb68ff5fd30f9e0`
 
-<br>
-
-### Running tests
+## Running tests
 
 Run `nx test libs-sdk` to execute the tests via [Jest](https://jestjs.io).
 
 API responses are recorded using [polly.js](https://github.com/Netflix/pollyjs). You can re-record live requests by passing in an API key, copy `.env.test.example` to `.env.test` and fill out with your API key.
 
-<br>
-
-### Running linting
+## Running lint
 
 Run `nx lint libs-sdk` to execute the lint via [ESLint](https://eslint.org/).
 
-<br>
-
-### Generate graphql codegen typings
+## Generate graphql codegen typings
 
 Generate graphql typings via [Codegen](https://www.the-guild.dev/graphql/codegen).
 

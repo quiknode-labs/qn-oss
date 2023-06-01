@@ -1,13 +1,14 @@
 import { gql } from '@urql/core';
 import { CollectionEventsFragment } from '../../../fragments/EventsByCollection';
 
-export const PolygonMainnetEventsByCollection = gql`
-  query PolygonMainnetEventsByCollection(
+export const EthSepoliaEventsByCollection = gql`
+  query EthSepoliaEventsByCollection(
     $contractAddress: String!
+    $filter: TokenEventsFilterInput
     $after: String
     $first: Int
   ) {
-    polygon {
+    ethereumSepolia {
       ...CollectionEventsFragment
     }
   }

@@ -28,11 +28,11 @@ router.get(
 );
 router.get(
   '/api/nftCollectionEvents/:contractAddress',
-  nftController.getCollectionEvents
+  eventsController.getCollectionEvents
 );
 router.get(
   '/api/nftEvents/:contractAddress/:tokenId',
-  nftController.getNFTEvents
+  eventsController.getNFTEvents
 );
 router.get('/api/graphQuery', graphController.graphQuery);
 router.get(

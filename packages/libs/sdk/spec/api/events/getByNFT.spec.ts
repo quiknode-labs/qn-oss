@@ -3,7 +3,7 @@ import withPolly from '../../testSetup/pollyTestSetup';
 
 const api = apiClient;
 
-describe('nfts.getNFTEvents', () => {
+describe('events.getByNFT', () => {
   it('executes correctly', async () => {
     await withPolly(
       {

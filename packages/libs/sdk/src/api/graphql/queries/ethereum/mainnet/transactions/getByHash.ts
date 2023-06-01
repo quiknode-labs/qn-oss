@@ -6,6 +6,6 @@ export const EthMainnetTransactionsByHash = gql`
     ethereum {
       ...TransactionsByHash
     }
-    ${TransactionsByHash}
   }
+  ${TransactionsByHash}
 `;

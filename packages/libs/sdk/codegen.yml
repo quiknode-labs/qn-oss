@@ -18,6 +18,7 @@ generates:
       exportFragmentSpreadSubTypes: true
       inlineFragmentTypes: combine
       fragmentMasking: false
+      enumsAsTypes: true
   src/api/graphql/fragmentMatcher.ts:
     plugins:
       - fragment-matcher

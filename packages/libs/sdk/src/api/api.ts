@@ -8,6 +8,7 @@ import {
   TokensController,
   UtilsController,
   ContractsController,
+  EventsController,
 } from './controllers';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
@@ -31,6 +32,7 @@ export class API {
   readonly utils: UtilsController;
   readonly contracts: ContractsController;
   readonly transactions: TransactionsController;
+  readonly events: EventsController;
   readonly graphApiClient: Client;
 
   constructor({
@@ -60,6 +62,10 @@ export class API {
       this.defaultChain
     );
     this.transactions = new TransactionsController(
+      this.customUrqlClient,
+      this.defaultChain
+    );
+    this.events = new EventsController(
       this.customUrqlClient,
       this.defaultChain
     );

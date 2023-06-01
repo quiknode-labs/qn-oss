@@ -40,20 +40,7 @@ import {
   NFTsByContractAddressQueryVariablesType,
   NFTsByContractAddressQueryType,
 } from '../types/nfts/getByContractAddress';
-import {
-  CollectionEventsQueryResultInfo,
-  CollectionEventsFormattedResult,
-  CollectionEventsQueryResultFull,
-  CollectionEventsQueryVariablesType,
-  CollectionEventsQueryType,
-} from '../types/nfts/getCollectionEvents';
-import {
-  NFTEventsQueryResultInfo,
-  NFTEventsFormattedResult,
-  NFTEventsQueryResultFull,
-  NFTEventsQueryVariablesType,
-  NFTEventsQueryType,
-} from '../types/nfts/getNFTEvents';
+
 import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
@@ -61,24 +48,18 @@ import {
   CodegenEthMainnetTrendingCollectionsDocument,
   CodegenEthMainnetNFTDetailsDocument,
   CodegenEthMainnetNftCollectionDetailsDocument,
-  CodegenEthMainnetEventsByCollectionDocument,
-  CodegenEthereumMainnetEventsByNftDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
   CodegenEthSepoliaWalletNFTsByContractAddressDocument,
   CodegenEthSepoliaTrendingCollectionsDocument,
   CodegenEthSepoliaNFTDetailsDocument,
   CodegenEthSepoliaNftCollectionDetailsDocument,
-  CodegenEthSepoliaEventsByCollectionDocument,
-  CodegenEthSepoliaEventsByNftDocument,
   CodegenPolygonMainnetWalletNFTsByAddressDocument,
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
   CodegenPolygonMainnetNFTsByContractAddressDocument,
   CodegenPolygonMainnetTrendingCollectionsDocument,
   CodegenPolygonMainnetNFTDetailsDocument,
   CodegenPolygonMainnetNftCollectionDetailsDocument,
-  CodegenPolygonMainnetEventsByCollectionDocument,
-  CodegenPolygonMainnetEventsByNftDocument,
 } from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
 import { formatQueryResult } from '../utils/postQueryFormatter';
@@ -348,82 +329,5 @@ export class NftsController {
 
     if (collection) return { collection };
     return { collection: null };
-  }
-
-  async getCollectionEvents(
-    variables: CollectionEventsQueryVariablesType & NonQueryInput
-  ): Promise<CollectionEventsFormattedResult> {
-    const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetEventsByCollectionDocument,
-      polygon: CodegenPolygonMainnetEventsByCollectionDocument,
-      ethereumSepolia: CodegenEthSepoliaEventsByCollectionDocument,
-    };
-    const {
-      data: {
-        [userChain]: { collection },
-      },
-    } = await this.client.query<
-      CollectionEventsQueryVariablesType, // What the user can pass in
-      CollectionEventsQueryType, // The actual unmodified result from query
-      CollectionEventsQueryResultFull // the modified result (edges and nodes removed)
-    >({
-      query: query[userChain], // The actual graphql query
-      variables: queryVariables,
-    });
-
-    if (!collection?.tokenEvents?.length)
-      return { results: [], pageInfo: emptyPageInfo };
-
-    function removeKeyFields(results: any): CollectionEventsFormattedResult {
-      const { address, ...newResults } = results;
-      return newResults;
-    }
-    const formattedResult = formatQueryResult<
-      CollectionEventsQueryResultInfo,
-      CollectionEventsFormattedResult
-    >(collection, 'tokenEvents', 'tokenEventsPageInfo', null, removeKeyFields);
-
-    return formattedResult;
-  }
-
-  async getNFTEvents(
-    variables: NFTEventsQueryVariablesType & NonQueryInput
-  ): Promise<NFTEventsFormattedResult> {
-    const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthereumMainnetEventsByNftDocument,
-      polygon: CodegenPolygonMainnetEventsByNftDocument,
-      ethereumSepolia: CodegenEthSepoliaEventsByNftDocument,
-    };
-    const {
-      data: {
-        [userChain]: { nft },
-      },
-    } = await this.client.query<
-      NFTEventsQueryVariablesType, // What the user can pass in
-      NFTEventsQueryType, // The actual unmodified result from query
-      NFTEventsQueryResultFull // the modified result (edges and nodes removed)
-    >({
-      query: query[userChain], // The actual graphql query
-      variables: queryVariables,
-    });
-
-    if (!nft?.tokenEvents?.length)
-      return { results: [], pageInfo: emptyPageInfo };
-
-    function removeKeyFields(results: any): NFTEventsFormattedResult {
-      const { contractAddress, tokenId, ...newResults } = results;
-      return newResults;
-    }
-
-    const formattedResult = formatQueryResult<
-      NFTEventsQueryResultInfo,
-      NFTEventsFormattedResult
-    >(nft, 'tokenEvents', 'tokenEventsPageInfo', null, removeKeyFields);
-
-    return formattedResult;
   }
 }

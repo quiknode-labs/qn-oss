@@ -3,7 +3,7 @@ import withPolly from '../../testSetup/pollyTestSetup';
 
 const api = apiClient;
 
-describe('nfts.getCollectionEvents', () => {
+describe('nfts.getByNFTCollection', () => {
   it('executes correctly', async () => {
     await withPolly(
       {
@@ -11,7 +11,7 @@ describe('nfts.getCollectionEvents', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getCollectionEvents({
+        const data = await api.events.getByNFTCollection({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           first: 2,
         });
@@ -60,11 +60,11 @@ describe('nfts.getCollectionEvents', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data1 = await api.nfts.getCollectionEvents({
+        const data1 = await api.events.getByNFTCollection({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           first: 2,
         });
-        const data2 = await api.nfts.getCollectionEvents({
+        const data2 = await api.events.getByNFTCollection({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           first: 2,
           after: data1?.pageInfo?.endCursor,
@@ -146,7 +146,7 @@ describe('nfts.getCollectionEvents', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getCollectionEvents({
+        const data = await api.events.getByNFTCollection({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307fake',
           first: 2,
         });

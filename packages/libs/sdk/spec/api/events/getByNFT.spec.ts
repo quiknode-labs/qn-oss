@@ -11,7 +11,7 @@ describe('nfts.getNFTEvents', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getNFTEvents({
+        const data = await api.events.getByNFT({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           tokenId: '1263',
           first: 2,
@@ -61,12 +61,12 @@ describe('nfts.getNFTEvents', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data1 = await api.nfts.getNFTEvents({
+        const data1 = await api.events.getByNFT({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           tokenId: '1518',
           first: 2,
         });
-        const data2 = await api.nfts.getNFTEvents({
+        const data2 = await api.events.getByNFT({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           tokenId: '1518',
           first: 2,
@@ -157,7 +157,7 @@ describe('nfts.getNFTEvents', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await api.nfts.getNFTEvents({
+        const data = await api.events.getByNFT({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307aaaa',
           tokenId: '103240319',
           first: 2,

@@ -162,4 +162,47 @@ describe('nfts.getByNFTCollection', () => {
       }
     );
   });
+
+  it('can filter events', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getNFTsByCollectionEvents-filter',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.events.getByNFTCollection({
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+          first: 2,
+          filter: {
+            blockNumber: {
+              eq: 13188760,
+            },
+          },
+        });
+        expect(data).toStrictEqual({
+          results: [
+            {
+              blockNumber: 13188760,
+              fromAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
+              timestamp: '2021-09-09T01:59:43.000Z',
+              toAddress: '0x032b7405695143334709076a574529fd02211a3e',
+              transactionHash:
+                '0x28de9822480129ae999ee2b8d698606357e4db41a6405bc77ebeb41a8c683522',
+              transferIndex: 280,
+              type: 'TRANSFER',
+              tokenId: 1263,
+              contractAddress: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
+              tokenQuantity: 1,
+            },
+          ],
+          pageInfo: {
+            endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
+          },
+        });
+      }
+    );
+  });
 });

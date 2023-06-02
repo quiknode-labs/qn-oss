@@ -1,5 +1,4 @@
-name: Test and Coverage Badge
-
+name: upload test coverage to coveralls
 on:
   push:
     branches:
@@ -7,18 +6,19 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetches all history for all branches and tags.
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20.x'
+          node-version: '14.x'
 
       - name: Install Dependencies
         run: npm ci
@@ -26,9 +26,7 @@ jobs:
       - name: Run Test Coverage
         run: nx run libs-sdk:test-coverage
 
-      - name: Create Coverage Badges
-        uses: jaywcjlove/coverage-badges-cli@v1.1.1
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1
         with:
-          style: flat
-          source: packages/libs/sdk/coverage/coverage-summary.json
-          output: packages/libs/sdk/coverage/badges.svg
+          file: packages/libs/sdk/coverage/lcov.info

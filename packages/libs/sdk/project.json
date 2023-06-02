@@ -47,7 +47,7 @@
         "jestConfig": "packages/libs/sdk/jest.config.ts",
         "passWithNoTests": true,
         "codeCoverage": true,
-        "coverageReporters": ["json-summary"]
+        "coverageReporters": ["lcov"]
       }
     }
   },

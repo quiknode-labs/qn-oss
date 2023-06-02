@@ -6,9 +6,10 @@ An SDK from [QuickNode](https://www.quicknode.com/) making it easy for developer
 
 Currently supports getting started with [QuickNode GraphQL API](https://www.quicknode.com/graph-api) in a blink!
 
+[![Coverage Status](https://coveralls.io/repos/github/quiknode-labs/qn-oss/badge.svg?branch=main)](https://coveralls.io/github/quiknode-labs/qn-oss?branch=main)
 [![npm](https://img.shields.io/npm/dm/@quicknode/sdk)](https://www.npmjs.com/package/@quicknode/sdk)
 [![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g)](https://www.npmjs.com/package/@quicknode/sdk)
-![Maintenance](https://img.shields.io/maintenance/yes/2022?color=g)
+![Maintenance](https://img.shields.io/maintenance/yes/2023?color=g)
 [![License](https://img.shields.io/npm/l/@quicknode/sdk?color=g)](https://github.com/quiknode-labs/qn-oss/blob/main/LICENSE.txt)
 [![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)](https://github.com/quiknode-labs/qn-oss/issues)
 [![Discord](https://img.shields.io/discord/880505845090250794?color=g)](https://discord.gg/DkdgEqE)

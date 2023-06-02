@@ -35,10 +35,19 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/packages/libs/sdk"],
       "options": {
         "jestConfig": "packages/libs/sdk/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "test-coverage": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/packages/libs/sdk/coverage"],
+      "options": {
+        "jestConfig": "packages/libs/sdk/jest.config.ts",
+        "passWithNoTests": true,
+        "codeCoverage": true,
+        "coverageReporters": ["lcov"]
       }
     }
   },

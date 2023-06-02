@@ -52,3 +52,5 @@ graphqlHeaders.json
 # bundling
 .rollup.cache/
 
+# code coverage
+packages/libs/sdk/coverage

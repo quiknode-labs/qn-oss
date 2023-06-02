@@ -1,0 +1,29 @@
+name: Upload test coverage to coveralls
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  libs-sdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Use Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Run Test Coverage
+        run: npx nx run libs-sdk:test-coverage
+      - run: ls packages/libs/sdk/coverage
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1
+        with:
+          path-to-lcov: packages/libs/sdk/coverage/lcov.info
+          flag-name: sdk

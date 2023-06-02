@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Run Test Coverage
-        run: nx run libs-sdk:test-coverage
+        run: npx nx run libs-sdk:test-coverage
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v1
         with:

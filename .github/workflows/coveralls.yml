@@ -1,4 +1,4 @@
-name: upload test coverage to coveralls
+name: Upload test coverage to coveralls
 on:
   push:
     branches:
@@ -21,6 +21,7 @@ jobs:
         run: yarn install --immutable
       - name: Run Test Coverage
         run: npx nx run libs-sdk:test-coverage
+      - run: ls packages/libs/sdk/coverage
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v1
         with:

@@ -26,3 +26,4 @@ jobs:
         uses: coverallsapp/github-action@v1
         with:
           base-path: packages/libs/sdk
+          flag-name: libs-sdk

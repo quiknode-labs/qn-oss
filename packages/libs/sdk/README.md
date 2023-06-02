@@ -106,8 +106,6 @@ The `defaultChain` in the initializer can be overridden with the `chain` argumen
 
 If no `defaultChain` is passed into the initializer or a `chain` argument to a function,`ethereum` is used by default.
 
-if
-
 <br>
 
 ### Configuration Arguments

@@ -1,0 +1,34 @@
+name: Test and Coverage Badge
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.x'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Test Coverage
+        run: nx run libs-sdk:test-coverage
+
+      - name: Create Coverage Badges
+        uses: jaywcjlove/coverage-badges-cli@v1.1.1
+        with:
+          style: flat
+          source: packages/libs/sdk/coverage/coverage-summary.json
+          output: packages/libs/sdk/coverage/badges.svg

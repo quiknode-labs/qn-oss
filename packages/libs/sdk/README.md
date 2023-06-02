@@ -8,7 +8,8 @@ Currently supports getting started with [QuickNode GraphQL API](https://www.quic
 
 [![npm](https://img.shields.io/npm/dm/@quicknode/sdk)](https://www.npmjs.com/package/@quicknode/sdk)
 [![npm](https://img.shields.io/npm/v/@quicknode/sdk?color=g)](https://www.npmjs.com/package/@quicknode/sdk)
-![Maintenance](https://img.shields.io/maintenance/yes/2022?color=g)
+![Coverage](./coverage/badges.svg)
+![Maintenance](https://img.shields.io/maintenance/yes/2023?color=g)
 [![License](https://img.shields.io/npm/l/@quicknode/sdk?color=g)](https://github.com/quiknode-labs/qn-oss/blob/main/LICENSE.txt)
 [![GitHub issues](https://img.shields.io/github/issues-raw/quiknode-labs/qn-oss?color=g)](https://github.com/quiknode-labs/qn-oss/issues)
 [![Discord](https://img.shields.io/discord/880505845090250794?color=g)](https://discord.gg/DkdgEqE)

@@ -31,6 +31,7 @@ Currently the SDK makes it even easier to use the [QuickNode Graph API](https://
     - [contracts.getDetails](#contractsgetdetails)
     - [transactions.getByWallet](#transactionsgetbywallet)
     - [transactions.getAll](#transactionsgetall)
+    - [transactions.getByHash](#transactionsgetbyhash)
     - [events.getByContract](#eventsgetbycontract)
     - [events.getByNFTCollection](#eventsgetbynftcollection)
     - [events.getByNFT](#eventsgetbynft)

@@ -25,5 +25,6 @@ jobs:
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v1
         with:
+          path-to-lcov: packages/libs/sdk/coverage/lcov.info
           base-path: packages/libs/sdk
-          flag-name: libs-sdk
+          flag-name: sdk

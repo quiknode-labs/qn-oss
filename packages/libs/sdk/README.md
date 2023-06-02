@@ -344,6 +344,28 @@ qn.transactions
 qn.transactions.getAll({ filter: {}, first: 5 }).then((response) => console.log(response));
 ```
 
+### transactions.getByHash
+
+Returns transaction information by transaction hash
+
+| Argument | Values | Required | Description             | Example                                                            |
+| -------- | ------ | -------- | ----------------------- | ------------------------------------------------------------------ |
+| hash     | string | ✅       | Hash of the transaction | 0x1aa26d1d542b414dd2e2d1aa6f8d8e128e2a45bc4a04c24232207221914389bf |
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+qn.transactions
+  .getByHash({
+    hash: '0x1aa26d1d542b414dd2e2d1aa6f8d8e128e2a45bc4a04c24232207221914389bf',
+  })
+  .then((response) => console.log(response));
+```
+
 ### events.getByContract
 
 Returns events by contract address

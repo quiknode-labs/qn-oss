@@ -31,4 +31,16 @@ export default {
       return res.status(500).send({});
     }
   },
+
+  getByHash: async (req: Request, res: Response) => {
+    try {
+      const transactionByHash = await transactions.getByHash({
+        hash: req.params.hash,
+      });
+      return res.status(200).send(transactionByHash);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
 };

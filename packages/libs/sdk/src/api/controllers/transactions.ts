@@ -24,15 +24,24 @@ import {
   TransactionsBySearchQueryType,
 } from '../types/transactions/getBySearch';
 import {
+  TransactionsByHashFormattedResult,
+  TransactionsByHashQueryResultFull,
+  TransactionsByHashQueryVariablesType,
+  TransactionsByHashQueryType,
+} from '../types/transactions/getByHash';
+import {
   CodegenEthMainnetTransactionsByWalletAddressDocument,
   CodegenEthMainnetTransactionsByWalletENSDocument,
   CodegenEthMainnetTransactionsBySearchDocument,
+  CodegenEthMainnetTransactionsByHashDocument,
   CodegenEthSepoliaTransactionsByWalletAddressDocument,
   CodegenEthSepoliaTransactionsByWalletENSDocument,
   CodegenEthSepoliaTransactionsBySearchDocument,
+  CodegenEthSepoliaTransactionsByHashDocument,
   CodegenPolygonMainnetTransactionsByWalletAddressDocument,
   CodegenPolygonMainnetTransactionsByWalletENSDocument,
   CodegenPolygonMainnetTransactionsBySearchDocument,
+  CodegenPolygonMainnetTransactionsByHashDocument,
 } from '../graphql/generatedTypes';
 import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
@@ -166,5 +175,31 @@ export class TransactionsController {
     >(transactions, 'transactions', 'transactionsPageInfo');
 
     return formattedResult;
+  }
+
+  async getByHash(
+    variables: TransactionsByHashQueryVariablesType & NonQueryInput
+  ): Promise<TransactionsByHashFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetTransactionsByHashDocument,
+      polygon: CodegenPolygonMainnetTransactionsByHashDocument,
+      ethereumSepolia: CodegenEthSepoliaTransactionsByHashDocument,
+    };
+
+    const {
+      data: { [userChain]: transaction },
+    } = await this.client.query<
+      TransactionsByHashQueryVariablesType,
+      TransactionsByHashQueryType,
+      TransactionsByHashQueryResultFull
+    >({
+      variables: queryVariables,
+      query: query[userChain],
+    });
+
+    if (transaction) return transaction;
+    return { transaction: null };
   }
 }

@@ -20,15 +20,25 @@ import {
   NFTEventsQueryType,
 } from '../types/nfts/getNFTEvents';
 import {
+  AllEventsQueryResultInfo,
+  AllEventsFormattedResult,
+  AllEventsQueryResultFull,
+  AllEventsQueryVariablesType,
+  AllEventsQueryType,
+} from '../types/events/getAll';
+import {
   CodegenEthereumMainnetEventsByContractDocument,
   CodegenEthMainnetEventsByCollectionDocument,
   CodegenEthereumMainnetEventsByNftDocument,
+  CodegenEthereumMainnetEventsGetAllDocument,
   CodegenEthereumSepoliaEventsByContractDocument,
   CodegenEthSepoliaEventsByCollectionDocument,
   CodegenEthSepoliaEventsByNftDocument,
+  CodegenEthereumSepoliaEventsGetAllDocument,
   CodegenPolygonMainnetEventsByContractDocument,
   CodegenPolygonMainnetEventsByCollectionDocument,
   CodegenPolygonMainnetEventsByNftDocument,
+  CodegenPolygonMainnetEventsGetAllDocument,
 } from '../graphql/generatedTypes';
 import { CustomUrqlClient } from '../graphql/customUrqlClient';
 import { ChainName } from '../types/chains';
@@ -156,6 +166,36 @@ export class EventsController {
       NFTEventsQueryResultInfo,
       NFTEventsFormattedResult
     >(nft, 'tokenEvents', 'tokenEventsPageInfo', null, removeKeyFields);
+
+    return formattedResult;
+  }
+
+  async getAll(
+    variables: AllEventsQueryVariablesType & NonQueryInput
+  ): Promise<AllEventsFormattedResult> {
+    const { chain, ...queryVariables } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthereumMainnetEventsGetAllDocument,
+      polygon: CodegenPolygonMainnetEventsGetAllDocument,
+      ethereumSepolia: CodegenEthereumSepoliaEventsGetAllDocument,
+    };
+
+    const {
+      data: { [userChain]: tokenEvents },
+    } = await this.client.query<
+      AllEventsQueryVariablesType,
+      AllEventsQueryType,
+      AllEventsQueryResultFull
+    >({
+      query: query[userChain],
+      variables: queryVariables,
+    });
+
+    const formattedResult = formatQueryResult<
+      AllEventsQueryResultInfo,
+      AllEventsFormattedResult
+    >(tokenEvents, 'tokenEvents', 'tokenEventsPageInfo');
 
     return formattedResult;
   }

@@ -47,4 +47,20 @@ export default {
       return res.status(500).send({});
     }
   },
+
+  getAllEvents: async (req: Request, res: Response) => {
+    try {
+      const allEvents = await events.getAll({
+        filter: {
+          blockNumber: {
+            eq: parseInt(req.params.blockNumber),
+          },
+        },
+      });
+      return res.status(200).send(allEvents);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
 };

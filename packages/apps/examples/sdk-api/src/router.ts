@@ -57,4 +57,5 @@ router.get(
   transactionsController.getAllTransactions
 );
 router.get('/api/transactionByHash/:hash', transactionsController.getByHash);
+router.get('/api/getAllEvents/:blockNumber', eventsController.getAllEvents);
 export default router;

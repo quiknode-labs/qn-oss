@@ -16,7 +16,7 @@
     "cross-fetch": "^3.1.6"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.13.8",
+    "@graphql-codegen/cli": "4.0.1",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/introspection": "^3.0.1",
     "@graphql-codegen/typed-document-node": "^4.0.1",
@@ -32,10 +32,10 @@
     "dotenv": "^16.0.3",
     "eslint-plugin-no-only-tests": "^3.1.0",
     "graphql": "^16.6.0",
-    "supertest": "^6.2.4"
+    "supertest": "^6.3.3"
   },
   "scripts": {
-    "codegen": "graphql-codegen --require dotenv/config"
+    "codegen": "npx graphql-codegen --require dotenv/config"
   },
   "exports": {
     ".": {

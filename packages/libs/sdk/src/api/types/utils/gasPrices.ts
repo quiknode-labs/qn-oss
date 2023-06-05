@@ -22,5 +22,5 @@ export type GasPricesQueryResultFull = Record<
 >;
 
 export type GasPricesFormattedResult = {
-  gasPrices: CodegenGasPrice[] | null;
+  gasPrices: CodegenGasPrice[];
 };

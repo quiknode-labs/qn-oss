@@ -199,7 +199,7 @@ export class TransactionsController {
       query: query[userChain],
     });
 
-    if (transaction) return transaction;
+    if (transaction?.transaction) return transaction;
     return { transaction: null };
   }
 }

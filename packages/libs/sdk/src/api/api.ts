@@ -40,7 +40,7 @@ export class API {
     additionalHeaders,
     defaultChain,
   }: ApiArguments = {}) {
-    if (!graphApiKey && process.env['NODE_ENV'] !== 'test') {
+    if (!graphApiKey) {
       console.warn(
         'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
       );
@@ -87,7 +87,7 @@ export class API {
         EVMSchemaType: () => null, // The entity has no key and no parent entity so effectively won't cache
         Collection: useAddressAsKey,
         CollectionOHLCVChart: () => null, // Entities without keys will be embedded directly on the parent entity.
-        Contract: (data) => `${data['address']}`,
+        Contract: useAddressAsKey,
         ERC721NFT: useNftKey,
         ERC721Collection: useAddressAsKey,
         ERC1155NFT: useNftKey,

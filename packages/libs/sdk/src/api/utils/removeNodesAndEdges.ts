@@ -6,7 +6,7 @@ interface Edge {
   node?: Record<string | number | symbol, ResultInput>;
 }
 
-interface Connection {
+export interface Connection {
   pageInfo?: CodegenPageInfo;
   edges?: Edge[];
   total?: number;
@@ -18,7 +18,7 @@ interface RemoveNodesAndEdgesOptions {
   keepTypename?: boolean;
 }
 
-interface ResultInput {
+export interface ResultInput {
   [index: string | number | symbol]: Connection | ResultInput | unknown;
 }
 

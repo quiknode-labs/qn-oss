@@ -37,8 +37,7 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/libs/sdk/jest.config.ts",
-        "passWithNoTests": true,
-        "silent": true
+        "passWithNoTests": true
       }
     },
     "test-coverage": {

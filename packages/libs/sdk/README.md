@@ -577,6 +577,8 @@ qn.events
 
 ### events.getAll
 
+Returns events filtered by search parameters
+
 | Argument | Values | Required | Description                                         | Example                         |
 | -------- | ------ | -------- | --------------------------------------------------- | ------------------------------- |
 | chain    | string | ❌       | Blockchain name                                     | polygon                         |

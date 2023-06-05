@@ -110,10 +110,10 @@ If no `defaultChain` is passed into the initializer or a `chain` argument to a f
 
 ### Configuration Arguments
 
-| Property     | Values | Required | Description                                | Example  |
-| ------------ | ------ | -------- | ------------------------------------------ | -------- |
-| graphApiKey  | string | ❌       | The QuickNode GraphQL API Key              | abcd1234 |
-| defaultChain | string | ❌       | The default chain to use for all functions | polygon  |
+| Property     | Values | Required | Description                                                         | Example  |
+| ------------ | ------ | -------- | ------------------------------------------------------------------- | -------- |
+| graphApiKey  | string | ❌       | The QuickNode GraphQL API Key                                       | abcd1234 |
+| defaultChain | string | ❌       | The default chain to use for all functions (defaults to `ethereum`) | polygon  |
 
 <br>
 

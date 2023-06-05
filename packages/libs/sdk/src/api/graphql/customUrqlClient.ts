@@ -26,7 +26,7 @@ export class CustomUrqlClient {
     const { error } = result;
     if (error) {
       console.error(error.stack);
-      throw error.message;
+      throw error;
     }
 
     return {

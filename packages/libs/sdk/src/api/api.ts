@@ -87,7 +87,7 @@ export class API {
         EVMSchemaType: () => null, // The entity has no key and no parent entity so effectively won't cache
         Collection: useAddressAsKey,
         CollectionOHLCVChart: () => null, // Entities without keys will be embedded directly on the parent entity.
-        Contract: (data) => `${data['address']}`,
+        Contract: useAddressAsKey,
         ERC721NFT: useNftKey,
         ERC721Collection: useAddressAsKey,
         ERC1155NFT: useNftKey,

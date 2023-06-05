@@ -201,4 +201,29 @@ describe('events.getByContract', () => {
       }
     );
   });
+
+  it('can return empty results', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getEventsByContract-empty',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.events.getByContract({
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307abcd',
+          first: 2,
+        });
+
+        expect(data).toStrictEqual({
+          results: [],
+          pageInfo: {
+            endCursor: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: null,
+          },
+        });
+      }
+    );
+  });
 });

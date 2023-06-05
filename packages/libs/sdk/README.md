@@ -36,6 +36,7 @@ Currently the SDK makes it even easier to use the [QuickNode Graph API](https://
     - [events.getByContract](#eventsgetbycontract)
     - [events.getByNFTCollection](#eventsgetbynftcollection)
     - [events.getByNFT](#eventsgetbynft)
+    - [events.getAll](#eventsgetall)
     - [utils.getGasPrices](#utilsgetgasprices)
     - [graphApiClient.query](#graphapiclientquery)
   - [Filters](#filters)
@@ -570,6 +571,47 @@ qn.events
     },
   })
   .then((response) => console.log(response));
+```
+
+<br>
+
+### events.getAll
+
+| Argument | Values | Required | Description                                         | Example                         |
+| -------- | ------ | -------- | --------------------------------------------------- | ------------------------------- |
+| chain    | string | ❌       | Blockchain name                                     | polygon                         |
+| first    | number | ❌       | Number of results to return                         | 10                              |
+| after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
+| filter   | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } } |
+
+`filter` Parameters
+
+Please see the [Token Event Filters section](#token-event-filters) for all options
+
+```ts
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({
+  graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
+});
+
+// Use filters to get specific events
+qn.events
+  .getAll({
+    first: 2,
+    filter: {
+      blockNumber: {
+        eq: 17414768,
+      },
+      toAddress: {
+        eq: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b',
+      },
+    },
+  })
+  .then((response) => console.log(response));
+
+// Filters can be left blank to get the latest data
+qn.events.getAll({}).then((response) => console.log(response));
 ```
 
 <br>

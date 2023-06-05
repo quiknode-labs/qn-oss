@@ -40,7 +40,7 @@ export class API {
     additionalHeaders,
     defaultChain,
   }: ApiArguments = {}) {
-    if (!graphApiKey && process.env['NODE_ENV'] !== 'test') {
+    if (!graphApiKey) {
       console.warn(
         'QuickNode SDK warning: no apiKey provided. Access with no apiKey is heavily rate limited and intended for development use only. For higher rate limits or production usage, create an account on https://www.quicknode.com/'
       );

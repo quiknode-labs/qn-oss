@@ -170,16 +170,33 @@ export class EventsController {
     return formattedResult;
   }
 
-  async getAll(variables: AllEventsQueryVariablesType & NonQueryInput): Promise<AllEventsFormattedResult> {
+  async getAll(
+    variables: AllEventsQueryVariablesType & NonQueryInput
+  ): Promise<AllEventsFormattedResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthereumMainnetEventsGetAllDocument,
       polygon: CodegenPolygonMainnetEventsGetAllDocument,
       ethereumSepolia: CodegenEthereumSepoliaEventsGetAllDocument,
-    }
+    };
 
     const {
-      data: {
-        [userChain]: { contract },
+      data: { [userChain]: tokenEvents },
+    } = await this.client.query<
+      AllEventsQueryVariablesType,
+      AllEventsQueryType,
+      AllEventsQueryResultFull
+    >({
+      query: query[userChain],
+      variables: queryVariables,
+    });
+
+    const formattedResult = formatQueryResult<
+      AllEventsQueryResultInfo,
+      AllEventsFormattedResult
+    >(tokenEvents, 'tokenEvents', 'tokenEventsPageInfo');
+
+    return formattedResult;
+  }
 }

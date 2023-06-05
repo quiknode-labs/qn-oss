@@ -879,4 +879,26 @@ describe('utils.getGasPrices', () => {
       }
     );
   });
+
+  it('can return no data', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getGasPrices-no-data',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.utils.getGasPrices({
+          filter: {
+            blockNumber: {
+              eq: 10,
+            },
+          },
+        });
+
+        expect(data).toStrictEqual({
+          gasPrices: [],
+        });
+      }
+    );
+  });
 });

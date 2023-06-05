@@ -47,7 +47,7 @@ export class UtilsController {
       variables: queryVariables,
     });
 
-    if (gasPrices) {
+    if (Array.isArray(gasPrices) && gasPrices.length > 0) {
       if (returnInGwei) {
         const fieldsToTransform = [
           'total',
@@ -68,6 +68,6 @@ export class UtilsController {
 
       return { gasPrices };
     }
-    return { gasPrices: null };
+    return { gasPrices: [] };
   }
 }

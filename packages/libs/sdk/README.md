@@ -1,10 +1,14 @@
 # QuickNode SDK
 
-> :warning: **This is an alpha release** This release is not feature-complete or production-ready yet and only meant as a technical preview. The API could break in subsequent alpha and beta releases until the 1.0.0 release is finalized.
+> :warning: **This is an beta release** This release is not production-ready yet and only meant as a technical preview. The API could break in subsequent beta releases until the 1.0.0 release is finalized.
 
-An SDK from [QuickNode](https://www.quicknode.com/) making it easy for developers to interact with QuickNode's services.
+A SDK from [QuickNode](https://www.quicknode.com/) making it easy for developers to interact with QuickNode's services.
+
+QuickNode's SDK is a JavaScript and TypeScript framework-agnostic library that supports both CommonJS and ES module systems.
 
 Currently the SDK makes it even easier to use the [QuickNode Graph API](https://www.quicknode.com/graph-api) to query market insights, trading data, transactions by wallets and contracts, cached NFT images, and more!
+
+> :grey_question: We want to hear from you! Please take a few minutes to fill out our [QuickNode SDK feedback form](https://forms.gle/vWFXDDjEUySjWUof6) and let us know what you currently think about the SDK. This helps us further improve the SDK.
 
 [![Coverage Status](https://coveralls.io/repos/github/quiknode-labs/qn-oss/badge.svg?branch=main)](https://coveralls.io/github/quiknode-labs/qn-oss?branch=main)
 [![npm](https://img.shields.io/npm/dm/@quicknode/sdk)](https://www.npmjs.com/package/@quicknode/sdk)
@@ -751,11 +755,9 @@ qn.nfts.getByWallet({
 
 ## Contributing corner
 
-<br>
-
 ### Issues
 
-Please submit any questions, issues, or feedback as an [issue in Github](https://github.com/quiknode-labs/qn-oss/issues).
+Please submit any issues or feature requests as an [issue in Github](https://github.com/quiknode-labs/qn-oss/issues).
 
 <br>
 
@@ -763,10 +765,11 @@ Please submit any questions, issues, or feedback as an [issue in Github](https:/
 
 We recommend using the example application to develop
 
+1. In `qn-oss` monorepo root directory, run `yarn install`
 1. cd `packages/apps/examples/sdk-api` from `qn-oss` monorepo root
-2. `cp .env.example .env` and add api key
-3. `nx serve apps-examples-sdk-api`
-4. Then you can send requests to the API, for example: `curl http://localhost:3333/api/nftsByAddress/0xbc08dadccc79c00587d7e6a75bb68ff5fd30f9e0`
+1. `cp .env.example .env` and add api key
+1. `nx serve apps-examples-sdk-api`
+1. Then you can send requests to the API, for example: `curl http://localhost:3333/api/nftsByAddress/0xbc08dadccc79c00587d7e6a75bb68ff5fd30f9e0`
 
 <br>
 

@@ -5,13 +5,17 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 
-export type NFTTrendingCollectionsQueryType = {
+export type NFTTrendingCollectionsQuery = {
   [k in ChainName]: CodegenEthMainnetTrendingCollectionsQuery['ethereum'];
 };
 
-export type NFTTrendingCollectionsQueryVariablesType =
+export type NFTTrendingCollectionsQueryVariables =
   CodegenEthMainnetTrendingCollectionsQueryVariables;
+
+export type NFTTrendingCollectionsInput = NFTTrendingCollectionsQueryVariables &
+  NonQueryInput;
 
 export interface NFTTrendingCollectionsQueryResultBody {
   trendingCollectionsPageInfo: CodegenPaginationFragment;
@@ -25,7 +29,7 @@ export type NFTTrendingCollectionsQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type NFTTrendingCollectionFormattedResult = {
+export type NFTTrendingCollectionResult = {
   results: CodegenTrendingCollectionInfoFragment[];
   pageInfo: CodegenPaginationFragment;
 };

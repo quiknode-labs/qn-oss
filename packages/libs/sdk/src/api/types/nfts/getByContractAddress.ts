@@ -6,14 +6,18 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 import { NftErcStandards } from '../nfts';
 
-export type NFTsByContractAddressQueryType = {
+export type NFTsByContractAddressQuery = {
   [k in ChainName]: CodegenEthMainnetWalletNFTsByContractAddressQuery['ethereum'];
 };
 
-export type NFTsByContractAddressQueryVariablesType =
+export type NFTsByContractAddressQueryVariables =
   CodegenEthMainnetWalletNFTsByContractAddressQueryVariables;
+
+export type NFTsByContractAddressInput = NFTsByContractAddressQueryVariables &
+  NonQueryInput;
 
 export interface NFTsByContractAddressQueryResultInfo {
   __typename: string;
@@ -30,7 +34,7 @@ export type NFTsByContractAddressQueryResultFull = Record<
   NFTsByContractAddressQueryResultBody
 >;
 
-export type NFTsByContractAddressFormattedResult = {
+export type NFTsByContractAddressResult = {
   standard: NftErcStandards | null;
   results: [CodegenERC721NFTNodeFragment | CodegenERC1155NFTNodeFragment][];
   pageInfo: CodegenPaginationFragment;

@@ -2,43 +2,49 @@ import { CustomUrqlClient } from '../graphql/customUrqlClient';
 
 import {
   WalletNFTsByEnsQueryResultInfo,
-  WalletNFTsByEnsFormattedResult,
+  WalletNFTsByEnsResult,
   WalletNFTsByEnsQueryResultFull,
-  WalletNFTsByEnsQueryVariablesType,
-  WalletNFTsByEnsQueryType,
+  WalletNFTsByEnsQueryVariables,
+  WalletNFTsByEnsQuery,
+  WalletNFTsByEnsInput,
 } from '../types/nfts/getByWalletENS';
 import {
   WalletNFTsByAddressQueryResultInfo,
-  WalletNFTsByAddressFormattedResult,
+  WalletNFTsByAddressResult,
   WalletNFTByAddressQueryResultFull,
-  WalletNFTsByAddressQueryVariablesType,
-  WalletNFTsByAddressQueryType,
+  WalletNFTsByAddressQueryVariables,
+  WalletNFTsByAddressQuery,
+  WalletNFTsByAddressInput,
 } from '../types/nfts/getByWalletAddress';
 import {
-  NFTDetailsFormattedResult,
+  NFTDetailsResult,
   NFTDetailsQueryResultFull,
-  NFTDetailsQueryVariablesType,
-  NFTDetailsQueryType,
+  NFTDetailsQueryVariables,
+  NFTDetailsQuery,
+  NFTDetailsInput,
 } from '../types/nfts/getNFTDetails';
 import {
-  NftCollectionDetailsFormattedResult,
+  NftCollectionDetailsResult,
   NftCollectionDetailsQueryResultFull,
-  NftCollectionDetailsQueryVariablesType,
-  NftCollectionDetailsQueryType,
+  NftCollectionDetailsQueryVariables,
+  NftCollectionDetailsQuery,
+  NftCollectionDetailsInput,
 } from '../types/nfts/getCollectionDetails';
 import {
   NFTTrendingCollectionsQueryResultBody,
-  NFTTrendingCollectionFormattedResult,
+  NFTTrendingCollectionResult,
   NFTTrendingCollectionsQueryResultFull,
-  NFTTrendingCollectionsQueryVariablesType,
-  NFTTrendingCollectionsQueryType,
+  NFTTrendingCollectionsQueryVariables,
+  NFTTrendingCollectionsQuery,
+  NFTTrendingCollectionsInput,
 } from '../types/nfts/getTrendingCollections';
 import {
   NFTsByContractAddressQueryResultInfo,
-  NFTsByContractAddressFormattedResult,
+  NFTsByContractAddressResult,
   NFTsByContractAddressQueryResultFull,
-  NFTsByContractAddressQueryVariablesType,
-  NFTsByContractAddressQueryType,
+  NFTsByContractAddressQueryVariables,
+  NFTsByContractAddressQuery,
+  NFTsByContractAddressInput,
 } from '../types/nfts/getByContractAddress';
 
 import {
@@ -66,7 +72,6 @@ import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@urql/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
-import { NonQueryInput } from '../types/input';
 import { NftErcStandards } from '../types/nfts';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 
@@ -77,8 +82,8 @@ export class NftsController {
   ) {}
 
   async getByWallet(
-    variables: WalletNFTsByAddressQueryVariablesType & NonQueryInput
-  ): Promise<WalletNFTsByAddressFormattedResult> {
+    variables: WalletNFTsByAddressInput
+  ): Promise<WalletNFTsByAddressResult> {
     const { address, ...allVariables } = variables;
     if (isValidENSAddress(address)) {
       return this.getByWalletENS({
@@ -94,8 +99,8 @@ export class NftsController {
   }
 
   private async getByWalletENS(
-    variables: WalletNFTsByEnsQueryVariablesType & NonQueryInput
-  ): Promise<WalletNFTsByEnsFormattedResult> {
+    variables: WalletNFTsByEnsInput
+  ): Promise<WalletNFTsByEnsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -109,8 +114,8 @@ export class NftsController {
         [userChain]: { walletByENS },
       },
     } = await this.client.query<
-      WalletNFTsByEnsQueryVariablesType, // What the user can pass in
-      WalletNFTsByEnsQueryType, // The actual unmodified result from query
+      WalletNFTsByEnsQueryVariables, // What the user can pass in
+      WalletNFTsByEnsQuery, // The actual unmodified result from query
       WalletNFTsByEnsQueryResultFull // the modified result (edges and nodes removed)
     >({
       query: query[userChain], // The actual graphql query
@@ -131,15 +136,15 @@ export class NftsController {
 
     const formattedResult = formatQueryResult<
       WalletNFTsByEnsQueryResultInfo,
-      WalletNFTsByEnsFormattedResult
+      WalletNFTsByEnsResult
     >(walletByENS, 'walletNFTs', 'walletNFTsPageInfo', 'nft');
 
     return formattedResult;
   }
 
   private async getByWalletAddress(
-    variables: WalletNFTsByAddressQueryVariablesType & NonQueryInput
-  ): Promise<WalletNFTsByAddressFormattedResult> {
+    variables: WalletNFTsByAddressInput
+  ): Promise<WalletNFTsByAddressResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -153,8 +158,8 @@ export class NftsController {
         [userChain]: { walletByAddress },
       },
     } = await this.client.query<
-      WalletNFTsByAddressQueryVariablesType, // What the user can pass in
-      WalletNFTsByAddressQueryType, // The actual unmodified result from query
+      WalletNFTsByAddressQueryVariables, // What the user can pass in
+      WalletNFTsByAddressQuery, // The actual unmodified result from query
       WalletNFTByAddressQueryResultFull // the modified result (edges and nodes removed)
     >({
       query: query[userChain], // The actual graphql query
@@ -174,15 +179,15 @@ export class NftsController {
 
     const formattedResult = formatQueryResult<
       WalletNFTsByAddressQueryResultInfo,
-      WalletNFTsByAddressFormattedResult
+      WalletNFTsByAddressResult
     >(walletByAddress, 'walletNFTs', 'walletNFTsPageInfo', 'nft');
 
     return formattedResult;
   }
 
   async getTrendingCollections(
-    variables: NFTTrendingCollectionsQueryVariablesType & NonQueryInput
-  ): Promise<NFTTrendingCollectionFormattedResult> {
+    variables: NFTTrendingCollectionsInput
+  ): Promise<NFTTrendingCollectionResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -194,8 +199,8 @@ export class NftsController {
     const {
       data: { [userChain]: trendingCollections },
     } = await this.client.query<
-      NFTTrendingCollectionsQueryVariablesType, // What the user can pass in
-      NFTTrendingCollectionsQueryType, // The actual unmodified result from query
+      NFTTrendingCollectionsQueryVariables, // What the user can pass in
+      NFTTrendingCollectionsQuery, // The actual unmodified result from query
       NFTTrendingCollectionsQueryResultFull // the modified result (edges and nodes removed)
     >({
       query: query[userChain], // The actual graphql query
@@ -208,7 +213,7 @@ export class NftsController {
 
     const formattedResult = formatQueryResult<
       NFTTrendingCollectionsQueryResultBody,
-      NFTTrendingCollectionFormattedResult
+      NFTTrendingCollectionResult
     >(
       trendingCollections,
       'trendingCollections',
@@ -220,8 +225,8 @@ export class NftsController {
   }
 
   async getByContractAddress(
-    variables: NFTsByContractAddressQueryVariablesType & NonQueryInput
-  ): Promise<NFTsByContractAddressFormattedResult> {
+    variables: NFTsByContractAddressInput
+  ): Promise<NFTsByContractAddressResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -235,8 +240,8 @@ export class NftsController {
         [userChain]: { collection },
       },
     } = await this.client.query<
-      NFTsByContractAddressQueryVariablesType, // What the user can pass in
-      NFTsByContractAddressQueryType, // The actual unmodified result from query
+      NFTsByContractAddressQueryVariables, // What the user can pass in
+      NFTsByContractAddressQuery, // The actual unmodified result from query
       NFTsByContractAddressQueryResultFull // the modified result (edges and nodes removed)
     >({
       query: query[userChain], // The actual graphql query
@@ -252,9 +257,7 @@ export class NftsController {
       };
     }
 
-    const setErcStandard = (
-      results: any
-    ): NFTsByContractAddressFormattedResult => {
+    const setErcStandard = (results: any): NFTsByContractAddressResult => {
       const standardMap: Record<string, NftErcStandards> = {
         ERC1155Collection: 'ERC1155',
         ERC721Collection: 'ERC721',
@@ -269,15 +272,13 @@ export class NftsController {
 
     const formattedResult = formatQueryResult<
       NFTsByContractAddressQueryResultInfo,
-      NFTsByContractAddressFormattedResult
+      NFTsByContractAddressResult
     >(collection, 'nfts', 'nftsPageInfo', null, setErcStandard);
 
     return formattedResult;
   }
 
-  async getNFTDetails(
-    variables: NFTDetailsQueryVariablesType & NonQueryInput
-  ): Promise<NFTDetailsFormattedResult> {
+  async getNFTDetails(variables: NFTDetailsInput): Promise<NFTDetailsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -291,8 +292,8 @@ export class NftsController {
         [userChain]: { nft },
       },
     } = await this.client.query<
-      NFTDetailsQueryVariablesType, // What the user can pass in
-      NFTDetailsQueryType, // The actual unmodified result from query
+      NFTDetailsQueryVariables, // What the user can pass in
+      NFTDetailsQuery, // The actual unmodified result from query
       NFTDetailsQueryResultFull // the modified result (edges and nodes removed)
     >({
       query: query[userChain], // The actual graphql query
@@ -304,8 +305,8 @@ export class NftsController {
   }
 
   async getCollectionDetails(
-    variables: NftCollectionDetailsQueryVariablesType & NonQueryInput
-  ): Promise<NftCollectionDetailsFormattedResult> {
+    variables: NftCollectionDetailsInput
+  ): Promise<NftCollectionDetailsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -319,8 +320,8 @@ export class NftsController {
         [userChain]: { collection },
       },
     } = await this.client.query<
-      NftCollectionDetailsQueryVariablesType, // What the user can pass in
-      NftCollectionDetailsQueryType, // The actual unmodified result from query
+      NftCollectionDetailsQueryVariables, // What the user can pass in
+      NftCollectionDetailsQuery, // The actual unmodified result from query
       NftCollectionDetailsQueryResultFull // the modified result (edges and nodes removed)
     >({
       query: query[userChain], // The actual graphql query

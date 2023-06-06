@@ -1,30 +1,34 @@
 import {
   ContractEventsQueryResultInfo,
-  ContractEventsFormattedResult,
+  ContractEventsResult,
   ContractEventsQueryResultFull,
-  ContractEventsQueryVariablesType,
-  ContractEventsQueryType,
+  ContractEventsQueryVariables,
+  ContractEventsQuery,
+  ContractEventsInput,
 } from '../types/events/getByContract';
 import {
   CollectionEventsQueryResultInfo,
-  CollectionEventsFormattedResult,
+  CollectionEventsResult,
   CollectionEventsQueryResultFull,
-  CollectionEventsQueryVariablesType,
-  CollectionEventsQueryType,
+  CollectionEventsQueryVariables,
+  CollectionEventsQuery,
+  CollectionEventsInput,
 } from '../types/nfts/getCollectionEvents';
 import {
   NFTEventsQueryResultInfo,
-  NFTEventsFormattedResult,
+  NFTEventsResult,
   NFTEventsQueryResultFull,
-  NFTEventsQueryVariablesType,
-  NFTEventsQueryType,
+  NFTEventsQueryVariables,
+  NFTEventsQuery,
+  NFTEventsInput,
 } from '../types/nfts/getNFTEvents';
 import {
   AllEventsQueryResultInfo,
-  AllEventsFormattedResult,
+  AllEventsResult,
   AllEventsQueryResultFull,
-  AllEventsQueryVariablesType,
-  AllEventsQueryType,
+  AllEventsQueryVariables,
+  AllEventsQuery,
+  AllEventsInput,
 } from '../types/events/getAll';
 import {
   CodegenEthereumMainnetEventsByContractDocument,
@@ -46,7 +50,6 @@ import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@urql/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
-import { NonQueryInput } from '../types/input';
 
 export class EventsController {
   constructor(
@@ -55,8 +58,8 @@ export class EventsController {
   ) {}
 
   async getByContract(
-    variables: ContractEventsQueryVariablesType & NonQueryInput
-  ): Promise<ContractEventsFormattedResult> {
+    variables: ContractEventsInput
+  ): Promise<ContractEventsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -70,8 +73,8 @@ export class EventsController {
         [userChain]: { contract },
       },
     } = await this.client.query<
-      ContractEventsQueryVariablesType,
-      ContractEventsQueryType,
+      ContractEventsQueryVariables,
+      ContractEventsQuery,
       ContractEventsQueryResultFull
     >({
       query: query[userChain],
@@ -87,15 +90,15 @@ export class EventsController {
 
     const formattedResult = formatQueryResult<
       ContractEventsQueryResultInfo,
-      ContractEventsFormattedResult
+      ContractEventsResult
     >(contract, 'tokenEvents', 'tokenEventsPageInfo');
 
     return formattedResult;
   }
 
   async getByNFTCollection(
-    variables: CollectionEventsQueryVariablesType & NonQueryInput
-  ): Promise<CollectionEventsFormattedResult> {
+    variables: CollectionEventsInput
+  ): Promise<CollectionEventsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -108,8 +111,8 @@ export class EventsController {
         [userChain]: { collection },
       },
     } = await this.client.query<
-      CollectionEventsQueryVariablesType, // What the user can pass in
-      CollectionEventsQueryType, // The actual unmodified result from query
+      CollectionEventsQueryVariables, // What the user can pass in
+      CollectionEventsQuery, // The actual unmodified result from query
       CollectionEventsQueryResultFull // the modified result (edges and nodes removed)
     >({
       query: query[userChain], // The actual graphql query
@@ -119,21 +122,19 @@ export class EventsController {
     if (!collection?.tokenEvents?.length)
       return { results: [], pageInfo: emptyPageInfo };
 
-    function removeKeyFields(results: any): CollectionEventsFormattedResult {
+    function removeKeyFields(results: any): CollectionEventsResult {
       const { address, ...newResults } = results;
       return newResults;
     }
     const formattedResult = formatQueryResult<
       CollectionEventsQueryResultInfo,
-      CollectionEventsFormattedResult
+      CollectionEventsResult
     >(collection, 'tokenEvents', 'tokenEventsPageInfo', null, removeKeyFields);
 
     return formattedResult;
   }
 
-  async getByNFT(
-    variables: NFTEventsQueryVariablesType & NonQueryInput
-  ): Promise<NFTEventsFormattedResult> {
+  async getByNFT(variables: NFTEventsInput): Promise<NFTEventsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -146,8 +147,8 @@ export class EventsController {
         [userChain]: { nft },
       },
     } = await this.client.query<
-      NFTEventsQueryVariablesType, // What the user can pass in
-      NFTEventsQueryType, // The actual unmodified result from query
+      NFTEventsQueryVariables, // What the user can pass in
+      NFTEventsQuery, // The actual unmodified result from query
       NFTEventsQueryResultFull // the modified result (edges and nodes removed)
     >({
       query: query[userChain], // The actual graphql query
@@ -157,22 +158,20 @@ export class EventsController {
     if (!nft?.tokenEvents?.length)
       return { results: [], pageInfo: emptyPageInfo };
 
-    function removeKeyFields(results: any): NFTEventsFormattedResult {
+    function removeKeyFields(results: any): NFTEventsResult {
       const { contractAddress, tokenId, ...newResults } = results;
       return newResults;
     }
 
     const formattedResult = formatQueryResult<
       NFTEventsQueryResultInfo,
-      NFTEventsFormattedResult
+      NFTEventsResult
     >(nft, 'tokenEvents', 'tokenEventsPageInfo', null, removeKeyFields);
 
     return formattedResult;
   }
 
-  async getAll(
-    variables: AllEventsQueryVariablesType & NonQueryInput
-  ): Promise<AllEventsFormattedResult> {
+  async getAll(variables: AllEventsInput): Promise<AllEventsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -184,8 +183,8 @@ export class EventsController {
     const {
       data: { [userChain]: tokenEvents },
     } = await this.client.query<
-      AllEventsQueryVariablesType,
-      AllEventsQueryType,
+      AllEventsQueryVariables,
+      AllEventsQuery,
       AllEventsQueryResultFull
     >({
       query: query[userChain],
@@ -194,7 +193,7 @@ export class EventsController {
 
     const formattedResult = formatQueryResult<
       AllEventsQueryResultInfo,
-      AllEventsFormattedResult
+      AllEventsResult
     >(tokenEvents, 'tokenEvents', 'tokenEventsPageInfo');
 
     return formattedResult;

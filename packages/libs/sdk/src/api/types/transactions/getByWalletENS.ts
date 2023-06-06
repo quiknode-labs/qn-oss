@@ -5,17 +5,21 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 
 // Using the generated CodegenEthMainnetTransactionsByWalletENSQuery as a base for the type here
 // since the queries for each chain will be the same, so allow for it to be used for all chains
-export type TransactionsByWalletENSQueryType = {
+export type TransactionsByWalletENSQuery = {
   [k in ChainName]: CodegenEthMainnetTransactionsByWalletENSQuery['ethereum'];
 };
 
 // Using the generated CodegenEthMainnetTransactionsByWalletENSQueryVariables as a base for the type here
 // since the variables will be the same for each query
-export type TransactionsByWalletENSQueryVariablesType =
+export type TransactionsByWalletENSQueryVariables =
   CodegenEthMainnetTransactionsByWalletENSQueryVariables;
+
+export type TransactionsByWalletENSInput =
+  TransactionsByWalletENSQueryVariables & NonQueryInput;
 
 export interface TransactionsByWalletENSQueryResultInfo {
   address: string;
@@ -35,7 +39,7 @@ export type TransactionsByWalletENSQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type TransactionsByWalletENSFormattedResult = {
+export type TransactionsByWalletENSResult = {
   address: string;
   ensName: string;
   results: CodegenTransactionsNodeFragment[];

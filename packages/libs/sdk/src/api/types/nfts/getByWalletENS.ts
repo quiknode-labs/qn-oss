@@ -5,17 +5,21 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 
 // Using the generated CodegenEthMainnetWalletNFTsByEnsQuery as a base for the type here
 // since the queries for each chain will be the same, so allow for it to be used for all chains
-export type WalletNFTsByEnsQueryType = {
+export type WalletNFTsByEnsQuery = {
   [k in ChainName]: CodegenEthMainnetWalletNFTsByEnsQuery['ethereum'];
 };
 
 // Using the generated CodegenEthMainnetWalletNFTsByEnsQueryVariables as a base for the type here
 // since the variables will be the same for each query
-export type WalletNFTsByEnsQueryVariablesType =
+export type WalletNFTsByEnsQueryVariables =
   CodegenEthMainnetWalletNFTsByEnsQueryVariables;
+
+export type WalletNFTsByEnsInput = WalletNFTsByEnsQueryVariables &
+  NonQueryInput;
 
 export interface WalletNFTsByEnsQueryResultInfo {
   address: string;
@@ -34,7 +38,7 @@ export type WalletNFTsByEnsQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type WalletNFTsByEnsFormattedResult = {
+export type WalletNFTsByEnsResult = {
   address: string;
   ensName: string;
   results: CodegenWalletNFTNodeFragment['nft'][];

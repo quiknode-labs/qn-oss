@@ -5,17 +5,21 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 
 // Using the generated CodegenEthMainnetTransactionsBySearchQuery as a base for the type here
 // since the queries for each chain will be the same, so allow for it to be used for all chains
-export type TransactionsBySearchQueryType = {
+export type TransactionsBySearchQuery = {
   [k in ChainName]: CodegenEthMainnetTransactionsBySearchQuery['ethereum'];
 };
 
 // Using the generated CodegenEthMainnetTransactionsBySearchQueryVariables as a base for the type here
 // since the variables will be the same for each query
-export type TransactionsBySearchQueryVariablesType =
+export type TransactionsBySearchQueryVariables =
   CodegenEthMainnetTransactionsBySearchQueryVariables;
+
+export type TransactionsBySearchInput = TransactionsBySearchQueryVariables &
+  NonQueryInput;
 
 export interface TransactionsBySearchQueryResultInfo {
   transactionsPageInfo: CodegenPaginationFragment;
@@ -33,7 +37,7 @@ export type TransactionsBySearchQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type TransactionsBySearchFormattedResult = {
+export type TransactionsBySearchResult = {
   results: CodegenTransactionsNodeFragment[];
   pageInfo: CodegenPaginationFragment;
 };

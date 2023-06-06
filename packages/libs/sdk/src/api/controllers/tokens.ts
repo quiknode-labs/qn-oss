@@ -1,20 +1,21 @@
 import { CustomUrqlClient } from '../graphql/customUrqlClient';
 import { ChainName } from '../types/chains';
 import { DEFAULT_CHAIN } from '../utils/constants';
-import { NonQueryInput } from '../types/input';
 import {
   BalancesByWalletENSQueryResultInfo,
-  BalancesByWalletENSFormattedResult,
+  BalancesByWalletENSResult,
   BalancesByWalletENSQueryResultFull,
-  BalancesByWalletENSQueryVariablesType,
-  BalancesByWalletENSQueryType,
+  BalancesByWalletENSQueryVariables,
+  BalancesByWalletENSQuery,
+  BalancesByWalletENSInput,
 } from '../types/tokens/getBalancesByWalletENS';
 import {
   BalancesByWalletAddressQueryResultInfo,
-  BalancesByWalletAddressFormattedResult,
+  BalancesByWalletAddressResult,
   BalancesByWalletAddressQueryResultFull,
-  BalancesByWalletAddressQueryVariablesType,
-  BalancesByWalletAddressQueryType,
+  BalancesByWalletAddressQueryVariables,
+  BalancesByWalletAddressQuery,
+  BalancesByWalletAddressInput,
 } from '../types/tokens/getBalancesByWalletAddress';
 import {
   CodegenEthMainnetBalancesByWalletENSDocument,
@@ -36,8 +37,8 @@ export class TokensController {
   ) {}
 
   async getBalancesByWallet(
-    variables: BalancesByWalletAddressQueryVariablesType & NonQueryInput
-  ): Promise<BalancesByWalletENSFormattedResult> {
+    variables: BalancesByWalletAddressInput
+  ): Promise<BalancesByWalletENSResult> {
     const { address, ...allVariables } = variables;
     if (isValidENSAddress(address)) {
       return this.getBalancesByWalletENS({
@@ -52,8 +53,8 @@ export class TokensController {
   }
 
   private async getBalancesByWalletENS(
-    variables: BalancesByWalletENSQueryVariablesType & NonQueryInput
-  ): Promise<BalancesByWalletENSFormattedResult> {
+    variables: BalancesByWalletENSInput
+  ): Promise<BalancesByWalletENSResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -67,8 +68,8 @@ export class TokensController {
         [userChain]: { walletByENS },
       },
     } = await this.client.query<
-      BalancesByWalletENSQueryVariablesType,
-      BalancesByWalletENSQueryType,
+      BalancesByWalletENSQueryVariables,
+      BalancesByWalletENSQuery,
       BalancesByWalletENSQueryResultFull
     >({
       variables: queryVariables,
@@ -89,7 +90,7 @@ export class TokensController {
 
     const formattedResult = formatQueryResult<
       BalancesByWalletENSQueryResultInfo,
-      BalancesByWalletENSFormattedResult
+      BalancesByWalletENSResult
     >(
       walletByENS,
       'tokenBalances',
@@ -102,8 +103,8 @@ export class TokensController {
   }
 
   private async getBalancesByWalletAddress(
-    variables: BalancesByWalletAddressQueryVariablesType & NonQueryInput
-  ): Promise<BalancesByWalletAddressFormattedResult> {
+    variables: BalancesByWalletAddressInput
+  ): Promise<BalancesByWalletAddressResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -117,8 +118,8 @@ export class TokensController {
         [userChain]: { walletByAddress },
       },
     } = await this.client.query<
-      BalancesByWalletAddressQueryVariablesType,
-      BalancesByWalletAddressQueryType,
+      BalancesByWalletAddressQueryVariables,
+      BalancesByWalletAddressQuery,
       BalancesByWalletAddressQueryResultFull
     >({
       variables: queryVariables,
@@ -139,7 +140,7 @@ export class TokensController {
 
     const formattedResult = formatQueryResult<
       BalancesByWalletAddressQueryResultInfo,
-      BalancesByWalletAddressFormattedResult
+      BalancesByWalletAddressResult
     >(
       walletByAddress,
       'tokenBalances',
@@ -151,9 +152,7 @@ export class TokensController {
     return formattedResult;
   }
 
-  private flattenBalanceResponses(
-    response: any
-  ): BalancesByWalletENSFormattedResult {
+  private flattenBalanceResponses(response: any): BalancesByWalletENSResult {
     const modifiedResults = response.results.map((result: any) => {
       const {
         contract: { ...contractInfo },

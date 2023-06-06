@@ -1,12 +1,12 @@
 import { CustomUrqlClient } from '../graphql/customUrqlClient';
 import { ChainName } from '../types/chains';
 import { DEFAULT_CHAIN } from '../utils/constants';
-import { NonQueryInput } from '../types/input';
 import {
-  ContractDetailsFormattedResult,
+  ContractDetailsResult,
   ContractDetailsQueryResultFull,
-  ContractDetailsQueryVariablesType,
-  ContractDetailsQueryType,
+  ContractDetailsQueryVariables,
+  ContractDetailsQuery,
+  ContractDetailsInput,
 } from '../types/contracts/getContractDetails';
 import {
   CodegenEthMainnetContractDetailsDocument,
@@ -22,8 +22,8 @@ export class ContractsController {
   ) {}
 
   async getDetails(
-    variables: ContractDetailsQueryVariablesType & NonQueryInput
-  ): Promise<ContractDetailsFormattedResult> {
+    variables: ContractDetailsInput
+  ): Promise<ContractDetailsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -37,8 +37,8 @@ export class ContractsController {
         [userChain]: { contract },
       },
     } = await this.client.query<
-      ContractDetailsQueryVariablesType,
-      ContractDetailsQueryType,
+      ContractDetailsQueryVariables,
+      ContractDetailsQuery,
       ContractDetailsQueryResultFull
     >({
       variables: queryVariables,

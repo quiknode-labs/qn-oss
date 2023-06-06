@@ -4,13 +4,17 @@ import {
   CodegenContractInfoFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 
-export type ContractDetailsQueryType = {
+export type ContractDetailsQuery = {
   [k in ChainName]: CodegenEthMainnetContractDetailsQuery['ethereum'];
 };
 
-export type ContractDetailsQueryVariablesType =
+export type ContractDetailsQueryVariables =
   CodegenEthMainnetContractDetailsQueryVariables;
+
+export type ContractDetailsInput = ContractDetailsQueryVariables &
+  NonQueryInput;
 
 export interface ContractDetailsQueryResultInfo {
   contract: CodegenContractInfoFragment;
@@ -21,6 +25,6 @@ export type ContractDetailsQueryResultFull = Record<
   ContractDetailsQueryResultInfo
 >;
 
-export type ContractDetailsFormattedResult = {
+export type ContractDetailsResult = {
   contract: CodegenContractInfoFragment | null;
 };

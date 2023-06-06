@@ -1,6 +1,6 @@
 # QuickNode OSS Repository
 
-[QuickNode](https://www.quicknode.com/)'s open-source monorepo
+[QuickNode](https://www.quicknode.com/)'s open-source monorepo. This is a collection of our open-source tools that enable developers to use QuickNode services and blockchain development.
 
 ## Packages
 
@@ -9,5 +9,5 @@
 
 ## Apps
 
+- [QuickNode SDK example app](./packages/apps/examples/sdk-api/)
 - [nft-react-hooks example](./packages/apps/examples/nft-react-hooks)
-- [nft-sdk example](./packages/apps/examples/nft-sdk/)

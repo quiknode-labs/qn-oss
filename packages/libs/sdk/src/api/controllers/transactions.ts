@@ -1,33 +1,36 @@
 import { CustomUrqlClient } from '../graphql/customUrqlClient';
 import { ChainName } from '../types/chains';
 import { DEFAULT_CHAIN } from '../utils/constants';
-import { NonQueryInput } from '../types/input';
 import {
   TransactionsByWalletAddressQueryResultInfo,
-  TransactionsByWalletAddressFormattedResult,
+  TransactionsByWalletAddressResult,
   TransactionsByWalletAddressQueryResultFull,
-  TransactionsByWalletAddressQueryVariablesType,
-  TransactionsByWalletAddressQueryType,
+  TransactionsByWalletAddressQueryVariables,
+  TransactionsByWalletAddressQuery,
+  TransactionsByWalletAddressInput,
 } from '../types/transactions/getByWalletAddress';
 import {
   TransactionsByWalletENSQueryResultInfo,
-  TransactionsByWalletENSFormattedResult,
+  TransactionsByWalletENSResult,
   TransactionsByWalletENSQueryResultFull,
-  TransactionsByWalletENSQueryVariablesType,
-  TransactionsByWalletENSQueryType,
+  TransactionsByWalletENSQueryVariables,
+  TransactionsByWalletENSQuery,
+  TransactionsByWalletENSInput,
 } from '../types/transactions/getByWalletENS';
 import {
   TransactionsBySearchQueryResultInfo,
-  TransactionsBySearchFormattedResult,
+  TransactionsBySearchResult,
   TransactionsBySearchQueryResultFull,
-  TransactionsBySearchQueryVariablesType,
-  TransactionsBySearchQueryType,
+  TransactionsBySearchQueryVariables,
+  TransactionsBySearchQuery,
+  TransactionsBySearchInput,
 } from '../types/transactions/getBySearch';
 import {
-  TransactionsByHashFormattedResult,
+  TransactionsByHashResult,
   TransactionsByHashQueryResultFull,
-  TransactionsByHashQueryVariablesType,
-  TransactionsByHashQueryType,
+  TransactionsByHashQueryVariables,
+  TransactionsByHashQuery,
+  TransactionsByHashInput,
 } from '../types/transactions/getByHash';
 import {
   CodegenEthMainnetTransactionsByWalletAddressDocument,
@@ -55,10 +58,9 @@ export class TransactionsController {
   ) {}
 
   async getByWallet(
-    variables: TransactionsByWalletAddressQueryVariablesType & NonQueryInput
+    variables: TransactionsByWalletAddressInput
   ): Promise<
-    | TransactionsByWalletAddressFormattedResult
-    | TransactionsByWalletENSFormattedResult
+    TransactionsByWalletAddressResult | TransactionsByWalletENSResult
   > {
     const { address, ...allVariables } = variables;
     let queryResult:
@@ -90,14 +92,14 @@ export class TransactionsController {
 
     const formattedResult = formatQueryResult<
       TransactionsByWalletAddressQueryResultInfo, // this is the same as TransactionsByWalletENSQueryResultInfo
-      TransactionsByWalletAddressFormattedResult // this is the same as TransactionsByWalletENSFormattedResult
+      TransactionsByWalletAddressResult // this is the same as TransactionsByWalletENSResult
     >(queryResult, 'transactions', 'transactionsPageInfo');
 
     return formattedResult;
   }
 
   private async getByWalletAddress(
-    variables: TransactionsByWalletAddressQueryVariablesType & NonQueryInput
+    variables: TransactionsByWalletAddressInput
   ): Promise<TransactionsByWalletAddressQueryResultInfo> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
@@ -111,8 +113,8 @@ export class TransactionsController {
         [userChain]: { walletByAddress },
       },
     } = await this.client.query<
-      TransactionsByWalletAddressQueryVariablesType,
-      TransactionsByWalletAddressQueryType,
+      TransactionsByWalletAddressQueryVariables,
+      TransactionsByWalletAddressQuery,
       TransactionsByWalletAddressQueryResultFull
     >({
       variables: queryVariables,
@@ -123,7 +125,7 @@ export class TransactionsController {
   }
 
   private async getByWalletENS(
-    variables: TransactionsByWalletENSQueryVariablesType & NonQueryInput
+    variables: TransactionsByWalletENSInput
   ): Promise<TransactionsByWalletENSQueryResultInfo> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
@@ -137,8 +139,8 @@ export class TransactionsController {
         [userChain]: { walletByENS },
       },
     } = await this.client.query<
-      TransactionsByWalletENSQueryVariablesType,
-      TransactionsByWalletENSQueryType,
+      TransactionsByWalletENSQueryVariables,
+      TransactionsByWalletENSQuery,
       TransactionsByWalletENSQueryResultFull
     >({
       variables: queryVariables,
@@ -149,8 +151,8 @@ export class TransactionsController {
   }
 
   async getAll(
-    variables: TransactionsBySearchQueryVariablesType & NonQueryInput
-  ): Promise<TransactionsBySearchFormattedResult> {
+    variables: TransactionsBySearchInput
+  ): Promise<TransactionsBySearchResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -161,8 +163,8 @@ export class TransactionsController {
     const {
       data: { [userChain]: transactions },
     } = await this.client.query<
-      TransactionsBySearchQueryVariablesType,
-      TransactionsBySearchQueryType,
+      TransactionsBySearchQueryVariables,
+      TransactionsBySearchQuery,
       TransactionsBySearchQueryResultFull
     >({
       variables: queryVariables,
@@ -171,15 +173,15 @@ export class TransactionsController {
 
     const formattedResult = formatQueryResult<
       TransactionsBySearchQueryResultInfo,
-      TransactionsBySearchFormattedResult
+      TransactionsBySearchResult
     >(transactions, 'transactions', 'transactionsPageInfo');
 
     return formattedResult;
   }
 
   async getByHash(
-    variables: TransactionsByHashQueryVariablesType & NonQueryInput
-  ): Promise<TransactionsByHashFormattedResult> {
+    variables: TransactionsByHashInput
+  ): Promise<TransactionsByHashResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -191,8 +193,8 @@ export class TransactionsController {
     const {
       data: { [userChain]: transaction },
     } = await this.client.query<
-      TransactionsByHashQueryVariablesType,
-      TransactionsByHashQueryType,
+      TransactionsByHashQueryVariables,
+      TransactionsByHashQuery,
       TransactionsByHashQueryResultFull
     >({
       variables: queryVariables,

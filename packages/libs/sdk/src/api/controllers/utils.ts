@@ -1,12 +1,12 @@
 import { CustomUrqlClient } from '../graphql/customUrqlClient';
 import { ChainName } from '../types/chains';
 import { DEFAULT_CHAIN } from '../utils/constants';
-import { NonQueryInput } from '../types/input';
 import {
-  GasPricesFormattedResult,
+  GasPricesResult,
   GasPricesQueryResultFull,
-  GasPricesQueryVariablesType,
-  GasPricesQueryType,
+  GasPricesQueryVariables,
+  GasPricesQuery,
+  GasPricesInput,
 } from '../types/utils/gasPrices';
 import {
   CodegenEthMainnetGasPricesDocument,
@@ -22,9 +22,7 @@ export class UtilsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
-  async getGasPrices(
-    variables: GasPricesQueryVariablesType & NonQueryInput
-  ): Promise<GasPricesFormattedResult> {
+  async getGasPrices(variables: GasPricesInput): Promise<GasPricesResult> {
     const { chain, ...queryVariables } = variables;
     const returnInGwei = variables.returnInGwei || false;
     const userChain = chain || this.defaultChain;
@@ -39,8 +37,8 @@ export class UtilsController {
         [userChain]: { gasPrices },
       },
     } = await this.client.query<
-      GasPricesQueryVariablesType,
-      GasPricesQueryType,
+      GasPricesQueryVariables,
+      GasPricesQuery,
       GasPricesQueryResultFull
     >({
       query: query[userChain],

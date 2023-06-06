@@ -2,8 +2,9 @@ import {
   ContractEventsQueryResultInfo,
   ContractEventsFormattedResult,
   ContractEventsQueryResultFull,
-  ContractEventsQueryVariablesType,
-  ContractEventsQueryType,
+  ContractEventsQueryVariables,
+  ContractEventsQuery,
+  ContractEventsInput,
 } from '../types/events/getByContract';
 import {
   CollectionEventsQueryResultInfo,
@@ -21,10 +22,11 @@ import {
 } from '../types/nfts/getNFTEvents';
 import {
   AllEventsQueryResultInfo,
-  AllEventsFormattedResult,
+  AllEventsResult,
   AllEventsQueryResultFull,
-  AllEventsQueryVariablesType,
-  AllEventsQueryType,
+  AllEventsQueryVariables,
+  AllEventsQuery,
+  AllEventsInput,
 } from '../types/events/getAll';
 import {
   CodegenEthereumMainnetEventsByContractDocument,
@@ -170,9 +172,7 @@ export class EventsController {
     return formattedResult;
   }
 
-  async getAll(
-    variables: AllEventsQueryVariablesType & NonQueryInput
-  ): Promise<AllEventsFormattedResult> {
+  async getAll(variables: AllEventsInput): Promise<AllEventsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
@@ -184,8 +184,8 @@ export class EventsController {
     const {
       data: { [userChain]: tokenEvents },
     } = await this.client.query<
-      AllEventsQueryVariablesType,
-      AllEventsQueryType,
+      AllEventsQueryVariables,
+      AllEventsQuery,
       AllEventsQueryResultFull
     >({
       query: query[userChain],
@@ -194,7 +194,7 @@ export class EventsController {
 
     const formattedResult = formatQueryResult<
       AllEventsQueryResultInfo,
-      AllEventsFormattedResult
+      AllEventsResult
     >(tokenEvents, 'tokenEvents', 'tokenEventsPageInfo');
 
     return formattedResult;

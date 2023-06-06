@@ -5,13 +5,16 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 
-export type ContractEventsQueryType = {
+export type ContractEventsQuery = {
   [k in ChainName]: CodegenEthereumMainnetEventsByContractQuery['ethereum'];
 };
 
-export type ContractEventsQueryVariablesType =
+export type ContractEventsQueryVariables =
   CodegenEthereumMainnetEventsByContractQueryVariables;
+
+export type ContractEventsInput = ContractEventsQueryVariables & NonQueryInput;
 
 export interface ContractEventsQueryResultInfo {
   tokenEvents: CodegenTokenEventInfoFragment[];
@@ -27,7 +30,7 @@ export type ContractEventsQueryResultFull = Record<
   ContractEventsQueryResultBody
 >;
 
-export type ContractEventsFormattedResult = {
+export type ContractEventsResult = {
   results: CodegenTokenEventInfoFragment[];
   pageInfo: CodegenPaginationFragment;
 };

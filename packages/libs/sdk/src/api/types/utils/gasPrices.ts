@@ -4,14 +4,16 @@ import {
   CodegenGasPrice,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 
-export type GasPricesQueryType = {
+export type GasPricesQuery = {
   [k in ChainName]: CodegenEthMainnetGasPricesQuery['ethereum'];
 };
 
-export type GasPricesQueryVariablesType =
+export type GasPricesQueryVariables =
   CodegenEthMainnetGasPricesQueryVariables & { returnInGwei?: boolean };
 
+export type GasPricesInput = GasPricesQueryVariables & NonQueryInput;
 export interface GasPricesQueryResultInfo {
   gasPrices: CodegenGasPrice[];
 }
@@ -21,6 +23,6 @@ export type GasPricesQueryResultFull = Record<
   GasPricesQueryResultInfo
 >;
 
-export type GasPricesFormattedResult = {
+export type GasPricesResult = {
   gasPrices: CodegenGasPrice[];
 };

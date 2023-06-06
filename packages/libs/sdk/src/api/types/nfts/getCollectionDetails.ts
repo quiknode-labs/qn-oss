@@ -4,13 +4,17 @@ import {
   CodegenNftCollectionInfoFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 
-export type NftCollectionDetailsQueryType = {
+export type NftCollectionDetailsQuery = {
   [k in ChainName]: CodegenEthMainnetNftCollectionDetailsQuery['ethereum'];
 };
 
-export type NftCollectionDetailsQueryVariablesType =
+export type NftCollectionDetailsQueryVariables =
   CodegenEthMainnetNftCollectionDetailsQueryVariables;
+
+export type NftCollectionDetailsInput = NftCollectionDetailsQueryVariables &
+  NonQueryInput;
 
 export interface NftCollectionDetailsQueryResultInfo {
   collection: CodegenNftCollectionInfoFragment['collection'];
@@ -23,6 +27,6 @@ export type NftCollectionDetailsQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type NftCollectionDetailsFormattedResult = {
+export type NftCollectionDetailsResult = {
   collection: CodegenNftCollectionInfoFragment['collection'];
 };

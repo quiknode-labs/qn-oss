@@ -4,13 +4,16 @@ import {
   CodegenNftDetailsFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { NonQueryInput } from '../input';
 
-export type NFTDetailsQueryType = {
+export type NFTDetailsQuery = {
   [k in ChainName]: CodegenEthMainnetNFTDetailsQuery['ethereum'];
 };
 
-export type NFTDetailsQueryVariablesType =
+export type NFTDetailsQueryVariables =
   CodegenEthMainnetNFTDetailsQueryVariables;
+
+export type NFTDetailsInput = NFTDetailsQueryVariables & NonQueryInput;
 
 export interface NFTDetailsQueryResultInfo {
   nft: CodegenNftDetailsFragment['nft'];
@@ -22,6 +25,6 @@ export type NFTDetailsQueryResultFull = Record<
   NFTDetailsQueryResultInfo
 >;
 
-export type NFTDetailsFormattedResult = {
+export type NFTDetailsResult = {
   nft: CodegenNftDetailsFragment['nft'];
 };

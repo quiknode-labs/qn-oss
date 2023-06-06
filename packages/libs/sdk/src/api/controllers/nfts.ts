@@ -6,7 +6,7 @@ import {
   WalletNFTsByEnsQueryResultFull,
   WalletNFTsByEnsQueryVariables,
   WalletNFTsByEnsQuery,
-  WalletNFTsByENSInput,
+  WalletNFTsByEnsInput,
 } from '../types/nfts/getByWalletENS';
 import {
   WalletNFTsByAddressQueryResultInfo,
@@ -99,7 +99,7 @@ export class NftsController {
   }
 
   private async getByWalletENS(
-    variables: WalletNFTsByENSInput
+    variables: WalletNFTsByEnsInput
   ): Promise<WalletNFTsByEnsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;

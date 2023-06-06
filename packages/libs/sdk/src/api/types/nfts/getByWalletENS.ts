@@ -18,7 +18,7 @@ export type WalletNFTsByEnsQuery = {
 export type WalletNFTsByEnsQueryVariables =
   CodegenEthMainnetWalletNFTsByEnsQueryVariables;
 
-export type WalletNFTsByENSInput = WalletNFTsByEnsQueryVariables &
+export type WalletNFTsByEnsInput = WalletNFTsByEnsQueryVariables &
   NonQueryInput;
 
 export interface WalletNFTsByEnsQueryResultInfo {

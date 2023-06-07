@@ -91,7 +91,7 @@ These functions return data from the powerful [QuickNode Graph API](https://www.
 
 ### Configuration
 
-Sign up for a [QuickNode](https://www.quicknode.com/) account to use the multi-chain [QuickNode GraphQL API](https://www.quicknode.com/graph-api) API key in the SDK.
+Sign up for a [QuickNode](https://www.quicknode.com/) account to use the multi-chain [QuickNode Graph API](https://www.quicknode.com/graph-api) API key in the SDK. The API functions in the SDK (and the underlying Graph API) can be used without an API key, but its usage will be heavily rate limited, intended for trial and development purposes only. For more information, please see [QuickNode's Graph API documentation](https://docs.quicknode.com/docs/graphql/getting-started/)
 
 ```ts
 import QuickNode from '@quicknode/sdk';

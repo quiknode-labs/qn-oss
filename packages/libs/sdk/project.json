@@ -12,7 +12,8 @@
           "./node_modules/rollup/dist/bin/rollup --config packages/libs/sdk/rollup.mjs",
           "node ./tools/scripts/sdk_package_json.mjs"
         ],
-        "parallel": false
+        "parallel": false,
+        "outputPath": "dist/packages/libs/sdk"
       }
     },
     "publish": {

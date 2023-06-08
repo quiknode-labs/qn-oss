@@ -31,9 +31,9 @@ describe('getNFTsByWallet with ENS', () => {
               description: null,
               externalUrl: null,
               metadata: {},
-              name: 'digitalocean.eth',
+              name: null,
               tokenId:
-                '45129967949081731569091423139781563774511698358506968857407543276477264770298',
+                '50685890871471191256342199015362929537282628462001704949203871531598631920212',
             },
           ],
           pageInfo: {
@@ -65,7 +65,13 @@ describe('getNFTsByWallet with ENS', () => {
           first: 2,
           after: data1?.pageInfo?.endCursor,
         });
-        expect(data1).toStrictEqual({
+        const data3 = await api.nfts.getByWallet({
+          address: 'quicknode.eth',
+          first: 2,
+          before: data2?.pageInfo?.startCursor,
+        });
+
+        const expectedResponse1 = {
           results: [
             {
               animationUrl: null,
@@ -84,9 +90,9 @@ describe('getNFTsByWallet with ENS', () => {
               description: null,
               externalUrl: null,
               metadata: {},
-              name: 'digitalocean.eth',
+              name: null,
               tokenId:
-                '45129967949081731569091423139781563774511698358506968857407543276477264770298',
+                '50685890871471191256342199015362929537282628462001704949203871531598631920212',
             },
           ],
           pageInfo: {
@@ -97,9 +103,21 @@ describe('getNFTsByWallet with ENS', () => {
           },
           address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
           ensName: 'quicknode.eth',
-        });
+        };
+        expect(data1).toStrictEqual(expectedResponse1);
         expect(data2).toStrictEqual({
           results: [
+            {
+              animationUrl: null,
+              collectionSlug: null,
+              contractAddress: '0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85',
+              description: null,
+              externalUrl: null,
+              metadata: {},
+              name: 'digitalocean.eth',
+              tokenId:
+                '45129967949081731569091423139781563774511698358506968857407543276477264770298',
+            },
             {
               animationUrl: null,
               collectionSlug: null,
@@ -111,17 +129,6 @@ describe('getNFTsByWallet with ENS', () => {
               tokenId:
                 '98453072125691236847907277006096675934546424915169266808462253681542364422529',
             },
-            {
-              animationUrl: null,
-              collectionSlug: null,
-              contractAddress: '0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85',
-              description: null,
-              externalUrl: null,
-              metadata: {},
-              name: 'quicknode.eth',
-              tokenId:
-                '28927656078822353124102227766674837562209459487597422834030036871293329914335',
-            },
           ],
           pageInfo: {
             endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoz',
@@ -132,6 +139,7 @@ describe('getNFTsByWallet with ENS', () => {
           address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
           ensName: 'quicknode.eth',
         });
+        expect(data3).toStrictEqual(expectedResponse1);
       }
     );
   });

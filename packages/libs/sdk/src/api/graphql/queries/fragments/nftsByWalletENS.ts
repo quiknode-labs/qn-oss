@@ -8,7 +8,12 @@ export const WalletByEnsFragment = gql`
     walletByENS(ensName: $ensName) {
       address
       ensName
-      walletNFTs(after: $after, first: $first, filter: $filter) {
+      walletNFTs(
+        before: $before
+        after: $after
+        first: $first
+        filter: $filter
+      ) {
         pageInfo {
           ...Pagination
         }

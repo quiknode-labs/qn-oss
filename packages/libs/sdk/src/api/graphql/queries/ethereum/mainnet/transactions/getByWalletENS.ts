@@ -5,6 +5,7 @@ export const EthMainnetTransactionsByWalletENS = gql`
   query EthMainnetTransactionsByWalletENS(
     $ensName: String!
     $first: Int
+    $before: String
     $after: String
   ) {
     ethereum {

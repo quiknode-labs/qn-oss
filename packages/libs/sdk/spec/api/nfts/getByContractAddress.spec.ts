@@ -134,7 +134,12 @@ describe('nfts.getByContractAddress', () => {
           first: 2,
           after: data1?.pageInfo?.endCursor,
         });
-        expect(data1).toStrictEqual({
+        const data3 = await api.nfts.getByContractAddress({
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+          first: 2,
+          before: data2?.pageInfo?.startCursor,
+        });
+        const expectedResponse1 = {
           results: [
             {
               animationUrl: null,
@@ -232,7 +237,8 @@ describe('nfts.getByContractAddress', () => {
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
           standard: 'ERC721',
-        });
+        };
+        expect(data1).toStrictEqual(expectedResponse1);
         expect(data2).toStrictEqual({
           results: [
             {
@@ -274,6 +280,7 @@ describe('nfts.getByContractAddress', () => {
           },
           standard: 'ERC721',
         });
+        expect(data3).toStrictEqual(expectedResponse1);
       }
     );
   });

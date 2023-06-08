@@ -17,28 +17,30 @@ describe('events.getAll', () => {
         expect(data).toStrictEqual({
           results: [
             {
-              blockNumber: 17414768,
-              fromAddress: '0x0000000000000000000000000000000000000000',
-              timestamp: '2023-06-05T13:59:47.000Z',
-              toAddress: '0x47505a23b6ad20da63d10f7db6bc17c588736e7a',
+              blockNumber: 17436511,
+              fromAddress: '0x5a082a69f4c0dda3b8142ae93ab3b659905ed6c1',
+              timestamp: '2023-06-08T15:38:23.000Z',
+              toAddress: '0x9c143da2f408042137362c154484fa57dcd24c30',
               transactionHash:
-                '0x78eefe79e7c28f5587e9a899ac4f56ded6d1299a713af20eb5010bce6cfe72f5',
+                '0x54ab7978ced97d3602ab1a3bd18cec40de5be7d05051f64d2803b7207863c73c',
               transferIndex: 0,
-              type: 'MINT',
-              tokenQuantity: '1024000000000000000000',
+              type: 'TRANSFER',
+              tokenId: null,
+              contractAddress: '0x26ee9f83c61193ea6b636001b1550cd0edf6ebad',
+              tokenQuantity: '9968341450515928569671613',
             },
             {
-              blockNumber: 17414768,
-              fromAddress: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b',
-              timestamp: '2023-06-05T13:59:47.000Z',
-              toAddress: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b',
+              blockNumber: 17436511,
+              fromAddress: '0x9c143da2f408042137362c154484fa57dcd24c30',
+              timestamp: '2023-06-08T15:38:23.000Z',
+              toAddress: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad',
               transactionHash:
-                '0xdb83a6553a34eb22b064028fa8d8c8a03ef1c393fa85831d3035b32da71b2f2d',
+                '0x54ab7978ced97d3602ab1a3bd18cec40de5be7d05051f64d2803b7207863c73c',
               transferIndex: 2,
               type: 'TRANSFER',
               tokenId: null,
               contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-              tokenQuantity: '1000000000000000000',
+              tokenQuantity: '42853010875962186',
             },
           ],
           pageInfo: {
@@ -76,7 +78,17 @@ describe('events.getAll', () => {
             },
           },
         });
-        expect(data1).toStrictEqual({
+        const data3 = await api.events.getAll({
+          before: data2.pageInfo.startCursor,
+          first: 2,
+          filter: {
+            blockNumber: {
+              eq: 17414768,
+            },
+          },
+        });
+
+        const expectedResponse1 = {
           results: [
             {
               blockNumber: 17414768,
@@ -109,7 +121,8 @@ describe('events.getAll', () => {
             hasPreviousPage: false,
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
-        });
+        };
+        expect(data1).toStrictEqual(expectedResponse1);
         expect(data2).toStrictEqual({
           results: [
             {
@@ -146,6 +159,7 @@ describe('events.getAll', () => {
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoy',
           },
         });
+        expect(data3).toStrictEqual(expectedResponse1);
       }
     );
   });

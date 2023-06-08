@@ -87,7 +87,12 @@ describe('transactions.getByWallet with ENS', () => {
           first: 2,
           after: transactionss1.pageInfo.endCursor,
         });
-        expect(transactionss1).toStrictEqual({
+        const transactionss3 = await transactions.getByWallet({
+          address: 'quicknode.eth',
+          first: 2,
+          before: transactionss2.pageInfo.startCursor,
+        });
+        const expectedResponse1 = {
           results: [
             {
               blockNumber: 17166949,
@@ -138,7 +143,8 @@ describe('transactions.getByWallet with ENS', () => {
           },
           address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
           ensName: 'quicknode.eth',
-        });
+        };
+        expect(transactionss1).toStrictEqual(expectedResponse1);
         expect(transactionss2).toStrictEqual({
           results: [
             {
@@ -191,6 +197,7 @@ describe('transactions.getByWallet with ENS', () => {
           address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
           ensName: 'quicknode.eth',
         });
+        expect(transactionss3).toStrictEqual(expectedResponse1);
       }
     );
   });

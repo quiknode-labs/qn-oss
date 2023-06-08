@@ -10,7 +10,7 @@ export const NftsByContractAddressFragment = gql`
       address # using as key field for apollo caching
       __typename
       ... on ERC1155Collection {
-        nfts(first: $first, after: $after) {
+        nfts(first: $first, before: $before, after: $after) {
           pageInfo {
             ...Pagination
           }
@@ -22,7 +22,7 @@ export const NftsByContractAddressFragment = gql`
         }
       }
       ... on ERC721Collection {
-        nfts(first: $first, after: $after) {
+        nfts(first: $first, before: $before, after: $after) {
           pageInfo {
             ...Pagination
           }

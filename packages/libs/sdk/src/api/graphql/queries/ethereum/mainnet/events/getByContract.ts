@@ -5,6 +5,7 @@ export const EthereumMainnetEventsByContract = gql`
   query EthereumMainnetEventsByContract(
     $contractAddress: String!
     $filter: TokenEventsFilterInput
+    $before: String
     $after: String
     $first: Int
   ) {

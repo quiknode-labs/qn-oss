@@ -7,7 +7,7 @@ export const GetBalancesByWalletENSFragment = gql`
     walletByENS(ensName: $ensName) {
       address
       ensName
-      tokenBalances(first: $first, after: $after) {
+      tokenBalances(first: $first, before: $before, after: $after) {
         edges {
           node {
             ...TokenBalanceNode

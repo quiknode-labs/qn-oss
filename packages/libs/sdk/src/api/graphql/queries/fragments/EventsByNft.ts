@@ -8,7 +8,12 @@ export const NftEventsFragment = gql`
     nft(contractAddress: $contractAddress, tokenId: $tokenId) {
       contractAddress # using as key field for apollo caching
       tokenId # using as key field for apollo caching
-      tokenEvents(filter: $filter, after: $after, first: $first) {
+      tokenEvents(
+        filter: $filter
+        before: $before
+        after: $after
+        first: $first
+      ) {
         pageInfo {
           ...Pagination
         }

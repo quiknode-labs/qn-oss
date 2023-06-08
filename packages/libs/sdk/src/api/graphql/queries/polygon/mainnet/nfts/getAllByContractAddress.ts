@@ -4,6 +4,7 @@ import { NftsByContractAddressFragment } from '../../../fragments/nftsByContract
 export const PolygonMainnetNFTsByContractAddress = gql`
   query PolygonMainnetNFTsByContractAddress(
     $contractAddress: String!
+    $before: String
     $after: String
     $first: Int
   ) {

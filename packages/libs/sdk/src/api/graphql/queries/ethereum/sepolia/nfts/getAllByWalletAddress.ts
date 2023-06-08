@@ -4,6 +4,7 @@ import { WalletByAddressFragment } from '../../../fragments/nftsByWalletAddress'
 export const EthSepoliaWalletNFTsByAddress = gql`
   query EthSepoliaWalletNFTsByAddress(
     $address: String!
+    $before: String
     $after: String
     $first: Int
     $filter: WalletNFTsFilterInput

@@ -69,7 +69,12 @@ describe('nfts.getByNFTCollection', () => {
           first: 2,
           after: data1?.pageInfo?.endCursor,
         });
-        expect(data1).toStrictEqual({
+        const data3 = await api.events.getByNFTCollection({
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+          first: 2,
+          before: data2?.pageInfo?.startCursor,
+        });
+        const expectedResponse1 = {
           results: [
             {
               blockNumber: 13188760,
@@ -102,7 +107,8 @@ describe('nfts.getByNFTCollection', () => {
             hasPreviousPage: false,
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
-        });
+        };
+        expect(data1).toStrictEqual(expectedResponse1);
         expect(data2).toStrictEqual({
           results: [
             {
@@ -135,6 +141,7 @@ describe('nfts.getByNFTCollection', () => {
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoy',
           },
         });
+        expect(data3).toStrictEqual(expectedResponse1);
       }
     );
   });

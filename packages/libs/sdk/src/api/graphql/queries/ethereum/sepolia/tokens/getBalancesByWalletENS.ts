@@ -5,6 +5,7 @@ export const EthSepoliaBalancesByWalletENS = gql`
   query EthSepoliaBalancesByWalletENS(
     $ensName: String!
     $first: Int
+    $before: String
     $after: String
   ) {
     ethereumSepolia {

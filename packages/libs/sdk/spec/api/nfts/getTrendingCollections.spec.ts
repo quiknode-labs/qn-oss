@@ -1,6 +1,5 @@
 import { apiClient } from '../client';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { response } from 'express';
 
 const api = apiClient;
 

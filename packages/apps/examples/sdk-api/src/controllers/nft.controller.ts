@@ -7,7 +7,6 @@ export default {
       const NFTs = await nfts.getByWallet({
         address: req.params.address,
         first: 5,
-        after: 'T2Zmc2V0Q29ubmVjdGlvbjox',
       });
       return res.status(200).send(NFTs);
     } catch (error) {
@@ -33,7 +32,6 @@ export default {
     try {
       const NFTs = await nfts.getByContractAddress({
         contractAddress: req.params.contractAddress,
-        first: 3,
       });
       return res.status(200).send(NFTs);
     } catch (error) {

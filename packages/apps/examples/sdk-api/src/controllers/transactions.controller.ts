@@ -23,7 +23,7 @@ export default {
             eq: parseInt(req.params.blockNumber),
           },
         },
-        first: 3,
+        first: 5,
       });
       return res.status(200).send(allTransactions);
     } catch (error) {

@@ -93,8 +93,12 @@ function transformResponse(response) {
         properties = transformProperties(value);
       }
 
+      let name = key;
+      if (getType(value) === 'array') name = 'array';
+      if (getType(value) === 'object') name = 'object';
+
       return {
-        name: getType(value) === 'array' ? 'object' : key,
+        name: name,
         type: getType(value),
         desc: '',
         properties,

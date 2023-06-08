@@ -4,7 +4,12 @@ import { TransactionsNode } from './nodes/TransactionsNode';
 
 export const TransactionsBySearch = gql`
   fragment TransactionsBySearch on EVMSchemaType {
-    transactions(filter: $filter, after: $after, first: $first) {
+    transactions(
+      filter: $filter
+      before: $before
+      after: $after
+      first: $first
+    ) {
       edges {
         node {
           ...TransactionsNode

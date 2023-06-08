@@ -5,7 +5,12 @@ import { Pagination } from './pagination';
 
 export const EventsGetAll = gql`
   fragment EventsGetAll on EVMSchemaType {
-    tokenEvents(filter: $filter, first: $first, after: $after) {
+    tokenEvents(
+      filter: $filter
+      first: $first
+      before: $before
+      after: $after
+    ) {
       edges {
         node {
           ...TokenEventInfo

@@ -7,7 +7,7 @@ export const TransactionsByWalletENS = gql`
     walletByENS(ensName: $ensName) {
       address
       ensName
-      transactions(first: $first, after: $after) {
+      transactions(first: $first, before: $before, after: $after) {
         edges {
           node {
             ...TransactionsNode

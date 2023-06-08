@@ -5,7 +5,7 @@ import { Pagination } from './pagination';
 
 export const NftTrendingCollections = gql`
   fragment NftTrendingCollections on EVMSchemaType {
-    trendingCollections(first: $first, after: $after) {
+    trendingCollections(first: $first, before: $before, after: $after) {
       pageInfo {
         ...Pagination
       }

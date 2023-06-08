@@ -1,5 +1,6 @@
 import { apiClient } from '../client';
 import withPolly from '../../testSetup/pollyTestSetup';
+import e from 'express';
 
 const api = apiClient;
 
@@ -72,7 +73,13 @@ describe('events.getByNFT', () => {
           first: 2,
           after: data1?.pageInfo?.endCursor,
         });
-        expect(data1).toStrictEqual({
+        const data3 = await api.events.getByNFT({
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+          tokenId: '1518',
+          first: 2,
+          before: data2?.pageInfo?.startCursor,
+        });
+        const expectedResponse1 = {
           results: [
             {
               blockNumber: 13158918,
@@ -107,7 +114,8 @@ describe('events.getByNFT', () => {
             hasPreviousPage: false,
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
-        });
+        };
+        expect(data1).toStrictEqual(expectedResponse1);
         expect(data2).toStrictEqual({
           results: [
             {
@@ -146,6 +154,7 @@ describe('events.getByNFT', () => {
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoy',
           },
         });
+        expect(data3).toStrictEqual(expectedResponse1);
       }
     );
   });

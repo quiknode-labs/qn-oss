@@ -5,6 +5,7 @@ export const PolygonMainnetEventsByCollection = gql`
   query PolygonMainnetEventsByCollection(
     $contractAddress: String!
     $filter: TokenEventsFilterInput
+    $before: String
     $after: String
     $first: Int
   ) {

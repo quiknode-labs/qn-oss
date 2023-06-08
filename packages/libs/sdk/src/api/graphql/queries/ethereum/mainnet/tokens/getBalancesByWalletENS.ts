@@ -5,6 +5,7 @@ export const EthMainnetBalancesByWalletENS = gql`
   query EthMainnetBalancesByWalletENS(
     $ensName: String!
     $first: Int
+    $before: String
     $after: String
   ) {
     ethereum {

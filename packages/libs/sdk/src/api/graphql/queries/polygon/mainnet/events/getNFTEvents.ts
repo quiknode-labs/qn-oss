@@ -6,6 +6,7 @@ export const PolygonMainnetEventsByNft = gql`
     $contractAddress: String!
     $tokenId: String!
     $filter: TokenEventsFilterInput
+    $before: String
     $after: String
     $first: Int
   ) {

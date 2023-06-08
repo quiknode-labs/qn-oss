@@ -4,6 +4,7 @@ import { EventsGetAll } from '../../../fragments/EventsGetAll';
 export const EthereumSepoliaEventsGetAll = gql`
   query EthereumSepoliaEventsGetAll(
     $filter: TokenEventsFilterInput
+    $before: String
     $after: String
     $first: Int
   ) {

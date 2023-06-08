@@ -5,6 +5,7 @@ export const EthSepoliaTransactionsBySearch = gql`
   query EthSepoliaTransactionsBySearch(
     $filter: TransactionsFilterInput!
     $first: Int
+    $before: String
     $after: String
   ) {
     ethereumSepolia {

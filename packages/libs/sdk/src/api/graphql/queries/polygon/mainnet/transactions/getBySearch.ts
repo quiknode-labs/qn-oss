@@ -5,6 +5,7 @@ export const PolygonMainnetTransactionsBySearch = gql`
   query PolygonMainnetTransactionsBySearch(
     $filter: TransactionsFilterInput!
     $first: Int
+    $before: String
     $after: String
   ) {
     polygon {

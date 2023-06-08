@@ -5,6 +5,7 @@ export const PolygonMainnetTransactionsByWalletAddress = gql`
   query PolygonMainnetTransactionsByWalletAddress(
     $address: String!
     $first: Int
+    $before: String
     $after: String
   ) {
     polygon {

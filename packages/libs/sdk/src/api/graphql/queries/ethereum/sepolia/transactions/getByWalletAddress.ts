@@ -5,6 +5,7 @@ export const EthSepoliaTransactionsByWalletAddress = gql`
   query EthSepoliaTransactionsByWalletAddress(
     $address: String!
     $first: Int
+    $before: String
     $after: String
   ) {
     ethereumSepolia {

@@ -61,7 +61,12 @@ describe('tokens.getBalancesByWallet with address', () => {
           first: 2,
           after: balances1.pageInfo.endCursor,
         });
-        expect(balances1).toStrictEqual({
+        const balances3 = await tokens.getBalancesByWallet({
+          address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
+          first: 2,
+          before: balances2.pageInfo.startCursor,
+        });
+        const expectedResponse1 = {
           results: [
             {
               totalBalance: '35546774534000000000000000',
@@ -86,7 +91,8 @@ describe('tokens.getBalancesByWallet with address', () => {
           },
           address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
           ensName: 'quicknode.eth',
-        });
+        };
+        expect(balances1).toStrictEqual(expectedResponse1);
         expect(balances2).toStrictEqual({
           results: [
             {
@@ -113,6 +119,7 @@ describe('tokens.getBalancesByWallet with address', () => {
           address: '0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6',
           ensName: 'quicknode.eth',
         });
+        expect(balances3).toStrictEqual(expectedResponse1);
       }
     );
   });

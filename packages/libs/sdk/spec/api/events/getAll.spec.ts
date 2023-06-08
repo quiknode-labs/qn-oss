@@ -14,7 +14,6 @@ describe('events.getAll', () => {
         const data = await api.events.getAll({
           first: 2,
         });
-        console.log(data);
         expect(data).toStrictEqual({
           results: [
             {

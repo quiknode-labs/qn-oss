@@ -35,7 +35,8 @@
     "supertest": "^6.3.3"
   },
   "scripts": {
-    "codegen": "npx graphql-codegen --require dotenv/config"
+    "codegen": "npx graphql-codegen --require dotenv/config",
+    "generate-docs": "node scripts/generate-docs.js"
   },
   "exports": {
     ".": {

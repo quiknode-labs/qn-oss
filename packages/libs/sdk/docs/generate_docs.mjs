@@ -1,6 +1,7 @@
 import tsj from 'ts-json-schema-generator';
 import fs from 'fs';
 import path from 'path';
+import { type } from 'os';
 
 // esm patch for __dirname
 const __dirname = new URL('.', import.meta.url).pathname;
@@ -76,20 +77,24 @@ function getType(value) {
 }
 
 function transformResponse(response) {
-  const transformProperties = (prop, isInsideArray = false) => {
+  const transformProperties = (prop) => {
+    if (typeof prop !== 'object' && !Array.isArray(prop)) {
+      return [];
+    }
+
     return Object.entries(prop).map(([key, value]) => {
       let properties = [];
 
       if (getType(value) === 'array') {
         if (value[0]) {
-          properties = transformProperties(value[0], true);
+          properties = transformProperties(value[0]);
         }
       } else if (getType(value) === 'object') {
         properties = transformProperties(value);
       }
 
       return {
-        name: isInsideArray ? 'object' : key,
+        name: getType(value) === 'array' ? 'object' : key,
         type: getType(value),
         desc: '',
         properties,
@@ -97,12 +102,29 @@ function transformResponse(response) {
     });
   };
 
-  return Object.entries(response).map(([key, value]) => ({
-    name: key,
-    type: getType(value),
-    desc: '',
-    properties: transformProperties(value, getType(value) === 'array'),
-  }));
+  return Object.entries(response).map(([key, value]) => {
+    let properties = [];
+
+    if (getType(value) === 'array') {
+      if (value[0]) {
+        properties = transformProperties(value[0]);
+      }
+    } else if (getType(value) === 'object') {
+      properties = transformProperties(value);
+    }
+
+    let name = key;
+    if (getType(value) === 'array') name = 'array';
+    if (getType(value) === 'object') name = 'object';
+
+    return {
+      name,
+      type: getType(value),
+      desc: '',
+      properties,
+    };
+  });
 }
 
 console.log(JSON.stringify(transformResponse(returnGasPrices), null, 2));
+console.log(JSON.stringify(transformResponse(returnWalletBalances), null, 2));

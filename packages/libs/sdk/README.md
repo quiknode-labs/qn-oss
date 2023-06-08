@@ -132,7 +132,7 @@ Returns NFTs owned by a wallet
 | address  | string | ✅       | Wallet address or ENS domain                        | quicknode.eth                      |
 | first    | number | ❌       | Number of results to return                         | 10                                 |
 | before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow           |
-| after    | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=        |
+| after    | string | ❌       | Return results after cursor                         | T2Zmc2V0Q29ubmVjdGlvbjo2           |
 | chain    | string | ❌       | Blockchain name                                     | polygon                            |
 | filter   | object | ❌       | An object with the optional filters for the request | { contractAddressIn: ["0x00..."] } |
 
@@ -171,12 +171,12 @@ qn.nfts
 
 Returns trending NFT Collections
 
-| Argument | Values | Required | Description                  | Example                     |
-| -------- | ------ | -------- | ---------------------------- | --------------------------- |
-| first    | number | ❌       | Number of results to return  | 10                          |
-| before   | string | ❌       | Return results before cursor | T2Zmc2V0Q29ubmVjdGlvbjow    |
-| after    | string | ❌       | Return results after cursor  | YXJyYXljb25uZWN0aW9uOjUwNQ= |
-| chain    | string | ❌       | Blockchain name              | polygon                     |
+| Argument | Values | Required | Description                  | Example                  |
+| -------- | ------ | -------- | ---------------------------- | ------------------------ |
+| first    | number | ❌       | Number of results to return  | 10                       |
+| before   | string | ❌       | Return results before cursor | T2Zmc2V0Q29ubmVjdGlvbjow |
+| after    | string | ❌       | Return results after cursor  | T2Zmc2V0Q29ubmVjdGlvbjo2 |
+| chain    | string | ❌       | Blockchain name              | polygon                  |
 
 ```ts
 import QuickNode from '@quicknode/sdk';
@@ -203,7 +203,7 @@ Returns NFTs by contract address. The response differs based on if they are an E
 | contractAddress | string | ✅       | NFT contract address         | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
 | first           | number | ❌       | Number of results to return  | 10                                         |
 | before          | string | ❌       | Return results before cursor | T2Zmc2V0Q29ubmVjdGlvbjow                   |
-| after           | string | ❌       | Return results after cursor  | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| after           | string | ❌       | Return results after cursor  | T2Zmc2V0Q29ubmVjdGlvbjo2                   |
 | chain           | string | ❌       | Blockchain name              | polygon                                    |
 
 ```ts
@@ -284,7 +284,7 @@ Returns ERC20 token balances for a wallet
 | address  | string | ✅       | Wallet address or ENS domain | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
 | first    | number | ❌       | Number of results to return  | 10                                         |
 | before   | string | ❌       | Return results before cursor | T2Zmc2V0Q29ubmVjdGlvbjow                   |
-| after    | string | ❌       | Return results after cursor  | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| after    | string | ❌       | Return results after cursor  | T2Zmc2V0Q29ubmVjdGlvbjo2                   |
 | chain    | string | ❌       | Blockchain name              | polygon                                    |
 
 ```ts
@@ -346,7 +346,7 @@ Returns transactions for a wallet
 | address  | string | ✅       | Wallet address or ENS domain | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
 | first    | number | ❌       | Number of results to return  | 10                                         |
 | before   | string | ❌       | Return results before cursor | T2Zmc2V0Q29ubmVjdGlvbjow                   |
-| after    | string | ❌       | Return results after cursor  | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| after    | string | ❌       | Return results after cursor  | T2Zmc2V0Q29ubmVjdGlvbjo2                   |
 | chain    | string | ❌       | Blockchain name              | polygon                                    |
 
 ```ts
@@ -382,7 +382,7 @@ Returns transactions filtered by search parameters
 | -------- | ------ | -------- | --------------------------------------------------- | ------------------------------- |
 | first    | number | ❌       | Number of results to return                         | 10                              |
 | before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow        |
-| after    | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
+| after    | string | ❌       | Return results after cursor                         | T2Zmc2V0Q29ubmVjdGlvbjo2        |
 | chain    | string | ❌       | Blockchain name                                     | polygon                         |
 | filter   | object | ✅       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } } |
 
@@ -454,7 +454,7 @@ Returns events by contract address
 | -------- | ------ | -------- | --------------------------------------------------- | ------------------------------- |
 | first    | number | ❌       | Number of results to return                         | 10                              |
 | before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow        |
-| after    | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
+| after    | string | ❌       | Return results after cursor                         | T2Zmc2V0Q29ubmVjdGlvbjo2        |
 | chain    | string | ❌       | Blockchain name                                     | polygon                         |
 | filter   | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } } |
 
@@ -504,7 +504,7 @@ Returns the events for an NFT Collection
 | chain           | string | ❌       | Blockchain name                                     | polygon                                    |
 | first           | number | ❌       | Number of results to return                         | 10                                         |
 | before          | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow                   |
-| after           | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| after           | string | ❌       | Return results after cursor                         | T2Zmc2V0Q29ubmVjdGlvbjo2                   |
 | filter          | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } }            |
 
 `filter` Parameters
@@ -552,7 +552,7 @@ Returns the events for a specific NFT
 | chain           | string | ❌       | Blockchain name                                     | polygon                                    |
 | first           | number | ❌       | Number of results to return                         | 10                                         |
 | before          | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow                   |
-| after           | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| after           | string | ❌       | Return results after cursor                         | T2Zmc2V0Q29ubmVjdGlvbjo2                   |
 | filter          | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } }            |
 
 `filter` Parameters
@@ -597,7 +597,7 @@ Returns events filtered by search parameters
 | chain    | string | ❌       | Blockchain name                                     | polygon                         |
 | first    | number | ❌       | Number of results to return                         | 10                              |
 | before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow        |
-| after    | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
+| after    | string | ❌       | Return results after cursor                         | T2Zmc2V0Q29ubmVjdGlvbjo2        |
 | filter   | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } } |
 
 `filter` Parameters

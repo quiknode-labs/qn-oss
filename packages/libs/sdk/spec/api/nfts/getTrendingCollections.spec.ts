@@ -1,5 +1,6 @@
 import { apiClient } from '../client';
 import withPolly from '../../testSetup/pollyTestSetup';
+import { response } from 'express';
 
 const api = apiClient;
 
@@ -18,44 +19,43 @@ describe('getTrendingCollections', () => {
         expect(data).toStrictEqual({
           results: [
             {
-              address: '0xbe9371326f91345777b04394448c23e2bfeaa826',
-              baseTokenUri:
-                'ipfs://bafybeihqqmdxzslqafnqasuawlxk32n4qhg5rhshku7dkhlaz2bm5zamyq/',
-              circulatingSupply: 89453,
+              address: '0xebcf83bde8e82708bfc027b2c32412283b6c23ff',
+              baseTokenUri: null,
+              circulatingSupply: null,
               description: null,
               externalUrl: null,
               image: null,
-              name: 'Gemesis',
+              name: 'Scroto Schizos',
               openseaMetadata: {
-                isHidden: false,
-                isVerified: false,
-                unsafeSlug: 'gemesis-4',
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
               },
-              symbol: 'OSP',
+              symbol: 'SCHIZO',
               totalSupply: null,
               twitterUsername: null,
             },
             {
-              address: '0x884ba86faa29745b6c40b7098567a393e91335cf',
+              address: '0x0c9663115b36fa95d18e71d59054117bcb0342ef',
               baseTokenUri: null,
-              circulatingSupply: 9999,
+              circulatingSupply: null,
               description: null,
               externalUrl: null,
               image: null,
-              name: 'Saved Souls',
+              name: 'XTREME PIXELS',
               openseaMetadata: {
-                isHidden: false,
-                isVerified: false,
-                unsafeSlug: 'saved-souls-1',
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
               },
-              symbol: 'SS',
+              symbol: 'XPIX',
               totalSupply: null,
               twitterUsername: null,
             },
           ],
           pageInfo: {
             endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
-            hasNextPage: true,
+            hasNextPage: false,
             hasPreviousPage: false,
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
@@ -74,132 +74,210 @@ describe('getTrendingCollections', () => {
         const data1 = await api.nfts.getTrendingCollections({
           first: 2,
         });
-
         const data2 = await api.nfts.getTrendingCollections({
           first: 2,
           after: data1.pageInfo.endCursor,
         });
+        const data3 = await api.nfts.getTrendingCollections({
+          first: 2,
+          before: data2.pageInfo.startCursor,
+        });
 
-        expect(data1).toStrictEqual({
+        const expectedResponse1 = {
           results: [
             {
-              address: '0xbe9371326f91345777b04394448c23e2bfeaa826',
-              baseTokenUri:
-                'ipfs://bafybeihqqmdxzslqafnqasuawlxk32n4qhg5rhshku7dkhlaz2bm5zamyq/',
-              circulatingSupply: 89453,
+              address: '0xebcf83bde8e82708bfc027b2c32412283b6c23ff',
+              baseTokenUri: null,
+              circulatingSupply: null,
               description: null,
               externalUrl: null,
               image: null,
-              name: 'Gemesis',
+              name: 'Scroto Schizos',
               openseaMetadata: {
-                isHidden: false,
-                isVerified: false,
-                unsafeSlug: 'gemesis-4',
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
               },
-              symbol: 'OSP',
+              symbol: 'SCHIZO',
               totalSupply: null,
               twitterUsername: null,
             },
             {
-              address: '0x884ba86faa29745b6c40b7098567a393e91335cf',
+              address: '0x0c9663115b36fa95d18e71d59054117bcb0342ef',
               baseTokenUri: null,
-              circulatingSupply: 9999,
+              circulatingSupply: null,
               description: null,
               externalUrl: null,
               image: null,
-              name: 'Saved Souls',
+              name: 'XTREME PIXELS',
               openseaMetadata: {
-                isHidden: false,
-                isVerified: false,
-                unsafeSlug: 'saved-souls-1',
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
               },
-              symbol: 'SS',
+              symbol: 'XPIX',
               totalSupply: null,
               twitterUsername: null,
             },
           ],
           pageInfo: {
             endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
-            hasNextPage: true,
+            hasNextPage: false,
             hasPreviousPage: false,
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
-        });
-
+        };
+        expect(data1).toStrictEqual(expectedResponse1);
         expect(data2).toStrictEqual({
           results: [
             {
-              address: '0x20d93d65ada7ee46235f95f5995ae5c5dc5ac44c',
-              baseTokenUri: '',
+              address: '0x0c9663115b36fa95d18e71d59054117bcb0342ef',
+              baseTokenUri: null,
               circulatingSupply: null,
               description: null,
               externalUrl: null,
               image: null,
-              name: 'IllegalMemes',
+              name: 'XTREME PIXELS',
               openseaMetadata: {
                 isHidden: null,
                 isVerified: null,
                 unsafeSlug: null,
               },
-              symbol: 'MEMES',
+              symbol: 'XPIX',
               totalSupply: null,
               twitterUsername: null,
             },
             {
-              address: '0xd79e4cc964e5a2c1e400fe5a8488c71d9fd9847e',
+              address: '0xd2a713c0f0953ccbffd93c86534624de5940e62e',
               baseTokenUri: null,
-              circulatingSupply: 7776,
+              circulatingSupply: 4275,
               description:
-                'DenDekaDen is a community-driven narrative franchise launched between Strata and Toei Animation.\nWith Kyoto as its stage, DenDekaDen introduces a modern legend that connects Japan and the world in new ways,\ninterweaving Japanese traditions and mythologies with the digital world of blockchain, empowered by community participation. \n\nSpirit Key Avatars are avatars (PFPs) representing believers of the 7 DenDekaDen deities. \nHolders may customize certain attributes and equip relics to their avatars.\nBound by our shared beliefs, we, the circle of creators, curators, and believers are here to write a new chapter.\n\nOur beliefs create gods.\nDo you believe?',
-              externalUrl: 'https://www.dendekaden.com/',
+                '“memes and deth about crypto street art” is a MAD cc0 movement and a brand new artistic experimentations brought to you by Streetlab x niftyjutsu & frens\n\neach MAD piece can be used as a currency to take part in auctions hosted on streetlab.io\n\nfind out more on https://streetlab.io/ and https://linktr.ee/niftyjutsu',
+              externalUrl: 'https://streetlab.io/mad',
               image: [
                 {
                   height: 100,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/xs/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/xs/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
                   width: 100,
                 },
                 {
                   height: 200,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/sm/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/sm/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
                   width: 200,
                 },
                 {
                   height: 400,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/md/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/md/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
                   width: 400,
                 },
                 {
                   height: 800,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/lg/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/lg/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
                   width: 800,
                 },
                 {
                   height: 1200,
-                  mimeType: 'image/png',
-                  url: 'https://images.quicknode.workers.dev/xl/catalog/unprocessed/chains/ethereum-mainnet/collection-images/5f3d21c48038d18df90fe0fa53aea4a285bd4119',
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/xl/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
                   width: 1200,
                 },
               ],
-              name: 'DenDekaDen Spirit Key Avatars',
+              name: 'MAD about crypto street-art',
               openseaMetadata: {
                 isHidden: false,
-                isVerified: false,
-                unsafeSlug: 'dendekaden-spirit-key-avatar',
+                isVerified: true,
+                unsafeSlug: 'mad-about-crypto-street-art',
               },
-              symbol: '$KEY',
+              symbol: 'MAD',
               totalSupply: null,
-              twitterUsername: null,
+              twitterUsername: 'Streetlab_io',
             },
           ],
           pageInfo: {
             endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoz',
-            hasNextPage: true,
+            hasNextPage: false,
             hasPreviousPage: true,
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoy',
+          },
+        });
+        expect(data3).toStrictEqual({
+          results: [
+            {
+              address: '0x0c9663115b36fa95d18e71d59054117bcb0342ef',
+              baseTokenUri: null,
+              circulatingSupply: null,
+              description: null,
+              externalUrl: null,
+              image: null,
+              name: 'XTREME PIXELS',
+              openseaMetadata: {
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
+              },
+              symbol: 'XPIX',
+              totalSupply: null,
+              twitterUsername: null,
+            },
+            {
+              address: '0xd2a713c0f0953ccbffd93c86534624de5940e62e',
+              baseTokenUri: null,
+              circulatingSupply: 4275,
+              description:
+                '“memes and deth about crypto street art” is a MAD cc0 movement and a brand new artistic experimentations brought to you by Streetlab x niftyjutsu & frens\n\neach MAD piece can be used as a currency to take part in auctions hosted on streetlab.io\n\nfind out more on https://streetlab.io/ and https://linktr.ee/niftyjutsu',
+              externalUrl: 'https://streetlab.io/mad',
+              image: [
+                {
+                  height: 100,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/xs/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 100,
+                },
+                {
+                  height: 200,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/sm/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 200,
+                },
+                {
+                  height: 400,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/md/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 400,
+                },
+                {
+                  height: 800,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/lg/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 800,
+                },
+                {
+                  height: 1200,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/xl/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 1200,
+                },
+              ],
+              name: 'MAD about crypto street-art',
+              openseaMetadata: {
+                isHidden: false,
+                isVerified: true,
+                unsafeSlug: 'mad-about-crypto-street-art',
+              },
+              symbol: 'MAD',
+              totalSupply: null,
+              twitterUsername: 'Streetlab_io',
+            },
+          ],
+          pageInfo: {
+            endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
         });
       }

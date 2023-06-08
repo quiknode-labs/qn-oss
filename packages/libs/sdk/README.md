@@ -131,7 +131,8 @@ Returns NFTs owned by a wallet
 | -------- | ------ | -------- | --------------------------------------------------- | ---------------------------------- |
 | address  | string | ✅       | Wallet address or ENS domain                        | quicknode.eth                      |
 | first    | number | ❌       | Number of results to return                         | 10                                 |
-| after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=        |
+| before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow           |
+| after    | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=        |
 | chain    | string | ❌       | Blockchain name                                     | polygon                            |
 | filter   | object | ❌       | An object with the optional filters for the request | { contractAddressIn: ["0x00..."] } |
 
@@ -170,11 +171,12 @@ qn.nfts
 
 Returns trending NFT Collections
 
-| Argument | Values | Required | Description                     | Example                     |
-| -------- | ------ | -------- | ------------------------------- | --------------------------- |
-| first    | number | ❌       | Number of results to return     | 10                          |
-| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ= |
-| chain    | string | ❌       | Blockchain name                 | polygon                     |
+| Argument | Values | Required | Description                  | Example                     |
+| -------- | ------ | -------- | ---------------------------- | --------------------------- |
+| first    | number | ❌       | Number of results to return  | 10                          |
+| before   | string | ❌       | Return results before cursor | T2Zmc2V0Q29ubmVjdGlvbjow    |
+| after    | string | ❌       | Return results after cursor  | YXJyYXljb25uZWN0aW9uOjUwNQ= |
+| chain    | string | ❌       | Blockchain name              | polygon                     |
 
 ```ts
 import QuickNode from '@quicknode/sdk';
@@ -196,12 +198,13 @@ qn.nfts
 
 Returns NFTs by contract address. The response differs based on if they are an ERC721 or ERC1155 standard.
 
-| Argument        | Values | Required | Description                     | Example                                    |
-| --------------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
-| contractAddress | string | ✅       | NFT contract address            | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
-| first           | number | ❌       | Number of results to return     | 10                                         |
-| after           | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
-| chain           | string | ❌       | Blockchain name                 | polygon                                    |
+| Argument        | Values | Required | Description                  | Example                                    |
+| --------------- | ------ | -------- | ---------------------------- | ------------------------------------------ |
+| contractAddress | string | ✅       | NFT contract address         | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
+| first           | number | ❌       | Number of results to return  | 10                                         |
+| before          | string | ❌       | Return results before cursor | T2Zmc2V0Q29ubmVjdGlvbjow                   |
+| after           | string | ❌       | Return results after cursor  | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain           | string | ❌       | Blockchain name              | polygon                                    |
 
 ```ts
 import QuickNode from '@quicknode/sdk';
@@ -276,12 +279,13 @@ qn.nfts
 
 Returns ERC20 token balances for a wallet
 
-| Argument | Values | Required | Description                     | Example                                    |
-| -------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
-| address  | string | ✅       | Wallet address or ENS domain    | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
-| first    | number | ❌       | Number of results to return     | 10                                         |
-| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
-| chain    | string | ❌       | Blockchain name                 | polygon                                    |
+| Argument | Values | Required | Description                  | Example                                    |
+| -------- | ------ | -------- | ---------------------------- | ------------------------------------------ |
+| address  | string | ✅       | Wallet address or ENS domain | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
+| first    | number | ❌       | Number of results to return  | 10                                         |
+| before   | string | ❌       | Return results before cursor | T2Zmc2V0Q29ubmVjdGlvbjow                   |
+| after    | string | ❌       | Return results after cursor  | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain    | string | ❌       | Blockchain name              | polygon                                    |
 
 ```ts
 import QuickNode from '@quicknode/sdk';
@@ -337,12 +341,13 @@ qn.contracts
 
 Returns transactions for a wallet
 
-| Argument | Values | Required | Description                     | Example                                    |
-| -------- | ------ | -------- | ------------------------------- | ------------------------------------------ |
-| address  | string | ✅       | Wallet address or ENS domain    | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
-| first    | number | ❌       | Number of results to return     | 10                                         |
-| after    | string | ❌       | Return results after end cursor | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
-| chain    | string | ❌       | Blockchain name                 | polygon                                    |
+| Argument | Values | Required | Description                  | Example                                    |
+| -------- | ------ | -------- | ---------------------------- | ------------------------------------------ |
+| address  | string | ✅       | Wallet address or ENS domain | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17 |
+| first    | number | ❌       | Number of results to return  | 10                                         |
+| before   | string | ❌       | Return results before cursor | T2Zmc2V0Q29ubmVjdGlvbjow                   |
+| after    | string | ❌       | Return results after cursor  | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| chain    | string | ❌       | Blockchain name              | polygon                                    |
 
 ```ts
 import QuickNode from '@quicknode/sdk';
@@ -376,7 +381,8 @@ Returns transactions filtered by search parameters
 | Argument | Values | Required | Description                                         | Example                         |
 | -------- | ------ | -------- | --------------------------------------------------- | ------------------------------- |
 | first    | number | ❌       | Number of results to return                         | 10                              |
-| after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
+| before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow        |
+| after    | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
 | chain    | string | ❌       | Blockchain name                                     | polygon                         |
 | filter   | object | ✅       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } } |
 
@@ -447,7 +453,8 @@ Returns events by contract address
 | Argument | Values | Required | Description                                         | Example                         |
 | -------- | ------ | -------- | --------------------------------------------------- | ------------------------------- |
 | first    | number | ❌       | Number of results to return                         | 10                              |
-| after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
+| before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow        |
+| after    | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
 | chain    | string | ❌       | Blockchain name                                     | polygon                         |
 | filter   | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } } |
 
@@ -496,7 +503,8 @@ Returns the events for an NFT Collection
 | contractAddress | string | ✅       | NFT contract address                                | 0x2106C00Ac7dA0A3430aE667879139E832307AeAa |
 | chain           | string | ❌       | Blockchain name                                     | polygon                                    |
 | first           | number | ❌       | Number of results to return                         | 10                                         |
-| after           | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| before          | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow                   |
+| after           | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
 | filter          | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } }            |
 
 `filter` Parameters
@@ -543,7 +551,8 @@ Returns the events for a specific NFT
 | tokenId         | string | ✅       | NFT Token ID                                        | 1                                          |
 | chain           | string | ❌       | Blockchain name                                     | polygon                                    |
 | first           | number | ❌       | Number of results to return                         | 10                                         |
-| after           | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
+| before          | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow                   |
+| after           | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=                |
 | filter          | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } }            |
 
 `filter` Parameters
@@ -587,7 +596,8 @@ Returns events filtered by search parameters
 | -------- | ------ | -------- | --------------------------------------------------- | ------------------------------- |
 | chain    | string | ❌       | Blockchain name                                     | polygon                         |
 | first    | number | ❌       | Number of results to return                         | 10                              |
-| after    | string | ❌       | Return results after end cursor                     | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
+| before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow        |
+| after    | string | ❌       | Return results after cursor                         | YXJyYXljb25uZWN0aW9uOjUwNQ=     |
 | filter   | object | ❌       | An object with the optional filters for the request | { blockNumber: { eq: 123456 } } |
 
 `filter` Parameters
@@ -731,7 +741,7 @@ For example, if a response contains:
 
 ```json
 {
-  "results": [],
+  "results": [...],
   "pageInfo": {
     "endCursor": "T2Zmc2V0Q29ubmVjdGlvbjox",
     "hasNextPage": true,
@@ -746,8 +756,32 @@ calling the following will get the next page of results
 ```typescript
 qn.nfts.getByWallet({
   address: 'quicknode.eth',
-  first: 5,
-  after: 'T2Zmc2V0Q29ubmVjdGlvbjox',
+  after: 'T2Zmc2V0Q29ubmVjdGlvbjox', // Using the endCursor
+});
+```
+
+You can do the same with `before` and return the results before the specified cursor if `hasPreviousPage` is true
+
+For example, if the response contains the following:
+
+```json
+{
+  "results": [...],
+  "pageInfo": {
+    "endCursor": "T2Zmc2V0Q29ubmVjdGlvbjo2",
+    "hasNextPage": true,
+    "hasPreviousPage": true,
+    "startCursor": "T2Zmc2V0Q29ubmVjdGlvbjoy"
+  }
+}
+```
+
+calling the following will get the previous page of results
+
+```typescript
+qn.nfts.getByWallet({
+  address: 'quicknode.eth',
+  before: 'T2Zmc2V0Q29ubmVjdGlvbjoy', // Using the startCursor
 });
 ```
 

@@ -72,6 +72,7 @@ describe('nfts.getByNFTCollection', () => {
         const data3 = await api.events.getByNFTCollection({
           contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           first: 2,
+          before: data2?.pageInfo?.startCursor,
         });
         const expectedResponse1 = {
           results: [

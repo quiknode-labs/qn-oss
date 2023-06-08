@@ -7,6 +7,7 @@ export default {
       const NFTs = await nfts.getByWallet({
         address: req.params.address,
         first: 5,
+        after: 'T2Zmc2V0Q29ubmVjdGlvbjox',
       });
       return res.status(200).send(NFTs);
     } catch (error) {

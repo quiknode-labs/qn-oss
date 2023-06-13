@@ -32,7 +32,7 @@ export default {
 
   viemMethods: async (req: Request, res: Response) => {
     try {
-      const response = await core.viem.fromHex(
+      const response = core.viem.fromHex(
         '0x48656c6c6f20776f726c642e',
         'string'
       );

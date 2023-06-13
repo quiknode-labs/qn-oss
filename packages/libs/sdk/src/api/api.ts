@@ -14,6 +14,7 @@ import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
 import schema from './graphql/schema.json';
 import { TransactionsController } from './controllers/transactions';
+import packageJson from '../../package.json';
 
 export interface ApiArguments {
   graphApiKey?: string;
@@ -76,6 +77,8 @@ export class API {
   private createUrqlClient(): Client {
     const headers = { ...this.additionalHeaders };
     if (this.graphApiKey) headers['x-api-key'] = this.graphApiKey;
+    headers['x-quicknode-sdk'] = 'js-sdk';
+    headers['x-quicknode-sdk-version'] = packageJson?.version || 'n/a';
     const useNftKey = (data: Data) =>
       `${data['contractAddress']}:${data['tokenId']}`;
     const useAddressAsKey = (data: Data) => `${data['address']}`;

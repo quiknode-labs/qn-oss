@@ -17,3 +17,8 @@ export const utils = api.utils;
 export const contracts = api.contracts;
 export const transactions = api.transactions;
 export const events = api.events;
+
+export const core = new QuickNode.Core({
+  endpointUrl: process.env['QUICKNODE_ENDPOINT_URL'] || '',
+  apiClient: api,
+});

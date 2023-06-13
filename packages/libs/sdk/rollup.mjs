@@ -10,6 +10,7 @@ import { URL } from 'url';
 const __dirname = new URL('.', import.meta.url).pathname;
 const rootDir = path.resolve(__dirname);
 const toAbsoluteDir = (relativeDir) => path.resolve(rootDir, relativeDir);
+const buildRootDir = 'dist/packages/libs/sdk';
 
 const bundle = (config) => ({
   input: toAbsoluteDir('./src/index.ts'),
@@ -20,45 +21,66 @@ const bundle = (config) => ({
 const sharedPlugins = [
   externals(), // Exclude node_modules from bundle
   json({ compact: true }),
-  typescript({
-    tsconfig: toAbsoluteDir('tsconfig.lib.json'),
-  }),
 ];
 
 export default [
   bundle({
+    preserveModules: true,
     output: {
-      file: 'dist/packages/libs/sdk/esm/index.js',
+      dir: `${buildRootDir}/esm`,
       format: 'esm',
     },
-    plugins: [...sharedPlugins],
+    plugins: [
+      ...sharedPlugins,
+      typescript({
+        tsconfig: toAbsoluteDir('tsconfig.lib.json'),
+        outDir: `${buildRootDir}/esm`,
+      }),
+    ],
   }),
   bundle({
     output: {
-      file: 'dist/packages/libs/sdk/cjs/index.js',
+      file: `${buildRootDir}/cjs/index.js`,
       format: 'cjs',
       exports: 'named',
     },
     plugins: [
       ...sharedPlugins,
+      typescript({
+        tsconfig: toAbsoluteDir('tsconfig.lib.json'),
+      }),
       copy({
         targets: [
           {
             src: [toAbsoluteDir('README.md'), toAbsoluteDir('package.json')],
-            dest: 'dist/packages/libs/sdk/',
+            dest: `${buildRootDir}/`,
           },
         ],
       }),
     ],
   }),
   bundle({
-    plugins: [
-      dts({
-        input: toAbsoluteDir('./src/index.ts'),
-      }),
-    ], // Rollup the .d.ts files
+    input: toAbsoluteDir('./src/index.ts'),
+    plugins: [dts()], // Rollup the .d.ts files
     output: {
-      file: 'dist/packages/libs/sdk/index.d.ts',
+      file: `${buildRootDir}/index.d.ts`,
+      format: 'es',
+    },
+  }),
+  // TODO: the subpath export types don't seem to be working
+  bundle({
+    input: toAbsoluteDir('./src/api/index.ts'),
+    plugins: [dts()], // Rollup the .d.ts files
+    output: {
+      file: `${buildRootDir}/esm/api/index.d.ts`,
+      format: 'es',
+    },
+  }),
+  bundle({
+    input: toAbsoluteDir('./src/viemExport/index.ts'),
+    plugins: [dts()], // Rollup the .d.ts files
+    output: {
+      file: `${buildRootDir}/esm/viemExport/index.d.ts`,
       format: 'es',
     },
   }),

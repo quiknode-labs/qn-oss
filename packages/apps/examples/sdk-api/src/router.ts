@@ -6,6 +6,7 @@ import utilController from './controllers/util.controller';
 import contractsController from './controllers/contracts.controller';
 import transactionsController from './controllers/transactions.controller';
 import eventsController from './controllers/events.controller';
+import coreController from './controllers/core.controller';
 const router = express.Router();
 
 router.get('/api', (req, res) => {
@@ -58,4 +59,9 @@ router.get(
 );
 router.get('/api/transactionByHash/:hash', transactionsController.getByHash);
 router.get('/api/getAllEvents/:blockNumber', eventsController.getAllEvents);
+router.get(
+  '/api/core/readContract/:contractAddress',
+  coreController.readContract
+);
+router.get('/api/core/sdk_fetch_nfts/:wallet', coreController.sdk_qn_fetchNFTs);
 export default router;

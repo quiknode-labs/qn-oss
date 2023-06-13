@@ -6,7 +6,6 @@ export default {
     try {
       const contractDetails = await contracts.getDetails({
         contractAddress: req.params.contractAddress,
-        foo: 'bar',
       });
       console.log(contractDetails);
       return res.status(200).send(contractDetails);

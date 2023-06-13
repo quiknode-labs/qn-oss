@@ -15,7 +15,7 @@
           "error",
           {
             "enforceBuildableLibDependency": true,
-            "allow": ["io-ts", "fp-ts"],
+            "allow": ["zod"],
             "depConstraints": [
               {
                 "sourceTag": "scope:ui:util",

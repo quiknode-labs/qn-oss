@@ -7,6 +7,7 @@ import {
   ContractDetailsQueryVariables,
   ContractDetailsQuery,
   ContractDetailsInput,
+  contractDetailsInput,
 } from '../types/contracts/getContractDetails';
 import {
   CodegenEthMainnetContractDetailsDocument,
@@ -14,21 +15,6 @@ import {
   CodegenPolygonMainnetContractDetailsDocument,
 } from '../graphql/generatedTypes';
 import { TypedDocumentNode } from '@urql/core';
-import { validateInput } from '../../decorators/ValidateInput';
-import * as t from 'io-ts';
-
-// Runtime Validation
-const ChainName = t.keyof({
-  ethereum: t.string,
-  polygon: t.string,
-  ethereumSepolia: t.string,
-});
-
-// Runtime Validation
-const GetDetailsValidation = t.type({
-  chain: ChainName,
-  contractAddress: t.string,
-});
 
 export class ContractsController {
   constructor(
@@ -39,7 +25,7 @@ export class ContractsController {
   async getDetails(
     variables: ContractDetailsInput
   ): Promise<ContractDetailsResult> {
-    validateInput(GetDetailsValidation, variables);
+    contractDetailsInput.parse(variables);
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {

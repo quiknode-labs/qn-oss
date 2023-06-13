@@ -77,7 +77,7 @@ export class API {
   private createUrqlClient(): Client {
     const headers = { ...this.additionalHeaders };
     if (this.graphApiKey) headers['x-api-key'] = this.graphApiKey;
-    headers['x-quicknode-sdk'] = 'js';
+    headers['x-quicknode-sdk'] = 'js-sdk';
     headers['x-quicknode-sdk-version'] = packageJson?.version || 'n/a';
     const useNftKey = (data: Data) =>
       `${data['contractAddress']}:${data['tokenId']}`;

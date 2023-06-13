@@ -64,4 +64,5 @@ router.get(
   coreController.readContract
 );
 router.get('/api/core/sdk_fetch_nfts/:wallet', coreController.sdk_qn_fetchNFTs);
+router.get('/api/core/sdk_viem_methods', coreController.viemMethods);
 export default router;

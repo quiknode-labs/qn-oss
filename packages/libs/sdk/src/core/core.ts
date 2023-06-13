@@ -4,6 +4,7 @@ import { mainnet } from 'viem/chains';
 import type API from '../../src/api';
 import { CoreContract } from './coreContract';
 import { NFTTokenAddOn } from './nftTokenAddOn';
+import * as viem from 'viem';
 /* eslint-enable @nx/enforce-module-boundaries */
 
 export interface CoreArguments {
@@ -17,6 +18,7 @@ export class Core {
   readonly apiClient: API | null | undefined;
   readonly endpointUrl: string;
   readonly nftTokenAddOn: NFTTokenAddOn;
+  readonly viem: typeof viem;
 
   // TODO: Determine endpoint chain from qn url
   constructor({ endpointUrl, network, apiClient }: CoreArguments) {
@@ -28,6 +30,7 @@ export class Core {
       transport: http(endpointUrl),
     });
     this.nftTokenAddOn = new NFTTokenAddOn({ publicClient: this.public });
+    this.viem = viem;
   }
 
   async getContract({

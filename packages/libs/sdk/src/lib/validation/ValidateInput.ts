@@ -1,15 +1,6 @@
 import { ZodType, ZodError } from 'zod';
+import { QNInputValidationError } from '../errors';
 
-export class QNInputValidationError extends Error {
-  errors: string[];
-
-  constructor({ errors }: { errors: string[] }) {
-    super('QuickNode SDK Input Validation Error');
-    this.errors = errors;
-  }
-}
-
-// TODO: Should we make these human or machine readable (or both with a config option)?
 export function formatErrors(
   baseError: ZodError
 ): QNInputValidationError | null {

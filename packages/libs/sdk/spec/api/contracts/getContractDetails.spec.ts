@@ -1143,12 +1143,22 @@ describe('contract.getDetails', () => {
     );
   });
 
-  // verify error is thrown when an invalid contract address is passed into api.contracts.getDetails
-  it('handles invalid address', async () => {
+  it('throws an error when there is an invalid address', async () => {
     await expect(
       api.contracts.getDetails({
         contractAddress: '0x2106c00ac7da0a3430ae667879139e832307ZZZZ',
       })
-    ).rejects.toThrow();
+    ).rejects.toThrowError(/Not a valid ethereum address/);
+  });
+
+  it('throws an error when there is an extra param', async () => {
+    await expect(
+      api.contracts.getDetails({
+        contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+        // Need to ignore this to replicate no type checking in javascript
+        // @ts-ignore
+        notAParam: 'notAParam',
+      })
+    ).rejects.toThrowError(/Unrecognized key(s) in object: 'notAParam'/);
   });
 });

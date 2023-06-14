@@ -1142,4 +1142,13 @@ describe('contract.getDetails', () => {
       }
     );
   });
+
+  // verify error is thrown when an invalid contract address is passed into api.contracts.getDetails
+  it('handles invalid address', async () => {
+    await expect(
+      api.contracts.getDetails({
+        contractAddress: '0x2106c00ac7da0a3430ae667879139e832307ZZZZ',
+      })
+    ).rejects.toThrow();
+  });
 });

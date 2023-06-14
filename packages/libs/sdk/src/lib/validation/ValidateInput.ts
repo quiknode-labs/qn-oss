@@ -17,6 +17,7 @@ export function formatErrors(
     : null;
 }
 
+// Decorator for runtime validation to handle input that is unkown at compile time
 export function ValidateInput(schema: ZodType<unknown>) {
   return function (
     target: unknown,

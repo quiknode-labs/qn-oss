@@ -3,7 +3,9 @@ import {
   CodegenEthMainnetContractDetailsQuery,
   CodegenContractInfoFragment,
 } from '../../graphql/generatedTypes';
-import { ChainName, supportedChainInput } from '../chains';
+import { ChainName } from '../chains';
+import { isEvmAddress } from '../../../lib/validation/zodHelpers';
+import { supportedChainInput } from '../chains';
 import { z } from 'zod';
 
 export type ContractDetailsQuery = {
@@ -16,7 +18,7 @@ export type ContractDetailsQueryVariables =
 // Using zod for runtime validation
 export const contractDetailsValidator = z
   .object({
-    contractAddress: z.string().startsWith('0x').length(42),
+    contractAddress: isEvmAddress,
   })
   .merge(supportedChainInput)
   .strict();

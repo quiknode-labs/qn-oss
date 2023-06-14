@@ -29,6 +29,7 @@ import {
   AllEventsQueryVariables,
   AllEventsQuery,
   AllEventsInput,
+  allEventsValidator,
 } from '../types/events/getAll';
 import {
   CodegenEthereumMainnetEventsByContractDocument,
@@ -50,6 +51,7 @@ import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@urql/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
+import { ValidateInput } from 'lib/validation/ValidateInput';
 
 export class EventsController {
   constructor(
@@ -171,6 +173,7 @@ export class EventsController {
     return formattedResult;
   }
 
+  @ValidateInput(allEventsValidator)
   async getAll(variables: AllEventsInput): Promise<AllEventsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;

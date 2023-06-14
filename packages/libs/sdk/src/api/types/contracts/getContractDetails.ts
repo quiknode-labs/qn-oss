@@ -4,7 +4,7 @@ import {
   CodegenContractInfoFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { isEvmAddress } from '../../../lib/validation/zodHelpers';
+import { isEvmAddress } from '../../../lib/validation/validators';
 import { supportedChainInput } from '../chains';
 import { z } from 'zod';
 

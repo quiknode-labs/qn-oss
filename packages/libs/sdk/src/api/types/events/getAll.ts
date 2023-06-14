@@ -4,7 +4,12 @@ import {
   CodegenTokenEventInfoFragment,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
-import { ChainName, supportedChainInput } from '../chains';
+import { ChainName } from '../chains';
+import {
+  supportedChainInput,
+  tokenEventFilters,
+} from '../../../lib/validation/validators';
+
 import { z } from 'zod';
 
 export type AllEventsQuery = {
@@ -16,9 +21,10 @@ export type AllEventsQueryVariables =
 
 export const allEventsValidator = z
   .object({
-    before: z.string().optional(),
-    after: z.string().optional(),
-    first: z.string().optional(),
+    before: z.string().nullish(),
+    after: z.string().nullish(),
+    first: z.number().positive().nullish(),
+    filter: tokenEventFilters.nullish(),
   })
   .merge(supportedChainInput)
   .strict();

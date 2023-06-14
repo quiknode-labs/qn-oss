@@ -4,8 +4,10 @@ import {
   CodegenContractInfoFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { isEvmAddress } from '../../../lib/validation/validators';
-import { supportedChainInput } from '../chains';
+import {
+  isEvmAddress,
+  supportedChainInput,
+} from '../../../lib/validation/validators';
 import { z } from 'zod';
 
 export type ContractDetailsQuery = {

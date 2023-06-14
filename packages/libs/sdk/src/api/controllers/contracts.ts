@@ -7,7 +7,7 @@ import {
   ContractDetailsQueryVariables,
   ContractDetailsQuery,
   ContractDetailsInput,
-  contractDetailsInput,
+  contractDetailsValidator,
 } from '../types/contracts/getContractDetails';
 import {
   CodegenEthMainnetContractDetailsDocument,
@@ -15,6 +15,7 @@ import {
   CodegenPolygonMainnetContractDetailsDocument,
 } from '../graphql/generatedTypes';
 import { TypedDocumentNode } from '@urql/core';
+import { ValidateInput } from '../../lib/validation/ValidateInput';
 
 export class ContractsController {
   constructor(
@@ -22,10 +23,10 @@ export class ContractsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
+  @ValidateInput(contractDetailsValidator)
   async getDetails(
     variables: ContractDetailsInput
   ): Promise<ContractDetailsResult> {
-    contractDetailsInput.parse(variables);
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {

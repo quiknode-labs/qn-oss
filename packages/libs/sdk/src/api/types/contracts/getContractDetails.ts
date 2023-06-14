@@ -14,14 +14,15 @@ export type ContractDetailsQueryVariables =
   CodegenEthMainnetContractDetailsQueryVariables;
 
 // Using zod for runtime validation
-export const contractDetailsInput = z
+export const contractDetailsValidator = z
   .object({
     contractAddress: z.string().startsWith('0x').length(42),
   })
-  .merge(supportedChainInput);
+  .merge(supportedChainInput)
+  .strict();
 
 // Infer the type from the zod schema
-export type ContractDetailsInput = z.infer<typeof contractDetailsInput>;
+export type ContractDetailsInput = z.infer<typeof contractDetailsValidator>;
 
 export interface ContractDetailsQueryResultInfo {
   contract: CodegenContractInfoFragment;

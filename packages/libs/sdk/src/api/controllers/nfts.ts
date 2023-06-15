@@ -38,6 +38,7 @@ import {
   NFTTrendingCollectionsQueryVariables,
   NFTTrendingCollectionsQuery,
   NFTTrendingCollectionsInput,
+  nftTrendingCollectionsValidator,
 } from '../types/nfts/getTrendingCollections';
 import {
   NFTsByContractAddressQueryResultInfo,
@@ -188,6 +189,7 @@ export class NftsController {
     return formattedResult;
   }
 
+  @ValidateInput(nftTrendingCollectionsValidator)
   async getTrendingCollections(
     variables: NFTTrendingCollectionsInput
   ): Promise<NFTTrendingCollectionResult> {
@@ -209,10 +211,6 @@ export class NftsController {
       query: query[userChain], // The actual graphql query
       variables: queryVariables,
     });
-
-    if (!trendingCollections?.trendingCollections?.length) {
-      return { results: [], pageInfo: emptyPageInfo };
-    }
 
     const formattedResult = formatQueryResult<
       NFTTrendingCollectionsQueryResultBody,

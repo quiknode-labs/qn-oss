@@ -273,4 +273,73 @@ describe('events.getAll', () => {
       }
     );
   });
+
+  it('throws error if blockNumber filter is invalid', async () => {
+    await expect(
+      api.events.getAll({
+        first: 2,
+        filter: {
+          blockNumber: {
+            eq: -1,
+          },
+        },
+      })
+    ).rejects.toThrowError(/Number must be greater than 0/);
+  });
+
+  it('throws error if transactionHash filter is invalid', async () => {
+    await expect(
+      api.events.getAll({
+        first: 2,
+        filter: {
+          transactionHash: {
+            eq: '0xZzZzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+          },
+        },
+      })
+    ).rejects.toThrowError(/Not a valid transaction hash/);
+  });
+
+  it('throws an error if there is an invalid param', async () => {
+    await expect(
+      api.events.getAll({
+        first: 2,
+        // ignoring so we can test like it's javascript
+        // @ts-ignore
+        invalidParam: 'hi',
+      })
+    ).rejects.toThrowError(/Unrecognized key\(s\) in object: 'invalidParam'/);
+  });
+
+  it('throws an error if there is an invalid param in filter', async () => {
+    await expect(
+      api.events.getAll({
+        first: 2,
+        filter: {
+          // ignoring so we can test like it's javascript
+          // @ts-ignore
+          invalidParam: 'hi',
+        },
+      })
+    ).rejects.toThrowError(
+      /filter: Unrecognized key\(s\) in object: 'invalidParam'/
+    );
+  });
+
+  it('throws an error if there is an invalid operator in filter', async () => {
+    await expect(
+      api.events.getAll({
+        first: 2,
+        filter: {
+          blockNumber: {
+            // ignoring so we can test like it's javascript
+            // @ts-ignore
+            notAnOperator: 11111,
+          },
+        },
+      })
+    ).rejects.toThrowError(
+      /filter,blockNumber: Unrecognized key\(s\) in object: 'notAnOperator'/
+    );
+  });
 });

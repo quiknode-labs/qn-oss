@@ -4,7 +4,7 @@ export {
 } from './contracts/getContractDetails';
 export { AllEventsInput, AllEventsResult } from './events/getAll';
 export {
-  ContractEventsInput,
+  ContractEventsInput2,
   ContractEventsResult,
 } from './events/getByContract';
 export {

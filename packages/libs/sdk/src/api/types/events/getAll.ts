@@ -6,8 +6,8 @@ import {
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
 import {
+  baseEventsInput,
   supportedChainInput,
-  tokenEventFilters,
 } from '../../../lib/validation/validators';
 
 import { z } from 'zod';
@@ -19,13 +19,7 @@ export type AllEventsQuery = {
 export type AllEventsQueryVariables =
   CodegenEthereumMainnetEventsGetAllQueryVariables;
 
-export const allEventsValidator = z
-  .object({
-    before: z.string().nullish(),
-    after: z.string().nullish(),
-    first: z.number().positive().nullish(),
-    filter: tokenEventFilters.nullish(),
-  })
+export const allEventsValidator = baseEventsInput
   .merge(supportedChainInput)
   .strict();
 

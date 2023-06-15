@@ -4,7 +4,8 @@ import {
   ContractEventsQueryResultFull,
   ContractEventsQueryVariables,
   ContractEventsQuery,
-  ContractEventsInput,
+  ContractEventsInput2,
+  contractEventsValidator,
 } from '../types/events/getByContract';
 import {
   CollectionEventsQueryResultInfo,
@@ -51,7 +52,7 @@ import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
 import { TypedDocumentNode } from '@urql/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
-import { ValidateInput } from 'lib/validation/ValidateInput';
+import { ValidateInput } from '../../lib/validation/ValidateInput';
 
 export class EventsController {
   constructor(
@@ -59,8 +60,9 @@ export class EventsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
+  @ValidateInput(contractEventsValidator)
   async getByContract(
-    variables: ContractEventsInput
+    variables: ContractEventsInput2
   ): Promise<ContractEventsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;

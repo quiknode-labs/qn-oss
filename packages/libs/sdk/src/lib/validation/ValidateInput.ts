@@ -29,7 +29,10 @@ export function ValidateInput(schema: ZodType<unknown>) {
 
     descriptor.value = async function (...args: ZodType<unknown>[]) {
       const [input] = args;
+      console.log(schema);
+      console.log(input);
       const validation = schema.safeParse(input);
+      console.log(validation.success);
       if (!validation.success) {
         const formattedErrors = formatErrors(validation.error);
         if (formattedErrors) {

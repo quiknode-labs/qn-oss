@@ -1159,6 +1159,6 @@ describe('contract.getDetails', () => {
         // @ts-ignore
         notAParam: 'notAParam',
       })
-    ).rejects.toThrowError(/Unrecognized key(s) in object: 'notAParam'/);
+    ).rejects.toThrowError(/Unrecognized key\(s\) in object: 'notAParam'/);
   });
 });

@@ -18,39 +18,56 @@ export const isEvmTransactionHash = z
   .startsWith('0x') // Using built-in function for better error messages
   .regex(/^0x[a-fA-F0-9]{64}$/, 'Not a valid transaction hash');
 
-export const supportedChainInput = z.object({
-  chain: z.enum(supportedChains).nullish(),
-});
+export const supportedChainInput = z
+  .object({
+    chain: z.enum(supportedChains).nullish(),
+  })
+  .strict();
 
-function fullFilters(baseType: ZodTypeAny) {
-  return z.object({
-    eq: baseType.nullish(),
-    gt: baseType.nullish(),
-    gte: baseType.nullish(),
-    in: z.array(baseType).nullish(),
-    lt: baseType.nullish(),
-    lte: baseType.nullish(),
-    notIn: z.array(baseType).nullish(),
-  });
+function fullFilters<T extends ZodTypeAny>(baseType: T) {
+  return z
+    .object({
+      eq: baseType.nullish(),
+      gt: baseType.nullish(),
+      gte: baseType.nullish(),
+      in: z.array(baseType).nullish(),
+      lt: baseType.nullish(),
+      lte: baseType.nullish(),
+      notIn: z.array(baseType).nullish(),
+    })
+    .strict();
 }
 
-function limitedFilters(baseType: ZodTypeAny) {
-  return z.object({
-    eq: baseType.nullish(),
-    in: z.array(baseType).nullish(),
-    notIn: z.array(baseType).nullish(),
-  });
+function limitedFilters<T extends ZodTypeAny>(baseType: T) {
+  return z
+    .object({
+      eq: baseType.nullish(),
+      in: z.array(baseType).nullish(),
+      notIn: z.array(baseType).nullish(),
+    })
+    .strict();
 }
 
-export const tokenEventFilters = z.object({
-  blockNumber: fullFilters(z.string()).nullish(),
-  contractAddress: limitedFilters(isEvmAddress).nullish(),
-  contractStandard: limitedFilters(isContractStandard).nullish(),
-  fromAddress: limitedFilters(isEvmAddress).nullish(),
-  marketplace: limitedFilters(isMarketplace).nullish(),
-  timestamp: fullFilters(z.string().datetime()).nullish(), // TODO: check if this matches the graph API standard
-  toAddress: limitedFilters(isEvmAddress).nullish(),
-  transactionHash: limitedFilters(isEvmTransactionHash).nullish(),
-  type: limitedFilters(isTokenTransferType).nullish(),
-  walletAddress: limitedFilters(isEvmAddress).nullish(),
-});
+export const tokenEventFilters = z
+  .object({
+    blockNumber: fullFilters(z.number().positive()).nullish(),
+    contractAddress: limitedFilters(isEvmAddress).nullish(),
+    contractStandard: limitedFilters(isContractStandard).nullish(),
+    fromAddress: limitedFilters(isEvmAddress).nullish(),
+    marketplace: limitedFilters(isMarketplace).nullish(),
+    timestamp: fullFilters(z.string().datetime({ offset: true })).nullish(), // TODO: check if this matches the graph API standard
+    toAddress: limitedFilters(isEvmAddress).nullish(),
+    transactionHash: limitedFilters(isEvmTransactionHash).nullish(),
+    type: limitedFilters(isTokenTransferType).nullish(),
+    walletAddress: limitedFilters(isEvmAddress).nullish(),
+  })
+  .strict();
+
+export const baseEventsInput = z
+  .object({
+    before: z.string().nullish(),
+    after: z.string().nullish(),
+    first: z.number().positive().nullish(),
+    filter: tokenEventFilters.nullish(),
+  })
+  .strict();

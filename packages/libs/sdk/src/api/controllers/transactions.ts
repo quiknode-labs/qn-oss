@@ -50,6 +50,8 @@ import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
+import { ValidateInput } from '../../lib/validation/ValidateInput';
+import { balancesByWalletAddressValidator } from 'api/types/tokens/getBalancesByWalletAddress';
 
 export class TransactionsController {
   constructor(
@@ -57,15 +59,12 @@ export class TransactionsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
+  @ValidateInput(balancesByWalletAddressValidator)
   async getByWallet(
     variables: TransactionsByWalletAddressInput
-  ): Promise<
-    TransactionsByWalletAddressResult | TransactionsByWalletENSResult
-  > {
+  ): Promise<TransactionsByWalletAddressResult> {
     const { address, ...allVariables } = variables;
-    let queryResult:
-      | TransactionsByWalletAddressQueryResultInfo
-      | TransactionsByWalletENSQueryResultInfo;
+    let queryResult: TransactionsByWalletAddressQueryResultInfo;
     if (isValidENSAddress(address)) {
       queryResult = await this.getByWalletENS({
         ensName: address,

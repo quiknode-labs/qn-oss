@@ -11,7 +11,6 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
 import { z } from 'zod';
 
 // Using the generated CodegenEthMainnetBalancesByWalletAddressQuery as a base for the type here

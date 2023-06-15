@@ -14,6 +14,7 @@ import {
   CollectionEventsQueryVariables,
   CollectionEventsQuery,
   CollectionEventsInput,
+  collectionEventsValidator,
 } from '../types/nfts/getCollectionEvents';
 import {
   NFTEventsQueryResultInfo,
@@ -100,6 +101,7 @@ export class EventsController {
     return formattedResult;
   }
 
+  @ValidateInput(collectionEventsValidator)
   async getByNFTCollection(
     variables: CollectionEventsInput
   ): Promise<CollectionEventsResult> {

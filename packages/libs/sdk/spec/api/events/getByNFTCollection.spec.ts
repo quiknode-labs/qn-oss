@@ -154,7 +154,7 @@ describe('nfts.getByNFTCollection', () => {
       },
       async () => {
         const data = await api.events.getByNFTCollection({
-          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307fake',
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307aaaa',
           first: 2,
         });
         expect(data).toStrictEqual({
@@ -210,6 +210,24 @@ describe('nfts.getByNFTCollection', () => {
           },
         });
       }
+    );
+  });
+
+  it('throws an error when no contract address is provided', async () => {
+    await expect(
+      api.events
+        // @ts-ignore
+        .getByNFTCollection({})
+    ).rejects.toThrowError(/contractAddress: Required/);
+  });
+
+  it('throws an error when an invalid contract address is provided', async () => {
+    await expect(
+      api.events.getByNFTCollection({
+        contractAddress: '123',
+      })
+    ).rejects.toThrowError(
+      /contractAddress: String must contain exactly 42 character\(s\)/
     );
   });
 });

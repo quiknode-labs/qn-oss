@@ -732,7 +732,7 @@ The `QNInputValidationError` instance has the following properties:
 
 | Property | Type       | Description                                                                                                                                            |
 | -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| messages | string[]   | A concatenated string of error messages, useful for logging or human-readble parsing                                                                   |
+| messages | string[]   | A concatenated string of error messages, useful for logging or human-readable parsing                                                                  |
 | zodError | ZodError   | The full `ZodError` instance, see [the Zod error handling docs](https://github.com/colinhacks/zod/blob/master/ERROR_HANDLING.md) for more information  |
 | issues   | ZodIssue[] | An array of [Zod Issue](https://github.com/colinhacks/zod/blob/master/ERROR_HANDLING.md#zodissue) instances, which is a formatted error data structure |
 

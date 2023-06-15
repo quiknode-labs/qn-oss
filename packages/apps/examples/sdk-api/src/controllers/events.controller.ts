@@ -23,7 +23,7 @@ export default {
     } catch (error: unknown) {
       if (error instanceof QNInputValidationError) {
         console.error(error.stack);
-        return res.status(401).send({ errors: error.errors });
+        return res.status(401).send({ errors: error.issues });
       } else {
         console.error(error);
         return res.status(500).send('Something went wrong!');

@@ -52,7 +52,7 @@ import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
-import { balancesByWalletAddressValidator } from 'api/types/tokens/getBalancesByWalletAddress';
+import { balancesByWalletAddressValidator } from '../../api/types/tokens/getBalancesByWalletAddress';
 
 export class TransactionsController {
   constructor(

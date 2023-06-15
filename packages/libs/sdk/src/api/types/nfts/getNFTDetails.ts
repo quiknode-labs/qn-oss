@@ -1,4 +1,7 @@
-import { isEvmAddress, supportedChainInput } from 'lib/validation/validators';
+import {
+  isEvmAddress,
+  supportedChainInput,
+} from '../../../lib/validation/validators';
 import {
   CodegenEthMainnetNFTDetailsQueryVariables,
   CodegenEthMainnetNFTDetailsQuery,

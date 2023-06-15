@@ -1,7 +1,7 @@
 import {
   paginationParams,
   supportedChainInput,
-} from 'lib/validation/validators';
+} from '../../../lib/validation/validators';
 import {
   CodegenEthMainnetTrendingCollectionsQuery,
   CodegenEthMainnetTrendingCollectionsQueryVariables,

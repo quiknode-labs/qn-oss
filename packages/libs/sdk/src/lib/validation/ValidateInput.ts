@@ -13,11 +13,14 @@ export function formatErrors(
   });
 
   return errorMessages.length > 0
-    ? new QNInputValidationError({ errors: errorMessages })
+    ? new QNInputValidationError({
+        messages: errorMessages,
+        zodError: baseError,
+      })
     : null;
 }
 
-// Decorator for runtime validation to handle input that is unkown at compile time
+// Decorator for runtime validation to handle input that is unknown at compile time
 export function ValidateInput(schema: ZodType<unknown>) {
   return function (
     target: unknown,

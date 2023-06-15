@@ -3,7 +3,7 @@ import {
   isEvmAddress,
   paginationParams,
   supportedChainInput,
-} from 'lib/validation/validators';
+} from '../../../lib/validation/validators';
 import {
   CodegenEthMainnetTransactionsByWalletAddressQueryVariables,
   CodegenEthMainnetTransactionsByWalletAddressQuery,

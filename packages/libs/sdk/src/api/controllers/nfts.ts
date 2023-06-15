@@ -23,6 +23,7 @@ import {
   NFTDetailsQueryVariables,
   NFTDetailsQuery,
   NFTDetailsInput,
+  nftDetailsValidator,
 } from '../types/nfts/getNFTDetails';
 import {
   NftCollectionDetailsResult,
@@ -281,6 +282,7 @@ export class NftsController {
     return formattedResult;
   }
 
+  @ValidateInput(nftDetailsValidator)
   async getNFTDetails(variables: NFTDetailsInput): Promise<NFTDetailsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;

@@ -11,7 +11,6 @@ import {
 } from '../types/transactions/getByWalletAddress';
 import {
   TransactionsByWalletENSQueryResultInfo,
-  TransactionsByWalletENSResult,
   TransactionsByWalletENSQueryResultFull,
   TransactionsByWalletENSQueryVariables,
   TransactionsByWalletENSQuery,
@@ -32,6 +31,7 @@ import {
   TransactionsByHashQueryVariables,
   TransactionsByHashQuery,
   TransactionsByHashInput,
+  transactionsByHashValidator,
 } from '../types/transactions/getByHash';
 import {
   CodegenEthMainnetTransactionsByWalletAddressDocument,
@@ -180,6 +180,7 @@ export class TransactionsController {
     return formattedResult;
   }
 
+  @ValidateInput(transactionsByHashValidator)
   async getByHash(
     variables: TransactionsByHashInput
   ): Promise<TransactionsByHashResult> {

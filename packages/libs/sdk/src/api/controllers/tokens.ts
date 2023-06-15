@@ -16,6 +16,7 @@ import {
   BalancesByWalletAddressQueryVariables,
   BalancesByWalletAddressQuery,
   BalancesByWalletAddressInput,
+  balancesByWalletAddressValidator,
 } from '../types/tokens/getBalancesByWalletAddress';
 import {
   CodegenEthMainnetBalancesByWalletENSDocument,
@@ -29,6 +30,7 @@ import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
+import { ValidateInput } from '../../lib/validation/ValidateInput';
 
 export class TokensController {
   constructor(
@@ -36,6 +38,7 @@ export class TokensController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
+  @ValidateInput(balancesByWalletAddressValidator)
   async getBalancesByWallet(
     variables: BalancesByWalletAddressInput
   ): Promise<BalancesByWalletENSResult> {

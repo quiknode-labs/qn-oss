@@ -47,6 +47,7 @@ import {
   NFTsByContractAddressQueryVariables,
   NFTsByContractAddressQuery,
   NFTsByContractAddressInput,
+  nftsByContractAddressValidator,
 } from '../types/nfts/getByContractAddress';
 
 import {
@@ -225,6 +226,7 @@ export class NftsController {
     return formattedResult;
   }
 
+  @ValidateInput(nftsByContractAddressValidator)
   async getByContractAddress(
     variables: NFTsByContractAddressInput
   ): Promise<NFTsByContractAddressResult> {

@@ -31,6 +31,7 @@ import {
   NftCollectionDetailsQueryVariables,
   NftCollectionDetailsQuery,
   NftCollectionDetailsInput,
+  nftCollectionDetailsValidator,
 } from '../types/nfts/getCollectionDetails';
 import {
   NFTTrendingCollectionsQueryResultBody,
@@ -309,6 +310,7 @@ export class NftsController {
     return { nft: null };
   }
 
+  @ValidateInput(nftCollectionDetailsValidator)
   async getCollectionDetails(
     variables: NftCollectionDetailsInput
   ): Promise<NftCollectionDetailsResult> {

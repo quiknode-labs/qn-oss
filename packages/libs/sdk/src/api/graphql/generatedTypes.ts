@@ -17,32 +17,49 @@ export type Scalars = {
   JSONObject: any;
 };
 
+/** Fetches an NFT collection */
 export type CodegenCollection = {
+  /** The contract address of the collection */
   address: Scalars['String'];
+  /** Attributes within a collection */
   attributes?: Maybe<CodegenCollectionAttributesConnection>;
   /** Collection banner image. */
   bannerImage?: Maybe<Array<CodegenTokenUpload>>;
+  /** The base token uri of the collection */
   baseTokenUri?: Maybe<Scalars['String']>;
+  /** The circulating supply of tokens within the collection */
   circulatingSupply?: Maybe<Scalars['BigInt']>;
   contract?: Maybe<CodegenNFTContract>;
+  /** The description of the collection */
   description?: Maybe<Scalars['String']>;
+  /** The external url of the collection */
   externalUrl?: Maybe<Scalars['String']>;
   holders: CodegenCollectionHoldersConnection;
   /** The collection image. */
   image?: Maybe<Array<CodegenTokenUpload>>;
+  /** The name of the collection */
   name?: Maybe<Scalars['String']>;
   ohlcvChart?: Maybe<Array<CodegenCollectionOHLCVChart>>;
+  /** Opensea metadata */
   openseaMetadata?: Maybe<CodegenOpenSeaMetadata>;
+  /** Order history for a collection */
   orderHistory?: Maybe<Array<CodegenCollectionOrderHistory>>;
+  /** The sales of the collection */
+  sales?: Maybe<CodegenCollectionSalesConnection>;
+  /** The slug of the collection */
   slug?: Maybe<Scalars['String']>;
+  /** The symbol of the collection */
   symbol?: Maybe<Scalars['String']>;
   tokenEvents: CodegenCollectionTokenEventsConnection;
+  /** The total supply of tokens within the collection */
   totalSupply?: Maybe<Scalars['BigInt']>;
+  /** The twitter username of the collection */
   twitterUsername?: Maybe<Scalars['String']>;
   wallets: CodegenCollectionWalletsConnection;
 };
 
 
+/** Fetches an NFT collection */
 export type CodegenCollectionCodegenattributesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -51,6 +68,7 @@ export type CodegenCollectionCodegenattributesArgs = {
 };
 
 
+/** Fetches an NFT collection */
 export type CodegenCollectionCodegenholdersArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -59,16 +77,31 @@ export type CodegenCollectionCodegenholdersArgs = {
 };
 
 
+/** Fetches an NFT collection */
 export type CodegenCollectionCodegenohlcvChartArgs = {
   filter?: InputMaybe<CodegenCollectionOhlcvChartInput>;
 };
 
 
+/** Fetches an NFT collection */
 export type CodegenCollectionCodegenorderHistoryArgs = {
   filter?: InputMaybe<CodegenCollectionOrderHistoryInput>;
 };
 
 
+/** Fetches an NFT collection */
+export type CodegenCollectionCodegensalesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<CodegenCollectionSaleFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenCollectionSaleOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
+};
+
+
+/** Fetches an NFT collection */
 export type CodegenCollectionCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -78,6 +111,7 @@ export type CodegenCollectionCodegentokenEventsArgs = {
 };
 
 
+/** Fetches an NFT collection */
 export type CodegenCollectionCodegenwalletsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -85,12 +119,12 @@ export type CodegenCollectionCodegenwalletsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-/** A contract's attribute count */
+/** Attributes within a collection */
 export type CodegenCollectionAttribute = {
   __typename?: 'CollectionAttribute';
-  /** The trait key. */
+  /** The trait key */
   name: Scalars['String'];
-  /** The value of the trait. */
+  /** The value of the trait */
   value?: Maybe<Scalars['String']>;
 };
 
@@ -156,46 +190,126 @@ export type CodegenCollectionOhlcvChartInput = {
 /** Collection order history summary */
 export type CodegenCollectionOrderHistory = {
   __typename?: 'CollectionOrderHistory';
+  /** The address of the seller */
   fromAddress: Scalars['String'];
+  /**
+   * The price of the transaction in the base network token
+   * @deprecated Use "priceInNativeToken" instead
+   */
   priceInEth: Scalars['Float'];
+  /** The price of the transaction in the base network token */
+  priceInNativeToken: Scalars['Float'];
+  /** The timestamp of the transaction */
   timestamp: Scalars['DateTime'];
+  /** The address of the buyer */
   toAddress: Scalars['String'];
+  /** The token id */
   tokenId?: Maybe<Scalars['String']>;
+  /** The transaction hash */
   transactionHash: Scalars['String'];
 };
 
 export type CodegenCollectionOrderHistoryInput = {
+  /** The confirmedAt date is greater than or equal to, ie. 2023-01-01T00:00:00Z */
   confirmedAtGte?: InputMaybe<Scalars['DateTime']>;
+  /** The confirmedAt date is less than or equal to, ie. 2023-01-01T00:00:00Z */
   confirmedAtLte?: InputMaybe<Scalars['DateTime']>;
+  /** Whether the order is limited */
   isLimited?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Sale of a collection token */
 export type CodegenCollectionSale = {
   __typename?: 'CollectionSale';
+  /** The estimated time the sale was confirmed */
   estimatedConfirmedAt?: Maybe<Scalars['DateTime']>;
-  priceInEth?: Maybe<Scalars['Float']>;
+  /** The price in network base token */
+  priceInNativeToken?: Maybe<Scalars['Float']>;
+  /** The quantity sold */
   quantitySold?: Maybe<Scalars['Float']>;
 };
 
+/** Filter input for collection sales */
+export type CodegenCollectionSaleFilterInput = {
+  /** A time period relative to the current time in which to filter collection sales by. */
+  timePeriod?: InputMaybe<CodegenCollectionSalePeriod>;
+  /** Custom time range in which to filter collection sales by. Available only to paid customers. */
+  timeRange?: InputMaybe<CodegenDateTimeInput>;
+};
+
+export type CodegenCollectionSaleOrderBy =
+  | 'TIMESTAMP';
+
+export type CodegenCollectionSalePeriod =
+  | 'FIFTEEN_MINUTES'
+  | 'FIVE_MINUTES'
+  | 'ONE_DAY'
+  | 'ONE_HOUR'
+  | 'ONE_MINUTE'
+  | 'SEVEN_DAYS'
+  | 'THIRTY_MINUTES'
+  | 'TWELVE_HOURS';
+
+export type CodegenCollectionSalesConnection = {
+  __typename?: 'CollectionSalesConnection';
+  edges: Array<CodegenCollectionSalesConnectionEdge>;
+  pageInfo: CodegenPageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type CodegenCollectionSalesConnectionEdge = {
+  __typename?: 'CollectionSalesConnectionEdge';
+  cursor: Scalars['String'];
+  node: CodegenCollectionSale;
+};
+
+/** The ERC standard of the collection */
 export type CodegenCollectionStandard =
   | 'ERC721'
   | 'ERC1155';
 
 export type CodegenCollectionStandardInput = {
+  /** Equal to */
   eq?: InputMaybe<CodegenCollectionStandard>;
+  /** In */
   in?: InputMaybe<Array<CodegenCollectionStandard>>;
+  /** Not In */
   notIn?: InputMaybe<Array<CodegenCollectionStandard>>;
 };
 
 /** Stats of a collection */
 export type CodegenCollectionStats = {
   __typename?: 'CollectionStats';
+  /**
+   * Average sale price of the collection
+   * @deprecated Use 'averageInNativeToken' instead
+   */
   average?: Maybe<Scalars['Float']>;
+  /** Average sale price of the collection in native token */
+  averageInNativeToken?: Maybe<Scalars['Float']>;
+  /**
+   * Highest sale price of the collection
+   * @deprecated Use 'ceilingInNativeToken' instead
+   */
   ceiling?: Maybe<Scalars['Float']>;
+  /** Highest sale price of the collection in native token */
+  ceilingInNativeToken?: Maybe<Scalars['Float']>;
+  /**
+   * Lowest sale price of the collection
+   * @deprecated Use 'floorInNativeToken' instead
+   */
   floor?: Maybe<Scalars['Float']>;
+  /** Lowest sale price of the collection in native token */
+  floorInNativeToken?: Maybe<Scalars['Float']>;
+  /** Total sales of the collection */
   totalSales?: Maybe<Scalars['Int']>;
+  /**
+   * Total sales volume of the collection
+   * @deprecated Use 'volumeInNativeToken' instead
+   */
   volume?: Maybe<Scalars['Float']>;
+  /** Total sales volume of the collection in native token */
+  volumeInNativeToken?: Maybe<Scalars['Float']>;
 };
 
 export type CodegenCollectionTokenEventsConnection = {
@@ -226,22 +340,31 @@ export type CodegenCollectionWalletsConnectionEdge = {
 
 /** Filter input for collections */
 export type CodegenCollectionsFilterInput = {
+  /** The address of the collection */
   address?: InputMaybe<CodegenStringInput>;
+  /** The ERC standard of the collection */
   ercStandard?: InputMaybe<CodegenCollectionStandardInput>;
 };
 
+/** Fetches a contract */
 export type CodegenContract = {
+  /** The ABI of the contract */
   abi?: Maybe<Scalars['JSON']>;
+  /** The contract address */
   address: Scalars['String'];
   /** Contract with verified ABI */
   isVerified?: Maybe<Scalars['Boolean']>;
+  /** The name of the contract */
   name?: Maybe<Scalars['String']>;
+  /** The supported ERC interfaces of the contract */
   supportedErcInterfaces?: Maybe<Array<Scalars['String']>>;
+  /** The symbol of the contract */
   symbol?: Maybe<Scalars['String']>;
   tokenEvents: CodegenContractTokenEventsConnection;
 };
 
 
+/** Fetches a contract */
 export type CodegenContractCodegentokenEventsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -256,8 +379,11 @@ export type CodegenContractStandard =
   | 'ERC1155';
 
 export type CodegenContractStandardInput = {
+  /** Equal to */
   eq?: InputMaybe<CodegenContractStandard>;
+  /** In */
   in?: InputMaybe<Array<CodegenContractStandard>>;
+  /** Not In */
   notIn?: InputMaybe<Array<CodegenContractStandard>>;
 };
 
@@ -289,42 +415,63 @@ export type CodegenContractsEdge = {
 
 /** Filter input for contracts */
 export type CodegenContractsFilterInput = {
+  /** The address of the contract */
   address?: InputMaybe<CodegenStringInput>;
 };
 
 export type CodegenDateTimeInput = {
+  /** Equal to a date ie. 2023-01-01T00:00:00Z */
   eq?: InputMaybe<Scalars['DateTime']>;
+  /** Greater than a date ie. 2023-01-01T00:00:00Z */
   gt?: InputMaybe<Scalars['DateTime']>;
+  /** Greater than or equal to a date ie. 2023-01-01T00:00:00Z */
   gte?: InputMaybe<Scalars['DateTime']>;
+  /** Less than a date ie. 2023-01-01T00:00:00Z */
   lt?: InputMaybe<Scalars['DateTime']>;
+  /** Less than or equal to a date ie. 2023-01-01T00:00:00Z */
   lte?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type CodegenERC721Collection = CodegenCollection & {
   __typename?: 'ERC721Collection';
+  /** The contract address of the collection */
   address: Scalars['String'];
+  /** Attributes within a collection */
   attributes?: Maybe<CodegenCollectionAttributesConnection>;
   /** Collection banner image. */
   bannerImage?: Maybe<Array<CodegenTokenUpload>>;
+  /** The base token uri of the collection */
   baseTokenUri?: Maybe<Scalars['String']>;
+  /** The circulating supply of tokens within the collection */
   circulatingSupply?: Maybe<Scalars['BigInt']>;
   contract?: Maybe<CodegenNFTContract>;
+  /** The description of the collection */
   description?: Maybe<Scalars['String']>;
+  /** The external url of the collection */
   externalUrl?: Maybe<Scalars['String']>;
   holders: CodegenCollectionHoldersConnection;
   /** The collection image. */
   image?: Maybe<Array<CodegenTokenUpload>>;
+  /** The name of the collection */
   name?: Maybe<Scalars['String']>;
   nft?: Maybe<CodegenERC721NFT>;
   nfts: CodegenERC721CollectionTokensConnection;
   ohlcvChart?: Maybe<Array<CodegenCollectionOHLCVChart>>;
+  /** Opensea metadata */
   openseaMetadata?: Maybe<CodegenOpenSeaMetadata>;
+  /** Order history for a collection */
   orderHistory?: Maybe<Array<CodegenCollectionOrderHistory>>;
+  /** The sales of the collection */
+  sales?: Maybe<CodegenCollectionSalesConnection>;
+  /** The slug of the collection */
   slug?: Maybe<Scalars['String']>;
   stats?: Maybe<CodegenCollectionStats>;
+  /** The symbol of the collection */
   symbol?: Maybe<Scalars['String']>;
   tokenEvents: CodegenCollectionTokenEventsConnection;
+  /** The total supply of tokens within the collection */
   totalSupply?: Maybe<Scalars['BigInt']>;
+  /** The twitter username of the collection */
   twitterUsername?: Maybe<Scalars['String']>;
   wallets: CodegenCollectionWalletsConnection;
 };
@@ -370,6 +517,17 @@ export type CodegenERC721CollectionCodegenorderHistoryArgs = {
 };
 
 
+export type CodegenERC721CollectionCodegensalesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<CodegenCollectionSaleFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenCollectionSaleOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
+};
+
+
 export type CodegenERC721CollectionCodegenstatsArgs = {
   filter?: InputMaybe<CodegenERC721CollectionStatsInput>;
 };
@@ -410,20 +568,28 @@ export type CodegenERC721CollectionTokensEdge = {
 
 export type CodegenERC721NFT = CodegenNFT & {
   __typename?: 'ERC721NFT';
+  /** The animation url of the token */
   animationUrl?: Maybe<Scalars['String']>;
   /** The attributes of the token. */
   attributes?: Maybe<Array<CodegenTokenAttribute>>;
   collection?: Maybe<CodegenERC721Collection>;
+  /** The slug of the collection */
   collectionSlug?: Maybe<Scalars['String']>;
   contract?: Maybe<CodegenNFTContract>;
+  /** The contract address */
   contractAddress: Scalars['String'];
+  /** The description of the token */
   description?: Maybe<Scalars['String']>;
+  /** The external url of the token */
   externalUrl?: Maybe<Scalars['String']>;
   /** @deprecated Use nft.wallet instead */
   holder?: Maybe<CodegenNFTWallet>;
+  /** The metadata of the token */
   metadata?: Maybe<Scalars['JSONObject']>;
+  /** The name of the token */
   name?: Maybe<Scalars['String']>;
   tokenEvents: CodegenNFTTokenEventsConnection;
+  /** The token id */
   tokenId: Scalars['BigInt'];
   /** The uploads of a token. */
   uploads?: Maybe<Array<CodegenTokenUpload>>;
@@ -441,29 +607,44 @@ export type CodegenERC721NFTCodegentokenEventsArgs = {
 
 export type CodegenERC1155Collection = CodegenCollection & {
   __typename?: 'ERC1155Collection';
+  /** The contract address of the collection */
   address: Scalars['String'];
+  /** Attributes within a collection */
   attributes?: Maybe<CodegenCollectionAttributesConnection>;
   /** Collection banner image. */
   bannerImage?: Maybe<Array<CodegenTokenUpload>>;
+  /** The base token uri of the collection */
   baseTokenUri?: Maybe<Scalars['String']>;
+  /** The circulating supply of tokens within the collection */
   circulatingSupply?: Maybe<Scalars['BigInt']>;
   contract?: Maybe<CodegenNFTContract>;
+  /** The description of the collection */
   description?: Maybe<Scalars['String']>;
+  /** The external url of the collection */
   externalUrl?: Maybe<Scalars['String']>;
   holders: CodegenCollectionHoldersConnection;
   /** The collection image. */
   image?: Maybe<Array<CodegenTokenUpload>>;
+  /** The name of the collection */
   name?: Maybe<Scalars['String']>;
   nft?: Maybe<CodegenERC1155NFT>;
   nfts: CodegenERC1155CollectionTokensConnection;
   ohlcvChart?: Maybe<Array<CodegenCollectionOHLCVChart>>;
+  /** Opensea metadata */
   openseaMetadata?: Maybe<CodegenOpenSeaMetadata>;
+  /** Order history for a collection */
   orderHistory?: Maybe<Array<CodegenCollectionOrderHistory>>;
+  /** The sales of the collection */
+  sales?: Maybe<CodegenCollectionSalesConnection>;
+  /** The slug of the collection */
   slug?: Maybe<Scalars['String']>;
   stats?: Maybe<CodegenCollectionStats>;
+  /** The symbol of the collection */
   symbol?: Maybe<Scalars['String']>;
   tokenEvents: CodegenCollectionTokenEventsConnection;
+  /** The total supply of tokens within the collection */
   totalSupply?: Maybe<Scalars['BigInt']>;
+  /** The twitter username of the collection */
   twitterUsername?: Maybe<Scalars['String']>;
   wallets: CodegenCollectionWalletsConnection;
 };
@@ -509,6 +690,17 @@ export type CodegenERC1155CollectionCodegenorderHistoryArgs = {
 };
 
 
+export type CodegenERC1155CollectionCodegensalesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<CodegenCollectionSaleFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenCollectionSaleOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
+};
+
+
 export type CodegenERC1155CollectionCodegenstatsArgs = {
   filter?: InputMaybe<CodegenERC1155CollectionStatsInput>;
 };
@@ -549,18 +741,26 @@ export type CodegenERC1155CollectionTokensEdge = {
 
 export type CodegenERC1155NFT = CodegenNFT & {
   __typename?: 'ERC1155NFT';
+  /** The animation url of the token */
   animationUrl?: Maybe<Scalars['String']>;
   collection?: Maybe<CodegenERC1155Collection>;
+  /** The slug of the collection */
   collectionSlug?: Maybe<Scalars['String']>;
   contract?: Maybe<CodegenNFTContract>;
+  /** The contract address */
   contractAddress: Scalars['String'];
+  /** The description of the token */
   description?: Maybe<Scalars['String']>;
+  /** The external url of the token */
   externalUrl?: Maybe<Scalars['String']>;
   /** @deprecated Use nft.wallets instead */
   holders: CodegenERC1155NFTHoldersConnection;
+  /** The metadata of the token */
   metadata?: Maybe<Scalars['JSONObject']>;
+  /** The name of the token */
   name?: Maybe<Scalars['String']>;
   tokenEvents: CodegenNFTTokenEventsConnection;
+  /** The token id */
   tokenId: Scalars['BigInt'];
   /** The uploads of a token. */
   uploads?: Maybe<Array<CodegenTokenUpload>>;
@@ -637,7 +837,9 @@ export type CodegenEVMSchemaType = {
   /** Returns a list of transactions. Ordered by block number and index. */
   transactions?: Maybe<CodegenEVMSchemaTypeTransactionsConnection>;
   trendingCollections: CodegenEVMSchemaTypeTrendingCollectionsConnection;
+  /** Wallet by address */
   walletByAddress?: Maybe<CodegenWallet>;
+  /** Wallet by ENS name */
   walletByENS?: Maybe<CodegenWallet>;
 };
 
@@ -781,25 +983,38 @@ export type CodegenEVMSchemaTypeTrendingCollectionsConnectionEdge = {
 /** Gas Prices for a given block. Gas values are returned in Wei. */
 export type CodegenGasPrice = {
   __typename?: 'GasPrice';
+  /** The average gas price */
   average: Scalars['Float'];
+  /** The block number */
   blockNumber: Scalars['Int'];
+  /** The highest gas price */
   ceiling: Scalars['Float'];
+  /** The lowest gas price */
   floor: Scalars['Float'];
+  /** The median gas price */
   median: Scalars['Float'];
+  /** The total gas price */
   total: Scalars['Float'];
 };
 
 /** Filter input for gas prices */
 export type CodegenGasPriceFilterInput = {
+  /** The block number */
   blockNumber?: InputMaybe<CodegenIntegerInput>;
 };
 
 export type CodegenIntegerInput = {
+  /** Equal to */
   eq?: InputMaybe<Scalars['Int']>;
+  /** Greater than */
   gt?: InputMaybe<Scalars['Int']>;
+  /** Greater than or equal to */
   gte?: InputMaybe<Scalars['Int']>;
+  /** In */
   in?: InputMaybe<Array<Scalars['Int']>>;
+  /** Less than */
   lt?: InputMaybe<Scalars['Int']>;
+  /** Less than or equal to */
   lte?: InputMaybe<Scalars['Int']>;
 };
 
@@ -821,16 +1036,24 @@ export type CodegenMarketplaceInput = {
 };
 
 export type CodegenNFT = {
+  /** The animation url of the token */
   animationUrl?: Maybe<Scalars['String']>;
   collection?: Maybe<CodegenCollection>;
+  /** The slug of the collection */
   collectionSlug?: Maybe<Scalars['String']>;
   contract?: Maybe<CodegenNFTContract>;
+  /** The contract address */
   contractAddress: Scalars['String'];
+  /** The description of the token */
   description?: Maybe<Scalars['String']>;
+  /** The external url of the token */
   externalUrl?: Maybe<Scalars['String']>;
+  /** The metadata of the token */
   metadata?: Maybe<Scalars['JSONObject']>;
+  /** The name of the token */
   name?: Maybe<Scalars['String']>;
   tokenEvents: CodegenNFTTokenEventsConnection;
+  /** The token id */
   tokenId: Scalars['BigInt'];
   /** The uploads of a token. */
   uploads?: Maybe<Array<CodegenTokenUpload>>;
@@ -847,13 +1070,18 @@ export type CodegenNFTCodegentokenEventsArgs = {
 
 export type CodegenNFTContract = CodegenContract & {
   __typename?: 'NFTContract';
+  /** The ABI of the contract */
   abi?: Maybe<Scalars['JSON']>;
+  /** The contract address */
   address: Scalars['String'];
   collection?: Maybe<CodegenCollection>;
   /** Contract with verified ABI */
   isVerified?: Maybe<Scalars['Boolean']>;
+  /** The name of the contract */
   name?: Maybe<Scalars['String']>;
+  /** The supported ERC interfaces of the contract */
   supportedErcInterfaces?: Maybe<Array<Scalars['String']>>;
+  /** The symbol of the contract */
   symbol?: Maybe<Scalars['String']>;
   tokenEvents: CodegenContractTokenEventsConnection;
 };
@@ -883,10 +1111,12 @@ export type CodegenNFTTokenEventsConnectionEdge = {
 export type CodegenNFTWallet = {
   __typename?: 'NFTWallet';
   owner?: Maybe<CodegenWallet>;
+  /** The address of the wallet */
   walletAddress?: Maybe<Scalars['String']>;
 };
 
 export type CodegenNFTsFilterInput = {
+  /** Contract address in */
   contractAddressIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -922,8 +1152,11 @@ export type CodegenQuery = {
 };
 
 export type CodegenStringInput = {
+  /** Equal to */
   eq?: InputMaybe<Scalars['String']>;
+  /** In */
   in?: InputMaybe<Array<Scalars['String']>>;
+  /** Not In */
   notIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -936,11 +1169,14 @@ export type CodegenTokenAttribute = {
   value: Scalars['String'];
 };
 
+/** A token burn event */
 export type CodegenTokenBurnEvent = CodegenTokenEvent & {
   __typename?: 'TokenBurnEvent';
   blockNumber: Scalars['Int'];
   contract?: Maybe<CodegenContract>;
+  /** The address of the token contract */
   contractAddress: Scalars['String'];
+  /** The ERC standard of the token contract */
   contractERCStandard?: Maybe<CodegenERCStandard>;
   from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
@@ -948,7 +1184,9 @@ export type CodegenTokenBurnEvent = CodegenTokenEvent & {
   timestamp: Scalars['DateTime'];
   to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
+  /** The token id */
   tokenId?: Maybe<Scalars['BigInt']>;
+  /** The quantity */
   tokenQuantity: Scalars['BigInt'];
   transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
@@ -958,14 +1196,19 @@ export type CodegenTokenBurnEvent = CodegenTokenEvent & {
 
 export type CodegenTokenContract = CodegenContract & {
   __typename?: 'TokenContract';
+  /** The ABI of the contract */
   abi?: Maybe<Scalars['JSON']>;
+  /** The contract address */
   address: Scalars['String'];
   decimals?: Maybe<Scalars['BigInt']>;
   details?: Maybe<CodegenTokenDetailsType>;
   /** Contract with verified ABI */
   isVerified?: Maybe<Scalars['Boolean']>;
+  /** The name of the contract */
   name?: Maybe<Scalars['String']>;
+  /** The supported ERC interfaces of the contract */
   supportedErcInterfaces?: Maybe<Array<Scalars['String']>>;
+  /** The symbol of the contract */
   symbol?: Maybe<Scalars['String']>;
   tokenEvents: CodegenContractTokenEventsConnection;
 };
@@ -979,11 +1222,15 @@ export type CodegenTokenContractCodegentokenEventsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+/** Token details */
 export type CodegenTokenDetailsType = {
   __typename?: 'TokenDetailsType';
   address: Scalars['String'];
+  /** The name of the token */
   name?: Maybe<Scalars['String']>;
+  /** The slug of the token */
   slug?: Maybe<Scalars['String']>;
+  /** The symbol of the token */
   symbol?: Maybe<Scalars['String']>;
 };
 
@@ -1024,11 +1271,14 @@ export type CodegenTokenEventsFilterInput = {
   walletAddress?: InputMaybe<CodegenStringInput>;
 };
 
+/** A token mint event */
 export type CodegenTokenMintEvent = CodegenTokenEvent & {
   __typename?: 'TokenMintEvent';
   blockNumber: Scalars['Int'];
   contract?: Maybe<CodegenContract>;
+  /** The address of the token contract */
   contractAddress: Scalars['String'];
+  /** The ERC standard of the token contract */
   contractERCStandard?: Maybe<CodegenERCStandard>;
   from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
@@ -1036,7 +1286,9 @@ export type CodegenTokenMintEvent = CodegenTokenEvent & {
   timestamp: Scalars['DateTime'];
   to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
+  /** The token id */
   tokenId?: Maybe<Scalars['BigInt']>;
+  /** The quantity */
   tokenQuantity: Scalars['BigInt'];
   transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
@@ -1044,10 +1296,13 @@ export type CodegenTokenMintEvent = CodegenTokenEvent & {
   type: CodegenTokenTransferType;
 };
 
+/** A token sale event */
 export type CodegenTokenSaleEvent = CodegenTokenEvent & {
   __typename?: 'TokenSaleEvent';
   blockNumber: Scalars['Int'];
+  /** The address of the token contract */
   contractAddress: Scalars['String'];
+  /** The ERC standard of the token contract */
   contractERCStandard?: Maybe<CodegenERCStandard>;
   from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
@@ -1063,7 +1318,9 @@ export type CodegenTokenSaleEvent = CodegenTokenEvent & {
   receivedTokenQuantity?: Maybe<Scalars['BigInt']>;
   sentNft?: Maybe<CodegenNFT>;
   sentTokenContract?: Maybe<CodegenContract>;
+  /** The token id */
   sentTokenId?: Maybe<Scalars['BigInt']>;
+  /** The quantity */
   sentTokenQuantity: Scalars['BigInt'];
   timestamp: Scalars['DateTime'];
   to?: Maybe<CodegenWallet>;
@@ -1074,6 +1331,7 @@ export type CodegenTokenSaleEvent = CodegenTokenEvent & {
   type: CodegenTokenTransferType;
 };
 
+/** A token swap event */
 export type CodegenTokenSwapEvent = CodegenTokenEvent & {
   __typename?: 'TokenSwapEvent';
   blockNumber: Scalars['Int'];
@@ -1081,14 +1339,21 @@ export type CodegenTokenSwapEvent = CodegenTokenEvent & {
   fromAddress: Scalars['String'];
   receivedNft?: Maybe<CodegenNFT>;
   receivedTokenContract?: Maybe<CodegenContract>;
+  /** The address of the token received */
   receivedTokenContractAddress?: Maybe<Scalars['String']>;
+  /** The id of the token received */
   receivedTokenId?: Maybe<Scalars['BigInt']>;
+  /** The quantity */
   receivedTokenQuantity?: Maybe<Scalars['BigInt']>;
   sentNft?: Maybe<CodegenNFT>;
   sentTokenContract?: Maybe<CodegenContract>;
+  /** The address of the token contract */
   sentTokenContractAddress: Scalars['String'];
+  /** The ERC standard of the token contract */
   sentTokenContractERCStandard?: Maybe<CodegenERCStandard>;
+  /** The token id */
   sentTokenId?: Maybe<Scalars['BigInt']>;
+  /** The quantity */
   sentTokenQuantity: Scalars['BigInt'];
   timestamp: Scalars['DateTime'];
   to?: Maybe<CodegenWallet>;
@@ -1099,11 +1364,14 @@ export type CodegenTokenSwapEvent = CodegenTokenEvent & {
   type: CodegenTokenTransferType;
 };
 
+/** A token transfer event */
 export type CodegenTokenTransferEvent = CodegenTokenEvent & {
   __typename?: 'TokenTransferEvent';
   blockNumber: Scalars['Int'];
   contract?: Maybe<CodegenContract>;
+  /** The address of the token contract */
   contractAddress: Scalars['String'];
+  /** The ERC standard of the token contract */
   contractERCStandard?: Maybe<CodegenERCStandard>;
   from?: Maybe<CodegenWallet>;
   fromAddress: Scalars['String'];
@@ -1111,7 +1379,9 @@ export type CodegenTokenTransferEvent = CodegenTokenEvent & {
   timestamp: Scalars['DateTime'];
   to?: Maybe<CodegenWallet>;
   toAddress: Scalars['String'];
+  /** The token id */
   tokenId?: Maybe<Scalars['BigInt']>;
+  /** The quantity */
   tokenQuantity: Scalars['BigInt'];
   transaction?: Maybe<CodegenTransaction>;
   transactionHash?: Maybe<Scalars['String']>;
@@ -1147,11 +1417,17 @@ export type CodegenTokenUpload = {
 
 export type CodegenTransaction = {
   __typename?: 'Transaction';
+  /** The block number */
   blockNumber: Scalars['Int'];
+  /** The block timestamp */
   blockTimestamp: Scalars['DateTime'];
+  /** The contract address */
   contractAddress?: Maybe<Scalars['String']>;
+  /** The cumulative gas used by this transaction */
   cumulativeGasUsed: Scalars['BigInt'];
+  /** The effective gas price in Gwei */
   effectiveGasPrice?: Maybe<Scalars['BigInt']>;
+  /** The from address */
   fromAddress: Scalars['String'];
   /** The amount of gas supplied for this transaction to happen */
   gas?: Maybe<Scalars['BigInt']>;
@@ -1160,40 +1436,74 @@ export type CodegenTransaction = {
   /** The amount of gas used by this transaction */
   gasUsed: Scalars['BigInt'];
   hash: Scalars['String'];
+  /** The transaction input */
   input?: Maybe<Scalars['String']>;
   /** Max gas fee in Gwei */
   maxFeePerGas?: Maybe<Scalars['BigInt']>;
   /** Max gas priority fee in Gwei */
   maxPriorityFeePerGas?: Maybe<Scalars['BigInt']>;
+  /** The to address */
   toAddress?: Maybe<Scalars['String']>;
+  /** The transaction index */
   transactionIndex: Scalars['Int'];
+  /** The transaction type */
   type?: Maybe<Scalars['String']>;
+  /** The transaction value */
   value?: Maybe<Scalars['BigInt']>;
 };
 
 /** Filter input for transactions */
 export type CodegenTransactionsFilterInput = {
+  /** The block number */
   blockNumber?: InputMaybe<CodegenIntegerInput>;
+  /** The from address */
   fromAddress?: InputMaybe<Scalars['String']>;
+  /** The timestamp */
   timestamp?: InputMaybe<CodegenDateTimeInput>;
+  /** The to address */
   toAddress?: InputMaybe<Scalars['String']>;
 };
 
 export type CodegenTrendingCollection = {
   __typename?: 'TrendingCollection';
+  /** The collection */
   collection?: Maybe<CodegenCollection>;
-  last20Sales?: Maybe<Array<CodegenCollectionSale>>;
   stats?: Maybe<CodegenTrendingCollectionStats>;
 };
 
 /** Stats of a trending collection */
 export type CodegenTrendingCollectionStats = {
   __typename?: 'TrendingCollectionStats';
+  /**
+   * Average sale price of the collection
+   * @deprecated Use 'averageInNativeToken' instead
+   */
   average?: Maybe<Scalars['Float']>;
+  /** Average sale price of the collection in native token */
+  averageInNativeToken?: Maybe<Scalars['Float']>;
+  /**
+   * Highest sale price of the collection
+   * @deprecated Use 'ceilingInNativeToken' instead
+   */
   ceiling?: Maybe<Scalars['Float']>;
+  /** Highest sale price of the collection in native token */
+  ceilingInNativeToken?: Maybe<Scalars['Float']>;
+  /**
+   * Lowest sale price of the collection
+   * @deprecated Use 'floorInNativeToken' instead
+   */
   floor?: Maybe<Scalars['Float']>;
+  /** Lowest sale price of the collection in native token */
+  floorInNativeToken?: Maybe<Scalars['Float']>;
+  /** Total sales of the collection */
   totalSales?: Maybe<Scalars['Float']>;
+  /**
+   * Total sales volume of the collection
+   * @deprecated Use 'volumeInNativeToken' instead
+   */
   volume?: Maybe<Scalars['Float']>;
+  /** Total sales volume of the collection in native token */
+  volumeInNativeToken?: Maybe<Scalars['Float']>;
 };
 
 /** Filter input for trending collections */
@@ -1221,7 +1531,9 @@ export type CodegenTrendingPeriod =
 
 export type CodegenWallet = {
   __typename?: 'Wallet';
+  /** The address of the wallet */
   address: Scalars['String'];
+  /** The ENS name of the wallet */
   ensName?: Maybe<Scalars['String']>;
   /** @deprecated Use wallet.collection instead. */
   heldCollection?: Maybe<CodegenWalletCollection>;
@@ -1351,9 +1663,11 @@ export type CodegenWalletCodegenwalletNFTsArgs = {
 export type CodegenWalletCollection = {
   __typename?: 'WalletCollection';
   collection?: Maybe<CodegenCollection>;
+  /** The address of the collection */
   collectionAddress?: Maybe<Scalars['String']>;
   /** @deprecated Use nftsCount instead. */
   heldTokensCount: Scalars['BigInt'];
+  /** The number of NFTs from this collection within the wallet */
   nftsCount: Scalars['BigInt'];
 };
 
@@ -1410,6 +1724,7 @@ export type CodegenWalletNFT = {
   /** @deprecated Use nftsCount instead. */
   heldNftCount?: Maybe<Scalars['Int']>;
   nft?: Maybe<CodegenNFT>;
+  /** The number of NFTs from this collection within the wallet */
   nftsCount?: Maybe<Scalars['Int']>;
 };
 
@@ -1438,7 +1753,9 @@ export type CodegenWalletNFTsOrderBy =
 export type CodegenWalletTokenBalance = {
   __typename?: 'WalletTokenBalance';
   contract?: Maybe<CodegenTokenContract>;
+  /** The address of the token */
   contractAddress: Scalars['String'];
+  /** The total balance of the token */
   totalBalance: Scalars['BigInt'];
 };
 
@@ -1678,7 +1995,7 @@ export type CodegenEthMainnetTransactionsByHashQuery = { __typename?: 'Query', e
   ) };
 
 export type CodegenEthMainnetTransactionsBySearchQueryVariables = Exact<{
-  filter: CodegenTransactionsFilterInput;
+  filter?: InputMaybe<CodegenTransactionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   before?: InputMaybe<Scalars['String']>;
   after?: InputMaybe<Scalars['String']>;
@@ -1903,7 +2220,7 @@ export type CodegenEthSepoliaTransactionsByHashQuery = { __typename?: 'Query', e
   ) };
 
 export type CodegenEthSepoliaTransactionsBySearchQueryVariables = Exact<{
-  filter: CodegenTransactionsFilterInput;
+  filter?: InputMaybe<CodegenTransactionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   before?: InputMaybe<Scalars['String']>;
   after?: InputMaybe<Scalars['String']>;
@@ -2403,7 +2720,7 @@ export type CodegenPolygonMainnetTransactionsByHashQuery = { __typename?: 'Query
   ) };
 
 export type CodegenPolygonMainnetTransactionsBySearchQueryVariables = Exact<{
-  filter: CodegenTransactionsFilterInput;
+  filter?: InputMaybe<CodegenTransactionsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   before?: InputMaybe<Scalars['String']>;
   after?: InputMaybe<Scalars['String']>;
@@ -2493,7 +2810,7 @@ export const CodegenEthMainnetTrendingCollectionsDocument = {"kind":"Document","
 export const CodegenEthMainnetBalancesByWalletAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthMainnetBalancesByWalletAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereum"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetBalancesByWalletAddressFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TokenBalanceNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletTokenBalance"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalBalance"}},{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetBalancesByWalletAddressFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByAddress"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"address"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"tokenBalances"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TokenBalanceNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthMainnetBalancesByWalletAddressQuery, CodegenEthMainnetBalancesByWalletAddressQueryVariables>;
 export const CodegenEthMainnetBalancesByWalletENSDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthMainnetBalancesByWalletENS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereum"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetBalancesByWalletENSFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TokenBalanceNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletTokenBalance"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalBalance"}},{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetBalancesByWalletENSFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"tokenBalances"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TokenBalanceNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthMainnetBalancesByWalletENSQuery, CodegenEthMainnetBalancesByWalletENSQueryVariables>;
 export const CodegenEthMainnetTransactionsByHashDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthMainnetTransactionsByHash"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"hash"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereum"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsByHash"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsByHash"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"hash"},"value":{"kind":"Variable","name":{"kind":"Name","value":"hash"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}}]} as unknown as DocumentNode<CodegenEthMainnetTransactionsByHashQuery, CodegenEthMainnetTransactionsByHashQueryVariables>;
-export const CodegenEthMainnetTransactionsBySearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthMainnetTransactionsBySearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionsFilterInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereum"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsBySearch"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsBySearch"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthMainnetTransactionsBySearchQuery, CodegenEthMainnetTransactionsBySearchQueryVariables>;
+export const CodegenEthMainnetTransactionsBySearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthMainnetTransactionsBySearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionsFilterInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereum"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsBySearch"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsBySearch"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthMainnetTransactionsBySearchQuery, CodegenEthMainnetTransactionsBySearchQueryVariables>;
 export const CodegenEthMainnetTransactionsByWalletAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthMainnetTransactionsByWalletAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereum"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsByWalletAddress"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsByWalletAddress"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByAddress"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"address"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthMainnetTransactionsByWalletAddressQuery, CodegenEthMainnetTransactionsByWalletAddressQueryVariables>;
 export const CodegenEthMainnetTransactionsByWalletENSDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthMainnetTransactionsByWalletENS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereum"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsByWalletENS"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsByWalletENS"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthMainnetTransactionsByWalletENSQuery, CodegenEthMainnetTransactionsByWalletENSQueryVariables>;
 export const CodegenEthMainnetGasPricesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthMainnetGasPrices"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"GasPriceFilterInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereum"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GasPrice"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GasPriceInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GasPrice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"average"}},{"kind":"Field","name":{"kind":"Name","value":"ceiling"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"median"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GasPrice"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gasPrices"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GasPriceInfo"}}]}}]}}]} as unknown as DocumentNode<CodegenEthMainnetGasPricesQuery, CodegenEthMainnetGasPricesQueryVariables>;
@@ -2511,7 +2828,7 @@ export const CodegenEthSepoliaTrendingCollectionsDocument = {"kind":"Document","
 export const CodegenEthSepoliaBalancesByWalletAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthSepoliaBalancesByWalletAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereumSepolia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetBalancesByWalletAddressFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TokenBalanceNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletTokenBalance"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalBalance"}},{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetBalancesByWalletAddressFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByAddress"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"address"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"tokenBalances"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TokenBalanceNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthSepoliaBalancesByWalletAddressQuery, CodegenEthSepoliaBalancesByWalletAddressQueryVariables>;
 export const CodegenEthSepoliaBalancesByWalletENSDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthSepoliaBalancesByWalletENS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereumSepolia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetBalancesByWalletENSFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TokenBalanceNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletTokenBalance"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalBalance"}},{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetBalancesByWalletENSFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"tokenBalances"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TokenBalanceNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthSepoliaBalancesByWalletENSQuery, CodegenEthSepoliaBalancesByWalletENSQueryVariables>;
 export const CodegenEthSepoliaTransactionsByHashDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthSepoliaTransactionsByHash"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"hash"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereumSepolia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsByHash"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsByHash"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"hash"},"value":{"kind":"Variable","name":{"kind":"Name","value":"hash"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}}]} as unknown as DocumentNode<CodegenEthSepoliaTransactionsByHashQuery, CodegenEthSepoliaTransactionsByHashQueryVariables>;
-export const CodegenEthSepoliaTransactionsBySearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthSepoliaTransactionsBySearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionsFilterInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereumSepolia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsBySearch"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsBySearch"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthSepoliaTransactionsBySearchQuery, CodegenEthSepoliaTransactionsBySearchQueryVariables>;
+export const CodegenEthSepoliaTransactionsBySearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthSepoliaTransactionsBySearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionsFilterInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereumSepolia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsBySearch"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsBySearch"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthSepoliaTransactionsBySearchQuery, CodegenEthSepoliaTransactionsBySearchQueryVariables>;
 export const CodegenEthSepoliaTransactionsByWalletAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthSepoliaTransactionsByWalletAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereumSepolia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsByWalletAddress"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsByWalletAddress"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByAddress"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"address"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthSepoliaTransactionsByWalletAddressQuery, CodegenEthSepoliaTransactionsByWalletAddressQueryVariables>;
 export const CodegenEthSepoliaTransactionsByWalletENSDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthSepoliaTransactionsByWalletENS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereumSepolia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsByWalletENS"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsByWalletENS"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenEthSepoliaTransactionsByWalletENSQuery, CodegenEthSepoliaTransactionsByWalletENSQueryVariables>;
 export const CodegenEthSepoliaGasPricesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EthSepoliaGasPrices"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"GasPriceFilterInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ethereumSepolia"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GasPrice"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GasPriceInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GasPrice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"average"}},{"kind":"Field","name":{"kind":"Name","value":"ceiling"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"median"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GasPrice"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gasPrices"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GasPriceInfo"}}]}}]}}]} as unknown as DocumentNode<CodegenEthSepoliaGasPricesQuery, CodegenEthSepoliaGasPricesQueryVariables>;
@@ -2529,7 +2846,7 @@ export const CodegenPolygonMainnetTrendingCollectionsDocument = {"kind":"Documen
 export const CodegenPolygonMainnetBalancesByWalletAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PolygonMainnetBalancesByWalletAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"polygon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetBalancesByWalletAddressFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TokenBalanceNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletTokenBalance"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalBalance"}},{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetBalancesByWalletAddressFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByAddress"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"address"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"tokenBalances"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TokenBalanceNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenPolygonMainnetBalancesByWalletAddressQuery, CodegenPolygonMainnetBalancesByWalletAddressQueryVariables>;
 export const CodegenPolygonMainnetBalancesByWalletENSDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PolygonMainnetBalancesByWalletENS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"polygon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetBalancesByWalletENSFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TokenBalanceNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"WalletTokenBalance"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalBalance"}},{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetBalancesByWalletENSFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"tokenBalances"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TokenBalanceNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenPolygonMainnetBalancesByWalletENSQuery, CodegenPolygonMainnetBalancesByWalletENSQueryVariables>;
 export const CodegenPolygonMainnetTransactionsByHashDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PolygonMainnetTransactionsByHash"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"hash"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"polygon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsByHash"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsByHash"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"hash"},"value":{"kind":"Variable","name":{"kind":"Name","value":"hash"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}}]} as unknown as DocumentNode<CodegenPolygonMainnetTransactionsByHashQuery, CodegenPolygonMainnetTransactionsByHashQueryVariables>;
-export const CodegenPolygonMainnetTransactionsBySearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PolygonMainnetTransactionsBySearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionsFilterInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"polygon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsBySearch"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsBySearch"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]} as unknown as DocumentNode<CodegenPolygonMainnetTransactionsBySearchQuery, CodegenPolygonMainnetTransactionsBySearchQueryVariables>;
+export const CodegenPolygonMainnetTransactionsBySearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PolygonMainnetTransactionsBySearch"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionsFilterInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"polygon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsBySearch"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsBySearch"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]} as unknown as DocumentNode<CodegenPolygonMainnetTransactionsBySearchQuery, CodegenPolygonMainnetTransactionsBySearchQueryVariables>;
 export const CodegenPolygonMainnetTransactionsByWalletAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PolygonMainnetTransactionsByWalletAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"address"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"polygon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsByWalletAddress"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsByWalletAddress"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByAddress"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"address"},"value":{"kind":"Variable","name":{"kind":"Name","value":"address"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenPolygonMainnetTransactionsByWalletAddressQuery, CodegenPolygonMainnetTransactionsByWalletAddressQueryVariables>;
 export const CodegenPolygonMainnetTransactionsByWalletENSDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PolygonMainnetTransactionsByWalletENS"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"polygon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsByWalletENS"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsNode"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Transaction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"blockTimestamp"}},{"kind":"Field","name":{"kind":"Name","value":"contractAddress"}},{"kind":"Field","name":{"kind":"Name","value":"fromAddress"}},{"kind":"Field","name":{"kind":"Name","value":"cumulativeGasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"effectiveGasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gas"}},{"kind":"Field","name":{"kind":"Name","value":"gasPrice"}},{"kind":"Field","name":{"kind":"Name","value":"gasUsed"}},{"kind":"Field","name":{"kind":"Name","value":"hash"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"toAddress"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"input"}},{"kind":"Field","name":{"kind":"Name","value":"transactionIndex"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionsByWalletENS"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walletByENS"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ensName"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ensName"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"ensName"}},{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"TransactionsNode"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pagination"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CodegenPolygonMainnetTransactionsByWalletENSQuery, CodegenPolygonMainnetTransactionsByWalletENSQueryVariables>;
 export const CodegenPolygonMainnetGasPricesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PolygonMainnetGasPrices"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"GasPriceFilterInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"polygon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GasPrice"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GasPriceInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GasPrice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blockNumber"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"average"}},{"kind":"Field","name":{"kind":"Name","value":"ceiling"}},{"kind":"Field","name":{"kind":"Name","value":"floor"}},{"kind":"Field","name":{"kind":"Name","value":"median"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GasPrice"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"EVMSchemaType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gasPrices"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GasPriceInfo"}}]}}]}}]} as unknown as DocumentNode<CodegenPolygonMainnetGasPricesQuery, CodegenPolygonMainnetGasPricesQueryVariables>;

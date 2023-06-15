@@ -66,6 +66,15 @@ export const tokenEventFilters = z
   })
   .strict();
 
+export const transactionFilters = z
+  .object({
+    blockNumber: fullFilters(z.number().positive()).nullish(),
+    fromAddress: isEvmAddress.nullish(),
+    timestamp: fullFilters(z.string().datetime({ offset: true })).nullish(), // TODO: check if this matches the graph API standard
+    toAddress: isEvmAddress.nullish(),
+  })
+  .strict();
+
 export const paginationParams = z
   .object({
     before: z.string().nullish(),
@@ -77,6 +86,13 @@ export const paginationParams = z
 export const baseEventsInput = z
   .object({
     filter: tokenEventFilters.nullish(),
+  })
+  .merge(paginationParams)
+  .strict();
+
+export const baseTransactionsInput = z
+  .object({
+    filter: transactionFilters.optional(),
   })
   .merge(paginationParams)
   .strict();

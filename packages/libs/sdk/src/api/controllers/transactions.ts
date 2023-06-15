@@ -24,6 +24,7 @@ import {
   TransactionsBySearchQueryVariables,
   TransactionsBySearchQuery,
   TransactionsBySearchInput,
+  transactionsBySearchValidator,
 } from '../types/transactions/getBySearch';
 import {
   TransactionsByHashResult,
@@ -149,6 +150,7 @@ export class TransactionsController {
     return walletByENS;
   }
 
+  @ValidateInput(transactionsBySearchValidator)
   async getAll(
     variables: TransactionsBySearchInput
   ): Promise<TransactionsBySearchResult> {

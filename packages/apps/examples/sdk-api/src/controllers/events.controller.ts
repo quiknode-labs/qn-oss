@@ -14,9 +14,6 @@ export default {
           marketplace: {
             eq: 'OPENSEA',
           },
-          transactionHash: {
-            eq: '0x0',
-          },
         },
       });
       return res.status(200).send(eventsByContract);

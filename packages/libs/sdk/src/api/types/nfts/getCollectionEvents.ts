@@ -5,7 +5,6 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
 import {
   baseEventsInput,
   isEvmAddress,

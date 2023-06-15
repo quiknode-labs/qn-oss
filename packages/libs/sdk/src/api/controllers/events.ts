@@ -4,7 +4,7 @@ import {
   ContractEventsQueryResultFull,
   ContractEventsQueryVariables,
   ContractEventsQuery,
-  ContractEventsInput2,
+  ContractEventsInput,
   contractEventsValidator,
 } from '../types/events/getByContract';
 import {
@@ -62,7 +62,7 @@ export class EventsController {
 
   @ValidateInput(contractEventsValidator)
   async getByContract(
-    variables: ContractEventsInput2
+    variables: ContractEventsInput
   ): Promise<ContractEventsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;

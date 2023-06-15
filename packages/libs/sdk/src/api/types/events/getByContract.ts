@@ -27,7 +27,7 @@ export const contractEventsValidator = z
   .merge(supportedChainInput)
   .strict();
 
-export type ContractEventsInput2 = z.infer<typeof contractEventsValidator>;
+export type ContractEventsInput = z.infer<typeof contractEventsValidator>;
 
 export interface ContractEventsQueryResultInfo {
   tokenEvents: CodegenTokenEventInfoFragment[];

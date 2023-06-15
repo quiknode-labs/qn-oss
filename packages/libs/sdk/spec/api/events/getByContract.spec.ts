@@ -231,4 +231,22 @@ describe('events.getByContract', () => {
       }
     );
   });
+
+  it('throws an error when no contract address is provided', async () => {
+    await expect(
+      api.events
+        // @ts-ignore
+        .getByContract({})
+    ).rejects.toThrowError(/contractAddress: Required/);
+  });
+
+  it('throws an error when an invalid contract address is provided', async () => {
+    await expect(
+      api.events.getByContract({
+        contractAddress: '123',
+      })
+    ).rejects.toThrowError(
+      /contractAddress: String must contain exactly 42 character\(s\)/
+    );
+  });
 });

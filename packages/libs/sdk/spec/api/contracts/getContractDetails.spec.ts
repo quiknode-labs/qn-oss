@@ -1148,7 +1148,7 @@ describe('contract.getDetails', () => {
       api.contracts.getDetails({
         contractAddress: '0x2106c00ac7da0a3430ae667879139e832307ZZZZ',
       })
-    ).rejects.toThrowError(/Not a valid ethereum address/);
+    ).rejects.toThrowError(/Not a valid address/);
   });
 
   it('throws an error when there is an extra param', async () => {

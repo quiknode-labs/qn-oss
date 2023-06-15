@@ -43,7 +43,7 @@ Currently the SDK makes it even easier to use the [QuickNode Graph API](https://
     - [events.getAll](#eventsgetall)
     - [utils.getGasPrices](#utilsgetgasprices)
     - [graphApiClient.query](#graphapiclientquery)
-    - [Error Handling](#errorhandling)
+    - [Error Handling](#error-handling)
   - [Filters](#filters)
     - [Token Event Filters](#token-event-filters)
   - [Pagination](#pagination)

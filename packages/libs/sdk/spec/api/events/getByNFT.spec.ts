@@ -224,4 +224,32 @@ describe('events.getByNFT', () => {
       }
     );
   });
+
+  it('throws an error when no args are provided', async () => {
+    await expect(
+      api.events
+        // @ts-ignore
+        .getByNFT({})
+    ).rejects.toThrowError(/contractAddress: Required/);
+  });
+
+  it('throws an error when no tokenId is provided', async () => {
+    await expect(
+      api.events
+        // @ts-ignore
+        .getByNFT({
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+        })
+    ).rejects.toThrowError(/tokenId: Required/);
+  });
+
+  it('throws an error when an invalid contractAddress is provided', async () => {
+    await expect(
+      api.events
+        // @ts-ignore
+        .getByNFT({
+          contractAddress: '123',
+        })
+    ).rejects.toThrowError(/contractAddress: Not a valid address/);
+  });
 });

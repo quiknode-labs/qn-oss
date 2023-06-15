@@ -23,6 +23,7 @@ import {
   NFTEventsQueryVariables,
   NFTEventsQuery,
   NFTEventsInput,
+  nftEventsValidator,
 } from '../types/nfts/getNFTEvents';
 import {
   AllEventsQueryResultInfo,
@@ -140,6 +141,7 @@ export class EventsController {
     return formattedResult;
   }
 
+  @ValidateInput(nftEventsValidator)
   async getByNFT(variables: NFTEventsInput): Promise<NFTEventsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain = chain || this.defaultChain;

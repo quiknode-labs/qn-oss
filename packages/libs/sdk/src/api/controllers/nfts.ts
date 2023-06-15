@@ -15,6 +15,7 @@ import {
   WalletNFTsByAddressQueryVariables,
   WalletNFTsByAddressQuery,
   WalletNFTsByAddressInput,
+  walletByAddressValidator,
 } from '../types/nfts/getByWalletAddress';
 import {
   NFTDetailsResult,
@@ -74,6 +75,7 @@ import { TypedDocumentNode } from '@urql/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NftErcStandards } from '../types/nfts';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
+import { ValidateInput } from '../../lib/validation/ValidateInput';
 
 export class NftsController {
   constructor(
@@ -81,6 +83,7 @@ export class NftsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
+  @ValidateInput(walletByAddressValidator)
   async getByWallet(
     variables: WalletNFTsByAddressInput
   ): Promise<WalletNFTsByAddressResult> {

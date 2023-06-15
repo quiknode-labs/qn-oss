@@ -75,6 +75,12 @@ export const transactionFilters = z
   })
   .strict();
 
+export const gasPriceFilters = z
+  .object({
+    blockNumber: fullFilters(z.number().positive()).nullish(),
+  })
+  .strict();
+
 export const paginationParams = z
   .object({
     before: z.string().nullish(),

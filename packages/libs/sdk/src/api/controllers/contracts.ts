@@ -28,7 +28,7 @@ export class ContractsController {
     variables: ContractDetailsInput
   ): Promise<ContractDetailsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetContractDetailsDocument,
       polygon: CodegenPolygonMainnetContractDetailsDocument,

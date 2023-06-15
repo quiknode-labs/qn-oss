@@ -67,7 +67,7 @@ export class EventsController {
     variables: ContractEventsInput
   ): Promise<ContractEventsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthereumMainnetEventsByContractDocument,
       polygon: CodegenPolygonMainnetEventsByContractDocument,
@@ -107,7 +107,7 @@ export class EventsController {
     variables: CollectionEventsInput
   ): Promise<CollectionEventsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetEventsByCollectionDocument,
       polygon: CodegenPolygonMainnetEventsByCollectionDocument,
@@ -144,7 +144,7 @@ export class EventsController {
   @ValidateInput(nftEventsValidator)
   async getByNFT(variables: NFTEventsInput): Promise<NFTEventsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthereumMainnetEventsByNftDocument,
       polygon: CodegenPolygonMainnetEventsByNftDocument,
@@ -182,7 +182,7 @@ export class EventsController {
   @ValidateInput(allEventsValidator)
   async getAll(variables: AllEventsInput): Promise<AllEventsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthereumMainnetEventsGetAllDocument,
       polygon: CodegenPolygonMainnetEventsGetAllDocument,

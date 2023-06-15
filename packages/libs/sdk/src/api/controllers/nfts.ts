@@ -109,7 +109,7 @@ export class NftsController {
     variables: WalletNFTsByEnsInput
   ): Promise<WalletNFTsByEnsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetWalletNFTsByEnsDocument,
       polygon: CodegenPolygonMainnetWalletNFTsByEnsDocument,
@@ -153,7 +153,7 @@ export class NftsController {
     variables: WalletNFTsByAddressInput
   ): Promise<WalletNFTsByAddressResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetWalletNFTsByAddressDocument,
       polygon: CodegenPolygonMainnetWalletNFTsByAddressDocument,
@@ -197,7 +197,7 @@ export class NftsController {
     variables: NFTTrendingCollectionsInput
   ): Promise<NFTTrendingCollectionResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTrendingCollectionsDocument,
       polygon: CodegenPolygonMainnetTrendingCollectionsDocument,
@@ -233,7 +233,7 @@ export class NftsController {
     variables: NFTsByContractAddressInput
   ): Promise<NFTsByContractAddressResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetWalletNFTsByContractAddressDocument,
       polygon: CodegenPolygonMainnetNFTsByContractAddressDocument,
@@ -286,7 +286,7 @@ export class NftsController {
   @ValidateInput(nftDetailsValidator)
   async getNFTDetails(variables: NFTDetailsInput): Promise<NFTDetailsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetNFTDetailsDocument,
       polygon: CodegenPolygonMainnetNFTDetailsDocument,
@@ -315,7 +315,7 @@ export class NftsController {
     variables: NftCollectionDetailsInput
   ): Promise<NftCollectionDetailsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetNftCollectionDetailsDocument,
       polygon: CodegenPolygonMainnetNftCollectionDetailsDocument,

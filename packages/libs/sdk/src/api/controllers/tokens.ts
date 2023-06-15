@@ -59,7 +59,7 @@ export class TokensController {
     variables: BalancesByWalletENSInput
   ): Promise<BalancesByWalletENSResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetBalancesByWalletENSDocument,
       polygon: CodegenPolygonMainnetBalancesByWalletENSDocument,
@@ -109,7 +109,7 @@ export class TokensController {
     variables: BalancesByWalletAddressInput
   ): Promise<BalancesByWalletAddressResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetBalancesByWalletAddressDocument,
       polygon: CodegenPolygonMainnetBalancesByWalletAddressDocument,

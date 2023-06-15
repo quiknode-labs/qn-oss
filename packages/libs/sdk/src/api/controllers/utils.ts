@@ -28,7 +28,7 @@ export class UtilsController {
   async getGasPrices(variables: GasPricesInput): Promise<GasPricesResult> {
     const { chain, ...queryVariables } = variables;
     const returnInGwei = variables.returnInGwei || false;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetGasPricesDocument,
       polygon: CodegenPolygonMainnetGasPricesDocument,

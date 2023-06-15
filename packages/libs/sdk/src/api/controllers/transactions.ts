@@ -102,7 +102,7 @@ export class TransactionsController {
     variables: TransactionsByWalletAddressInput
   ): Promise<TransactionsByWalletAddressQueryResultInfo> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTransactionsByWalletAddressDocument,
       polygon: CodegenPolygonMainnetTransactionsByWalletAddressDocument,
@@ -128,7 +128,7 @@ export class TransactionsController {
     variables: TransactionsByWalletENSInput
   ): Promise<TransactionsByWalletENSQueryResultInfo> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTransactionsByWalletENSDocument,
       polygon: CodegenPolygonMainnetTransactionsByWalletENSDocument,
@@ -155,7 +155,7 @@ export class TransactionsController {
     variables: TransactionsBySearchInput
   ): Promise<TransactionsBySearchResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTransactionsBySearchDocument,
       polygon: CodegenPolygonMainnetTransactionsBySearchDocument,
@@ -185,7 +185,7 @@ export class TransactionsController {
     variables: TransactionsByHashInput
   ): Promise<TransactionsByHashResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTransactionsByHashDocument,
       polygon: CodegenPolygonMainnetTransactionsByHashDocument,

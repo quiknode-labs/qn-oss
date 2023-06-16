@@ -54,3 +54,6 @@ graphqlHeaders.json
 
 # code coverage
 packages/libs/sdk/coverage
+
+# docs
+generated_docs/

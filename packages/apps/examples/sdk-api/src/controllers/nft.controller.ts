@@ -6,6 +6,9 @@ export default {
     try {
       const NFTs = await nfts.getByWallet({
         address: req.params.address,
+        filter: {
+          contractAddressIn: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],
+        },
         first: 5,
       });
       return res.status(200).send(NFTs);

@@ -901,4 +901,44 @@ describe('utils.getGasPrices', () => {
       }
     );
   });
+
+  it('throws error with invalid params', async () => {
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(api.utils.getGasPrices(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
+  });
+
+  it('throws error with invalid filter param', async () => {
+    const input: any = {
+      filter: {
+        foo: 'bar',
+      },
+    };
+    await expect(api.utils.getGasPrices(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
+  });
+
+  it('throws error with invalid filter blockNumber param', async () => {
+    const input: any = {
+      filter: {
+        blockNumber: 'bar',
+      },
+    };
+    await expect(api.utils.getGasPrices(input)).rejects.toThrowError(
+      /filter,blockNumber: Expected object, received string/
+    );
+  });
+
+  it('throws error with invalid returnInGwei param', async () => {
+    const input: any = {
+      returnInGwei: 'foo',
+    };
+    await expect(api.utils.getGasPrices(input)).rejects.toThrowError(
+      /returnInGwei: Expected boolean, received string/
+    );
+  });
 });

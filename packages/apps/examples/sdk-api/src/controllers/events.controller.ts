@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { events } from '../client';
+import { QNInputValidationError } from '@qn-oss/libs/sdk';
 
 export default {
   getEventsByContract: async (req: Request, res: Response) => {
@@ -16,9 +17,14 @@ export default {
         },
       });
       return res.status(200).send(eventsByContract);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).send({});
+    } catch (error: unknown) {
+      if (error instanceof QNInputValidationError) {
+        console.error(error.stack);
+        return res.status(401).send({ errors: error.issues });
+      } else {
+        console.error(error);
+        return res.status(500).send('Something went wrong!');
+      }
     }
   },
   getCollectionEvents: async (req: Request, res: Response) => {

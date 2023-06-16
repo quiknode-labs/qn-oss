@@ -7,6 +7,7 @@ import {
   GasPricesQueryVariables,
   GasPricesQuery,
   GasPricesInput,
+  gasPricesValidator,
 } from '../types/utils/gasPrices';
 import {
   CodegenEthMainnetGasPricesDocument,
@@ -15,6 +16,7 @@ import {
 } from '../graphql/generatedTypes';
 import { TypedDocumentNode } from '@urql/core';
 import { weiToGwei } from '../utils/helpers';
+import { ValidateInput } from '../../lib/validation/ValidateInput';
 
 export class UtilsController {
   constructor(
@@ -22,10 +24,11 @@ export class UtilsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
+  @ValidateInput(gasPricesValidator)
   async getGasPrices(variables: GasPricesInput): Promise<GasPricesResult> {
     const { chain, ...queryVariables } = variables;
     const returnInGwei = variables.returnInGwei || false;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetGasPricesDocument,
       polygon: CodegenPolygonMainnetGasPricesDocument,

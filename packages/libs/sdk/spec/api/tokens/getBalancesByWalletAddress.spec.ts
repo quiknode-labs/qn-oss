@@ -149,4 +149,27 @@ describe('tokens.getBalancesByWallet with address', () => {
       }
     );
   });
+
+  it('throw error if no address is provided', async () => {
+    const input: any = {};
+    await expect(tokens.getBalancesByWallet(input)).rejects.toThrow(
+      /address: Invalid input/
+    );
+  });
+
+  it('throw error if address is not a valid address', async () => {
+    await expect(
+      tokens.getBalancesByWallet({ address: '0x123' })
+    ).rejects.toThrow(/address: Invalid input/);
+  });
+
+  it('throws an error with a bad param', async () => {
+    const input: any = {
+      address: 'quicknode.eth',
+      foo: 'bar',
+    };
+    await expect(tokens.getBalancesByWallet(input)).rejects.toThrow(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
+  });
 });

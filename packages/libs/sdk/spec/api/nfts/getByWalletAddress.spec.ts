@@ -154,11 +154,11 @@ describe('getNFTsByWallet with address', () => {
       },
       async () => {
         const data = await api.nfts.getByWallet({
-          address: '0x3c6aeff92b4b35c2e1b196b57d0f8ffb568aaaa',
+          address: '0x2106C00Ac7dA0A3430aE667879139E832307bbbb',
           first: 2,
         });
         expect(data).toStrictEqual({
-          address: '0x3c6aeff92b4b35c2e1b196b57d0f8ffb568aaaa',
+          address: '0x2106c00ac7da0a3430ae667879139e832307bbbb',
           ensName: '',
           pageInfo: {
             endCursor: null,
@@ -278,6 +278,45 @@ describe('getNFTsByWallet with address', () => {
           ensName: 'quicknode.eth',
         });
       }
+    );
+  });
+
+  it('throws an error with no params passed', async () => {
+    const input: any = {};
+    await expect(api.nfts.getByWallet(input)).rejects.toThrow(
+      /address: Invalid input/
+    );
+  });
+
+  it('throws an error with an invalid wallet address', async () => {
+    await expect(
+      api.nfts.getByWallet({
+        address: '0x123',
+      })
+    ).rejects.toThrow(/address: Invalid input/);
+  });
+
+  it('throws an error with an invalid filter value', async () => {
+    const input: any = {
+      address: 'quicknode.eth',
+      filter: {
+        contractAddressIn: ['0x123'],
+      },
+    };
+    await expect(api.nfts.getByWallet(input)).rejects.toThrow(
+      /filter,contractAddressIn,0: Not a valid address/
+    );
+  });
+
+  it('throws an error with an invalid filter param', async () => {
+    const input: any = {
+      address: 'quicknode.eth',
+      filter: {
+        foo: 'bar',
+      },
+    };
+    await expect(api.nfts.getByWallet(input)).rejects.toThrow(
+      /filter: Unrecognized key\(s\) in object: 'foo'/
     );
   });
 });

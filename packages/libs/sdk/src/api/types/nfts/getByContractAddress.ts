@@ -1,4 +1,9 @@
 import {
+  paginationParams,
+  supportedChainInput,
+  isEvmAddress,
+} from '../../../lib/validation/validators';
+import {
   CodegenEthMainnetWalletNFTsByContractAddressQuery,
   CodegenEthMainnetWalletNFTsByContractAddressQueryVariables,
   CodegenERC721NFTNodeFragment,
@@ -6,8 +11,8 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
 import { NftErcStandards } from '../nfts';
+import { z } from 'zod';
 
 export type NFTsByContractAddressQuery = {
   [k in ChainName]: CodegenEthMainnetWalletNFTsByContractAddressQuery['ethereum'];
@@ -16,9 +21,15 @@ export type NFTsByContractAddressQuery = {
 export type NFTsByContractAddressQueryVariables =
   CodegenEthMainnetWalletNFTsByContractAddressQueryVariables;
 
-export type NFTsByContractAddressInput = NFTsByContractAddressQueryVariables &
-  NonQueryInput;
+export const nftsByContractAddressValidator = z
+  .object({ contractAddress: isEvmAddress })
+  .merge(paginationParams)
+  .merge(supportedChainInput)
+  .strict();
 
+export type NFTsByContractAddressInput = z.infer<
+  typeof nftsByContractAddressValidator
+>;
 export interface NFTsByContractAddressQueryResultInfo {
   __typename: string;
   nftsPageInfo: CodegenPaginationFragment;

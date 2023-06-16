@@ -309,4 +309,29 @@ describe('nfts.getByContractAddress', () => {
       }
     );
   });
+
+  it('throws error with no params', async () => {
+    const input: any = {};
+    await expect(api.nfts.getByContractAddress(input)).rejects.toThrow(
+      /contractAddress: Required/
+    );
+  });
+
+  it('throws error with invalid contract address param', async () => {
+    const input: any = {
+      contractAddress: '0x123',
+    };
+    await expect(api.nfts.getByContractAddress(input)).rejects.toThrow(
+      /contractAddress: Not a valid address/
+    );
+  });
+
+  it('throws error with invalid param', async () => {
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(api.nfts.getByContractAddress(input)).rejects.toThrow(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
+  });
 });

@@ -48,12 +48,36 @@ describe('transactions.getByHash', () => {
       },
       async () => {
         const data = await transactions.getByHash({
-          hash: '0x123123123123123',
+          hash: '0x38c0807ee8291ed5a2089ed5a94f816f72b3180150eff8f6cf389aaaaaaaaaaa',
         });
         expect(data).toStrictEqual({
           transaction: null,
         });
       }
+    );
+  });
+
+  it('should throw an error if no hash is provided', async () => {
+    const input: any = {};
+    await expect(transactions.getByHash(input)).rejects.toThrow(
+      /hash: Required/
+    );
+  });
+
+  it('should throw an error if an incorrect hash is provided', async () => {
+    await expect(
+      transactions.getByHash({
+        hash: '0x123',
+      })
+    ).rejects.toThrow(/hash: Not a valid transaction hash/);
+  });
+
+  it('should throw an error if an incorrect param is provided', async () => {
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(transactions.getByHash(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'foo'/
     );
   });
 });

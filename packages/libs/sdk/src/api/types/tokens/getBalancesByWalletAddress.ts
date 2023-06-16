@@ -1,11 +1,17 @@
 import {
+  paginationParams,
+  isENSAddress,
+  isEvmAddress,
+  supportedChainInput,
+} from '../../../lib/validation/validators';
+import {
   CodegenEthMainnetBalancesByWalletAddressQueryVariables,
   CodegenEthMainnetBalancesByWalletAddressQuery,
   CodegenTokenBalanceNodeFragment,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
+import { z } from 'zod';
 
 // Using the generated CodegenEthMainnetBalancesByWalletAddressQuery as a base for the type here
 // since the queries for each chain will be the same, so allow for it to be used for all chains
@@ -18,8 +24,17 @@ export type BalancesByWalletAddressQuery = {
 export type BalancesByWalletAddressQueryVariables =
   CodegenEthMainnetBalancesByWalletAddressQueryVariables;
 
-export type BalancesByWalletAddressInput =
-  BalancesByWalletAddressQueryVariables & NonQueryInput;
+export const balancesByWalletAddressValidator = z
+  .object({
+    address: z.union([isENSAddress, isEvmAddress]),
+  })
+  .merge(paginationParams)
+  .merge(supportedChainInput)
+  .strict();
+
+export type BalancesByWalletAddressInput = z.infer<
+  typeof balancesByWalletAddressValidator
+>;
 
 export interface BalancesByWalletAddressQueryResultInfo {
   address: string;

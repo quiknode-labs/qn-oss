@@ -15,6 +15,7 @@ import {
   WalletNFTsByAddressQueryVariables,
   WalletNFTsByAddressQuery,
   WalletNFTsByAddressInput,
+  walletByAddressValidator,
 } from '../types/nfts/getByWalletAddress';
 import {
   NFTDetailsResult,
@@ -22,6 +23,7 @@ import {
   NFTDetailsQueryVariables,
   NFTDetailsQuery,
   NFTDetailsInput,
+  nftDetailsValidator,
 } from '../types/nfts/getNFTDetails';
 import {
   NftCollectionDetailsResult,
@@ -29,6 +31,7 @@ import {
   NftCollectionDetailsQueryVariables,
   NftCollectionDetailsQuery,
   NftCollectionDetailsInput,
+  nftCollectionDetailsValidator,
 } from '../types/nfts/getCollectionDetails';
 import {
   NFTTrendingCollectionsQueryResultBody,
@@ -37,6 +40,7 @@ import {
   NFTTrendingCollectionsQueryVariables,
   NFTTrendingCollectionsQuery,
   NFTTrendingCollectionsInput,
+  nftTrendingCollectionsValidator,
 } from '../types/nfts/getTrendingCollections';
 import {
   NFTsByContractAddressQueryResultInfo,
@@ -45,6 +49,7 @@ import {
   NFTsByContractAddressQueryVariables,
   NFTsByContractAddressQuery,
   NFTsByContractAddressInput,
+  nftsByContractAddressValidator,
 } from '../types/nfts/getByContractAddress';
 
 import {
@@ -74,6 +79,7 @@ import { TypedDocumentNode } from '@urql/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NftErcStandards } from '../types/nfts';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
+import { ValidateInput } from '../../lib/validation/ValidateInput';
 
 export class NftsController {
   constructor(
@@ -81,6 +87,7 @@ export class NftsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
+  @ValidateInput(walletByAddressValidator)
   async getByWallet(
     variables: WalletNFTsByAddressInput
   ): Promise<WalletNFTsByAddressResult> {
@@ -102,7 +109,7 @@ export class NftsController {
     variables: WalletNFTsByEnsInput
   ): Promise<WalletNFTsByEnsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetWalletNFTsByEnsDocument,
       polygon: CodegenPolygonMainnetWalletNFTsByEnsDocument,
@@ -146,7 +153,7 @@ export class NftsController {
     variables: WalletNFTsByAddressInput
   ): Promise<WalletNFTsByAddressResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetWalletNFTsByAddressDocument,
       polygon: CodegenPolygonMainnetWalletNFTsByAddressDocument,
@@ -185,11 +192,12 @@ export class NftsController {
     return formattedResult;
   }
 
+  @ValidateInput(nftTrendingCollectionsValidator)
   async getTrendingCollections(
     variables: NFTTrendingCollectionsInput
   ): Promise<NFTTrendingCollectionResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTrendingCollectionsDocument,
       polygon: CodegenPolygonMainnetTrendingCollectionsDocument,
@@ -207,10 +215,6 @@ export class NftsController {
       variables: queryVariables,
     });
 
-    if (!trendingCollections?.trendingCollections?.length) {
-      return { results: [], pageInfo: emptyPageInfo };
-    }
-
     const formattedResult = formatQueryResult<
       NFTTrendingCollectionsQueryResultBody,
       NFTTrendingCollectionResult
@@ -224,11 +228,12 @@ export class NftsController {
     return formattedResult;
   }
 
+  @ValidateInput(nftsByContractAddressValidator)
   async getByContractAddress(
     variables: NFTsByContractAddressInput
   ): Promise<NFTsByContractAddressResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetWalletNFTsByContractAddressDocument,
       polygon: CodegenPolygonMainnetNFTsByContractAddressDocument,
@@ -278,9 +283,10 @@ export class NftsController {
     return formattedResult;
   }
 
+  @ValidateInput(nftDetailsValidator)
   async getNFTDetails(variables: NFTDetailsInput): Promise<NFTDetailsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetNFTDetailsDocument,
       polygon: CodegenPolygonMainnetNFTDetailsDocument,
@@ -304,11 +310,12 @@ export class NftsController {
     return { nft: null };
   }
 
+  @ValidateInput(nftCollectionDetailsValidator)
   async getCollectionDetails(
     variables: NftCollectionDetailsInput
   ): Promise<NftCollectionDetailsResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetNftCollectionDetailsDocument,
       polygon: CodegenPolygonMainnetNftCollectionDetailsDocument,

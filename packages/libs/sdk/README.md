@@ -43,6 +43,7 @@ Currently the SDK makes it even easier to use the [QuickNode Graph API](https://
     - [events.getAll](#eventsgetall)
     - [utils.getGasPrices](#utilsgetgasprices)
     - [graphApiClient.query](#graphapiclientquery)
+    - [Error Handling](#error-handling)
   - [Filters](#filters)
     - [Token Event Filters](#token-event-filters)
   - [Pagination](#pagination)
@@ -701,6 +702,43 @@ const variables = {
 
 qn.graphApiClient.query({ query, variables }).then(({ data }) => console.log(data));
 ```
+
+<br>
+
+### Error handling
+
+The input to API functions is validated at runtime in order to handle both untyped JavaScript input and user input in end user applications. In short, this will help prevent you sending invalid Graph API queries because of bad input. The validation is done by [zod](https://www.npmjs.com/package/zod) under the hood and we expose the errors to you in a `QNInputValidationError` instance.
+
+For example, you can handle these errors:
+
+```typescript
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({ graphApiKey: 'my-api-key' });
+
+// Inside async function
+try {
+  const eventsByContract = await events.getByContract({
+    contractAddress: userInput, // Input comes from the user, we don't know what will be here
+  });
+  return eventsByContract;
+} catch (error) {
+  if (error instanceof QNInputValidationError) {
+    console.error(error.stack);
+    return { errors: error.issues }; // Return formatted issues to handle as needed by UI or user
+  } else {
+    // handle unexpected errors here
+  }
+}
+```
+
+The `QNInputValidationError` instance has the following properties:
+
+| Property | Type       | Description                                                                                                                                            |
+| -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| messages | string[]   | An array of concise error messages                                                                                                                     |
+| zodError | ZodError   | The full `ZodError` instance, see [the Zod error handling docs](https://github.com/colinhacks/zod/blob/master/ERROR_HANDLING.md) for more information  |
+| issues   | ZodIssue[] | An array of [Zod Issue](https://github.com/colinhacks/zod/blob/master/ERROR_HANDLING.md#zodissue) instances, which is a formatted error data structure |
 
 <br>
 

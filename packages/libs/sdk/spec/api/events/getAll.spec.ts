@@ -273,4 +273,66 @@ describe('events.getAll', () => {
       }
     );
   });
+
+  it('throws error if blockNumber filter is invalid', async () => {
+    await expect(
+      api.events.getAll({
+        first: 2,
+        filter: {
+          blockNumber: {
+            eq: -1,
+          },
+        },
+      })
+    ).rejects.toThrowError(/Number must be greater than 0/);
+  });
+
+  it('throws error if transactionHash filter is invalid', async () => {
+    await expect(
+      api.events.getAll({
+        first: 2,
+        filter: {
+          transactionHash: {
+            eq: '0xZzZzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+          },
+        },
+      })
+    ).rejects.toThrowError(/Not a valid transaction hash/);
+  });
+
+  it('throws an error if there is an invalid param', async () => {
+    const input = {
+      first: 2,
+      invalidParam: 'hi',
+    };
+    await expect(api.events.getAll(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'invalidParam'/
+    );
+  });
+
+  it('throws an error if there is an invalid param in filter', async () => {
+    const input: any = {
+      first: 2,
+      filter: {
+        invalidParam: 'hi',
+      },
+    };
+    await expect(api.events.getAll(input)).rejects.toThrowError(
+      /filter: Unrecognized key\(s\) in object: 'invalidParam'/
+    );
+  });
+
+  it('throws an error if there is an invalid operator in filter', async () => {
+    const input: any = {
+      first: 2,
+      filter: {
+        blockNumber: {
+          notAnOperator: 11111,
+        },
+      },
+    };
+    await expect(api.events.getAll(input)).rejects.toThrowError(
+      /filter,blockNumber: Unrecognized key\(s\) in object: 'notAnOperator'/
+    );
+  });
 });

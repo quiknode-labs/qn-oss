@@ -1,10 +1,14 @@
 import {
+  isEvmAddress,
+  supportedChainInput,
+} from '../../../lib/validation/validators';
+import {
   CodegenEthMainnetNFTDetailsQueryVariables,
   CodegenEthMainnetNFTDetailsQuery,
   CodegenNftDetailsFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
+import { z } from 'zod';
 
 export type NFTDetailsQuery = {
   [k in ChainName]: CodegenEthMainnetNFTDetailsQuery['ethereum'];
@@ -13,7 +17,12 @@ export type NFTDetailsQuery = {
 export type NFTDetailsQueryVariables =
   CodegenEthMainnetNFTDetailsQueryVariables;
 
-export type NFTDetailsInput = NFTDetailsQueryVariables & NonQueryInput;
+export const nftDetailsValidator = z
+  .object({ contractAddress: isEvmAddress, tokenId: z.string() })
+  .merge(supportedChainInput)
+  .strict();
+
+export type NFTDetailsInput = z.infer<typeof nftDetailsValidator>;
 
 export interface NFTDetailsQueryResultInfo {
   nft: CodegenNftDetailsFragment['nft'];

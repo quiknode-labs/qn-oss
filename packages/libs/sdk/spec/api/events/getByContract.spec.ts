@@ -233,11 +233,10 @@ describe('events.getByContract', () => {
   });
 
   it('throws an error when no contract address is provided', async () => {
-    await expect(
-      api.events
-        // @ts-ignore
-        .getByContract({})
-    ).rejects.toThrowError(/contractAddress: Required/);
+    const input: any = {};
+    await expect(api.events.getByContract(input)).rejects.toThrowError(
+      /contractAddress: Required/
+    );
   });
 
   it('throws an error when an invalid contract address is provided', async () => {

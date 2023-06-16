@@ -903,44 +903,42 @@ describe('utils.getGasPrices', () => {
   });
 
   it('throws error with invalid params', async () => {
-    await expect(
-      api.utils.getGasPrices({
-        // @ts-ignore
-        foo: 'bar',
-      })
-    ).rejects.toThrowError(/Unrecognized key\(s\) in object: 'foo'/);
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(api.utils.getGasPrices(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
   });
 
   it('throws error with invalid filter param', async () => {
-    await expect(
-      api.utils.getGasPrices({
-        filter: {
-          // @ts-ignore
-          foo: 'bar',
-        },
-      })
-    ).rejects.toThrowError(/Unrecognized key\(s\) in object: 'foo'/);
+    const input: any = {
+      filter: {
+        foo: 'bar',
+      },
+    };
+    await expect(api.utils.getGasPrices(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
   });
 
   it('throws error with invalid filter blockNumber param', async () => {
-    await expect(
-      api.utils.getGasPrices({
-        filter: {
-          // @ts-ignore
-          blockNumber: 'bar',
-        },
-      })
-    ).rejects.toThrowError(
+    const input: any = {
+      filter: {
+        blockNumber: 'bar',
+      },
+    };
+    await expect(api.utils.getGasPrices(input)).rejects.toThrowError(
       /filter,blockNumber: Expected object, received string/
     );
   });
 
   it('throws error with invalid returnInGwei param', async () => {
-    await expect(
-      api.utils.getGasPrices({
-        // @ts-ignore
-        returnInGwei: 'foo',
-      })
-    ).rejects.toThrowError(/returnInGwei: Expected boolean, received string/);
+    const input: any = {
+      returnInGwei: 'foo',
+    };
+    await expect(api.utils.getGasPrices(input)).rejects.toThrowError(
+      /returnInGwei: Expected boolean, received string/
+    );
   });
 });

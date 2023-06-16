@@ -214,11 +214,10 @@ describe('nfts.getByNFTCollection', () => {
   });
 
   it('throws an error when no contract address is provided', async () => {
-    await expect(
-      api.events
-        // @ts-ignore
-        .getByNFTCollection({})
-    ).rejects.toThrowError(/contractAddress: Required/);
+    const input: any = {};
+    await expect(api.events.getByNFTCollection(input)).rejects.toThrowError(
+      /contractAddress: Required/
+    );
   });
 
   it('throws an error when an invalid contract address is provided', async () => {

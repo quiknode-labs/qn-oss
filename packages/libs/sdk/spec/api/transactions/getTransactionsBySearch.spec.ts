@@ -253,10 +253,10 @@ describe('transactions.getAll', () => {
   });
 
   it('should throw error with incorrect filter param', async () => {
-    await expect(
-      // @ts-ignore
-      transactions.getAll({ filter: { foo: 'bar' }, first: 2 })
-    ).rejects.toThrowError(/filter: Unrecognized key\(s\) in object: 'foo'/);
+    const input: any = { filter: { foo: 'bar' }, first: 2 };
+    await expect(transactions.getAll(input)).rejects.toThrowError(
+      /filter: Unrecognized key\(s\) in object: 'foo'/
+    );
   });
 
   it('should throw error with incorrect address in filter', async () => {

@@ -77,26 +77,27 @@ describe('getCollectionDetails', () => {
   });
 
   it('throws error on missing contract address', async () => {
-    await expect(
-      //@ts-ignore
-      api.nfts.getCollectionDetails({})
-    ).rejects.toThrow(/contractAddress: Required/);
+    const input: any = {};
+    await expect(api.nfts.getCollectionDetails(input)).rejects.toThrow(
+      /contractAddress: Required/
+    );
   });
 
   it('throws error on invalid contract address', async () => {
-    await expect(
-      api.nfts.getCollectionDetails({
-        contractAddress: '0x123',
-      })
-    ).rejects.toThrow(/contractAddress: Not a valid address/);
+    const input: any = {
+      contractAddress: '0x123',
+    };
+    await expect(api.nfts.getCollectionDetails(input)).rejects.toThrow(
+      /contractAddress: Not a valid address/
+    );
   });
 
   it('throws error on invalid param', async () => {
-    await expect(
-      api.nfts.getCollectionDetails({
-        // @ts-ignore
-        foo: 'bar',
-      })
-    ).rejects.toThrow(/Unrecognized key\(s\) in object: 'foo'/);
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(api.nfts.getCollectionDetails(input)).rejects.toThrow(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
   });
 });

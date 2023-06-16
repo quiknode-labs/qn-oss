@@ -229,27 +229,27 @@ describe('transactions.getByWallet with address', () => {
   });
 
   it('throws an error if no address is provided', async () => {
-    // @ts-ignore
-    await expect(transactions.getByWallet({})).rejects.toThrow(
+    const input: any = {};
+    await expect(transactions.getByWallet(input)).rejects.toThrow(
       /address: Invalid input/
     );
   });
 
   it('throws an error if address is not a valid address', async () => {
-    // @ts-ignore
-    await expect(
-      transactions.getByWallet({
-        address: '0x123',
-      })
-    ).rejects.toThrow(/address: Invalid input/);
+    const input: any = {
+      address: '0x123',
+    };
+    await expect(transactions.getByWallet(input)).rejects.toThrow(
+      /address: Invalid input/
+    );
   });
 
   it('throws an error on an invalid param', async () => {
-    await expect(
-      transactions.getByWallet({
-        // @ts-ignore
-        foo: 'bar',
-      })
-    ).rejects.toThrow(/address: Invalid input/);
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(transactions.getByWallet(input)).rejects.toThrow(
+      /address: Invalid input/
+    );
   });
 });

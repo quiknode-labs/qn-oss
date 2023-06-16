@@ -301,44 +301,37 @@ describe('events.getAll', () => {
   });
 
   it('throws an error if there is an invalid param', async () => {
-    await expect(
-      api.events.getAll({
-        first: 2,
-        // ignoring so we can test like it's javascript
-        // @ts-ignore
-        invalidParam: 'hi',
-      })
-    ).rejects.toThrowError(/Unrecognized key\(s\) in object: 'invalidParam'/);
+    const input = {
+      first: 2,
+      invalidParam: 'hi',
+    };
+    await expect(api.events.getAll(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'invalidParam'/
+    );
   });
 
   it('throws an error if there is an invalid param in filter', async () => {
-    await expect(
-      api.events.getAll({
-        first: 2,
-        filter: {
-          // ignoring so we can test like it's javascript
-          // @ts-ignore
-          invalidParam: 'hi',
-        },
-      })
-    ).rejects.toThrowError(
+    const input: any = {
+      first: 2,
+      filter: {
+        invalidParam: 'hi',
+      },
+    };
+    await expect(api.events.getAll(input)).rejects.toThrowError(
       /filter: Unrecognized key\(s\) in object: 'invalidParam'/
     );
   });
 
   it('throws an error if there is an invalid operator in filter', async () => {
-    await expect(
-      api.events.getAll({
-        first: 2,
-        filter: {
-          blockNumber: {
-            // ignoring so we can test like it's javascript
-            // @ts-ignore
-            notAnOperator: 11111,
-          },
+    const input: any = {
+      first: 2,
+      filter: {
+        blockNumber: {
+          notAnOperator: 11111,
         },
-      })
-    ).rejects.toThrowError(
+      },
+    };
+    await expect(api.events.getAll(input)).rejects.toThrowError(
       /filter,blockNumber: Unrecognized key\(s\) in object: 'notAnOperator'/
     );
   });

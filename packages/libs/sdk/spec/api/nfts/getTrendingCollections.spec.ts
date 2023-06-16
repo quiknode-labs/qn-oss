@@ -284,11 +284,11 @@ describe('getTrendingCollections', () => {
   });
 
   it('throws error with invalid params', async () => {
-    await expect(
-      api.nfts.getTrendingCollections({
-        // @ts-ignore
-        foo: 'bar',
-      })
-    ).rejects.toThrowError(/Unrecognized key\(s\) in object: 'foo'/);
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(api.nfts.getTrendingCollections(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
   });
 });

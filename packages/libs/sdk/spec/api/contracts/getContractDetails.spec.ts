@@ -1152,13 +1152,12 @@ describe('contract.getDetails', () => {
   });
 
   it('throws an error when there is an extra param', async () => {
-    await expect(
-      api.contracts.getDetails({
-        contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
-        // Need to ignore this to replicate no type checking in javascript
-        // @ts-ignore
-        notAParam: 'notAParam',
-      })
-    ).rejects.toThrowError(/Unrecognized key\(s\) in object: 'notAParam'/);
+    const input = {
+      contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+      notAParam: 'notAParam',
+    };
+    await expect(api.contracts.getDetails(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'notAParam'/
+    );
   });
 });

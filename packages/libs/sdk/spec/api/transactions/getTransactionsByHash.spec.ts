@@ -58,10 +58,10 @@ describe('transactions.getByHash', () => {
   });
 
   it('should throw an error if no hash is provided', async () => {
-    await expect(
-      // @ts-ignore
-      transactions.getByHash({})
-    ).rejects.toThrow(/hash: Required/);
+    const input: any = {};
+    await expect(transactions.getByHash(input)).rejects.toThrow(
+      /hash: Required/
+    );
   });
 
   it('should throw an error if an incorrect hash is provided', async () => {
@@ -73,11 +73,11 @@ describe('transactions.getByHash', () => {
   });
 
   it('should throw an error if an incorrect param is provided', async () => {
-    await expect(
-      transactions.getByHash({
-        // @ts-ignore
-        foo: 'bar',
-      })
-    ).rejects.toThrowError(/Unrecognized key\(s\) in object: 'foo'/);
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(transactions.getByHash(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
   });
 });

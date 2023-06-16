@@ -282,10 +282,10 @@ describe('getNFTsByWallet with address', () => {
   });
 
   it('throws an error with no params passed', async () => {
-    await expect(
-      // @ts-ignore
-      api.nfts.getByWallet({})
-    ).rejects.toThrow(/address: Invalid input/);
+    const input: any = {};
+    await expect(api.nfts.getByWallet(input)).rejects.toThrow(
+      /address: Invalid input/
+    );
   });
 
   it('throws an error with an invalid wallet address', async () => {
@@ -297,26 +297,26 @@ describe('getNFTsByWallet with address', () => {
   });
 
   it('throws an error with an invalid filter value', async () => {
-    await expect(
-      api.nfts.getByWallet({
-        address: 'quicknode.eth',
-        filter: {
-          // @ts-ignore
-          contractAddressIn: ['0x123'],
-        },
-      })
-    ).rejects.toThrow(/filter,contractAddressIn,0: Not a valid address/);
+    const input: any = {
+      address: 'quicknode.eth',
+      filter: {
+        contractAddressIn: ['0x123'],
+      },
+    };
+    await expect(api.nfts.getByWallet(input)).rejects.toThrow(
+      /filter,contractAddressIn,0: Not a valid address/
+    );
   });
 
   it('throws an error with an invalid filter param', async () => {
-    await expect(
-      api.nfts.getByWallet({
-        address: 'quicknode.eth',
-        filter: {
-          // @ts-ignore
-          foo: 'bar',
-        },
-      })
-    ).rejects.toThrow(/filter: Unrecognized key\(s\) in object: 'foo'/);
+    const input: any = {
+      address: 'quicknode.eth',
+      filter: {
+        foo: 'bar',
+      },
+    };
+    await expect(api.nfts.getByWallet(input)).rejects.toThrow(
+      /filter: Unrecognized key\(s\) in object: 'foo'/
+    );
   });
 });

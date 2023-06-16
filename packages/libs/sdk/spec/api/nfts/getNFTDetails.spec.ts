@@ -79,34 +79,34 @@ describe('getNFTDetails', () => {
   });
 
   it('throws error with no params', async () => {
-    // @ts-ignore
-    await expect(api.nfts.getNFTDetails({})).rejects.toThrow(
+    const input: any = {};
+    await expect(api.nfts.getNFTDetails(input)).rejects.toThrow(
       /contractAddress: Required/
     );
   });
 
   it('throws error with no contract address', async () => {
-    // @ts-ignore
-    await expect(api.nfts.getNFTDetails({ tokenId: '1' })).rejects.toThrow(
+    const input: any = { tokenId: '1' };
+    await expect(api.nfts.getNFTDetails(input)).rejects.toThrow(
       /contractAddress: Required/
     );
   });
 
   it('throws error with no token id', async () => {
-    await expect(
-      // @ts-ignore
-      api.nfts.getNFTDetails({ contractAddress: '0x123' })
-    ).rejects.toThrow(/tokenId: Required/);
+    const input: any = { contractAddress: '0x123' };
+    await expect(api.nfts.getNFTDetails(input)).rejects.toThrow(
+      /tokenId: Required/
+    );
   });
 
   it('throws error with invalid param', async () => {
-    await expect(
-      api.nfts.getNFTDetails({
-        // @ts-ignore
-        foo: 'bar',
-        contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
-        tokenId: '1',
-      })
-    ).rejects.toThrow(/Unrecognized key\(s\) in object: 'foo'/);
+    const input: any = {
+      foo: 'bar',
+      contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+      tokenId: '1',
+    };
+    await expect(api.nfts.getNFTDetails(input)).rejects.toThrow(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
   });
 });

@@ -14,6 +14,7 @@
     "@urql/core": "^4.0.7",
     "@urql/exchange-graphcache": "^6.0.4",
     "cross-fetch": "^3.1.6",
+    "tslib": "^2.5.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {

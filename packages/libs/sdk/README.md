@@ -712,6 +712,10 @@ The input to API functions is validated at runtime in order to handle both untyp
 For example, you can handle these errors:
 
 ```typescript
+import QuickNode from '@quicknode/sdk';
+
+const qn = new QuickNode.API({ graphApiKey: 'my-api-key' });
+
 // Inside async function
 try {
   const eventsByContract = await events.getByContract({
@@ -732,7 +736,7 @@ The `QNInputValidationError` instance has the following properties:
 
 | Property | Type       | Description                                                                                                                                            |
 | -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| messages | string[]   | A concatenated string of error messages, useful for logging or human-readable parsing                                                                  |
+| messages | string[]   | An array of concise error messages                                                                                                                     |
 | zodError | ZodError   | The full `ZodError` instance, see [the Zod error handling docs](https://github.com/colinhacks/zod/blob/master/ERROR_HANDLING.md) for more information  |
 | issues   | ZodIssue[] | An array of [Zod Issue](https://github.com/colinhacks/zod/blob/master/ERROR_HANDLING.md#zodissue) instances, which is a formatted error data structure |
 

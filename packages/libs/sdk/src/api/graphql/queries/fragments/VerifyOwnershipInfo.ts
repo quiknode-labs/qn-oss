@@ -4,7 +4,7 @@ import { VerifyOwnershipNFTDetails } from './VerifyOwnershipNFTDetails';
 export const VerifyOwnershipInfo = gql`
   fragment VerifyOwnershipInfo on EVMSchemaType {
     walletByAddress(address: $address) {
-      walletNFTs(filter: { contractAddressIn: $contractAddresses }) {
+      walletNFTs(filter: $filter) {
         edges {
           node {
             ...VerifyOwnershipNFTDetails

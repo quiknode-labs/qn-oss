@@ -1,8 +1,11 @@
 import { gql } from '@apollo/client/core';
 import { VerifyOwnershipInfo } from '../../../fragments/VerifyOwnershipInfo';
 
-export const EthMainnetVerifyOwnership = gql`
-  query EthMainnetVerifyOwnership($filter: WalletNFTsFilterInput) {
+export const EthMainnetVerifyOwnershipByAddress = gql`
+  query EthMainnetVerifyOwnershipByAddress(
+    $address: String!
+    $filter: WalletNFTsFilterInput
+  ) {
     ethereum {
       ...VerifyOwnershipInfo
     }

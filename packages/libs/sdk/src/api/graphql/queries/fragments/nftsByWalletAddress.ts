@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 
-import { WalletNFTNode } from './WalletNft';
+import { WalletNFTNode } from './nodes/WalletNft';
 import { Pagination } from './pagination';
 
 export const WalletByAddressFragment = gql`
@@ -8,7 +8,12 @@ export const WalletByAddressFragment = gql`
     walletByAddress(address: $address) {
       address
       ensName
-      walletNFTs(after: $after, first: $first, filter: $filter) {
+      walletNFTs(
+        before: $before
+        after: $after
+        first: $first
+        filter: $filter
+      ) {
         pageInfo {
           ...Pagination
         }

@@ -9,4 +9,6 @@ export default {
   setupFiles: ['./spec/testSetup/jestSetup.ts'],
   setupFilesAfterEnv: ['./spec/testSetup/jestSetupAfterEnv.ts'],
   testEnvironment: 'node',
+  slowTestThreshold: 15,
+  coveragePathIgnorePatterns: ['./spec/testSetup'],
 };

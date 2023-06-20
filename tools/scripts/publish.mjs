@@ -7,7 +7,8 @@
  * You might need to authenticate with NPM before running this script.
  */
 
-import { readCachedProjectGraph } from '@nrwl/devkit';
+import pkg from '@nrwl/devkit';
+const { readCachedProjectGraph } = pkg;
 import chalk from 'chalk';
 import { execSync } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';

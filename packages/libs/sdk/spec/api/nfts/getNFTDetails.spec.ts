@@ -70,11 +70,43 @@ describe('getNFTDetails', () => {
       { recordingName: 'query-getNFTDetails-missing', recordIfMissing: true },
       async () => {
         const data = await api.nfts.getNFTDetails({
-          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307fake',
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307aaaa',
           tokenId: '1',
         });
         expect(data).toStrictEqual({ nft: null });
       }
+    );
+  });
+
+  it('throws error with no params', async () => {
+    const input: any = {};
+    await expect(api.nfts.getNFTDetails(input)).rejects.toThrow(
+      /contractAddress: Required/
+    );
+  });
+
+  it('throws error with no contract address', async () => {
+    const input: any = { tokenId: '1' };
+    await expect(api.nfts.getNFTDetails(input)).rejects.toThrow(
+      /contractAddress: Required/
+    );
+  });
+
+  it('throws error with no token id', async () => {
+    const input: any = { contractAddress: '0x123' };
+    await expect(api.nfts.getNFTDetails(input)).rejects.toThrow(
+      /tokenId: Required/
+    );
+  });
+
+  it('throws error with invalid param', async () => {
+    const input: any = {
+      foo: 'bar',
+      contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+      tokenId: '1',
+    };
+    await expect(api.nfts.getNFTDetails(input)).rejects.toThrow(
+      /Unrecognized key\(s\) in object: 'foo'/
     );
   });
 });

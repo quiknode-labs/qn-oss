@@ -1,14 +1,18 @@
 import express from 'express';
 import nftController from './controllers/nft.controller';
 import graphController from './controllers/graphApiClient.controller';
+import tokenController from './controllers/token.controller';
+import utilController from './controllers/util.controller';
+import contractsController from './controllers/contracts.controller';
+import transactionsController from './controllers/transactions.controller';
+import eventsController from './controllers/events.controller';
 const router = express.Router();
 
 router.get('/api', (req, res) => {
   res.send({ message: "Welcome to QuickNode's sdk api example!" });
 });
 
-router.get('/api/nftsByEns/:ensResource', nftController.getNFTsByEns);
-router.get('/api/nftsByAddress/:address', nftController.getNFTsByAddress);
+router.get('/api/nftsByWallet/:address', nftController.getNFTsByWallet);
 router.get('/api/trendingCollections', nftController.getTrendingCollections);
 router.get(
   '/api/nftsByContractAddress/:contractAddress',
@@ -24,16 +28,38 @@ router.get(
 );
 router.get(
   '/api/nftCollectionEvents/:contractAddress',
-  nftController.getCollectionEvents
+  eventsController.getCollectionEvents
 );
 router.get(
   '/api/nftEvents/:contractAddress/:tokenId',
-  nftController.getNFTEvents
+  eventsController.getNFTEvents
 );
 router.get(
   '/api/verfiyOwnership/:walletAddress/:contractAddress',
   nftController.verifyOwnership
 );
 router.get('/api/graphQuery', graphController.graphQuery);
-
+router.get(
+  '/api/getBalancesByWallet/:address',
+  tokenController.getBalancesByWallet
+);
+router.get('/api/getGasPrices', utilController.getGasPrices);
+router.get(
+  '/api/getContractDetails/:contractAddress',
+  contractsController.getContractDetails
+);
+router.get(
+  '/api/getTransactionsByWallet/:address',
+  transactionsController.getTransactionsByWallet
+);
+router.get(
+  '/api/getEventsByContract/:contractAddress',
+  eventsController.getEventsByContract
+);
+router.get(
+  '/api/getAllTransactions/:blockNumber',
+  transactionsController.getAllTransactions
+);
+router.get('/api/transactionByHash/:hash', transactionsController.getByHash);
+router.get('/api/getAllEvents/:blockNumber', eventsController.getAllEvents);
 export default router;

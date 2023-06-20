@@ -1,17 +1,34 @@
 import {
+  baseEventsInput,
+  isEvmAddress,
+  supportedChainInput,
+} from '../../../lib/validation/validators';
+import {
   CodegenEthereumMainnetEventsByNftQuery,
   CodegenEthereumMainnetEventsByNftQueryVariables,
   CodegenTokenEventInfoFragment,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { z } from 'zod';
 
-export type NFTEventsQueryType = {
+export type NFTEventsQuery = {
   [k in ChainName]: CodegenEthereumMainnetEventsByNftQuery['ethereum'];
 };
 
-export type NFTEventsQueryVariablesType =
+export type NFTEventsQueryVariables =
   CodegenEthereumMainnetEventsByNftQueryVariables;
+
+export const nftEventsValidator = z
+  .object({
+    contractAddress: isEvmAddress,
+    tokenId: z.string(),
+  })
+  .merge(baseEventsInput)
+  .merge(supportedChainInput)
+  .strict();
+
+export type NFTEventsInput = z.infer<typeof nftEventsValidator>;
 
 export interface NFTEventsQueryResultInfo {
   tokenEvents: CodegenTokenEventInfoFragment[];
@@ -27,7 +44,7 @@ export type NFTEventsQueryResultFull = Record<
   NFTEventsQueryResultBody
 >;
 
-export type NFTEventsFormattedResult = {
+export type NFTEventsResult = {
   results: CodegenTokenEventInfoFragment[];
   pageInfo: CodegenPaginationFragment;
 };

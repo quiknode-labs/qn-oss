@@ -1,16 +1,20 @@
 {
   "extends": "./tsconfig.json",
+  "types": ["node"],
+  "files": [],
   "compilerOptions": {
-    "types": ["node"],
-    "declaration": true
+    "target": "ES2020",
+    "module": "ES2020",
+    "outDir": "dist",
+    "rootDir": "."
   },
-  "include": ["**/*.ts"],
+  "include": ["package.json", "src/**/*.ts"],
   "exclude": [
     "jest.config.ts",
     "**/*.spec.ts",
     "**/*.test.ts",
     "webpack.config.ts",
-    "src/spec/testSetup/**.*",
-    "codegen.ts"
+    "codegen.ts",
+    "spec"
   ]
 }

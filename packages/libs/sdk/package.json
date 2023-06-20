@@ -6,31 +6,43 @@
     "directory": "packages/libs/sdk"
   },
   "license": "MIT",
-  "version": "0.5.0",
-  "main": "./src/index.js",
-  "module": "./src/index.esm.js",
-  "types": "./src/index.d.ts",
+  "version": "1.0.0-beta.1",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "types": "./index.d.ts",
   "dependencies": {
-    "@apollo/client": "^3.6.9",
-    "@types/mocha": "^10.0.1",
-    "cross-fetch": "^3.1.5",
-    "graphql": "^16.5.0"
+    "@urql/core": "^4.0.7",
+    "@urql/exchange-graphcache": "^6.0.4",
+    "cross-fetch": "^3.1.6",
+    "tslib": "^2.5.3",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.13.8",
+    "@graphql-codegen/cli": "4.0.1",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
+    "@graphql-codegen/introspection": "^3.0.1",
     "@graphql-codegen/typed-document-node": "^4.0.1",
     "@graphql-codegen/typescript": "2.8.0",
     "@graphql-codegen/typescript-operations": "^2.5.5",
     "@pollyjs/adapter-node-http": "^6.0.5",
     "@pollyjs/core": "^6.0.5",
     "@pollyjs/persister-fs": "^6.0.5",
+    "@types/jest": "^29.5.1",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^18.13.0",
     "@types/supertest": "^2.0.12",
+    "dotenv": "^16.0.3",
     "eslint-plugin-no-only-tests": "^3.1.0",
-    "supertest": "^6.2.4"
+    "graphql": "^16.6.0",
+    "supertest": "^6.3.3"
   },
   "scripts": {
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "npx graphql-codegen --require dotenv/config"
+  },
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js"
+    }
   }
 }

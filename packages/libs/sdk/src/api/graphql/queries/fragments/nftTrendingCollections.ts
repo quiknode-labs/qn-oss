@@ -1,11 +1,11 @@
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 
-import { TrendingCollectionInfo } from './TrendingCollection';
+import { TrendingCollectionInfo } from './nodes/TrendingCollection';
 import { Pagination } from './pagination';
 
 export const NftTrendingCollections = gql`
   fragment NftTrendingCollections on EVMSchemaType {
-    trendingCollections(first: $first, after: $after) {
+    trendingCollections(first: $first, before: $before, after: $after) {
       pageInfo {
         ...Pagination
       }

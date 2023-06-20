@@ -134,7 +134,12 @@ describe('nfts.getByContractAddress', () => {
           first: 2,
           after: data1?.pageInfo?.endCursor,
         });
-        expect(data1).toStrictEqual({
+        const data3 = await api.nfts.getByContractAddress({
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+          first: 2,
+          before: data2?.pageInfo?.startCursor,
+        });
+        const expectedResponse1 = {
           results: [
             {
               animationUrl: null,
@@ -232,7 +237,8 @@ describe('nfts.getByContractAddress', () => {
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
           standard: 'ERC721',
-        });
+        };
+        expect(data1).toStrictEqual(expectedResponse1);
         expect(data2).toStrictEqual({
           results: [
             {
@@ -274,6 +280,7 @@ describe('nfts.getByContractAddress', () => {
           },
           standard: 'ERC721',
         });
+        expect(data3).toStrictEqual(expectedResponse1);
       }
     );
   });
@@ -300,6 +307,31 @@ describe('nfts.getByContractAddress', () => {
           standard: null,
         });
       }
+    );
+  });
+
+  it('throws error with no params', async () => {
+    const input: any = {};
+    await expect(api.nfts.getByContractAddress(input)).rejects.toThrow(
+      /contractAddress: Required/
+    );
+  });
+
+  it('throws error with invalid contract address param', async () => {
+    const input: any = {
+      contractAddress: '0x123',
+    };
+    await expect(api.nfts.getByContractAddress(input)).rejects.toThrow(
+      /contractAddress: Not a valid address/
+    );
+  });
+
+  it('throws error with invalid param', async () => {
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(api.nfts.getByContractAddress(input)).rejects.toThrow(
+      /Unrecognized key\(s\) in object: 'foo'/
     );
   });
 });

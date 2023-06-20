@@ -18,43 +18,43 @@ describe('getTrendingCollections', () => {
         expect(data).toStrictEqual({
           results: [
             {
-              address: '0x82c7a8f707110f5fbb16184a5933e9f78a34c6ab',
+              address: '0xebcf83bde8e82708bfc027b2c32412283b6c23ff',
               baseTokenUri: null,
-              circulatingSupply: 53054,
-              description: null,
-              externalUrl: 'https://emblem.pro',
-              image: null,
-              name: 'Emblem Vault [Ethereum]',
-              openseaMetadata: {
-                isHidden: false,
-                isVerified: false,
-                unsafeSlug: 'emblem-vault',
-              },
-              symbol: 'Emblem.pro',
-              totalSupply: 30140,
-              twitterUsername: 'emblemvault',
-            },
-            {
-              address: '0x88f753c48008b938dd7f78751d3106d04ee432e3',
-              baseTokenUri: null,
-              circulatingSupply: 888,
+              circulatingSupply: null,
               description: null,
               externalUrl: null,
               image: null,
-              name: 'Alpha Gardeners Pass',
+              name: 'Scroto Schizos',
               openseaMetadata: {
-                isHidden: false,
-                isVerified: false,
-                unsafeSlug: 'alpha-gardeners-pass',
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
               },
-              symbol: 'AGP',
+              symbol: 'SCHIZO',
+              totalSupply: null,
+              twitterUsername: null,
+            },
+            {
+              address: '0x0c9663115b36fa95d18e71d59054117bcb0342ef',
+              baseTokenUri: null,
+              circulatingSupply: null,
+              description: null,
+              externalUrl: null,
+              image: null,
+              name: 'XTREME PIXELS',
+              openseaMetadata: {
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
+              },
+              symbol: 'XPIX',
               totalSupply: null,
               twitterUsername: null,
             },
           ],
           pageInfo: {
             endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
-            hasNextPage: true,
+            hasNextPage: false,
             hasPreviousPage: false,
             startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
           },
@@ -63,116 +63,232 @@ describe('getTrendingCollections', () => {
     );
   });
 
-  // Write a test to checking that it can iterate and paginate through tokens
-  describe('it can iterate and paginate through tokens', () => {
-    it('can iterate and paginate through tokens', async () => {
-      await withPolly(
-        {
-          recordingName: 'query-getTrendingCollections-iterate',
-          recordIfMissing: true,
-        },
-        async () => {
-          const data1 = await api.nfts.getTrendingCollections({
-            first: 2,
-          });
+  it('can iterate and paginate through tokens', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getTrendingCollections-iterate',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data1 = await api.nfts.getTrendingCollections({
+          first: 2,
+        });
+        const data2 = await api.nfts.getTrendingCollections({
+          first: 2,
+          after: data1.pageInfo.endCursor,
+        });
+        const data3 = await api.nfts.getTrendingCollections({
+          first: 2,
+          before: data2.pageInfo.startCursor,
+        });
 
-          const data2 = await api.nfts.getTrendingCollections({
-            first: 2,
-            after: data1.pageInfo.endCursor,
-          });
-
-          expect(data1).toStrictEqual({
-            results: [
-              {
-                address: '0x82c7a8f707110f5fbb16184a5933e9f78a34c6ab',
-                baseTokenUri: null,
-                circulatingSupply: 53054,
-                description: null,
-                externalUrl: 'https://emblem.pro',
-                image: null,
-                name: 'Emblem Vault [Ethereum]',
-                openseaMetadata: {
-                  isHidden: false,
-                  isVerified: false,
-                  unsafeSlug: 'emblem-vault',
-                },
-                symbol: 'Emblem.pro',
-                totalSupply: 30140,
-                twitterUsername: 'emblemvault',
+        const expectedResponse1 = {
+          results: [
+            {
+              address: '0xebcf83bde8e82708bfc027b2c32412283b6c23ff',
+              baseTokenUri: null,
+              circulatingSupply: null,
+              description: null,
+              externalUrl: null,
+              image: null,
+              name: 'Scroto Schizos',
+              openseaMetadata: {
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
               },
-              {
-                address: '0x88f753c48008b938dd7f78751d3106d04ee432e3',
-                baseTokenUri: null,
-                circulatingSupply: 888,
-                description: null,
-                externalUrl: null,
-                image: null,
-                name: 'Alpha Gardeners Pass',
-                openseaMetadata: {
-                  isHidden: false,
-                  isVerified: false,
-                  unsafeSlug: 'alpha-gardeners-pass',
-                },
-                symbol: 'AGP',
-                totalSupply: null,
-                twitterUsername: null,
-              },
-            ],
-            pageInfo: {
-              endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
-              hasNextPage: true,
-              hasPreviousPage: false,
-              startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
+              symbol: 'SCHIZO',
+              totalSupply: null,
+              twitterUsername: null,
             },
-          });
-
-          expect(data2).toStrictEqual({
-            results: [
-              {
-                address: '0x47f3a38990ca12e39255e959f7d97fbe5906afd4',
-                baseTokenUri:
-                  'https://ipfs.icy.tools/ipfs/QmbXhUWYY5VQY1TJY67fRy9xr1wW4BQMtv6a8wHZK3qLzg',
-                circulatingSupply: 9999,
-                description: null,
-                externalUrl: 'https://www.apereunion.xyz/#/',
-                image: null,
-                name: 'Ape Reunion',
-                openseaMetadata: {
-                  isHidden: false,
-                  isVerified: true,
-                  unsafeSlug: 'apereunion',
-                },
-                symbol: 'APE_REUNION',
-                totalSupply: 10000,
-                twitterUsername: 'ApeReunion',
+            {
+              address: '0x0c9663115b36fa95d18e71d59054117bcb0342ef',
+              baseTokenUri: null,
+              circulatingSupply: null,
+              description: null,
+              externalUrl: null,
+              image: null,
+              name: 'XTREME PIXELS',
+              openseaMetadata: {
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
               },
-              {
-                address: '0x82c7a8f707110f5fbb16184a5933e9f78a34c6ab',
-                baseTokenUri: null,
-                circulatingSupply: 53054,
-                description: null,
-                externalUrl: 'https://emblem.pro',
-                image: null,
-                name: 'Emblem Vault [Ethereum]',
-                openseaMetadata: {
-                  isHidden: false,
-                  isVerified: false,
-                  unsafeSlug: 'emblem-vault',
-                },
-                symbol: 'Emblem.pro',
-                totalSupply: 30140,
-                twitterUsername: 'emblemvault',
-              },
-            ],
-            pageInfo: {
-              endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoz',
-              hasNextPage: true,
-              hasPreviousPage: true,
-              startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoy',
+              symbol: 'XPIX',
+              totalSupply: null,
+              twitterUsername: null,
             },
-          });
-        }
-      );
-    });
+          ],
+          pageInfo: {
+            endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
+          },
+        };
+        expect(data1).toStrictEqual(expectedResponse1);
+        expect(data2).toStrictEqual({
+          results: [
+            {
+              address: '0x0c9663115b36fa95d18e71d59054117bcb0342ef',
+              baseTokenUri: null,
+              circulatingSupply: null,
+              description: null,
+              externalUrl: null,
+              image: null,
+              name: 'XTREME PIXELS',
+              openseaMetadata: {
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
+              },
+              symbol: 'XPIX',
+              totalSupply: null,
+              twitterUsername: null,
+            },
+            {
+              address: '0xd2a713c0f0953ccbffd93c86534624de5940e62e',
+              baseTokenUri: null,
+              circulatingSupply: 4275,
+              description:
+                '“memes and deth about crypto street art” is a MAD cc0 movement and a brand new artistic experimentations brought to you by Streetlab x niftyjutsu & frens\n\neach MAD piece can be used as a currency to take part in auctions hosted on streetlab.io\n\nfind out more on https://streetlab.io/ and https://linktr.ee/niftyjutsu',
+              externalUrl: 'https://streetlab.io/mad',
+              image: [
+                {
+                  height: 100,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/xs/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 100,
+                },
+                {
+                  height: 200,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/sm/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 200,
+                },
+                {
+                  height: 400,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/md/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 400,
+                },
+                {
+                  height: 800,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/lg/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 800,
+                },
+                {
+                  height: 1200,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/xl/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 1200,
+                },
+              ],
+              name: 'MAD about crypto street-art',
+              openseaMetadata: {
+                isHidden: false,
+                isVerified: true,
+                unsafeSlug: 'mad-about-crypto-street-art',
+              },
+              symbol: 'MAD',
+              totalSupply: null,
+              twitterUsername: 'Streetlab_io',
+            },
+          ],
+          pageInfo: {
+            endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoz',
+            hasNextPage: false,
+            hasPreviousPage: true,
+            startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjoy',
+          },
+        });
+        expect(data3).toStrictEqual({
+          results: [
+            {
+              address: '0x0c9663115b36fa95d18e71d59054117bcb0342ef',
+              baseTokenUri: null,
+              circulatingSupply: null,
+              description: null,
+              externalUrl: null,
+              image: null,
+              name: 'XTREME PIXELS',
+              openseaMetadata: {
+                isHidden: null,
+                isVerified: null,
+                unsafeSlug: null,
+              },
+              symbol: 'XPIX',
+              totalSupply: null,
+              twitterUsername: null,
+            },
+            {
+              address: '0xd2a713c0f0953ccbffd93c86534624de5940e62e',
+              baseTokenUri: null,
+              circulatingSupply: 4275,
+              description:
+                '“memes and deth about crypto street art” is a MAD cc0 movement and a brand new artistic experimentations brought to you by Streetlab x niftyjutsu & frens\n\neach MAD piece can be used as a currency to take part in auctions hosted on streetlab.io\n\nfind out more on https://streetlab.io/ and https://linktr.ee/niftyjutsu',
+              externalUrl: 'https://streetlab.io/mad',
+              image: [
+                {
+                  height: 100,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/xs/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 100,
+                },
+                {
+                  height: 200,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/sm/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 200,
+                },
+                {
+                  height: 400,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/md/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 400,
+                },
+                {
+                  height: 800,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/lg/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 800,
+                },
+                {
+                  height: 1200,
+                  mimeType: 'image/gif',
+                  url: 'https://images.quicknode.workers.dev/xl/catalog/unprocessed/chains/ethereum-mainnet/collection-images/7b87102c59bbe7cefdcb37d78d7e93f2030a308d',
+                  width: 1200,
+                },
+              ],
+              name: 'MAD about crypto street-art',
+              openseaMetadata: {
+                isHidden: false,
+                isVerified: true,
+                unsafeSlug: 'mad-about-crypto-street-art',
+              },
+              symbol: 'MAD',
+              totalSupply: null,
+              twitterUsername: 'Streetlab_io',
+            },
+          ],
+          pageInfo: {
+            endCursor: 'T2Zmc2V0Q29ubmVjdGlvbjox',
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: 'T2Zmc2V0Q29ubmVjdGlvbjow',
+          },
+        });
+      }
+    );
+  });
+
+  it('throws error with invalid params', async () => {
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(api.nfts.getTrendingCollections(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'foo'/
+    );
   });
 });

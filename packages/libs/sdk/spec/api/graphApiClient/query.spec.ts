@@ -1,6 +1,6 @@
 import { apiClient } from '../client';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { gql } from '@apollo/client/core';
+import { gql } from '@urql/core';
 
 const api = apiClient;
 
@@ -18,6 +18,7 @@ describe('graphApiClient.query', () => {
               collection(
                 contractAddress: "0x2106c00ac7da0a3430ae667879139e832307aeaa"
               ) {
+                address
                 name
                 symbol
                 totalSupply
@@ -26,21 +27,16 @@ describe('graphApiClient.query', () => {
           }
         `;
 
-        const data = await api.graphApiClient.query({ query });
+        const { data } = await api.graphApiClient.query(query, {});
         expect(data).toStrictEqual({
-          data: {
-            ethereum: {
-              __typename: 'EVMSchemaType',
-              collection: {
-                __typename: 'ERC721Collection',
-                name: 'Loopy Donuts',
-                symbol: 'DONUT',
-                totalSupply: 10000,
-              },
+          ethereum: {
+            collection: {
+              address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
+              name: 'Loopy Donuts',
+              symbol: 'DONUT',
+              totalSupply: 10000,
             },
           },
-          loading: false,
-          networkStatus: 7,
         });
       }
     );
@@ -57,6 +53,7 @@ describe('graphApiClient.query', () => {
           query ($contractAddress: String!) {
             ethereum {
               collection(contractAddress: $contractAddress) {
+                address
                 name
                 symbol
                 totalSupply
@@ -67,21 +64,16 @@ describe('graphApiClient.query', () => {
         const variables = {
           contractAddress: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
         };
-        const data = await api.graphApiClient.query({ query, variables });
+        const { data } = await api.graphApiClient.query(query, variables);
         expect(data).toStrictEqual({
-          data: {
-            ethereum: {
-              __typename: 'EVMSchemaType',
-              collection: {
-                __typename: 'ERC721Collection',
-                name: 'Loopy Donuts',
-                symbol: 'DONUT',
-                totalSupply: 10000,
-              },
+          ethereum: {
+            collection: {
+              address: '0x2106c00ac7da0a3430ae667879139e832307aeaa',
+              name: 'Loopy Donuts',
+              symbol: 'DONUT',
+              totalSupply: 10000,
             },
           },
-          loading: false,
-          networkStatus: 7,
         });
       }
     );
@@ -101,6 +93,7 @@ describe('graphApiClient.query', () => {
               collection(
                 contractAddress: "0x2106c00ac7da0a3430ae667879139e832307aeaa"
               ) {
+                address
                 name
                 notafieldshoulderror
               }
@@ -108,9 +101,10 @@ describe('graphApiClient.query', () => {
           }
         `;
 
-        expect(
-          async () => await api.graphApiClient.query({ query })
-        ).rejects.toThrowError();
+        const { error } = await api.graphApiClient.query(query, {});
+        expect(error?.toString()).toMatch(
+          /cannot query field 'notafieldshoulderror' on type 'Collection'/
+        );
       }
     );
   });

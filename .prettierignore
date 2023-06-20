@@ -5,5 +5,6 @@
 
 # Ignore codegen generated file
 # See more: https://www.the-guild.dev/graphql/codegen/docs/integrations/prettier
-/packages/libs/api/sdk/src/graphql/types.ts
-/packages/libs/api/sdk/src/graphql/fragmentMatcher.ts
+packages/libs/sdk/src/api/graphql/generatedTypes.ts
+packages/libs/sdk/src/api/graphql/fragmentMatcher.ts
+packages/libs/sdk/src/api/graphql/schema.json

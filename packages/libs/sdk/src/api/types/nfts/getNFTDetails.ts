@@ -8,6 +8,7 @@ import {
   CodegenNftDetailsFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 export type NFTDetailsQuery = {
@@ -34,6 +35,6 @@ export type NFTDetailsQueryResultFull = Record<
   NFTDetailsQueryResultInfo
 >;
 
-export type NFTDetailsResult = {
+export type NFTDetailsResult = SimplifyType<{
   nft: CodegenNftDetailsFragment['nft'];
-};
+}>;

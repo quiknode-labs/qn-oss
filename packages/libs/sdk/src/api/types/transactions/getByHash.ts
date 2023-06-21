@@ -8,6 +8,7 @@ import {
   CodegenTransactionsNodeFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 // Using the generated CodegenEthMainnetTransactionsByHashQuery as a base for the type here
@@ -40,6 +41,6 @@ export type TransactionsByHashQueryResultFull = Record<
   TransactionsByHashQueryResultBody
 >;
 
-export type TransactionsByHashResult = {
+export type TransactionsByHashResult = SimplifyType<{
   transaction: CodegenTransactionsNodeFragment | null;
-};
+}>;

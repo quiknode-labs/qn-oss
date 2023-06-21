@@ -9,6 +9,7 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 export type NFTTrendingCollectionsQuery = {
@@ -37,7 +38,7 @@ export type NFTTrendingCollectionsQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type NFTTrendingCollectionResult = {
+export type NFTTrendingCollectionResult = SimplifyType<{
   results: CodegenTrendingCollectionInfoFragment[];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

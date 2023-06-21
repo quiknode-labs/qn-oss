@@ -8,6 +8,7 @@ import {
   isEvmAddress,
   supportedChainInput,
 } from '../../../lib/validation/validators';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 export type ContractDetailsQuery = {
@@ -37,6 +38,6 @@ export type ContractDetailsQueryResultFull = Record<
   ContractDetailsQueryResultInfo
 >;
 
-export type ContractDetailsResult = {
+export type ContractDetailsResult = SimplifyType<{
   contract: CodegenContractInfoFragment | null;
-};
+}>;

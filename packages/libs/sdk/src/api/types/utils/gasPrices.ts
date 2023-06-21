@@ -8,6 +8,7 @@ import {
   CodegenGasPrice,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 export type GasPricesQuery = {
@@ -35,6 +36,6 @@ export type GasPricesQueryResultFull = Record<
   GasPricesQueryResultInfo
 >;
 
-export type GasPricesResult = {
+export type GasPricesResult = SimplifyType<{
   gasPrices: CodegenGasPrice[];
-};
+}>;

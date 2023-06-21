@@ -9,6 +9,7 @@ import {
   baseEventsInput,
   supportedChainInput,
 } from '../../../lib/validation/validators';
+import { SimplifyType } from '../../utils/helpers';
 
 import { z } from 'zod';
 
@@ -39,7 +40,7 @@ export type AllEventsQueryResultFull = Record<
   AllEventsQueryResultBody
 >;
 
-export type AllEventsResult = {
+export type AllEventsResult = SimplifyType<{
   results: CodegenTokenEventInfoFragment[];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

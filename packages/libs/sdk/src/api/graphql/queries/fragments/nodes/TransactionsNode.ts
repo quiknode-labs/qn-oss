@@ -2,6 +2,7 @@ import { gql } from '@urql/core';
 
 export const TransactionsNode = gql`
   fragment TransactionsNode on Transaction {
+    __typename
     blockNumber
     blockTimestamp
     contractAddress

@@ -2,6 +2,7 @@ import { gql } from '@urql/core';
 
 export const ContractInfo = gql`
   fragment ContractInfo on Contract {
+    __typename
     abi
     address
     isVerified

@@ -3,6 +3,7 @@ import { gql } from '@urql/core';
 export const NftCollectionInfo = gql`
   fragment NftCollectionInfo on EVMSchemaType {
     collection(contractAddress: $contractAddress) {
+      __typename
       address
       bannerImage {
         height

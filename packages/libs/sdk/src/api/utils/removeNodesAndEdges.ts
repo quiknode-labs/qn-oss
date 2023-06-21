@@ -41,7 +41,7 @@ export function removeNodesAndEdges<
 >(data: TInput, options?: RemoveNodesAndEdgesOptions): TResultOutput {
   const keys = Object.keys(data);
   const output: ResultOutput = {};
-  const keepTypename = options?.keepTypename || false;
+  const keepTypename = options?.keepTypename || true;
 
   keys
     .filter((key) => {
@@ -49,6 +49,7 @@ export function removeNodesAndEdges<
       return key !== '__typename';
     })
     .forEach((key: string) => {
+      console.log('key', key);
       const value = data[key];
 
       if (
@@ -76,15 +77,13 @@ export function removeNodesAndEdges<
         if (value.total) output[`${key}Total`] = value.total;
         if (value.viewport) output[`${key}Viewport`] = value.viewport;
         if (value.pageInfo) {
-          const { __typename, ...pageInfoRest } = value.pageInfo;
+          const { ...pageInfoRest } = value.pageInfo;
           output[`${key}PageInfo`] = pageInfoRest;
         }
 
         return (output[key] = value.edges?.map((item: Edge) => {
           if (item.node) {
-            // Don't pass options back in so we only remove the __typename from top-level
-            // We may need to change this in the future if we want to keep the __typename for nested nodes
-            return removeNodesAndEdges(item.node);
+            return removeNodesAndEdges(item.node, options);
           }
           return item;
         }));

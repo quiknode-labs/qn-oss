@@ -148,6 +148,7 @@ export class NftsController {
       variables: queryVariables,
     });
 
+    console.log(JSON.stringify(walletByENS, null, 2));
     if (!walletByENS?.walletNFTs?.length) {
       // Address can still be valid ENS name, but not have any NFTs
       const address = walletByENS?.address || '';
@@ -270,7 +271,6 @@ export class NftsController {
     >({
       query: query[userChain], // The actual graphql query
       variables: queryVariables,
-      keepTypename: true,
     });
 
     if (!collection?.nfts?.length) {

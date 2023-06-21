@@ -2,6 +2,7 @@ import { gql } from '@urql/core';
 
 export const TrendingCollectionInfo = gql`
   fragment TrendingCollectionInfo on Collection {
+    __typename
     address
     baseTokenUri
     circulatingSupply

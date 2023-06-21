@@ -5,7 +5,6 @@ import { TransactionsNode } from './nodes/TransactionsNode';
 export const TransactionsByWalletENS = gql`
   fragment TransactionsByWalletENS on EVMSchemaType {
     walletByENS(ensName: $ensName) {
-      __typename
       address
       ensName
       transactions(first: $first, before: $before, after: $after) {

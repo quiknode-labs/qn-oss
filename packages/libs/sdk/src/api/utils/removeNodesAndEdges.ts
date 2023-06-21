@@ -49,7 +49,6 @@ export function removeNodesAndEdges<
       return key !== '__typename';
     })
     .forEach((key: string) => {
-      console.log('key', key);
       const value = data[key];
 
       if (

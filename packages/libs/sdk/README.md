@@ -128,20 +128,20 @@ If no `defaultChain` is passed into the initializer or a `chain` argument to a f
 
 Returns NFTs owned by a wallet
 
-| Argument | Values | Required | Description                                         | Example                            |
-| -------- | ------ | -------- | --------------------------------------------------- | ---------------------------------- |
-| address  | string | ✅       | Wallet address or ENS domain                        | quicknode.eth                      |
-| first    | number | ❌       | Number of results to return                         | 10                                 |
-| before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow           |
-| after    | string | ❌       | Return results after cursor                         | T2Zmc2V0Q29ubmVjdGlvbjo2           |
-| chain    | string | ❌       | Blockchain name                                     | polygon                            |
-| filter   | object | ❌       | An object with the optional filters for the request | { contractAddressIn: ["0x00..."] } |
+| Argument | Values | Required | Description                                         | Example                                             |
+| -------- | ------ | -------- | --------------------------------------------------- | --------------------------------------------------- |
+| address  | string | ✅       | Wallet address or ENS domain                        | quicknode.eth                                       |
+| first    | number | ❌       | Number of results to return                         | 10                                                  |
+| before   | string | ❌       | Return results before cursor                        | T2Zmc2V0Q29ubmVjdGlvbjow                            |
+| after    | string | ❌       | Return results after cursor                         | T2Zmc2V0Q29ubmVjdGlvbjo2                            |
+| chain    | string | ❌       | Blockchain name                                     | polygon                                             |
+| filter   | object | ❌       | An object with the optional filters for the request | { contractTokens: [{ contractAddress: "0x00..." }]} |
 
 `filter` Parameters
 
-| Argument          | Values | Description                        | Example                                        |
-| ----------------- | ------ | ---------------------------------- | ---------------------------------------------- |
-| contractAddressIn | Array  | An array of NFT contract addresses | ["0x2106C00Ac7dA0A3430aE667879139E832307AeAa"] |
+| Argument       | Values | Description                                                           | Example                                                             |
+| -------------- | ------ | --------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| contractTokens | Array  | An array of objects with NFT contract addresses and optional tokenIds | [{ contractAddress: "0x2106C00Ac7dA0A3430aE667879139E832307AeAa" }] |
 
 ```ts
 import QuickNode from '@quicknode/sdk';
@@ -280,11 +280,11 @@ qn.nfts
 
 Check if the wallet address is an owner of any of the provided NFT contract addresses. Returns a boolean if they own and NFT from _any_ of the provided contract addresses.
 
-| Argument          | Values | Required | Description                                  | Example                                        |
-| ----------------- | ------ | -------- | -------------------------------------------- | ---------------------------------------------- |
-| walletAddress     | string | ✅       | Address of wallet to check as owner          | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17     |
-| contractAddresses | array  | ✅       | NFT contract addresses to check ownership of | ["0x2106C00Ac7dA0A3430aE667879139E832307AeAa"] |
-| chain             | string | ❌       | Blockchain name                              | polygon                                        |
+| Argument | Values | Required | Description                                                                                                                                                     | Example                                                             |
+| -------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| address  | string | ✅       | Address or ENS name of wallet to check as owner                                                                                                                 | 0x3C6aEFF92b4B35C2e1b196B57d0f8FFB56884A17                          |
+| nfts     | array  | ✅       | an array of objects with `contractAddress` and optional `tokenId` to check ownership of. Ownership is verified if any of the parameters are owned by the wallet | [{ contractAddress: "0x2106C00Ac7dA0A3430aE667879139E832307AeAa" }] |
+| chain    | string | ❌       | Blockchain name                                                                                                                                                 | polygon                                                             |
 
 ```typescript
 import QuickNode from '@quicknode/sdk';
@@ -293,10 +293,43 @@ const qn = new QuickNode.API({
   graphApiKey: 'my-api-key', // which is obtained by signing up on https://www.quicknode.com/signup
 });
 
+// returns true if wallet owns at least one NFT of 0x2106C00Ac7dA0A3430aE667879139E832307AeAa
 qn.nfts
   .verifyOwnership({
-    walletAddress: '0x46EFbAedc92067E6d60E84ED6395099723252496',
-    contractAddresses: ['0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D'],
+    address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
+    nfts: [
+      {
+        contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+      },
+    ],
+  })
+  .then((response) => console.log(response));
+
+// returns true if quicknode.eth owns the exact NFT id 123 from contract address 0x2106C00Ac7dA0A3430aE667879139E832307AeAa
+qn.nfts
+  .verifyOwnership({
+    address: 'quicknode.eth', // or wallet address
+    nfts: [
+      {
+        contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+        tokenId: '123',
+      },
+    ],
+  })
+  .then((response) => console.log(response));
+
+// returns true if quicknode.eth owns an NFT from either 0x2106C00Ac7dA0A3430aE667879139E832307AeAa or 0x9D90669665607F08005CAe4A7098143f554c59EF
+qn.nfts
+  .verifyOwnership({
+    address: 'quicknode.eth', // or wallet address
+    nfts: [
+      {
+        contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+      },
+      {
+        contractAddress: '0x9D90669665607F08005CAe4A7098143f554c59EF',
+      },
+    ],
   })
   .then((response) => console.log(response));
 ```

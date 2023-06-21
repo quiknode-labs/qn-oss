@@ -209,7 +209,11 @@ describe('getNFTsByWallet with address', () => {
           address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           first: 2,
           filter: {
-            contractAddressIn: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],
+            contractTokens: [
+              {
+                contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+              },
+            ],
           },
         });
         expect(data).toStrictEqual({
@@ -300,11 +304,15 @@ describe('getNFTsByWallet with address', () => {
     const input: any = {
       address: 'quicknode.eth',
       filter: {
-        contractAddressIn: ['0x123'],
+        contractTokens: [
+          {
+            contractAddress: '0x123',
+          },
+        ],
       },
     };
     await expect(api.nfts.getByWallet(input)).rejects.toThrow(
-      /filter,contractAddressIn,0: Not a valid address/
+      /filter,contractTokens,0,contractAddress: String must contain exactly 42 character/
     );
   });
 

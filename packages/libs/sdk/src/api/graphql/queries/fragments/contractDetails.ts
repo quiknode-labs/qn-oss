@@ -4,6 +4,7 @@ import { ContractInfo } from './nodes/contractInfo';
 export const ContractDetails = gql`
   fragment ContractDetails on EVMSchemaType {
     contract(contractAddress: $contractAddress) {
+      __typename
       ...ContractInfo
     }
   }

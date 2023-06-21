@@ -13,6 +13,7 @@ describe('contract.getDetails', () => {
         });
         expect(data).toStrictEqual({
           contract: {
+            __typename: 'NFTContract',
             abi: [
               {
                 inputs: [

@@ -35,8 +35,8 @@ router.get(
   eventsController.getNFTEvents
 );
 router.get(
-  '/api/verfiyOwnership/:walletAddress/:contractAddress',
-  nftController.verifyOwnership
+  '/api/verifyOwnership/:walletAddress/:contractAddress',
+  nftController.verifyOwnershipByAddress
 );
 router.get('/api/graphQuery', graphController.graphQuery);
 router.get(

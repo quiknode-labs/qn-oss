@@ -1,5 +1,7 @@
 import {
+  contractTokensFilter,
   isEvmAddress,
+  isENSAddress,
   supportedChainInput,
 } from '../../../lib/validation/validators';
 import {
@@ -18,26 +20,17 @@ export type VerifyOwnershipByAddressQueryType = {
 export type VerifyOwnershipByAddressQueryVariablesType =
   CodegenEthMainnetVerifyOwnershipByAddressQueryVariables;
 
-export const verifyOwnershipByAddressValidator = z
+export const verifyOwnershipValidator = z
   .object({
-    address: isEvmAddress,
-    contracts: z
-      .array(
-        z
-          .object({
-            contractAddress: isEvmAddress,
-            tokenId: z.string().optional(),
-          })
-          .strict()
-      )
-      .nonempty(),
+    address: z.union([isENSAddress, isEvmAddress]),
+    nfts: contractTokensFilter,
   })
   .merge(supportedChainInput)
   .strict();
 
 // What the user can pass in the function
-export type VerifyOwnershipInput = z.infer<
-  typeof verifyOwnershipByAddressValidator
+export type VerifyOwnershipByAddressInput = z.infer<
+  typeof verifyOwnershipValidator
 >;
 
 export interface VerifyOwnershipByAddressQueryResultInfo {

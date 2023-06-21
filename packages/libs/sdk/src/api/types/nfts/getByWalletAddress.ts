@@ -3,6 +3,7 @@ import {
   isEvmAddress,
   paginationParams,
   supportedChainInput,
+  contractTokensFilter,
 } from '../../../lib/validation/validators';
 import {
   CodegenEthMainnetWalletNFTsByAddressQueryVariables,
@@ -29,10 +30,10 @@ export const walletByAddressValidator = z
     address: z.union([isENSAddress, isEvmAddress]),
     filter: z
       .object({
-        contractAddressIn: z.array(isEvmAddress).optional(),
+        contractTokens: contractTokensFilter,
       })
       .strict()
-      .nullish(),
+      .optional(),
   })
   .merge(paginationParams)
   .merge(supportedChainInput)

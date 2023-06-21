@@ -7,7 +7,7 @@ export const PolygonMainnetVerifyOwnershipByENS = gql`
     $filter: WalletNFTsFilterInput
   ) {
     polygon {
-      ...VerifyOwnershipInfo
+      ...VerifyOwnershipInfoByENS
     }
   }
   ${VerifyOwnershipInfoByENS}

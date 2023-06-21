@@ -56,9 +56,15 @@ import {
   VerifyOwnershipByAddressQueryResultFull,
   VerifyOwnershipByAddressQueryType,
   VerifyOwnershipByAddressQueryVariablesType,
-  verifyOwnershipByAddressValidator,
-  VerifyOwnershipInput,
+  verifyOwnershipValidator,
+  VerifyOwnershipByAddressInput,
 } from '../types/nfts/verifyOwnershipByAddress';
+import {
+  VerifyOwnershipByENSQueryResultFull,
+  VerifyOwnershipByENSQueryType,
+  VerifyOwnershipByENSQueryVariablesType,
+  VerifyOwnershipByENSInput,
+} from '../types/nfts/verifyOwnershipByENS';
 import {
   CodegenEthMainnetWalletNFTsByAddressDocument,
   CodegenEthMainnetWalletNFTsByEnsDocument,
@@ -67,6 +73,7 @@ import {
   CodegenEthMainnetNFTDetailsDocument,
   CodegenEthMainnetNftCollectionDetailsDocument,
   CodegenEthMainnetVerifyOwnershipByAddressDocument,
+  CodegenEthMainnetVerifyOwnershipByENSDocument,
   CodegenEthSepoliaWalletNFTsByEnsDocument,
   CodegenEthSepoliaWalletNFTsByContractAddressDocument,
   CodegenEthSepoliaTrendingCollectionsDocument,
@@ -74,6 +81,7 @@ import {
   CodegenEthSepoliaNftCollectionDetailsDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaVerifyOwnershipByAddressDocument,
+  CodegenEthSepoliaVerifyOwnershipByENSDocument,
   CodegenPolygonMainnetWalletNFTsByAddressDocument,
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
   CodegenPolygonMainnetNFTsByContractAddressDocument,
@@ -81,7 +89,7 @@ import {
   CodegenPolygonMainnetNFTDetailsDocument,
   CodegenPolygonMainnetNftCollectionDetailsDocument,
   CodegenPolygonMainnetVerifyOwnershipByAddressDocument,
-  CodegenWalletNFTsFilterInput,
+  CodegenPolygonMainnetVerifyOwnershipByENSDocument,
 } from '../graphql/generatedTypes';
 import { ChainName } from '../types/chains';
 import { formatQueryResult } from '../utils/postQueryFormatter';
@@ -350,9 +358,28 @@ export class NftsController {
     return { collection: null };
   }
 
-  @ValidateInput(verifyOwnershipByAddressValidator)
-  async verifyOwnership(variables: VerifyOwnershipInput): Promise<boolean> {
-    const { chain, address, contracts } = variables;
+  @ValidateInput(verifyOwnershipValidator)
+  async verifyOwnership(
+    variables: VerifyOwnershipByAddressInput
+  ): Promise<boolean> {
+    const { address, ...allVariables } = variables;
+    if (isValidENSAddress(address)) {
+      return this.verifyOwnershipByENS({
+        ensName: address,
+        ...allVariables,
+      });
+    }
+
+    return this.verifyOwnershipByAddress({
+      address,
+      ...allVariables,
+    });
+  }
+
+  private async verifyOwnershipByAddress(
+    variables: VerifyOwnershipByAddressInput
+  ): Promise<boolean> {
+    const { chain, address, nfts } = variables;
     const userChain = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetVerifyOwnershipByAddressDocument,
@@ -369,9 +396,36 @@ export class NftsController {
       VerifyOwnershipByAddressQueryResultFull // the modified result (edges and nodes removed)
     >({
       query: query[userChain], // The actual graphql query
-      variables: { address, filter: { contractTokens: contracts } },
+      variables: { address, filter: { contractTokens: nfts } },
     });
 
     return !!walletByAddress?.walletNFTs?.length;
+  }
+
+  private async verifyOwnershipByENS(
+    variables: VerifyOwnershipByENSInput
+  ): Promise<boolean> {
+    const { chain, ensName, nfts } = variables;
+    const userChain = chain || this.defaultChain;
+    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
+      ethereum: CodegenEthMainnetVerifyOwnershipByENSDocument,
+      polygon: CodegenPolygonMainnetVerifyOwnershipByENSDocument,
+      ethereumSepolia: CodegenEthSepoliaVerifyOwnershipByENSDocument,
+    };
+
+    const {
+      data: {
+        [userChain]: { walletByENS },
+      },
+    } = await this.client.query<
+      VerifyOwnershipByENSQueryVariablesType, // What the user can pass in
+      VerifyOwnershipByENSQueryType, // The actual unmodified result from query
+      VerifyOwnershipByENSQueryResultFull // the modified result (edges and nodes removed)
+    >({
+      query: query[userChain], // The actual graphql query
+      variables: { ensName, filter: { contractTokens: nfts } },
+    });
+
+    return !!walletByENS?.walletNFTs?.length;
   }
 }

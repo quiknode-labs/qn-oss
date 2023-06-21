@@ -102,3 +102,14 @@ export const baseTransactionsInput = z
   })
   .merge(paginationParams)
   .strict();
+
+export const contractTokensFilter = z
+  .array(
+    z
+      .object({
+        contractAddress: isEvmAddress,
+        tokenId: z.string().optional(),
+      })
+      .strict()
+  )
+  .nonempty();

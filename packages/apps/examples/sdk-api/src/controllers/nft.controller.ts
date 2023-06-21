@@ -63,11 +63,15 @@ export default {
       return res.status(500).send({});
     }
   },
-  verifyOwnership: async (req: Request, res: Response) => {
+  verifyOwnershipByAddress: async (req: Request, res: Response) => {
     try {
       const verifyOwnership = await nfts.verifyOwnership({
-        walletAddress: req.params.walletAddress,
-        contractAddresses: [req.params.contractAddress],
+        address: req.params.walletAddress,
+        nfts: [
+          {
+            contractAddress: req.params.contractAddress,
+          },
+        ],
       });
       return res.status(200).send(verifyOwnership);
     } catch (error) {

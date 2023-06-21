@@ -11907,12 +11907,51 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "WalletNFTsContractTokenFilterInput",
+        "description": "Filter of nfts in a wallet by contract address and optional token id. Results are returned if any of the conditions are matched.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "contractAddress",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "tokenId",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "WalletNFTsFilterInput",
         "description": "Filter of nfts in a wallet",
         "fields": null,
         "inputFields": [
           {
-            "name": "contractAddressIn",
+            "name": "contractTokens",
             "description": null,
             "type": {
               "kind": "LIST",
@@ -11921,8 +11960,8 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "INPUT_OBJECT",
+                  "name": "WalletNFTsContractTokenFilterInput",
                   "ofType": null
                 }
               }

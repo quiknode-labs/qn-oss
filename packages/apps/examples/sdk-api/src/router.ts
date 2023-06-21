@@ -34,6 +34,10 @@ router.get(
   '/api/nftEvents/:contractAddress/:tokenId',
   eventsController.getNFTEvents
 );
+router.get(
+  '/api/verifyOwnership/:walletAddress/:contractAddress',
+  nftController.verifyOwnershipByAddress
+);
 router.get('/api/graphQuery', graphController.graphQuery);
 router.get(
   '/api/getBalancesByWallet/:address',

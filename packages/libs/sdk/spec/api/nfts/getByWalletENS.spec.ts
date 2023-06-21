@@ -204,7 +204,11 @@ describe('getNFTsByWallet with ENS', () => {
           address: 'quicknode.eth',
           first: 2,
           filter: {
-            contractAddressIn: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],
+            contractTokens: [
+              {
+                contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+              },
+            ],
           },
         });
         expect(data).toStrictEqual({

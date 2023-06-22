@@ -8,7 +8,7 @@ import {
 
 type Args = WalletNFTsQueryVariables;
 
-const ENS_REGEX = /^[a-z]+\.eth$/;
+const ENS_REGEX = /[a-z]+\.eth/;
 const ADDRESS_REGEX = /^0x[[:alnum:]]{40}$/;
 
 function useWalletNFTs(args: Args) {

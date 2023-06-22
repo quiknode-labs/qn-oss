@@ -10,6 +10,7 @@ import {
   isEvmAddress,
   supportedChainInput,
 } from '../../../lib/validation/validators';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 export type CollectionEventsQuery = {
@@ -42,7 +43,7 @@ export type CollectionEventsQueryResultFull = Record<
   CollectionEventsQueryResultBody
 >;
 
-export type CollectionEventsResult = {
+export type CollectionEventsResult = SimplifyType<{
   results: CodegenTokenEventInfoFragment[];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

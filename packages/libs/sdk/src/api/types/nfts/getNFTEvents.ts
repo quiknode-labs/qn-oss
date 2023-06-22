@@ -10,6 +10,7 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 export type NFTEventsQuery = {
@@ -44,7 +45,7 @@ export type NFTEventsQueryResultFull = Record<
   NFTEventsQueryResultBody
 >;
 
-export type NFTEventsResult = {
+export type NFTEventsResult = SimplifyType<{
   results: CodegenTokenEventInfoFragment[];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

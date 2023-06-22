@@ -11,6 +11,7 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 // Using the generated CodegenEthMainnetTransactionsByWalletAddressQuery as a base for the type here
@@ -54,9 +55,9 @@ export type TransactionsByWalletAddressQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type TransactionsByWalletAddressResult = {
+export type TransactionsByWalletAddressResult = SimplifyType<{
   address: string;
   ensName: string;
   results: CodegenTransactionsNodeFragment[];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

@@ -5,6 +5,7 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { SimplifyType } from '../../utils/helpers';
 import { NonQueryInput } from '../input';
 
 // Using the generated CodegenEthMainnetBalancesByWalletENSQuery as a base for the type here
@@ -39,9 +40,9 @@ export type BalancesByWalletENSQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type BalancesByWalletENSResult = {
+export type BalancesByWalletENSResult = SimplifyType<{
   address: string;
   ensName: string;
   results: CodegenTokenBalanceNodeFragment[];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

@@ -12,6 +12,7 @@ import {
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
 import { NftErcStandards } from '../nfts';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 export type NFTsByContractAddressQuery = {
@@ -45,8 +46,8 @@ export type NFTsByContractAddressQueryResultFull = Record<
   NFTsByContractAddressQueryResultBody
 >;
 
-export type NFTsByContractAddressResult = {
+export type NFTsByContractAddressResult = SimplifyType<{
   standard: NftErcStandards | null;
   results: [CodegenERC721NFTNodeFragment | CodegenERC1155NFTNodeFragment][];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

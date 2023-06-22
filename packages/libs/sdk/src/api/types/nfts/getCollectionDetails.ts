@@ -8,6 +8,7 @@ import {
   CodegenNftCollectionInfoFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
+import { SimplifyType } from '../../utils/helpers';
 import { z } from 'zod';
 
 export type NftCollectionDetailsQuery = {
@@ -38,6 +39,6 @@ export type NftCollectionDetailsQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type NftCollectionDetailsResult = {
+export type NftCollectionDetailsResult = SimplifyType<{
   collection: CodegenNftCollectionInfoFragment['collection'];
-};
+}>;

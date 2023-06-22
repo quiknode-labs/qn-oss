@@ -15,8 +15,10 @@ function useWalletNFTs(args: Args) {
   let isSearchValid = false;
 
   if ('ensName' in args) {
+    if (args.ensName?.length > 255) throw new Error('Input too long');
     isSearchValid = ENS_REGEX.test(args.ensName);
   } else {
+    if (args.address?.length > 42) throw new Error('Input too long');
     isSearchValid = ADDRESS_REGEX.test(args.address);
   }
 

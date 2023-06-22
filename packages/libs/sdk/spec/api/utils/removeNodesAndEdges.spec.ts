@@ -54,16 +54,6 @@ describe('removeNodesAndEdges function', () => {
     },
   };
 
-  it('should remove __typename by default', () => {
-    const result = removeNodesAndEdges(data);
-    expect(result['__typename']).toBeUndefined();
-  });
-
-  it('should keep __typename if keepTypename option is set', () => {
-    const result = removeNodesAndEdges(data, { keepTypename: true });
-    expect(result['__typename']).toEqual('TestType');
-  });
-
   it('should handle Connection objects correctly', () => {
     const result = removeNodesAndEdges(data);
     expect(

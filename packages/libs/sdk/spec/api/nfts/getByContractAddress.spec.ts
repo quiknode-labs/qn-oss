@@ -18,6 +18,7 @@ describe('nfts.getByContractAddress', () => {
         expect(data).toStrictEqual({
           results: [
             {
+              __typename: 'ERC721NFT',
               animationUrl: null,
               attributes: [
                 {
@@ -91,6 +92,7 @@ describe('nfts.getByContractAddress', () => {
               },
             },
             {
+              __typename: 'ERC721NFT',
               animationUrl: null,
               attributes: [],
               collectionSlug: null,
@@ -142,6 +144,7 @@ describe('nfts.getByContractAddress', () => {
         const expectedResponse1 = {
           results: [
             {
+              __typename: 'ERC721NFT',
               animationUrl: null,
               attributes: [
                 {
@@ -215,6 +218,7 @@ describe('nfts.getByContractAddress', () => {
               },
             },
             {
+              __typename: 'ERC721NFT',
               animationUrl: null,
               attributes: [],
               collectionSlug: null,
@@ -242,6 +246,7 @@ describe('nfts.getByContractAddress', () => {
         expect(data2).toStrictEqual({
           results: [
             {
+              __typename: 'ERC721NFT',
               animationUrl: null,
               attributes: [],
               collectionSlug: null,
@@ -257,6 +262,7 @@ describe('nfts.getByContractAddress', () => {
               },
             },
             {
+              __typename: 'ERC721NFT',
               animationUrl: null,
               attributes: [],
               collectionSlug: null,

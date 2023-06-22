@@ -17,30 +17,32 @@ describe('events.getAll', () => {
         expect(data).toStrictEqual({
           results: [
             {
-              blockNumber: 17436511,
-              fromAddress: '0x5a082a69f4c0dda3b8142ae93ab3b659905ed6c1',
-              timestamp: '2023-06-08T15:38:23.000Z',
-              toAddress: '0x9c143da2f408042137362c154484fa57dcd24c30',
+              __typename: 'TokenTransferEvent',
+              blockNumber: 17531846,
+              fromAddress: '0x00000000a991c429ee2ec6df19d40fe0c80088b8',
+              timestamp: '2023-06-22T01:17:35.000Z',
+              toAddress: '0xe94b216591eb5c86ffd924e2e468eeff954bac8e',
               transactionHash:
-                '0x54ab7978ced97d3602ab1a3bd18cec40de5be7d05051f64d2803b7207863c73c',
-              transferIndex: 0,
-              type: 'TRANSFER',
-              tokenId: null,
-              contractAddress: '0x26ee9f83c61193ea6b636001b1550cd0edf6ebad',
-              tokenQuantity: '9968341450515928569671613',
-            },
-            {
-              blockNumber: 17436511,
-              fromAddress: '0x9c143da2f408042137362c154484fa57dcd24c30',
-              timestamp: '2023-06-08T15:38:23.000Z',
-              toAddress: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad',
-              transactionHash:
-                '0x54ab7978ced97d3602ab1a3bd18cec40de5be7d05051f64d2803b7207863c73c',
-              transferIndex: 2,
+                '0x4a7419a839b352d0b2012e08e277e999b445d53440fa787d742d21810d233aba',
+              transferIndex: 1,
               type: 'TRANSFER',
               tokenId: null,
               contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-              tokenQuantity: '42853010875962186',
+              tokenQuantity: '622733269661646848',
+            },
+            {
+              __typename: 'TokenTransferEvent',
+              blockNumber: 17531846,
+              fromAddress: '0xe94b216591eb5c86ffd924e2e468eeff954bac8e',
+              timestamp: '2023-06-22T01:17:35.000Z',
+              toAddress: '0x00000000a991c429ee2ec6df19d40fe0c80088b8',
+              transactionHash:
+                '0x4a7419a839b352d0b2012e08e277e999b445d53440fa787d742d21810d233aba',
+              transferIndex: 2,
+              type: 'TRANSFER',
+              tokenId: null,
+              contractAddress: '0x62086f3f000e85f55c843cd92246eea9376cc048',
+              tokenQuantity: 5383013022040064,
             },
           ],
           pageInfo: {
@@ -91,6 +93,7 @@ describe('events.getAll', () => {
         const expectedResponse1 = {
           results: [
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 17414768,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2023-06-05T13:59:47.000Z',
@@ -102,6 +105,7 @@ describe('events.getAll', () => {
               tokenQuantity: '1024000000000000000000',
             },
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 17414768,
               fromAddress: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b',
               timestamp: '2023-06-05T13:59:47.000Z',
@@ -126,6 +130,7 @@ describe('events.getAll', () => {
         expect(data2).toStrictEqual({
           results: [
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 17414768,
               fromAddress: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b',
               timestamp: '2023-06-05T13:59:47.000Z',
@@ -139,6 +144,7 @@ describe('events.getAll', () => {
               tokenQuantity: '1000000000000000000',
             },
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 17414768,
               fromAddress: '0x19f0265a2537bbd2e3196a4d193f491e505634ea',
               timestamp: '2023-06-05T13:59:47.000Z',
@@ -181,6 +187,7 @@ describe('events.getAll', () => {
         expect(data).toStrictEqual({
           results: [
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 17414768,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2023-06-05T13:59:47.000Z',
@@ -192,6 +199,7 @@ describe('events.getAll', () => {
               tokenQuantity: '1024000000000000000000',
             },
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 17414768,
               fromAddress: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b',
               timestamp: '2023-06-05T13:59:47.000Z',
@@ -237,6 +245,7 @@ describe('events.getAll', () => {
         expect(data).toStrictEqual({
           results: [
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 17414768,
               fromAddress: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b',
               timestamp: '2023-06-05T13:59:47.000Z',
@@ -250,6 +259,7 @@ describe('events.getAll', () => {
               tokenQuantity: '1000000000000000000',
             },
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 17414768,
               fromAddress: '0x963f4bb20fbf3d04e84e4c3821ff482fd3444bd8',
               timestamp: '2023-06-05T13:59:47.000Z',

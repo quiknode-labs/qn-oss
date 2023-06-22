@@ -18,6 +18,7 @@ describe('nfts.getByNFTCollection', () => {
         expect(data).toStrictEqual({
           results: [
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 13188760,
               fromAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
               timestamp: '2021-09-09T01:59:43.000Z',
@@ -31,6 +32,7 @@ describe('nfts.getByNFTCollection', () => {
               tokenQuantity: 1,
             },
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13150035,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-03T02:25:20.000Z',
@@ -77,6 +79,7 @@ describe('nfts.getByNFTCollection', () => {
         const expectedResponse1 = {
           results: [
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 13188760,
               fromAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
               timestamp: '2021-09-09T01:59:43.000Z',
@@ -90,6 +93,7 @@ describe('nfts.getByNFTCollection', () => {
               tokenQuantity: 1,
             },
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13150035,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-03T02:25:20.000Z',
@@ -112,6 +116,7 @@ describe('nfts.getByNFTCollection', () => {
         expect(data2).toStrictEqual({
           results: [
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13150050,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-03T02:28:30.000Z',
@@ -123,6 +128,7 @@ describe('nfts.getByNFTCollection', () => {
               tokenQuantity: 1,
             },
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13150050,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-03T02:28:30.000Z',
@@ -189,6 +195,7 @@ describe('nfts.getByNFTCollection', () => {
         expect(data).toStrictEqual({
           results: [
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 13188760,
               fromAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
               timestamp: '2021-09-09T01:59:43.000Z',

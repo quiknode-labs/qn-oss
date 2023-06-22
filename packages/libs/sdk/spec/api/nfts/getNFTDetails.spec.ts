@@ -14,6 +14,7 @@ describe('getNFTDetails', () => {
         });
         expect(data).toStrictEqual({
           nft: {
+            __typename: 'ERC721NFT',
             animationUrl: null,
             collectionSlug: null,
             contractAddress: '0x2106c00ac7da0a3430ae667879139e832307aeaa',

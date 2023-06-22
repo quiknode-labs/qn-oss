@@ -2,6 +2,7 @@ import { gql } from '@urql/core';
 
 export const TokenEventInfo = gql`
   fragment TokenEventInfo on TokenEvent {
+    __typename
     blockNumber
     fromAddress
     timestamp

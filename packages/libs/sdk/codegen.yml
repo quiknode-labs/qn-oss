@@ -19,6 +19,7 @@ generates:
       inlineFragmentTypes: combine
       fragmentMasking: false
       enumsAsTypes: true
+      skipTypename: true
   src/api/graphql/fragmentMatcher.ts:
     plugins:
       - fragment-matcher

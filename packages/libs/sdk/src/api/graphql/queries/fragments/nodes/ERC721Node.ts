@@ -2,6 +2,7 @@ import { gql } from '@urql/core';
 
 export const ERC721NFTNodeFragment = gql`
   fragment ERC721NFTNode on ERC721NFT {
+    __typename
     animationUrl
     attributes {
       name

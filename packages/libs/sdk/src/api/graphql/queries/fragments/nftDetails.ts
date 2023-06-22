@@ -3,6 +3,7 @@ import { gql } from '@urql/core';
 export const NftDetails = gql`
   fragment NftDetails on EVMSchemaType {
     nft(contractAddress: $contractAddress, tokenId: $tokenId) {
+      __typename
       animationUrl
       collectionSlug
       contractAddress

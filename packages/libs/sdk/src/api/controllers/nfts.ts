@@ -270,7 +270,6 @@ export class NftsController {
     >({
       query: query[userChain], // The actual graphql query
       variables: queryVariables,
-      keepTypename: true,
     });
 
     if (!collection?.nfts?.length) {

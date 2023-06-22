@@ -19,6 +19,7 @@ describe('events.getByNFT', () => {
         expect(data).toStrictEqual({
           results: [
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 13188760,
               fromAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
               timestamp: '2021-09-09T01:59:43.000Z',
@@ -32,6 +33,7 @@ describe('events.getByNFT', () => {
               tokenQuantity: 1,
             },
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13156479,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-04T02:14:32.000Z',
@@ -81,6 +83,7 @@ describe('events.getByNFT', () => {
         const expectedResponse1 = {
           results: [
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13158918,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-04T11:29:13.000Z',
@@ -92,6 +95,7 @@ describe('events.getByNFT', () => {
               tokenQuantity: 1,
             },
             {
+              __typename: 'TokenSaleEvent',
               blockNumber: 13363089,
               fromAddress: '0x7ab5fbb6f543fb7d9664bf115badcb857d3139df',
               timestamp: '2021-10-06T03:41:19.000Z',
@@ -118,6 +122,7 @@ describe('events.getByNFT', () => {
         expect(data2).toStrictEqual({
           results: [
             {
+              __typename: 'TokenSaleEvent',
               blockNumber: 13355777,
               fromAddress: '0x4036b344e3efe9af30cd179ecb9a54a792c164d8',
               timestamp: '2021-10-05T00:15:56.000Z',
@@ -133,6 +138,7 @@ describe('events.getByNFT', () => {
               sentTokenId: 1518,
             },
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 17162646,
               fromAddress: '0x1ce99932fd278e00911814dc4bd403e1293d8ed2',
               timestamp: '2023-05-01T01:13:11.000Z',
@@ -203,6 +209,7 @@ describe('events.getByNFT', () => {
         expect(data).toStrictEqual({
           results: [
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13158918,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-04T11:29:13.000Z',

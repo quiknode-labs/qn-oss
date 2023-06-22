@@ -31,7 +31,6 @@
     "react-hooks-global-state": "^2.1.0",
     "react-modal": "^3.16.1",
     "react-router-dom": "6.4.3",
-    "react-scripts": "^5.0.1",
     "react-sizeme": "^3.0.2",
     "regenerator-runtime": "^0.13.7",
     "styled-components": "5.3.6",

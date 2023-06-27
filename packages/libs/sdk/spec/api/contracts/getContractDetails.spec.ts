@@ -13,6 +13,7 @@ describe('contract.getDetails', () => {
         });
         expect(data).toStrictEqual({
           contract: {
+            __typename: 'NFTContract',
             abi: [
               {
                 inputs: [
@@ -1140,6 +1141,24 @@ describe('contract.getDetails', () => {
         });
         expect(data).toEqual({ contract: null });
       }
+    );
+  });
+
+  it('throws an error when there is an invalid address', async () => {
+    await expect(
+      api.contracts.getDetails({
+        contractAddress: '0x2106c00ac7da0a3430ae667879139e832307ZZZZ',
+      })
+    ).rejects.toThrowError(/Not a valid address/);
+  });
+
+  it('throws an error when there is an extra param', async () => {
+    const input = {
+      contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+      notAParam: 'notAParam',
+    };
+    await expect(api.contracts.getDetails(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'notAParam'/
     );
   });
 });

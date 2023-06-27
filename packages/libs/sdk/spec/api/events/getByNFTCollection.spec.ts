@@ -18,6 +18,7 @@ describe('nfts.getByNFTCollection', () => {
         expect(data).toStrictEqual({
           results: [
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 13188760,
               fromAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
               timestamp: '2021-09-09T01:59:43.000Z',
@@ -31,6 +32,7 @@ describe('nfts.getByNFTCollection', () => {
               tokenQuantity: 1,
             },
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13150035,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-03T02:25:20.000Z',
@@ -77,6 +79,7 @@ describe('nfts.getByNFTCollection', () => {
         const expectedResponse1 = {
           results: [
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 13188760,
               fromAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
               timestamp: '2021-09-09T01:59:43.000Z',
@@ -90,6 +93,7 @@ describe('nfts.getByNFTCollection', () => {
               tokenQuantity: 1,
             },
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13150035,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-03T02:25:20.000Z',
@@ -112,6 +116,7 @@ describe('nfts.getByNFTCollection', () => {
         expect(data2).toStrictEqual({
           results: [
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13150050,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-03T02:28:30.000Z',
@@ -123,6 +128,7 @@ describe('nfts.getByNFTCollection', () => {
               tokenQuantity: 1,
             },
             {
+              __typename: 'TokenMintEvent',
               blockNumber: 13150050,
               fromAddress: '0x0000000000000000000000000000000000000000',
               timestamp: '2021-09-03T02:28:30.000Z',
@@ -154,7 +160,7 @@ describe('nfts.getByNFTCollection', () => {
       },
       async () => {
         const data = await api.events.getByNFTCollection({
-          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307fake',
+          contractAddress: '0x2106C00Ac7dA0A3430aE667879139E832307aaaa',
           first: 2,
         });
         expect(data).toStrictEqual({
@@ -189,6 +195,7 @@ describe('nfts.getByNFTCollection', () => {
         expect(data).toStrictEqual({
           results: [
             {
+              __typename: 'TokenTransferEvent',
               blockNumber: 13188760,
               fromAddress: '0x10fa1c188eca954419a85112f975155f717ad8ea',
               timestamp: '2021-09-09T01:59:43.000Z',
@@ -210,6 +217,23 @@ describe('nfts.getByNFTCollection', () => {
           },
         });
       }
+    );
+  });
+
+  it('throws an error when no contract address is provided', async () => {
+    const input: any = {};
+    await expect(api.events.getByNFTCollection(input)).rejects.toThrowError(
+      /contractAddress: Required/
+    );
+  });
+
+  it('throws an error when an invalid contract address is provided', async () => {
+    await expect(
+      api.events.getByNFTCollection({
+        contractAddress: '123',
+      })
+    ).rejects.toThrowError(
+      /contractAddress: String must contain exactly 42 character\(s\)/
     );
   });
 });

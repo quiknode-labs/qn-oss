@@ -4,10 +4,6 @@ import {
   ResultOutput,
 } from '../utils/removeNodesAndEdges';
 
-interface InternalOptions {
-  keepTypename?: boolean;
-}
-
 export class CustomUrqlClient {
   constructor(public urqlClient: Client) {}
 
@@ -15,8 +11,8 @@ export class CustomUrqlClient {
     TVariables extends Record<string, any>,
     KResults extends Record<string, any>,
     KResultsOutput extends ResultOutput
-  >(options: GraphQLRequestParams<any, TVariables> & InternalOptions) {
-    const { keepTypename, query, variables, ...additionalOptions } = options;
+  >(options: GraphQLRequestParams<any, TVariables>) {
+    const { query, variables, ...additionalOptions } = options;
     const result = await this.urqlClient.query(
       query,
       variables,
@@ -33,9 +29,7 @@ export class CustomUrqlClient {
       ...result,
       data:
         result?.data &&
-        removeNodesAndEdges<KResults, KResultsOutput>(result.data, {
-          keepTypename,
-        }),
+        removeNodesAndEdges<KResults, KResultsOutput>(result.data),
     };
   }
 }

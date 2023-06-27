@@ -6,6 +6,7 @@ import {
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
 import { NonQueryInput } from '../input';
+import { SimplifyType } from '../../utils/helpers';
 
 // Using the generated CodegenEthMainnetWalletNFTsByEnsQuery as a base for the type here
 // since the queries for each chain will be the same, so allow for it to be used for all chains
@@ -38,9 +39,9 @@ export type WalletNFTsByEnsQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type WalletNFTsByEnsResult = {
+export type WalletNFTsByEnsResult = SimplifyType<{
   address: string;
   ensName: string;
   results: CodegenWalletNFTNodeFragment['nft'][];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

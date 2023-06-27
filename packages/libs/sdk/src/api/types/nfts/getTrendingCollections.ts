@@ -1,11 +1,16 @@
 import {
+  paginationParams,
+  supportedChainInput,
+} from '../../../lib/validation/validators';
+import {
   CodegenEthMainnetTrendingCollectionsQuery,
   CodegenEthMainnetTrendingCollectionsQueryVariables,
   CodegenTrendingCollectionInfoFragment,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
+import { SimplifyType } from '../../utils/helpers';
+import { z } from 'zod';
 
 export type NFTTrendingCollectionsQuery = {
   [k in ChainName]: CodegenEthMainnetTrendingCollectionsQuery['ethereum'];
@@ -14,9 +19,13 @@ export type NFTTrendingCollectionsQuery = {
 export type NFTTrendingCollectionsQueryVariables =
   CodegenEthMainnetTrendingCollectionsQueryVariables;
 
-export type NFTTrendingCollectionsInput = NFTTrendingCollectionsQueryVariables &
-  NonQueryInput;
+export const nftTrendingCollectionsValidator = paginationParams
+  .merge(supportedChainInput)
+  .strict();
 
+export type NFTTrendingCollectionsInput = z.infer<
+  typeof nftTrendingCollectionsValidator
+>;
 export interface NFTTrendingCollectionsQueryResultBody {
   trendingCollectionsPageInfo: CodegenPaginationFragment;
   trendingCollections: CodegenTrendingCollectionInfoFragment[];
@@ -29,7 +38,7 @@ export type NFTTrendingCollectionsQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type NFTTrendingCollectionResult = {
+export type NFTTrendingCollectionResult = SimplifyType<{
   results: CodegenTrendingCollectionInfoFragment[];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

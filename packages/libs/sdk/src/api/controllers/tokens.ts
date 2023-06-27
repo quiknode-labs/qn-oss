@@ -16,6 +16,7 @@ import {
   BalancesByWalletAddressQueryVariables,
   BalancesByWalletAddressQuery,
   BalancesByWalletAddressInput,
+  balancesByWalletAddressValidator,
 } from '../types/tokens/getBalancesByWalletAddress';
 import {
   CodegenEthMainnetBalancesByWalletENSDocument,
@@ -29,6 +30,7 @@ import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
+import { ValidateInput } from '../../lib/validation/ValidateInput';
 
 export class TokensController {
   constructor(
@@ -36,6 +38,7 @@ export class TokensController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
+  @ValidateInput(balancesByWalletAddressValidator)
   async getBalancesByWallet(
     variables: BalancesByWalletAddressInput
   ): Promise<BalancesByWalletENSResult> {
@@ -56,7 +59,7 @@ export class TokensController {
     variables: BalancesByWalletENSInput
   ): Promise<BalancesByWalletENSResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetBalancesByWalletENSDocument,
       polygon: CodegenPolygonMainnetBalancesByWalletENSDocument,
@@ -106,7 +109,7 @@ export class TokensController {
     variables: BalancesByWalletAddressInput
   ): Promise<BalancesByWalletAddressResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetBalancesByWalletAddressDocument,
       polygon: CodegenPolygonMainnetBalancesByWalletAddressDocument,

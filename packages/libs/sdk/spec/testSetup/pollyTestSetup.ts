@@ -36,7 +36,13 @@ export default async function withPolly(
     logging: false,
     matchRequestsBy: {
       headers: {
-        exclude: ['X-API-KEY', 'x-api-key', 'content-length'],
+        exclude: [
+          'X-API-KEY',
+          'x-api-key',
+          'x-quicknode-sdk',
+          'x-quicknode-sdk-version',
+          'content-length',
+        ],
       },
       order: false,
       // @ts-ignore

@@ -11,7 +11,6 @@ import {
 } from '../types/transactions/getByWalletAddress';
 import {
   TransactionsByWalletENSQueryResultInfo,
-  TransactionsByWalletENSResult,
   TransactionsByWalletENSQueryResultFull,
   TransactionsByWalletENSQueryVariables,
   TransactionsByWalletENSQuery,
@@ -24,6 +23,7 @@ import {
   TransactionsBySearchQueryVariables,
   TransactionsBySearchQuery,
   TransactionsBySearchInput,
+  transactionsBySearchValidator,
 } from '../types/transactions/getBySearch';
 import {
   TransactionsByHashResult,
@@ -31,6 +31,7 @@ import {
   TransactionsByHashQueryVariables,
   TransactionsByHashQuery,
   TransactionsByHashInput,
+  transactionsByHashValidator,
 } from '../types/transactions/getByHash';
 import {
   CodegenEthMainnetTransactionsByWalletAddressDocument,
@@ -50,6 +51,8 @@ import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
+import { ValidateInput } from '../../lib/validation/ValidateInput';
+import { balancesByWalletAddressValidator } from '../../api/types/tokens/getBalancesByWalletAddress';
 
 export class TransactionsController {
   constructor(
@@ -57,15 +60,12 @@ export class TransactionsController {
     private defaultChain: ChainName = DEFAULT_CHAIN
   ) {}
 
+  @ValidateInput(balancesByWalletAddressValidator)
   async getByWallet(
     variables: TransactionsByWalletAddressInput
-  ): Promise<
-    TransactionsByWalletAddressResult | TransactionsByWalletENSResult
-  > {
+  ): Promise<TransactionsByWalletAddressResult> {
     const { address, ...allVariables } = variables;
-    let queryResult:
-      | TransactionsByWalletAddressQueryResultInfo
-      | TransactionsByWalletENSQueryResultInfo;
+    let queryResult: TransactionsByWalletAddressQueryResultInfo;
     if (isValidENSAddress(address)) {
       queryResult = await this.getByWalletENS({
         ensName: address,
@@ -102,7 +102,7 @@ export class TransactionsController {
     variables: TransactionsByWalletAddressInput
   ): Promise<TransactionsByWalletAddressQueryResultInfo> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTransactionsByWalletAddressDocument,
       polygon: CodegenPolygonMainnetTransactionsByWalletAddressDocument,
@@ -128,7 +128,7 @@ export class TransactionsController {
     variables: TransactionsByWalletENSInput
   ): Promise<TransactionsByWalletENSQueryResultInfo> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTransactionsByWalletENSDocument,
       polygon: CodegenPolygonMainnetTransactionsByWalletENSDocument,
@@ -150,11 +150,12 @@ export class TransactionsController {
     return walletByENS;
   }
 
+  @ValidateInput(transactionsBySearchValidator)
   async getAll(
     variables: TransactionsBySearchInput
   ): Promise<TransactionsBySearchResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTransactionsBySearchDocument,
       polygon: CodegenPolygonMainnetTransactionsBySearchDocument,
@@ -179,11 +180,12 @@ export class TransactionsController {
     return formattedResult;
   }
 
+  @ValidateInput(transactionsByHashValidator)
   async getByHash(
     variables: TransactionsByHashInput
   ): Promise<TransactionsByHashResult> {
     const { chain, ...queryVariables } = variables;
-    const userChain = chain || this.defaultChain;
+    const userChain: ChainName = chain || this.defaultChain;
     const query: Record<ChainName, TypedDocumentNode<any, any>> = {
       ethereum: CodegenEthMainnetTransactionsByHashDocument,
       polygon: CodegenPolygonMainnetTransactionsByHashDocument,

@@ -4,7 +4,12 @@ import {
   CodegenContractInfoFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
+import {
+  isEvmAddress,
+  supportedChainInput,
+} from '../../../lib/validation/validators';
+import { SimplifyType } from '../../utils/helpers';
+import { z } from 'zod';
 
 export type ContractDetailsQuery = {
   [k in ChainName]: CodegenEthMainnetContractDetailsQuery['ethereum'];
@@ -13,8 +18,16 @@ export type ContractDetailsQuery = {
 export type ContractDetailsQueryVariables =
   CodegenEthMainnetContractDetailsQueryVariables;
 
-export type ContractDetailsInput = ContractDetailsQueryVariables &
-  NonQueryInput;
+// Using zod for runtime validation
+export const contractDetailsValidator = z
+  .object({
+    contractAddress: isEvmAddress,
+  })
+  .merge(supportedChainInput)
+  .strict();
+
+// Infer the type from the zod schema
+export type ContractDetailsInput = z.infer<typeof contractDetailsValidator>;
 
 export interface ContractDetailsQueryResultInfo {
   contract: CodegenContractInfoFragment;
@@ -25,6 +38,6 @@ export type ContractDetailsQueryResultFull = Record<
   ContractDetailsQueryResultInfo
 >;
 
-export type ContractDetailsResult = {
+export type ContractDetailsResult = SimplifyType<{
   contract: CodegenContractInfoFragment | null;
-};
+}>;

@@ -3,7 +3,7 @@ import { TransactionsBySearch } from '../../../fragments/getTransactionsBySearch
 
 export const EthMainnetTransactionsBySearch = gql`
   query EthMainnetTransactionsBySearch(
-    $filter: TransactionsFilterInput!,
+    $filter: TransactionsFilterInput,
     $first: Int,
     $before: String
     $after: String

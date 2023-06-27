@@ -1,11 +1,19 @@
 import {
+  isENSAddress,
+  isEvmAddress,
+  paginationParams,
+  supportedChainInput,
+  contractTokensFilter,
+} from '../../../lib/validation/validators';
+import {
   CodegenEthMainnetWalletNFTsByAddressQueryVariables,
   CodegenEthMainnetWalletNFTsByAddressQuery,
   CodegenWalletNFTNodeFragment,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
+import { SimplifyType } from '../../utils/helpers';
+import { z } from 'zod';
 
 // Using the generated CodegenEthMainnetWalletNFTsByAddressQuery as a base for the type here
 // since the queries for each chain will be the same, so allow for it to be used for all chains
@@ -18,8 +26,21 @@ export type WalletNFTsByAddressQuery = {
 export type WalletNFTsByAddressQueryVariables =
   CodegenEthMainnetWalletNFTsByAddressQueryVariables;
 
-export type WalletNFTsByAddressInput = WalletNFTsByAddressQueryVariables &
-  NonQueryInput;
+export const walletByAddressValidator = z
+  .object({
+    address: z.union([isENSAddress, isEvmAddress]),
+    filter: z
+      .object({
+        contractTokens: contractTokensFilter,
+      })
+      .strict()
+      .optional(),
+  })
+  .merge(paginationParams)
+  .merge(supportedChainInput)
+  .strict();
+
+export type WalletNFTsByAddressInput = z.infer<typeof walletByAddressValidator>;
 
 export interface WalletNFTsByAddressQueryResultInfo {
   address: string;
@@ -38,9 +59,9 @@ export type WalletNFTByAddressQueryResultFull = Record<
 >;
 
 // What we actually return to the user
-export type WalletNFTsByAddressResult = {
+export type WalletNFTsByAddressResult = SimplifyType<{
   address: string;
   ensName: string;
   results: CodegenWalletNFTNodeFragment['nft'][];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

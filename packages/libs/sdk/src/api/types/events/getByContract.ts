@@ -1,11 +1,17 @@
 import {
+  baseEventsInput,
+  isEvmAddress,
+  supportedChainInput,
+} from '../../../lib/validation/validators';
+import {
   CodegenEthereumMainnetEventsByContractQuery,
   CodegenEthereumMainnetEventsByContractQueryVariables,
   CodegenTokenEventInfoFragment,
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
+import { SimplifyType } from '../../utils/helpers';
+import { z } from 'zod';
 
 export type ContractEventsQuery = {
   [k in ChainName]: CodegenEthereumMainnetEventsByContractQuery['ethereum'];
@@ -14,7 +20,15 @@ export type ContractEventsQuery = {
 export type ContractEventsQueryVariables =
   CodegenEthereumMainnetEventsByContractQueryVariables;
 
-export type ContractEventsInput = ContractEventsQueryVariables & NonQueryInput;
+export const contractEventsValidator = z
+  .object({
+    contractAddress: isEvmAddress,
+  })
+  .merge(baseEventsInput)
+  .merge(supportedChainInput)
+  .strict();
+
+export type ContractEventsInput = z.infer<typeof contractEventsValidator>;
 
 export interface ContractEventsQueryResultInfo {
   tokenEvents: CodegenTokenEventInfoFragment[];
@@ -30,7 +44,7 @@ export type ContractEventsQueryResultFull = Record<
   ContractEventsQueryResultBody
 >;
 
-export type ContractEventsResult = {
+export type ContractEventsResult = SimplifyType<{
   results: CodegenTokenEventInfoFragment[];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

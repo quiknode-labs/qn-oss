@@ -227,4 +227,29 @@ describe('transactions.getByWallet with address', () => {
       }
     );
   });
+
+  it('throws an error if no address is provided', async () => {
+    const input: any = {};
+    await expect(transactions.getByWallet(input)).rejects.toThrow(
+      /address: Invalid input/
+    );
+  });
+
+  it('throws an error if address is not a valid address', async () => {
+    const input: any = {
+      address: '0x123',
+    };
+    await expect(transactions.getByWallet(input)).rejects.toThrow(
+      /address: Invalid input/
+    );
+  });
+
+  it('throws an error on an invalid param', async () => {
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(transactions.getByWallet(input)).rejects.toThrow(
+      /address: Invalid input/
+    );
+  });
 });

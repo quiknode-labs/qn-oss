@@ -3,7 +3,7 @@ import { TransactionsBySearch } from '../../../fragments/getTransactionsBySearch
 
 export const PolygonMainnetTransactionsBySearch = gql`
   query PolygonMainnetTransactionsBySearch(
-    $filter: TransactionsFilterInput!
+    $filter: TransactionsFilterInput
     $first: Int
     $before: String
     $after: String

@@ -283,26 +283,12 @@ describe('getTrendingCollections', () => {
     );
   });
 
-  it('can return no results', async () => {
-    await withPolly(
-      {
-        recordingName: 'query-getTrendingCollections-no-results',
-        recordIfMissing: true,
-      },
-      async () => {
-        const data = await api.nfts.getTrendingCollections({
-          first: 0,
-        });
-        expect(data).toStrictEqual({
-          results: [],
-          pageInfo: {
-            endCursor: null,
-            hasNextPage: false,
-            hasPreviousPage: false,
-            startCursor: null,
-          },
-        });
-      }
+  it('throws error with invalid params', async () => {
+    const input: any = {
+      foo: 'bar',
+    };
+    await expect(api.nfts.getTrendingCollections(input)).rejects.toThrowError(
+      /Unrecognized key\(s\) in object: 'foo'/
     );
   });
 });

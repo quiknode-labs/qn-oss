@@ -5,7 +5,13 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { NonQueryInput } from '../input';
+import {
+  baseEventsInput,
+  isEvmAddress,
+  supportedChainInput,
+} from '../../../lib/validation/validators';
+import { SimplifyType } from '../../utils/helpers';
+import { z } from 'zod';
 
 export type CollectionEventsQuery = {
   [k in ChainName]: CodegenEthMainnetEventsByCollectionQuery['ethereum'];
@@ -14,9 +20,15 @@ export type CollectionEventsQuery = {
 export type CollectionEventsQueryVariables =
   CodegenEthMainnetEventsByCollectionQueryVariables;
 
-export type CollectionEventsInput = CollectionEventsQueryVariables &
-  NonQueryInput;
+export const collectionEventsValidator = z
+  .object({
+    contractAddress: isEvmAddress,
+  })
+  .merge(baseEventsInput)
+  .merge(supportedChainInput)
+  .strict();
 
+export type CollectionEventsInput = z.infer<typeof collectionEventsValidator>;
 export interface CollectionEventsQueryResultInfo {
   tokenEvents: CodegenTokenEventInfoFragment[];
   tokenEventsPageInfo: CodegenPaginationFragment;
@@ -31,7 +43,7 @@ export type CollectionEventsQueryResultFull = Record<
   CollectionEventsQueryResultBody
 >;
 
-export type CollectionEventsResult = {
+export type CollectionEventsResult = SimplifyType<{
   results: CodegenTokenEventInfoFragment[];
   pageInfo: CodegenPaginationFragment;
-};
+}>;

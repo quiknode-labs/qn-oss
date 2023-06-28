@@ -10,6 +10,7 @@ export default {
 
       const name = await contract.read.name();
 
+      console.log(name);
       return res.status(200).send({ name });
     } catch (error) {
       console.error(error);
@@ -19,7 +20,7 @@ export default {
 
   sdk_qn_fetchNFTs: async (req: Request, res: Response) => {
     try {
-      const response = await core.nftTokenAddOn.qn_fetchNFTs({
+      const response = await core.public.qn_fetchNFTs({
         wallet: req.params.wallet,
         contracts: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],
       });

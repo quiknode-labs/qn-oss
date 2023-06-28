@@ -1,5 +1,5 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { PublicClient, getContract } from 'viem';
+import { PublicClient, getContract } from 'viem'
 import type API from '../api';
 import fetch from 'cross-fetch';
 global.fetch = fetch;
@@ -27,11 +27,10 @@ export class CoreContract {
     this.apiClient = apiClient;
     this.publicClient = publicClient;
     this.address = address;
-    this.contract = null;
     if (abi) this.abi = abi;
   }
 
-  async setup() {
+  async setupContract() {
     if (!this.abi) {
       const details = await this.apiClient.contracts.getDetails({
         contractAddress: this.address,
@@ -48,6 +47,6 @@ export class CoreContract {
       publicClient: this.publicClient,
     });
 
-    this.contract = contract;
+    return contract;
   }
 }

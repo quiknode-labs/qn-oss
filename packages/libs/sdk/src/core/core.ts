@@ -1,6 +1,7 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { mainnet } from 'viem/chains';
 import type API from '../../src/api';
+import { SimplifyType } from '../../src/api/utils/helpers';
 import { CoreContract } from './coreContract';
 import {
   createClient,
@@ -74,18 +75,24 @@ export const fooActions = (client: Client): FooActions => ({
 });
 
 type AddOnMapping = {
+  core: PublicClient;
   nftTokenAddOn: QNPublicActions;
   fooAddOn: FooActions;
-  // Add more mappings here as needed.
 };
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-type UnionOfActions<T extends Partial<keyof AddOnMapping>[]> = {
-  [K in T[number]]: AddOnMapping[K];
-}[T[number]];
-/* eslint-disable  @typescript-eslint/no-explicit-any */
+type AddOnKeys = keyof AddOnMapping;
+type ValueOf<T, U extends keyof T> = T[U];
+type IntersectAddOns<T extends AddOnKeys[]> = T extends []
+  ? unknown
+  : { [K in T[number]]: AddOnMapping[K] }[T[number]];
 
-let a: PublicClient & UnionOfActions<[]>;
+let a: UnionOfActions<['core', 'nftTokenAddOn']>;
+let q: PublicClient & IntersectAddOns<['nftTokenAddOn']>;
+
+type ValueOf<T, U extends keyof T> = T[U];
+// Create a type that represents the values of 'prop1' and 'prop2'.
+type MyUnion = ValueOf<MyType, 'core' | 'nftTokenAddOn'>;
+
 export class Core {
   readonly apiClient: API | null | undefined;
   readonly endpointUrl: string;
@@ -103,7 +110,8 @@ export class Core {
     const qnClient = createClient({
       chain: mainnet,
       transport: http(this.endpointUrl),
-    }).extend(publicActions);
+    });
+    if (addOns.includes('core')) qnClient.extend(publicActions);
     if (addOns.includes('nftTokenAddOn')) qnClient.extend(qnPublicActions);
     if (addOns.includes('fooAddOn')) qnClient.extend(fooActions);
 

@@ -5,12 +5,10 @@ import { CoreContract } from './coreContract';
 import {
   createClient,
   http,
-  Transport,
-  Chain,
-  Account,
-  Client,
-  PublicRpcSchema,
-  PublicActions,
+  type Client,
+  RpcSchemaOverride,
+  publicActions,
+  PublicClient,
 } from 'viem';
 import * as viem from 'viem';
 /* eslint-enable @nx/enforce-module-boundaries */
@@ -38,22 +36,26 @@ type NFTAndTokenMethods = [
   }
 ];
 
-type NFTAndTokenSchema = PublicRpcSchema & NFTAndTokenMethods;
+type NFTAndTokenSchema = RpcSchemaOverride & NFTAndTokenMethods;
 
-export type QNPublicActions<
-  TTransport extends Transport = Transport,
-  TChain extends Chain | undefined = Chain | undefined
-> = {
+type FooSchema = RpcSchemaOverride &
+  [
+    {
+      Method: 'foo';
+      Parameters: [string];
+      ReturnType: string;
+    }
+  ];
+
+export type QNPublicActions = {
   qn_fetchNFTs: (parameters: QNFetchNFTParams) => Promise<unknown>;
 };
 
-export const qnPublicActions = <
-  TTransport extends Transport = Transport,
-  TChain extends Chain | undefined = Chain | undefined,
-  TAccount extends Account | undefined = Account | undefined
->(
-  client: Client<TTransport, TChain, TAccount>
-): QNPublicActions<TTransport, TChain> => ({
+export type FooActions = {
+  foo: (arg: string) => Promise<unknown>;
+};
+
+export const qnPublicActions = (client: Client): QNPublicActions => ({
   async qn_fetchNFTs(args) {
     return await client.request<NFTAndTokenSchema>({
       method: 'qn_fetchNFTs',
@@ -62,44 +64,70 @@ export const qnPublicActions = <
   },
 });
 
-export type QNPublicClient<
-  TTransport extends Transport = Transport,
-  TChain extends Chain | undefined = Chain | undefined
-> = Client<
-  TTransport,
-  TChain,
-  undefined,
-  NFTAndTokenSchema,
-  QNPublicActions<TTransport, TChain>
->;
+export const fooActions = (client: Client): FooActions => ({
+  async foo(arg) {
+    return await client.request<FooSchema>({
+      method: 'foo',
+      params: [arg],
+    });
+  },
+});
 
+type AddOnMapping = {
+  nftTokenAddOn: QNPublicActions;
+  fooAddOn: FooActions;
+  // Add more mappings here as needed.
+};
+
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+type UnionOfActions<T extends Partial<keyof AddOnMapping>[]> = {
+  [K in T[number]]: AddOnMapping[K];
+}[T[number]];
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
+let a: PublicClient & UnionOfActions<[]>;
 export class Core {
-  readonly public: QNPublicClient;
   readonly apiClient: API | null | undefined;
   readonly endpointUrl: string;
   readonly viem: typeof viem;
 
   // TODO: Determine endpoint chain from qn url
-  constructor({ endpointUrl, network, apiClient }: CoreArguments) {
-    this.apiClient = apiClient;
+  constructor({ endpointUrl, apiClient }: CoreArguments) {
     this.endpointUrl = endpointUrl;
     this.viem = viem;
-    this.public = createClient({
-      chain: mainnet,
-      transport: http(endpointUrl),
-    }).extend(qnPublicActions);
   }
 
-  async getContract({ address }: { address: `0x${string}` }) {
-    if (!this.apiClient) {
+  async createQNClient<T extends Partial<keyof AddOnMapping>[]>(
+    addOns: T
+  ): Promise<PublicClient & UnionOfActions<T>> {
+    const qnClient = createClient({
+      chain: mainnet,
+      transport: http(this.endpointUrl),
+    }).extend(publicActions);
+    if (addOns.includes('nftTokenAddOn')) qnClient.extend(qnPublicActions);
+    if (addOns.includes('fooAddOn')) qnClient.extend(fooActions);
+
+    // @ts-expect-error
+    return qnClient as PublicClient & UnionOfActions<T>;
+  }
+
+  async getContract({
+    address,
+    apiClient,
+  }: {
+    address: `0x${string}`;
+    apiClient?: API;
+  }) {
+    if (apiClient) {
       throw new Error(
         'No sdk api client provided! This function requires an initialized SDK api client to be passed in the constructor.'
       );
     }
 
+    const contractClient = await this.createQNClient();
     const coreContract = new CoreContract({
-      apiClient: this.apiClient,
-      publicClient: this.public,
+      apiClient: apiClient,
+      publicClient: contractClient,
       address,
     });
 

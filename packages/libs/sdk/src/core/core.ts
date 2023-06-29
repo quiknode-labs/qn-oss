@@ -80,12 +80,14 @@ type AddOnMapping = {
 };
 
 type AddOnKeys = keyof AddOnMapping;
-type ValueOf<T, U extends keyof T> = T[U];
-type IntersectAddOns<T extends AddOnKeys[]> = T extends []
-  ? unknown
-  : { [K in T[number]]: AddOnMapping[K] }[T[number]];
-
-let q: PublicClient & IntersectAddOns<['nftTokenAddOn']>;
+// "never" in an intersection will cause the whole intersection to be never, which is not what we
+// want when we do something like PublicClient & OptionalThing, so wrapping this in a "never"
+// Record that won't actually add properties to the type but also won't invalidate the intersection
+type SafeNever<T> = [T] extends [never] ? Record<never, never> : T;
+// Intersects the add on types based on an array of the keys in the mapping passed in
+type IntersectAddOns<T extends AddOnKeys[]> = {
+  [K in T[number]]: AddOnMapping[K];
+}[T[number]];
 
 export class Core {
   readonly apiClient: API | null | undefined;
@@ -100,7 +102,7 @@ export class Core {
 
   async createQNClient<T extends Partial<keyof AddOnMapping>[]>(
     addOns: T
-  ): Promise<PublicClient & IntersectAddOns<T>> {
+  ): Promise<PublicClient & SafeNever<IntersectAddOns<T>>> {
     const qnClient = createClient({
       chain: mainnet,
       transport: http(this.endpointUrl),
@@ -109,7 +111,7 @@ export class Core {
     if (addOns.includes('fooAddOn')) qnClient.extend(fooActions);
 
     // @ts-expect-error
-    return qnClient as PublicClient & IntersectAddOns<T>;
+    return qnClient as PublicClient & SafeNever<IntersectAddOns<T>>;
   }
 
   async getContract({
@@ -125,7 +127,7 @@ export class Core {
       );
     }
 
-    const contractClient = await this.createQNClient();
+    const contractClient = await this.createQNClient([]);
     const coreContract = new CoreContract({
       apiClient: apiClient,
       publicClient: contractClient,

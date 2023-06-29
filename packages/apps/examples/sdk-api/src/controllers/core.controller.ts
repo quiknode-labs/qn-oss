@@ -20,7 +20,7 @@ export default {
 
   sdk_qn_fetchNFTs: async (req: Request, res: Response) => {
     try {
-      const client = await core.createQNClient(['core', 'nftTokenAddOn']);
+      const client = await core.createQNClient(['nftTokenAddOn']);
       const response = await client({
         wallet: req.params.wallet,
         contracts: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],

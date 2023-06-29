@@ -75,7 +75,6 @@ export const fooActions = (client: Client): FooActions => ({
 });
 
 type AddOnMapping = {
-  core: PublicClient;
   nftTokenAddOn: QNPublicActions;
   fooAddOn: FooActions;
 };
@@ -86,12 +85,7 @@ type IntersectAddOns<T extends AddOnKeys[]> = T extends []
   ? unknown
   : { [K in T[number]]: AddOnMapping[K] }[T[number]];
 
-let a: UnionOfActions<['core', 'nftTokenAddOn']>;
 let q: PublicClient & IntersectAddOns<['nftTokenAddOn']>;
-
-type ValueOf<T, U extends keyof T> = T[U];
-// Create a type that represents the values of 'prop1' and 'prop2'.
-type MyUnion = ValueOf<MyType, 'core' | 'nftTokenAddOn'>;
 
 export class Core {
   readonly apiClient: API | null | undefined;
@@ -106,17 +100,16 @@ export class Core {
 
   async createQNClient<T extends Partial<keyof AddOnMapping>[]>(
     addOns: T
-  ): Promise<PublicClient & UnionOfActions<T>> {
+  ): Promise<PublicClient & IntersectAddOns<T>> {
     const qnClient = createClient({
       chain: mainnet,
       transport: http(this.endpointUrl),
-    });
-    if (addOns.includes('core')) qnClient.extend(publicActions);
+    }).extend(publicActions);
     if (addOns.includes('nftTokenAddOn')) qnClient.extend(qnPublicActions);
     if (addOns.includes('fooAddOn')) qnClient.extend(fooActions);
 
     // @ts-expect-error
-    return qnClient as PublicClient & UnionOfActions<T>;
+    return qnClient as PublicClient & IntersectAddOns<T>;
   }
 
   async getContract({

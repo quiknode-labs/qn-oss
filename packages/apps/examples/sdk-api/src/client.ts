@@ -1,4 +1,4 @@
-import QuickNode from '@qn-oss/libs/sdk';
+import QuickNode, { viem } from '@qn-oss/libs/sdk';
 
 const opts: any = {
   graphApiKey: process.env['QUICKNODE_API_KEY'] || '',
@@ -20,5 +20,4 @@ export const events = api.events;
 
 export const core = new QuickNode.Core({
   endpointUrl: process.env['QUICKNODE_ENDPOINT_URL'] || '',
-  apiClient: api,
 });

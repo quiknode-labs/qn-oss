@@ -48,7 +48,7 @@ type FooSchema = RpcSchemaOverride &
     }
   ];
 
-export type QNPublicActions = {
+export type NFTAndTokenActions = {
   qn_fetchNFTs: (parameters: QNFetchNFTParams) => Promise<unknown>;
 };
 
@@ -56,7 +56,7 @@ export type FooActions = {
   foo: (arg: string) => Promise<unknown>;
 };
 
-export const qnPublicActions = (client: Client): QNPublicActions => ({
+export const nftTokenActions = (client: Client): NFTAndTokenActions => ({
   async qn_fetchNFTs(args) {
     return await client.request<NFTAndTokenSchema>({
       method: 'qn_fetchNFTs',
@@ -74,20 +74,10 @@ export const fooActions = (client: Client): FooActions => ({
   },
 });
 
-type AddOnMapping = {
-  nftTokenAddOn: QNPublicActions;
-  fooAddOn: FooActions;
-};
-
-type AddOnKeys = keyof AddOnMapping;
-// "never" in an intersection will cause the whole intersection to be never, which is not what we
-// want when we do something like PublicClient & OptionalThing, so wrapping this in a "never"
-// Record that won't actually add properties to the type but also won't invalidate the intersection
-type SafeNever<T> = [T] extends [never] ? Record<never, never> : T;
-// Intersects the add on types based on an array of the keys in the mapping passed in
-type IntersectAddOns<T extends AddOnKeys[]> = {
-  [K in T[number]]: AddOnMapping[K];
-}[T[number]];
+export const qnActions = (client: Client): FooActions & NFTAndTokenActions => ({
+  ...fooActions(client),
+  ...nftTokenActions(client),
+});
 
 export class Core {
   readonly apiClient: API | null | undefined;
@@ -100,42 +90,12 @@ export class Core {
     this.viem = viem;
   }
 
-  async createQNClient<T extends Partial<keyof AddOnMapping>[]>(
-    addOns: T
-  ): Promise<PublicClient & SafeNever<IntersectAddOns<T>>> {
+  async createQNClient() {
     const qnClient = createClient({
       chain: mainnet,
-      transport: http(this.endpointUrl),
+      transport: http('hi'),
     }).extend(publicActions);
-    if (addOns.includes('nftTokenAddOn')) qnClient.extend(qnPublicActions);
-    if (addOns.includes('fooAddOn')) qnClient.extend(fooActions);
 
-    // @ts-expect-error
-    return qnClient as PublicClient & SafeNever<IntersectAddOns<T>>;
-  }
-
-  async getContract({
-    address,
-    apiClient,
-  }: {
-    address: `0x${string}`;
-    apiClient?: API;
-  }) {
-    if (apiClient) {
-      throw new Error(
-        'No sdk api client provided! This function requires an initialized SDK api client to be passed in the constructor.'
-      );
-    }
-
-    const contractClient = await this.createQNClient([]);
-    const coreContract = new CoreContract({
-      apiClient: apiClient,
-      publicClient: contractClient,
-      address,
-    });
-
-    const contract = await coreContract.setupContract();
-
-    return contract;
+    return qnClient.extend(qnActions);
   }
 }

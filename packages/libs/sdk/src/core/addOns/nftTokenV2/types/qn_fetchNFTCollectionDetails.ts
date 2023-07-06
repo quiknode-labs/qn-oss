@@ -4,7 +4,6 @@ import { type SimplifyType } from '../../../../../src/api/utils/helpers';
 
 export const qnFetchNFTCollectionDetailsInputSchema = z
   .object({
-    id: z.string().nullish(),
     contracts: z.array(isEvmAddress),
   })
   .strict();

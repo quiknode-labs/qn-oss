@@ -1,19 +1,24 @@
 import { SimplifyType } from '../../../../../src/api/utils/helpers';
 import { RpcSchemaOverride } from 'viem';
 import {
+  QNFetchNFTMethod,
   QNFetchNFTInput,
   QNFetchNFTsResponse,
-  QNFetchNFTMethod,
 } from './qn_fetchNFTs';
 import {
   QNFetchNFTCollectionDetailsMethod,
   QNFetchNFTCollectionDetailsInput,
   QNFetchNFTCollectionDetailsResponse,
 } from './qn_fetchNFTCollectionDetails';
-
+import {
+  QNFetchNFTsByCollectionMethod,
+  QNFetchNFTsByCollectionInput,
+  QNFetchNFTsByCollectionResult,
+} from './qn_fetchNFTsByCollection';
 export type NFTAndTokenMethods = [
   QNFetchNFTMethod,
-  QNFetchNFTCollectionDetailsMethod
+  QNFetchNFTCollectionDetailsMethod,
+  QNFetchNFTsByCollectionMethod
 ];
 export type NFTAndTokenSchema = RpcSchemaOverride & NFTAndTokenMethods;
 
@@ -75,4 +80,30 @@ export type NFTAndTokenActions = {
   qn_fetchNFTCollectionDetails: (
     args: SimplifyType<QNFetchNFTCollectionDetailsInput>
   ) => Promise<SimplifyType<QNFetchNFTCollectionDetailsResponse>>;
+  /**
+   * Returns aggregated data on NFTs within a given collection.
+   *
+   * - Docs: https://www.quicknode.com/docs/ethereum/qn_fetchNFTsByCollection_v2
+   *
+   * @param args - {@link QNFetchNFTsByCollectionInput}
+   * @returns response - {@link QNFetchNFTsByCollectionResult}
+   *
+   * @example
+   * import QuickNode from '@quicknode/sdk';
+   *
+   * const core = new QuickNode.Core({
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   * }
+   *
+   * const client = await core.createQNClient({
+   *   addOns: { nftTokenV2: true }
+   * });
+   *
+   * const response = await core.qn_fetchNFTsByCollection({
+   *   collection: "0x60E4d786628Fea6478F785A6d7e704777c86a7c6",
+   * })
+   */
+  qn_fetchNFTsByCollection: (
+    args: SimplifyType<QNFetchNFTsByCollectionInput>
+  ) => Promise<SimplifyType<QNFetchNFTsByCollectionResult>>;
 };

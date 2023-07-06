@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import { type SimplifyType } from '../../../../../src/api/utils/helpers';
 import { isEvmAddress } from '../../../../lib/validation/validators';
+import { RpcNftAsset } from './shared';
 
 export const qnFetchNFTInputSchema = z
   .object({
-    id: z.string().nullish(),
     wallet: isEvmAddress,
     contracts: z.array(isEvmAddress),
     page: z.number().positive().nullish(),
@@ -15,26 +15,9 @@ export const qnFetchNFTInputSchema = z
 
 export type QNFetchNFTInput = z.infer<typeof qnFetchNFTInputSchema>;
 
-type NftTrait = {
-  trait_type: string;
-  value: string;
-};
-
-type NftAsset = {
-  collectionName: string;
-  collectionTokenId: string;
-  collectionAddress: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-  traits: NftTrait[];
-  chain: string;
-  network: string;
-};
-
 type QNFetchNFTsResult = {
   owner: string;
-  assets: NftAsset[];
+  assets: RpcNftAsset[];
   totalPages: number;
   totalItems: number;
   pageNumber: number;

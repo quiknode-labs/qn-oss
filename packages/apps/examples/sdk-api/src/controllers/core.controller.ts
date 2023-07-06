@@ -14,6 +14,11 @@ export default {
       };
       const response = await client.qn_fetchNFTs(input);
       response satisfies QNFetchNFTsResponse;
+      const response2 = await client.qn_fetchNFTsByCollection({
+        collection: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+      });
+      console.log(response2);
+
       return res.status(200).send(response);
     } catch (error) {
       console.error(error);

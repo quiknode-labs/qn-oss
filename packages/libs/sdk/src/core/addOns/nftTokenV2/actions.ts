@@ -1,12 +1,6 @@
 import { type Client } from 'viem';
 import { ZodType } from 'zod';
 import { type QNClientConfig } from '../../coreTypes';
-import {
-  type QNFetchNFTInput,
-  type QNFetchNFTsResponse,
-  type QNFetchNFTMethod,
-  qnFetchNFTInputSchema,
-} from './types/qn_fetchNFTs';
 import { formatErrors } from '../../../lib/validation/ValidateInput';
 import { checkAddOnEnabled } from '../shared/helpers';
 import {
@@ -14,11 +8,23 @@ import {
   type NFTAndTokenActions,
 } from './types/action';
 import {
+  type QNFetchNFTInput,
+  type QNFetchNFTsResponse,
+  type QNFetchNFTMethod,
+  qnFetchNFTInputSchema,
+} from './types/qn_fetchNFTs';
+import {
   QNFetchNFTCollectionDetailsMethod,
   QNFetchNFTCollectionDetailsInput,
   QNFetchNFTCollectionDetailsResponse,
   qnFetchNFTCollectionDetailsInputSchema,
 } from './types/qn_fetchNFTCollectionDetails';
+import {
+  QNFetchNFTsByCollectionMethod,
+  QNFetchNFTsByCollectionInput,
+  QNFetchNFTsByCollectionResult,
+  qnFetchNFTsByCollectionInputSchema,
+} from './types/qn_fetchNFTsByCollection';
 
 function nftAndTokenValidator(
   config: QNClientConfig,
@@ -70,6 +76,25 @@ export const nftAndTokenActions = (
       QNFetchNFTsResponse
     >({
       method: 'qn_fetchNFTs',
+      params: [args],
+    });
+
+    return response;
+  },
+
+  async qn_fetchNFTsByCollection(
+    args: QNFetchNFTsByCollectionInput
+  ): Promise<QNFetchNFTsByCollectionResult> {
+    nftAndTokenValidator(config, qnFetchNFTsByCollectionInputSchema, args);
+    const response = await client.request<
+      NFTAndTokenSchema,
+      {
+        method: 'qn_fetchNFTsByCollection';
+        params: QNFetchNFTsByCollectionMethod['Parameters'];
+      },
+      QNFetchNFTsByCollectionResult
+    >({
+      method: 'qn_fetchNFTsByCollection',
       params: [args],
     });
 

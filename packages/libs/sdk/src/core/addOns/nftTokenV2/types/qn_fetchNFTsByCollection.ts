@@ -1,0 +1,28 @@
+import { z } from 'zod';
+import { type SimplifyType } from '../../../../../src/api/utils/helpers';
+import { isEvmAddress } from '../../../../lib/validation/validators';
+import { RpcNftAsset } from './shared';
+
+export const qnFetchNFTsByCollectionInputSchema = z
+  .object({
+    collection: isEvmAddress,
+    tokens: z.array(z.string()).nullish(),
+    page: z.number().positive().nullish(),
+    perPage: z.number().positive().nullish(),
+  })
+  .strict();
+
+export type QNFetchNFTsByCollectionInput = z.infer<
+  typeof qnFetchNFTsByCollectionInputSchema
+>;
+
+export type QNFetchNFTsByCollectionResult = {
+  collection: string;
+  tokens: RpcNftAsset[];
+};
+
+export type QNFetchNFTsByCollectionMethod = {
+  Method: 'qn_fetchNFTsByCollection';
+  Parameters: [QNFetchNFTsByCollectionInput];
+  ReturnType: SimplifyType<QNFetchNFTsByCollectionResult>;
+};

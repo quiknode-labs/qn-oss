@@ -6,7 +6,8 @@ import * as viem from './viemExport';
 export { API, Core, viem };
 
 export * from './api/types';
-export * from './core/types';
+export * from './core/exportedTypes';
+export { CoreArguments, QNCoreClientConfig } from './core/coreTypes';
 
 export * from './lib/errors';
 

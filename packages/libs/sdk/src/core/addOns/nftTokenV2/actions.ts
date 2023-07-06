@@ -1,6 +1,6 @@
 import { type Client } from 'viem';
 import { ZodType } from 'zod';
-import { type QNClientConfig } from '../../coreTypes';
+import { type QNCoreClientConfig } from '../../coreTypes';
 import { formatErrors } from '../../../lib/validation/ValidateInput';
 import { checkAddOnEnabled } from '../shared/helpers';
 import {
@@ -27,7 +27,7 @@ import {
 } from './types/qn_fetchNFTsByCollection';
 
 function nftAndTokenValidator(
-  config: QNClientConfig,
+  config: QNCoreClientConfig,
   schema: ZodType<unknown>,
   args: unknown
 ) {
@@ -47,7 +47,7 @@ function nftAndTokenValidator(
 
 export const nftAndTokenActions = (
   client: Client,
-  config: QNClientConfig
+  config: QNCoreClientConfig
 ): NFTAndTokenActions => ({
   async qn_fetchNFTCollectionDetails(
     args: QNFetchNFTCollectionDetailsInput

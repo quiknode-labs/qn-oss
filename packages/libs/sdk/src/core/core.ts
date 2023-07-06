@@ -2,14 +2,18 @@ import { mainnet } from 'viem/chains';
 import { createClient, http, type Client, publicActions } from 'viem';
 import { type NFTAndTokenActions } from './addOns/nftTokenV2/types/action';
 import { nftAndTokenActions } from './addOns/nftTokenV2/actions';
-import { type QNClientConfig, type CoreArguments } from './coreTypes';
+import {
+  type QNCoreClientConfig,
+  type CoreArguments,
+  type QNCoreClient,
+} from './coreTypes';
 import * as viem from 'viem';
 import fetch from 'cross-fetch';
 
 // TODO: is this the best way to handle this?
 global.fetch = fetch;
 
-export const buildQNActions = (config: QNClientConfig) => {
+export const buildQNActions = (config: QNCoreClientConfig) => {
   return (client: Client): NFTAndTokenActions => ({
     ...nftAndTokenActions(client, config),
   });
@@ -24,8 +28,7 @@ export class Core {
     this.endpointUrl = endpointUrl;
     this.viem = viem;
   }
-
-  async createQNClient(config: QNClientConfig) {
+  async createQNClient(config: QNCoreClientConfig): Promise<QNCoreClient> {
     const qnClient = createClient({
       chain: mainnet,
       transport: http(this.endpointUrl),

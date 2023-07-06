@@ -6,3 +6,4 @@ export {
   QNFetchNFTCollectionDetailsInput,
   QNFetchNFTCollectionDetailsResponse,
 } from './addOns/nftTokenV2/types/qn_fetchNFTCollectionDetails';
+export { CoreArguments, QNCoreClientConfig, QNCoreClient } from './coreTypes';

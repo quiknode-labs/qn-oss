@@ -64,7 +64,7 @@ export type NFTAndTokenActions = {
    *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
    * }
    *
-   * const client = await core.createQNClient({
+   * const client = core.createQNClient({
    *   addOns: { nftTokenV2: true }
    * });
    *
@@ -91,7 +91,7 @@ export type NFTAndTokenActions = {
    *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
    * }
    *
-   * const client = await core.createQNClient({
+   * const client = core.createQNClient({
    *   addOns: { nftTokenV2: true }
    * });
    *
@@ -121,7 +121,7 @@ export type NFTAndTokenActions = {
    *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
    * }
    *
-   * const client = await core.createQNClient({
+   * const client = core.createQNClient({
    *   addOns: { nftTokenV2: true }
    * });
    *
@@ -145,7 +145,7 @@ export type NFTAndTokenActions = {
   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
   * }
   *
-  * const client = await core.createQNClient({
+  * const client = core.createQNClient({
   *   addOns: { nftTokenV2: true }
   * });
   *
@@ -170,7 +170,7 @@ export type NFTAndTokenActions = {
    *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
    * }
    *
-   * const client = await core.createQNClient({
+   * const client = core.createQNClient({
    *   addOns: { nftTokenV2: true }
    * });
    *
@@ -200,7 +200,7 @@ export type NFTAndTokenActions = {
    *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
    * }
    *
-   * const client = await core.createQNClient({
+   * const client = core.createQNClient({
    *   addOns: { nftTokenV2: true }
    * });
    *
@@ -224,7 +224,7 @@ export type NFTAndTokenActions = {
    *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
    * }
    *
-   * const client = await core.createQNClient({
+   * const client = core.createQNClient({
    *   addOns: { nftTokenV2: true }
    * });
    *

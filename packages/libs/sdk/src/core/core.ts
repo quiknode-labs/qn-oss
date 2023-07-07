@@ -28,7 +28,7 @@ export class Core {
     this.endpointUrl = endpointUrl;
     this.viem = viem;
   }
-  async createQNClient(config: QNCoreClientConfig): Promise<QNCoreClient> {
+  createQNClient(config: QNCoreClientConfig): QNCoreClient {
     const qnClient = createClient({
       chain: mainnet,
       transport: http(this.endpointUrl),

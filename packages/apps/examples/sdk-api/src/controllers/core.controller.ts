@@ -5,7 +5,7 @@ import { QNFetchNFTInput, QNFetchNFTsResponse } from '@qn-oss/libs/sdk';
 export default {
   sdk_qn_fetchNFTs: async (req: Request, res: Response) => {
     try {
-      const client = await core.createQNClient({
+      const client = core.createQNClient({
         addOns: { nftTokenV2: true },
       });
       const input: QNFetchNFTInput = {

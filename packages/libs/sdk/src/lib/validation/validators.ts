@@ -113,3 +113,10 @@ export const contractTokensFilter = z
       .strict()
   )
   .nonempty();
+
+export const rpcPaginationParams = z
+  .object({
+    perPage: z.number().positive().nullish(),
+    page: z.number().positive().nullish(),
+  })
+  .strict();

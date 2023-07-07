@@ -25,6 +25,13 @@ import {
   QNFetchNFTsByCollectionResult,
   qnFetchNFTsByCollectionInputSchema,
 } from './types/qn_fetchNFTsByCollection';
+import {
+  QNGetTransfersByNFTMethod,
+  QNGetTransfersByNFTInput,
+  QNGetTransfersByNFTResult,
+  qnGetTransfersByNFTInputSchema,
+} from './types/qn_getTransfersByNFT';
+import { nextTick } from 'process';
 
 function nftAndTokenValidator(
   config: QNCoreClientConfig,
@@ -64,7 +71,6 @@ export const nftAndTokenActions = (
       method: 'qn_fetchNFTCollectionDetails',
       params: [args],
     });
-    console.log(response);
     return response;
   },
 
@@ -95,6 +101,25 @@ export const nftAndTokenActions = (
       QNFetchNFTsByCollectionResult
     >({
       method: 'qn_fetchNFTsByCollection',
+      params: [args],
+    });
+
+    return response;
+  },
+
+  async qn_getTransfersByNFT(
+    args: QNGetTransfersByNFTInput
+  ): Promise<QNGetTransfersByNFTResult> {
+    nftAndTokenValidator(config, qnGetTransfersByNFTInputSchema, args);
+    const response = await client.request<
+      NFTAndTokenSchema,
+      {
+        method: 'qn_getTransfersByNFT';
+        params: QNGetTransfersByNFTMethod['Parameters'];
+      },
+      QNGetTransfersByNFTResult
+    >({
+      method: 'qn_getTransfersByNFT',
       params: [args],
     });
 

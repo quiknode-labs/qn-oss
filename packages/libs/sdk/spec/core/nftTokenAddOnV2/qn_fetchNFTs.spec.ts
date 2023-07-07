@@ -104,8 +104,10 @@ describe('client.qnFetchNFTs', () => {
 
   it('throws an error when no wallet is provided', async () => {
     const input: any = {};
-    await expect(coreClient.qn_fetchNFTs(input)).rejects.toThrowError(
-      /wallet: Required/
+    await expect(
+      coreClient.qn_fetchNFTs(input)
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"QuickNode SDK Input Validation Error: wallet: Required"`
     );
   });
 
@@ -113,8 +115,10 @@ describe('client.qnFetchNFTs', () => {
     const input: any = {
       wallet: '123',
     };
-    await expect(coreClient.qn_fetchNFTs(input)).rejects.toThrowError(
-      /wallet: String must contain exactly 42 character\(s\)/
+    await expect(
+      coreClient.qn_fetchNFTs(input)
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"QuickNode SDK Input Validation Error: wallet: String must contain exactly 42 character(s), wallet: Invalid input: must start with \\"0x\\", wallet: Not a valid address"`
     );
   });
 
@@ -122,8 +126,10 @@ describe('client.qnFetchNFTs', () => {
     const input: any = {
       foo: 'bar',
     };
-    await expect(coreClient.qn_fetchNFTs(input)).rejects.toThrowError(
-      /Unrecognized key\(s\) in object: 'foo'/
+    await expect(
+      coreClient.qn_fetchNFTs(input)
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"QuickNode SDK Input Validation Error: wallet: Required, Unrecognized key(s) in object: 'foo'"`
     );
   });
 });

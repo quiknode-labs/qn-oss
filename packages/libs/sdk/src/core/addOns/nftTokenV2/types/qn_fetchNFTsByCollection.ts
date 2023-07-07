@@ -1,15 +1,18 @@
 import { z } from 'zod';
 import { type SimplifyType } from '../../../../../src/api/utils/helpers';
-import { isEvmAddress } from '../../../../lib/validation/validators';
+import {
+  isEvmAddress,
+  rpcPaginationParams,
+} from '../../../../lib/validation/validators';
 import { RpcNftAsset } from './shared';
 
 export const qnFetchNFTsByCollectionInputSchema = z
   .object({
     collection: isEvmAddress,
     tokens: z.array(z.string()).nullish(),
-    page: z.number().positive().nullish(),
-    perPage: z.number().positive().nullish(),
+    omitFields: z.array(z.string()).nullish(),
   })
+  .merge(rpcPaginationParams)
   .strict();
 
 export type QNFetchNFTsByCollectionInput = z.infer<

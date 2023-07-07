@@ -15,10 +15,17 @@ import {
   QNFetchNFTsByCollectionInput,
   QNFetchNFTsByCollectionResult,
 } from './qn_fetchNFTsByCollection';
+import {
+  QNGetTransfersByNFTMethod,
+  QNGetTransfersByNFTInput,
+  QNGetTransfersByNFTResult,
+} from './qn_getTransfersByNFT';
+
 export type NFTAndTokenMethods = [
   QNFetchNFTMethod,
   QNFetchNFTCollectionDetailsMethod,
-  QNFetchNFTsByCollectionMethod
+  QNFetchNFTsByCollectionMethod,
+  QNGetTransfersByNFTMethod
 ];
 export type NFTAndTokenSchema = RpcSchemaOverride & NFTAndTokenMethods;
 
@@ -106,4 +113,29 @@ export type NFTAndTokenActions = {
   qn_fetchNFTsByCollection: (
     args: SimplifyType<QNFetchNFTsByCollectionInput>
   ) => Promise<SimplifyType<QNFetchNFTsByCollectionResult>>;
+  /**
+  * Returns transfers by given NFT.
+  *
+  * - Docs: https://www.quicknode.com/docs/ethereum/qn_getTransfersByNFT_v2
+  *
+  * @param args - {@link QNGetTransfersByNFTInput}
+  * @returns response - {@link QNGetTransfersByNFTResult}
+  *
+  * @example
+  * const core = new QuickNode.Core({
+  *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+  * }
+  *
+  * const client = await core.createQNClient({
+  *   addOns: { nftTokenV2: true }
+  * });
+  *
+  * core.qn_getTransfersByNFT({
+  *   collection: "0x60E4d786628Fea6478F785A6d7e704777c86a7c6",
+7 *   collectionTokenId: "1",
+  * })
+  */
+  qn_getTransfersByNFT: (
+    args: SimplifyType<QNGetTransfersByNFTInput>
+  ) => Promise<SimplifyType<QNGetTransfersByNFTResult>>;
 };

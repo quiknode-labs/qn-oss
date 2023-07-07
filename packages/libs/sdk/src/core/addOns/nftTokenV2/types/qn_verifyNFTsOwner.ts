@@ -1,9 +1,6 @@
 import { type SimplifyType } from '../../../../../src/api/utils/helpers';
 import { z } from 'zod';
-import {
-  isEvmAddress,
-  rpcPaginationParams,
-} from '../../../../lib/validation/validators';
+import { isEvmAddress } from '../../../../lib/validation/validators';
 
 export const qnVerifyNFTsOwnerInputSchema = z
   .object({

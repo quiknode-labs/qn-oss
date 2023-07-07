@@ -37,7 +37,12 @@ import {
   QNVerifyNFTsOwnerResult,
   qnVerifyNFTsOwnerInputSchema,
 } from './types/qn_verifyNFTsOwner';
-import { nextTick } from 'process';
+import {
+  QNGetTokenMetadataByCAMethod,
+  QNGetTokenMetadataByCAInput,
+  QNGetTokenMetadataByCAResult,
+  qnGetTokenMetadataByCAInputSchema,
+} from './types/qn_getTokenMetadataByContractAddress';
 
 function nftAndTokenValidator(
   config: QNCoreClientConfig,
@@ -145,6 +150,25 @@ export const nftAndTokenActions = (
       QNVerifyNFTsOwnerResult
     >({
       method: 'qn_verifyNFTsOwner',
+      params: [args],
+    });
+
+    return response;
+  },
+
+  async qn_getTokenMetadataByContractAddress(
+    args: QNGetTokenMetadataByCAInput
+  ): Promise<QNGetTokenMetadataByCAResult | null> {
+    nftAndTokenValidator(config, qnGetTokenMetadataByCAInputSchema, args);
+    const response = await client.request<
+      NFTAndTokenSchema,
+      {
+        method: 'qn_getTokenMetadataByContractAddress';
+        params: QNGetTokenMetadataByCAMethod['Parameters'];
+      },
+      QNGetTokenMetadataByCAResult
+    >({
+      method: 'qn_getTokenMetadataByContractAddress',
       params: [args],
     });
 

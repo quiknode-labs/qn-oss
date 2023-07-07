@@ -25,13 +25,19 @@ import {
   QNVerifyNFTsOwnerInput,
   QNVerifyNFTsOwnerResult,
 } from './qn_verifyNFTsOwner';
+import {
+  QNGetTokenMetadataByCAMethod,
+  QNGetTokenMetadataByCAInput,
+  QNGetTokenMetadataByCAResult,
+} from './qn_getTokenMetadataByContractAddress';
 
 export type NFTAndTokenMethods = [
   QNFetchNFTMethod,
   QNFetchNFTCollectionDetailsMethod,
   QNFetchNFTsByCollectionMethod,
   QNGetTransfersByNFTMethod,
-  QNVerifyNFTsByOwnerMethod
+  QNVerifyNFTsByOwnerMethod,
+  QNGetTokenMetadataByCAMethod
 ];
 export type NFTAndTokenSchema = RpcSchemaOverride & NFTAndTokenMethods;
 
@@ -136,7 +142,7 @@ export type NFTAndTokenActions = {
   *   addOns: { nftTokenV2: true }
   * });
   *
-  * core.qn_getTransfersByNFT({
+  * const response = qn_getTransfersByNFT({
   *   collection: "0x60E4d786628Fea6478F785A6d7e704777c86a7c6",
 7 *   collectionTokenId: "1",
   * })
@@ -161,7 +167,7 @@ export type NFTAndTokenActions = {
    *   addOns: { nftTokenV2: true }
    * });
    *
-   * core.qn_verifyNFTsOwner({
+   * const response = qn_verifyNFTsOwner({
    *  wallet: "0x91b51c173a4bdaa1a60e234fc3f705a16d228740",
    *  contracts: [
    *    "0x2106c00ac7da0a3430ae667879139e832307aeaa:3643",
@@ -173,4 +179,29 @@ export type NFTAndTokenActions = {
   qn_verifyNFTsOwner: (
     args: SimplifyType<QNVerifyNFTsOwnerInput>
   ) => Promise<SimplifyType<QNVerifyNFTsOwnerResult>>;
+
+  /**
+   * Returns token details for specified contract.
+   *
+   * - Docs: https://www.quicknode.com/docs/ethereum/qn_getTokenMetadataByContractAddress_v2
+   *
+   * @param args - {@link QNGetTokenMetadataByCAInput}
+   * @returns response - {@link QNGetTokenMetadataByCAResult}
+   *
+   * @example
+   * const core = new QuickNode.Core({
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   * }
+   *
+   * const client = await core.createQNClient({
+   *   addOns: { nftTokenV2: true }
+   * });
+   *
+   * const response = qn_getTokenMetadataByContractAddress({
+   *   contract: "0x2106c00ac7da0a3430ae667879139e832307aeaa",
+   * })
+   */
+  qn_getTokenMetadataByContractAddress: (
+    args: SimplifyType<QNGetTokenMetadataByCAInput>
+  ) => Promise<SimplifyType<QNGetTokenMetadataByCAResult | null>>;
 };

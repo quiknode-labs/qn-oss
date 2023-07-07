@@ -20,8 +20,8 @@ export type NftCollectionDetailsRPCResult = {
   erc721: boolean;
   totalSupply: number;
   circulatingSupply: number;
-  genesisBlock: number;
-  genesisTransaction: string;
+  genesisBlock: number | null;
+  genesisTransaction: string | null;
 };
 
 export type QNFetchNFTCollectionDetailsResponse =

@@ -14,8 +14,9 @@ export default {
       };
       const response = await client.qn_fetchNFTs(input);
       response satisfies QNFetchNFTsResponse;
-      const response2 = await client.qn_fetchNFTsByCollection({
-        collection: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
+      const response2 = await client.qn_verifyNFTsOwner({
+        wallet: req.params.wallet,
+        contracts: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa:7840'],
       });
       console.log(response2);
 

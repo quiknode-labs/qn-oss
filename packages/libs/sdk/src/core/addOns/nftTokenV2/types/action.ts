@@ -20,12 +20,18 @@ import {
   QNGetTransfersByNFTInput,
   QNGetTransfersByNFTResult,
 } from './qn_getTransfersByNFT';
+import {
+  QNVerifyNFTsByOwnerMethod,
+  QNVerifyNFTsOwnerInput,
+  QNVerifyNFTsOwnerResult,
+} from './qn_verifyNFTsOwner';
 
 export type NFTAndTokenMethods = [
   QNFetchNFTMethod,
   QNFetchNFTCollectionDetailsMethod,
   QNFetchNFTsByCollectionMethod,
-  QNGetTransfersByNFTMethod
+  QNGetTransfersByNFTMethod,
+  QNVerifyNFTsByOwnerMethod
 ];
 export type NFTAndTokenSchema = RpcSchemaOverride & NFTAndTokenMethods;
 
@@ -138,4 +144,33 @@ export type NFTAndTokenActions = {
   qn_getTransfersByNFT: (
     args: SimplifyType<QNGetTransfersByNFTInput>
   ) => Promise<SimplifyType<QNGetTransfersByNFTResult>>;
+  /**
+   * Confirms ownership of specified NFTs for a given wallet.
+   *
+   * - Docs: https://www.quicknode.com/docs/ethereum/qn_verifyNFTsOwner_v2
+   *
+   * @param args - {@link QNVerifyNFTsOwnerInput}
+   * @returns response - {@link QNVerifyNFTsOwnerResult}
+   *
+   * @example
+   * const core = new QuickNode.Core({
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   * }
+   *
+   * const client = await core.createQNClient({
+   *   addOns: { nftTokenV2: true }
+   * });
+   *
+   * core.qn_verifyNFTsOwner({
+   *  wallet: "0x91b51c173a4bdaa1a60e234fc3f705a16d228740",
+   *  contracts: [
+   *    "0x2106c00ac7da0a3430ae667879139e832307aeaa:3643",
+   *    "0xd07dc4262bcdbf85190c01c996b4c06a461d2430:133803",
+   *   ],
+   * })
+   *
+   */
+  qn_verifyNFTsOwner: (
+    args: SimplifyType<QNVerifyNFTsOwnerInput>
+  ) => Promise<SimplifyType<QNVerifyNFTsOwnerResult>>;
 };

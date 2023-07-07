@@ -31,6 +31,12 @@ import {
   QNGetTransfersByNFTResult,
   qnGetTransfersByNFTInputSchema,
 } from './types/qn_getTransfersByNFT';
+import {
+  QNVerifyNFTsByOwnerMethod,
+  QNVerifyNFTsOwnerInput,
+  QNVerifyNFTsOwnerResult,
+  qnVerifyNFTsOwnerInputSchema,
+} from './types/qn_verifyNFTsOwner';
 import { nextTick } from 'process';
 
 function nftAndTokenValidator(
@@ -120,6 +126,25 @@ export const nftAndTokenActions = (
       QNGetTransfersByNFTResult
     >({
       method: 'qn_getTransfersByNFT',
+      params: [args],
+    });
+
+    return response;
+  },
+
+  async qn_verifyNFTsOwner(
+    args: QNVerifyNFTsOwnerInput
+  ): Promise<QNVerifyNFTsOwnerResult> {
+    nftAndTokenValidator(config, qnVerifyNFTsOwnerInputSchema, args);
+    const response = await client.request<
+      NFTAndTokenSchema,
+      {
+        method: 'qn_verifyNFTsOwner';
+        params: QNVerifyNFTsByOwnerMethod['Parameters'];
+      },
+      QNVerifyNFTsOwnerResult
+    >({
+      method: 'qn_verifyNFTsOwner',
       params: [args],
     });
 

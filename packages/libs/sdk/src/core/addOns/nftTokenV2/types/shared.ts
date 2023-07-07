@@ -22,3 +22,12 @@ export type RpcNftAsset = {
   chain: string;
   network: string;
 };
+
+export type RPCTokenMetadata = {
+  name: string | null;
+  symbol: string | null;
+  contractAddress: string;
+  decimals: string | null;
+  genesisBlock: string | null;
+  genesisTransaction: string | null;
+};

@@ -14,8 +14,8 @@ export default {
       };
       const response = await client.qn_fetchNFTs(input);
       response satisfies QNFetchNFTsResponse;
-      const response2 = await client.qn_getTokenMetadataByContractAddress({
-        contract: '0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0',
+      const response2 = await client.qn_getTokenMetadataBySymbol({
+        symbol: 'WETH',
       });
       console.log(response2);
 

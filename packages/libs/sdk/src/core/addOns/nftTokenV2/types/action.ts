@@ -30,6 +30,11 @@ import {
   QNGetTokenMetadataByCAInput,
   QNGetTokenMetadataByCAResult,
 } from './qn_getTokenMetadataByContractAddress';
+import {
+  QNGetTokenMetadataBySymbolMethod,
+  QNGetTokenMetadataBySymbolInput,
+  QNGetTokenMetadataBySymbolResult,
+} from './qn_getTokenMetadataBySymbol';
 
 export type NFTAndTokenMethods = [
   QNFetchNFTMethod,
@@ -37,8 +42,10 @@ export type NFTAndTokenMethods = [
   QNFetchNFTsByCollectionMethod,
   QNGetTransfersByNFTMethod,
   QNVerifyNFTsByOwnerMethod,
-  QNGetTokenMetadataByCAMethod
+  QNGetTokenMetadataByCAMethod,
+  QNGetTokenMetadataBySymbolMethod
 ];
+
 export type NFTAndTokenSchema = RpcSchemaOverride & NFTAndTokenMethods;
 
 export type NFTAndTokenActions = {
@@ -88,7 +95,7 @@ export type NFTAndTokenActions = {
    *   addOns: { nftTokenV2: true }
    * });
    *
-   * const response = await core.qn_fetchNFTCollectionDetails({
+   * const response = await client.qn_fetchNFTCollectionDetails({
    *   contracts: [
    *     "0x60E4d786628Fea6478F785A6d7e704777c86a7c6",
    *     "0x7Bd29408f11D2bFC23c34f18275bBf23bB716Bc7",
@@ -118,7 +125,7 @@ export type NFTAndTokenActions = {
    *   addOns: { nftTokenV2: true }
    * });
    *
-   * const response = await core.qn_fetchNFTsByCollection({
+   * const response = await client.qn_fetchNFTsByCollection({
    *   collection: "0x60E4d786628Fea6478F785A6d7e704777c86a7c6",
    * })
    */
@@ -142,7 +149,7 @@ export type NFTAndTokenActions = {
   *   addOns: { nftTokenV2: true }
   * });
   *
-  * const response = qn_getTransfersByNFT({
+  * const response = await client.qn_getTransfersByNFT({
   *   collection: "0x60E4d786628Fea6478F785A6d7e704777c86a7c6",
 7 *   collectionTokenId: "1",
   * })
@@ -167,7 +174,7 @@ export type NFTAndTokenActions = {
    *   addOns: { nftTokenV2: true }
    * });
    *
-   * const response = qn_verifyNFTsOwner({
+   * const response = await client.qn_verifyNFTsOwner({
    *  wallet: "0x91b51c173a4bdaa1a60e234fc3f705a16d228740",
    *  contracts: [
    *    "0x2106c00ac7da0a3430ae667879139e832307aeaa:3643",
@@ -197,11 +204,35 @@ export type NFTAndTokenActions = {
    *   addOns: { nftTokenV2: true }
    * });
    *
-   * const response = qn_getTokenMetadataByContractAddress({
+   * const response = await client.qn_getTokenMetadataByContractAddress({
    *   contract: "0x2106c00ac7da0a3430ae667879139e832307aeaa",
    * })
    */
   qn_getTokenMetadataByContractAddress: (
     args: SimplifyType<QNGetTokenMetadataByCAInput>
   ) => Promise<SimplifyType<QNGetTokenMetadataByCAResult | null>>;
+  /**
+   * Returns token details for specified token symbol.
+   *
+   * - Docs: https://www.quicknode.com/docs/ethereum/qn_getTokenMetadataBySymbol_v2
+   *
+   * @param args - {@link QNGetTokenMetadataBySymbolInput}
+   * @returns response - {@link QNGetTokenMetadataBySymbolResult}
+   *
+   * @example
+   * const core = new QuickNode.Core({
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   * }
+   *
+   * const client = await core.createQNClient({
+   *   addOns: { nftTokenV2: true }
+   * });
+   *
+   * const response = await client.qn_getTokenMetadataBySymbol({
+   *   symbol: "DAI",
+   * })
+   */
+  qn_getTokenMetadataBySymbol: (
+    args: SimplifyType<QNGetTokenMetadataBySymbolInput>
+  ) => Promise<SimplifyType<QNGetTokenMetadataBySymbolResult>>;
 };

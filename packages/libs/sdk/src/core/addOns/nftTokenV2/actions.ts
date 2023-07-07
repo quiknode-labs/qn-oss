@@ -43,6 +43,12 @@ import {
   QNGetTokenMetadataByCAResult,
   qnGetTokenMetadataByCAInputSchema,
 } from './types/qn_getTokenMetadataByContractAddress';
+import {
+  QNGetTokenMetadataBySymbolMethod,
+  QNGetTokenMetadataBySymbolInput,
+  QNGetTokenMetadataBySymbolResult,
+  qnGetTokenMetadataBySymbolInputSchema,
+} from './types/qn_getTokenMetadataBySymbol';
 
 function nftAndTokenValidator(
   config: QNCoreClientConfig,
@@ -169,6 +175,25 @@ export const nftAndTokenActions = (
       QNGetTokenMetadataByCAResult
     >({
       method: 'qn_getTokenMetadataByContractAddress',
+      params: [args],
+    });
+
+    return response;
+  },
+
+  async qn_getTokenMetadataBySymbol(
+    args: QNGetTokenMetadataBySymbolInput
+  ): Promise<QNGetTokenMetadataBySymbolResult> {
+    nftAndTokenValidator(config, qnGetTokenMetadataBySymbolInputSchema, args);
+    const response = await client.request<
+      NFTAndTokenSchema,
+      {
+        method: 'qn_getTokenMetadataBySymbol';
+        params: QNGetTokenMetadataBySymbolMethod['Parameters'];
+      },
+      QNGetTokenMetadataBySymbolResult
+    >({
+      method: 'qn_getTokenMetadataBySymbol',
       params: [args],
     });
 

@@ -12,7 +12,7 @@ export type QNFetchNFTCollectionDetailsInput = z.infer<
   typeof qnFetchNFTCollectionDetailsInputSchema
 >;
 
-export type NftCollectionDetailsRPCResult = {
+type RPCNftCollectionDetails = {
   name: string;
   address: string;
   description: string;
@@ -24,11 +24,10 @@ export type NftCollectionDetailsRPCResult = {
   genesisTransaction: string | null;
 };
 
-export type QNFetchNFTCollectionDetailsResponse =
-  NftCollectionDetailsRPCResult[];
+export type QNFetchNFTCollectionDetailsResult = RPCNftCollectionDetails[];
 
 export type QNFetchNFTCollectionDetailsMethod = {
   Method: 'qn_fetchNFTCollectionDetails';
   Parameters: [QNFetchNFTCollectionDetailsInput];
-  ReturnType: SimplifyType<QNFetchNFTCollectionDetailsResponse>;
+  ReturnType: SimplifyType<QNFetchNFTCollectionDetailsResult>;
 };

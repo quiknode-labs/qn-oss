@@ -1,10 +1,10 @@
 export {
   QNFetchNFTInput,
-  QNFetchNFTsResponse,
+  QNFetchNFTResult,
 } from './addOns/nftTokenV2/types/qn_fetchNFTs';
 export {
   QNFetchNFTCollectionDetailsInput,
-  QNFetchNFTCollectionDetailsResponse,
+  QNFetchNFTCollectionDetailsResult,
 } from './addOns/nftTokenV2/types/qn_fetchNFTCollectionDetails';
 export {
   QNFetchNFTsByCollectionInput,

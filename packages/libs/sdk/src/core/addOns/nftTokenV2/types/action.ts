@@ -3,12 +3,12 @@ import { RpcSchemaOverride } from 'viem';
 import {
   type QNFetchNFTMethod,
   type QNFetchNFTInput,
-  type QNFetchNFTsResponse,
+  type QNFetchNFTResult,
 } from './qn_fetchNFTs';
 import {
   type QNFetchNFTCollectionDetailsMethod,
   type QNFetchNFTCollectionDetailsInput,
-  type QNFetchNFTCollectionDetailsResponse,
+  type QNFetchNFTCollectionDetailsResult,
 } from './qn_fetchNFTCollectionDetails';
 import {
   type QNFetchNFTsByCollectionMethod,
@@ -73,7 +73,7 @@ export type NFTAndTokenActions = {
    * - Docs: https://www.quicknode.com/docs/ethereum/qn_fetchNFTs_v2
    *
    * @param args - {@link QNFetchNFTInput}
-   * @returns response - {@link QNFetchNFTsResponse}
+   * @returns response - {@link QNFetchNFTsResult}
    *
    * @example
    * import QuickNode from '@quicknode/sdk';
@@ -93,14 +93,14 @@ export type NFTAndTokenActions = {
    */
   qn_fetchNFTs: (
     args: SimplifyType<QNFetchNFTInput>
-  ) => Promise<SimplifyType<QNFetchNFTsResponse>>;
+  ) => Promise<SimplifyType<QNFetchNFTResult>>;
   /**
    * Returns aggregated data on NFTs for a given wallet.
    *
    * - Docs: https://www.quicknode.com/docs/ethereum/qn_fetchNFTCollectionDetails_v2
    *
    * @param args - {@link QNFetchNFTCollectionDetailsInput}
-   * @returns response - {@link QNFetchNFTCollectionDetailsResponse}
+   * @returns response - {@link QNFetchNFTCollectionDetailsResult}
    *
    * @example
    * import QuickNode from '@quicknode/sdk';
@@ -123,7 +123,7 @@ export type NFTAndTokenActions = {
 
   qn_fetchNFTCollectionDetails: (
     args: SimplifyType<QNFetchNFTCollectionDetailsInput>
-  ) => Promise<SimplifyType<QNFetchNFTCollectionDetailsResponse>>;
+  ) => Promise<SimplifyType<QNFetchNFTCollectionDetailsResult>>;
   /**
    * Returns aggregated data on NFTs within a given collection.
    *

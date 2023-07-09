@@ -17,7 +17,7 @@ export const qnFetchNFTInputSchema = z
 
 export type QNFetchNFTInput = z.infer<typeof qnFetchNFTInputSchema>;
 
-type QNFetchNFTsResult = {
+export type QNFetchNFTResult = {
   owner: string;
   assets: RpcNftAsset[];
   totalPages: number;
@@ -25,10 +25,8 @@ type QNFetchNFTsResult = {
   pageNumber: number;
 };
 
-export type QNFetchNFTsResponse = QNFetchNFTsResult[];
-
 export type QNFetchNFTMethod = {
   Method: 'qn_fetchNFTs';
   Parameters: [QNFetchNFTInput];
-  ReturnType: SimplifyType<QNFetchNFTsResponse>;
+  ReturnType: SimplifyType<QNFetchNFTResult>;
 };

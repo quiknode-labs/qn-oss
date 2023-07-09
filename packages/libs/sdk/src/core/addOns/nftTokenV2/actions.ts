@@ -9,14 +9,14 @@ import {
 } from './types/action';
 import {
   type QNFetchNFTInput,
-  type QNFetchNFTsResponse,
+  type QNFetchNFTResult,
   type QNFetchNFTMethod,
   qnFetchNFTInputSchema,
 } from './types/qn_fetchNFTs';
 import {
   type QNFetchNFTCollectionDetailsMethod,
   type QNFetchNFTCollectionDetailsInput,
-  type QNFetchNFTCollectionDetailsResponse,
+  type QNFetchNFTCollectionDetailsResult,
   qnFetchNFTCollectionDetailsInputSchema,
 } from './types/qn_fetchNFTCollectionDetails';
 import {
@@ -93,7 +93,7 @@ export const nftAndTokenActions = (
 ): NFTAndTokenActions => ({
   async qn_fetchNFTCollectionDetails(
     args: QNFetchNFTCollectionDetailsInput
-  ): Promise<QNFetchNFTCollectionDetailsResponse> {
+  ): Promise<QNFetchNFTCollectionDetailsResult> {
     nftAndTokenValidator(config, qnFetchNFTCollectionDetailsInputSchema, args);
     const response = await client.request<
       NFTAndTokenSchema,
@@ -101,7 +101,7 @@ export const nftAndTokenActions = (
         method: 'qn_fetchNFTCollectionDetails';
         params: QNFetchNFTCollectionDetailsMethod['Parameters'];
       },
-      QNFetchNFTCollectionDetailsResponse
+      QNFetchNFTCollectionDetailsResult
     >({
       method: 'qn_fetchNFTCollectionDetails',
       params: [args],
@@ -109,12 +109,12 @@ export const nftAndTokenActions = (
     return response;
   },
 
-  async qn_fetchNFTs(args: QNFetchNFTInput): Promise<QNFetchNFTsResponse> {
+  async qn_fetchNFTs(args: QNFetchNFTInput): Promise<QNFetchNFTResult> {
     nftAndTokenValidator(config, qnFetchNFTInputSchema, args);
     const response = await client.request<
       NFTAndTokenSchema,
       { method: 'qn_fetchNFTs'; params: QNFetchNFTMethod['Parameters'] },
-      QNFetchNFTsResponse
+      QNFetchNFTResult
     >({
       method: 'qn_fetchNFTs',
       params: [args],

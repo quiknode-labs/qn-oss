@@ -1,45 +1,50 @@
 import { SimplifyType } from '../../../../../src/api/utils/helpers';
 import { RpcSchemaOverride } from 'viem';
 import {
-  QNFetchNFTMethod,
-  QNFetchNFTInput,
-  QNFetchNFTsResponse,
+  type QNFetchNFTMethod,
+  type QNFetchNFTInput,
+  type QNFetchNFTsResponse,
 } from './qn_fetchNFTs';
 import {
-  QNFetchNFTCollectionDetailsMethod,
-  QNFetchNFTCollectionDetailsInput,
-  QNFetchNFTCollectionDetailsResponse,
+  type QNFetchNFTCollectionDetailsMethod,
+  type QNFetchNFTCollectionDetailsInput,
+  type QNFetchNFTCollectionDetailsResponse,
 } from './qn_fetchNFTCollectionDetails';
 import {
-  QNFetchNFTsByCollectionMethod,
-  QNFetchNFTsByCollectionInput,
-  QNFetchNFTsByCollectionResult,
+  type QNFetchNFTsByCollectionMethod,
+  type QNFetchNFTsByCollectionInput,
+  type QNFetchNFTsByCollectionResult,
 } from './qn_fetchNFTsByCollection';
 import {
-  QNGetTransfersByNFTMethod,
-  QNGetTransfersByNFTInput,
-  QNGetTransfersByNFTResult,
+  type QNGetTransfersByNFTMethod,
+  type QNGetTransfersByNFTInput,
+  type QNGetTransfersByNFTResult,
 } from './qn_getTransfersByNFT';
 import {
-  QNVerifyNFTsByOwnerMethod,
-  QNVerifyNFTsOwnerInput,
-  QNVerifyNFTsOwnerResult,
+  type QNVerifyNFTsByOwnerMethod,
+  type QNVerifyNFTsOwnerInput,
+  type QNVerifyNFTsOwnerResult,
 } from './qn_verifyNFTsOwner';
 import {
-  QNGetTokenMetadataByCAMethod,
-  QNGetTokenMetadataByCAInput,
-  QNGetTokenMetadataByCAResult,
+  type QNGetTokenMetadataByCAMethod,
+  type QNGetTokenMetadataByCAInput,
+  type QNGetTokenMetadataByCAResult,
 } from './qn_getTokenMetadataByContractAddress';
 import {
-  QNGetTokenMetadataBySymbolMethod,
-  QNGetTokenMetadataBySymbolInput,
-  QNGetTokenMetadataBySymbolResult,
+  type QNGetTokenMetadataBySymbolMethod,
+  type QNGetTokenMetadataBySymbolInput,
+  type QNGetTokenMetadataBySymbolResult,
 } from './qn_getTokenMetadataBySymbol';
 import {
-  QNGetTransactionsByAddressMethod,
-  QNGetTransactionsByAddressInput,
-  QNGetTransactionsByAddressResult,
+  type QNGetTransactionsByAddressMethod,
+  type QNGetTransactionsByAddressInput,
+  type QNGetTransactionsByAddressResult,
 } from './qn_getTransactionsByAddress';
+import {
+  type QNGetWalletTokenBalanceMethod,
+  type QNGetWalletTokenBalanceInput,
+  type QNGetWalletTokenBalanceResult,
+} from './qn_getWalletTokenBalance';
 
 export type NFTAndTokenMethods = [
   QNFetchNFTMethod,
@@ -49,7 +54,8 @@ export type NFTAndTokenMethods = [
   QNVerifyNFTsByOwnerMethod,
   QNGetTokenMetadataByCAMethod,
   QNGetTokenMetadataBySymbolMethod,
-  QNGetTransactionsByAddressMethod
+  QNGetTransactionsByAddressMethod,
+  QNGetWalletTokenBalanceMethod
 ];
 
 export type NFTAndTokenSchema = RpcSchemaOverride & NFTAndTokenMethods;
@@ -265,4 +271,29 @@ export type NFTAndTokenActions = {
   qn_getTransactionsByAddress: (
     args: SimplifyType<QNGetTransactionsByAddressInput>
   ) => Promise<SimplifyType<QNGetTransactionsByAddressResult>>;
+
+  /**
+   * Returns ERC-20 tokens and token balances within a wallet.
+   *
+   * - Docs: https://www.quicknode.com/docs/ethereum/qn_getWalletTokenBalance_v2
+   *
+   * @param args - {@link QNGetWalletTokenBalanceInput}
+   * @returns response - {@link QNGetWalletTokenBalanceResult}
+   *
+   * @example
+   * const core = new QuickNode.Core({
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   * }
+   *
+   * const client = core.createQNClient({
+   *   addOns: { nftTokenV2: true }
+   * });
+   *
+   * const response = await client.qn_getWalletTokenBalance({
+   *  address: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6"
+   * })
+   */
+  qn_getWalletTokenBalance: (
+    args: SimplifyType<QNGetWalletTokenBalanceInput>
+  ) => Promise<SimplifyType<QNGetWalletTokenBalanceResult>>;
 };

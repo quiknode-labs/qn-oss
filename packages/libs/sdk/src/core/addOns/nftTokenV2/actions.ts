@@ -55,6 +55,12 @@ import {
   type QNGetTransactionsByAddressResult,
   qnGetTransactionsByAddressInputSchema,
 } from './types/qn_getTransactionsByAddress';
+import {
+  type QNGetWalletTokenBalanceMethod,
+  type QNGetWalletTokenBalanceInput,
+  type QNGetWalletTokenBalanceResult,
+  qnGetWalletTokenBalanceInputSchema,
+} from './types/qn_getWalletTokenBalance';
 
 function nftAndTokenValidator(
   config: QNCoreClientConfig,
@@ -222,6 +228,24 @@ export const nftAndTokenActions = (
       params: [args],
     });
 
+    return response;
+  },
+
+  async qn_getWalletTokenBalance(
+    args: QNGetWalletTokenBalanceInput
+  ): Promise<QNGetWalletTokenBalanceResult> {
+    nftAndTokenValidator(config, qnGetWalletTokenBalanceInputSchema, args);
+    const response = await client.request<
+      NFTAndTokenSchema,
+      {
+        method: 'qn_getWalletTokenBalance';
+        params: QNGetWalletTokenBalanceMethod['Parameters'];
+      },
+      QNGetWalletTokenBalanceResult
+    >({
+      method: 'qn_getWalletTokenBalance',
+      params: [args],
+    });
     return response;
   },
 });

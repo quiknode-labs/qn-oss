@@ -14,9 +14,11 @@ export default {
       };
       const response = await client.qn_fetchNFTs(input);
       response satisfies QNFetchNFTsResponse;
-      const response2 = await client.qn_getTransactionsByAddress({
-        address: req.params.wallet,
+      console.log(req.params.wallet);
+      const response2 = await client.qn_getWalletTokenBalance({
+        wallet: req.params.wallet,
       });
+      console.log(response2);
 
       return res.status(200).send(response);
     } catch (error) {

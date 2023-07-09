@@ -59,7 +59,7 @@ describe('client.qn_getTokenMetadataByContractAddress', () => {
     await expect(
       coreClient.qn_getTokenMetadataByContractAddress(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"QuickNode SDK Input Validation Error: contract: Required"`
+      `"QuickNode SDK Input Validation Error: contract: Required, Unrecognized key(s) in object: 'foo'"`
     );
   });
 });

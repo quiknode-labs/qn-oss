@@ -61,6 +61,12 @@ import {
   type QNGetWalletTokenBalanceResult,
   qnGetWalletTokenBalanceInputSchema,
 } from './types/qn_getWalletTokenBalance';
+import {
+  type QNGetWalletTokenTransactionsMethod,
+  type QNGetWalletTokenTransactionsInput,
+  type QNGetWalletTokenTransactionsResult,
+  qnGetWalletTokenTransactionsInputSchema,
+} from './types/qn_getWalletTokenTransactions';
 
 function nftAndTokenValidator(
   config: QNCoreClientConfig,
@@ -244,6 +250,24 @@ export const nftAndTokenActions = (
       QNGetWalletTokenBalanceResult
     >({
       method: 'qn_getWalletTokenBalance',
+      params: [args],
+    });
+    return response;
+  },
+
+  async qn_getWalletTokenTransactions(
+    args: QNGetWalletTokenTransactionsInput
+  ): Promise<QNGetWalletTokenTransactionsResult> {
+    nftAndTokenValidator(config, qnGetWalletTokenTransactionsInputSchema, args);
+    const response = await client.request<
+      NFTAndTokenSchema,
+      {
+        method: 'qn_getWalletTokenTransactions';
+        params: QNGetWalletTokenTransactionsMethod['Parameters'];
+      },
+      QNGetWalletTokenTransactionsResult
+    >({
+      method: 'qn_getWalletTokenTransactions',
       params: [args],
     });
     return response;

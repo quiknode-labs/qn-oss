@@ -31,3 +31,13 @@ export type RPCTokenMetadata = {
   genesisBlock: string | null;
   genesisTransaction: string | null;
 };
+
+export type RPCWalletTokenBalance = {
+  quantityIn: string;
+  quantityOut: string;
+  name: string | null;
+  symbol: string | null;
+  decimals: string | null;
+  address: string;
+  totalBalance: string;
+};

@@ -17,7 +17,7 @@ export type QNGetWalletTokenBalanceInput = z.infer<
   typeof qnGetWalletTokenBalanceInputSchema
 >;
 
-interface RPCWalletTokenBalance {
+type RPCWalletTokenBalance = {
   quantityIn: string;
   quantityOut: string;
   name: string | null;
@@ -25,8 +25,7 @@ interface RPCWalletTokenBalance {
   decimals: string | null;
   address: string;
   totalBalance: string;
-}
-
+};
 export type QNGetWalletTokenBalanceResult = {
   result: RPCWalletTokenBalance[];
   totalItems: number;

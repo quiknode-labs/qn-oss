@@ -45,6 +45,11 @@ import {
   type QNGetWalletTokenBalanceInput,
   type QNGetWalletTokenBalanceResult,
 } from './qn_getWalletTokenBalance';
+import {
+  type QNGetWalletTokenTransactionsMethod,
+  type QNGetWalletTokenTransactionsInput,
+  type QNGetWalletTokenTransactionsResult,
+} from './qn_getWalletTokenTransactions';
 
 export type NFTAndTokenMethods = [
   QNFetchNFTMethod,
@@ -55,7 +60,8 @@ export type NFTAndTokenMethods = [
   QNGetTokenMetadataByCAMethod,
   QNGetTokenMetadataBySymbolMethod,
   QNGetTransactionsByAddressMethod,
-  QNGetWalletTokenBalanceMethod
+  QNGetWalletTokenBalanceMethod,
+  QNGetWalletTokenTransactionsMethod
 ];
 
 export type NFTAndTokenSchema = RpcSchemaOverride & NFTAndTokenMethods;
@@ -296,4 +302,28 @@ export type NFTAndTokenActions = {
   qn_getWalletTokenBalance: (
     args: SimplifyType<QNGetWalletTokenBalanceInput>
   ) => Promise<SimplifyType<QNGetWalletTokenBalanceResult>>;
+  /*
+   * Returns transfers of a specified token within a specified wallet address.
+   *
+   * - Docs: https://www.quicknode.com/docs/ethereum/qn_getWalletTokenTransactions_v2
+   *
+   * @param args - {@link QNGetWalletTokenTransactionsInput}
+   * @returns response - {@link QNGetWalletTokenTransactionsResult}
+   *
+   * @example
+   * const core = new QuickNode.Core({
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   * }
+   *
+   * const client = core.createQNClient({
+   *   addOns: { nftTokenV2: true }
+   * });
+   *
+   * const response = await core.qn_getWalletTokenTransactions({
+   *  address: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6"
+   * })
+   */
+  qn_getWalletTokenTransactions: (
+    args: SimplifyType<QNGetWalletTokenTransactionsInput>
+  ) => Promise<SimplifyType<QNGetWalletTokenTransactionsResult>>;
 };

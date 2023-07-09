@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { RPCTokenMetadata } from './shared';
+import { type SimplifyType } from '../../../../../src/api/utils/helpers';
 import { rpcPaginationParams } from '../../../../lib/validation/validators';
 
 export const qnGetTokenMetadataBySymbolInputSchema = z
@@ -20,5 +21,5 @@ export type QNGetTokenMetadataBySymbolResult = {
 export type QNGetTokenMetadataBySymbolMethod = {
   Method: 'qn_getTokenMetadataBySymbol';
   Parameters: [QNGetTokenMetadataBySymbolInput];
-  ReturnType: QNGetTokenMetadataBySymbolResult;
+  ReturnType: SimplifyType<QNGetTokenMetadataBySymbolResult>;
 };

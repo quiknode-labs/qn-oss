@@ -14,41 +14,47 @@ import {
   qnFetchNFTInputSchema,
 } from './types/qn_fetchNFTs';
 import {
-  QNFetchNFTCollectionDetailsMethod,
-  QNFetchNFTCollectionDetailsInput,
-  QNFetchNFTCollectionDetailsResponse,
+  type QNFetchNFTCollectionDetailsMethod,
+  type QNFetchNFTCollectionDetailsInput,
+  type QNFetchNFTCollectionDetailsResponse,
   qnFetchNFTCollectionDetailsInputSchema,
 } from './types/qn_fetchNFTCollectionDetails';
 import {
-  QNFetchNFTsByCollectionMethod,
-  QNFetchNFTsByCollectionInput,
-  QNFetchNFTsByCollectionResult,
+  type QNFetchNFTsByCollectionMethod,
+  type QNFetchNFTsByCollectionInput,
+  type QNFetchNFTsByCollectionResult,
   qnFetchNFTsByCollectionInputSchema,
 } from './types/qn_fetchNFTsByCollection';
 import {
-  QNGetTransfersByNFTMethod,
-  QNGetTransfersByNFTInput,
-  QNGetTransfersByNFTResult,
+  type QNGetTransfersByNFTMethod,
+  type QNGetTransfersByNFTInput,
+  type QNGetTransfersByNFTResult,
   qnGetTransfersByNFTInputSchema,
 } from './types/qn_getTransfersByNFT';
 import {
-  QNVerifyNFTsByOwnerMethod,
-  QNVerifyNFTsOwnerInput,
-  QNVerifyNFTsOwnerResult,
+  type QNVerifyNFTsByOwnerMethod,
+  type QNVerifyNFTsOwnerInput,
+  type QNVerifyNFTsOwnerResult,
   qnVerifyNFTsOwnerInputSchema,
 } from './types/qn_verifyNFTsOwner';
 import {
-  QNGetTokenMetadataByCAMethod,
-  QNGetTokenMetadataByCAInput,
-  QNGetTokenMetadataByCAResult,
+  type QNGetTokenMetadataByCAMethod,
+  type QNGetTokenMetadataByCAInput,
+  type QNGetTokenMetadataByCAResult,
   qnGetTokenMetadataByCAInputSchema,
 } from './types/qn_getTokenMetadataByContractAddress';
 import {
-  QNGetTokenMetadataBySymbolMethod,
-  QNGetTokenMetadataBySymbolInput,
-  QNGetTokenMetadataBySymbolResult,
+  type QNGetTokenMetadataBySymbolMethod,
+  type QNGetTokenMetadataBySymbolInput,
+  type QNGetTokenMetadataBySymbolResult,
   qnGetTokenMetadataBySymbolInputSchema,
 } from './types/qn_getTokenMetadataBySymbol';
+import {
+  type QNGetTransactionsByAddressMethod,
+  type QNGetTransactionsByAddressInput,
+  type QNGetTransactionsByAddressResult,
+  qnGetTransactionsByAddressInputSchema,
+} from './types/qn_getTransactionsByAddress';
 
 function nftAndTokenValidator(
   config: QNCoreClientConfig,
@@ -194,6 +200,25 @@ export const nftAndTokenActions = (
       QNGetTokenMetadataBySymbolResult
     >({
       method: 'qn_getTokenMetadataBySymbol',
+      params: [args],
+    });
+
+    return response;
+  },
+
+  async qn_getTransactionsByAddress(
+    args: QNGetTransactionsByAddressInput
+  ): Promise<QNGetTransactionsByAddressResult> {
+    nftAndTokenValidator(config, qnGetTransactionsByAddressInputSchema, args);
+    const response = await client.request<
+      NFTAndTokenSchema,
+      {
+        method: 'qn_getTransactionsByAddress';
+        params: QNGetTransactionsByAddressMethod['Parameters'];
+      },
+      QNGetTransactionsByAddressResult
+    >({
+      method: 'qn_getTransactionsByAddress',
       params: [args],
     });
 

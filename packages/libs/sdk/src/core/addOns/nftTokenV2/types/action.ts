@@ -35,6 +35,11 @@ import {
   QNGetTokenMetadataBySymbolInput,
   QNGetTokenMetadataBySymbolResult,
 } from './qn_getTokenMetadataBySymbol';
+import {
+  QNGetTransactionsByAddressMethod,
+  QNGetTransactionsByAddressInput,
+  QNGetTransactionsByAddressResult,
+} from './qn_getTransactionsByAddress';
 
 export type NFTAndTokenMethods = [
   QNFetchNFTMethod,
@@ -43,7 +48,8 @@ export type NFTAndTokenMethods = [
   QNGetTransfersByNFTMethod,
   QNVerifyNFTsByOwnerMethod,
   QNGetTokenMetadataByCAMethod,
-  QNGetTokenMetadataBySymbolMethod
+  QNGetTokenMetadataBySymbolMethod,
+  QNGetTransactionsByAddressMethod
 ];
 
 export type NFTAndTokenSchema = RpcSchemaOverride & NFTAndTokenMethods;
@@ -235,4 +241,28 @@ export type NFTAndTokenActions = {
   qn_getTokenMetadataBySymbol: (
     args: SimplifyType<QNGetTokenMetadataBySymbolInput>
   ) => Promise<SimplifyType<QNGetTokenMetadataBySymbolResult>>;
+  /**
+   * Returns transactions within a specified wallet address.
+   *
+   * - Docs: https://www.quicknode.com/docs/ethereum/qn_getTransactionsByAddress_v2
+   *
+   * @param args - {@link QNGetTransactionsByAddressInput}
+   * @returns response - {@link QNGetTransactionsByAddressResult}
+   *
+   * @example
+   * const core = new QuickNode.Core({
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   * }
+   *
+   * const client = core.createQNClient({
+   *   addOns: { nftTokenV2: true }
+   * });
+   *
+   * const response = await client.qn_getTransactionsByAddress({
+   *   address: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6"
+   * })
+   */
+  qn_getTransactionsByAddress: (
+    args: SimplifyType<QNGetTransactionsByAddressInput>
+  ) => Promise<SimplifyType<QNGetTransactionsByAddressResult>>;
 };

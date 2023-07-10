@@ -54,7 +54,11 @@ export default async function withPolly(
         password: false,
         hostname: true,
         port: false,
-        pathname: false,
+        pathname: (pathname, req) => {
+          // Only don't match on pathname for endpoint URLs because the sensitive info will have been redacted
+          if (req.url.includes('quiknode.pro')) return '';
+          return pathname;
+        },
         hash: false,
       },
       order: false,

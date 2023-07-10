@@ -38,7 +38,7 @@ describe('client.qn_getWalletTokenBalance', () => {
   it('fetches wallet token balance with a wallet address and contracts', async () => {
     await withPolly(
       {
-        recordingName: 'core-qnGetWalletTokenBalance',
+        recordingName: 'core-qnGetWalletTokenBalance-withContracts',
         recordIfMissing: true,
       },
       async () => {

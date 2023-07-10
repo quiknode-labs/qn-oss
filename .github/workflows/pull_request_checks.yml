@@ -7,7 +7,7 @@ on:
   pull_request: null
 env:
   # This shouldn't be a valid endpoint URL, the auth token should be deleted
-  QUICKNODE_ENDPOINT_URL: ${{ vars.QUICKNODE_ENDPOINT_URL }}
+  QUICKNODE_ENDPOINT_URL: ${{ secrets.QUICKNODE_ENDPOINT_URL }}
 jobs:
   main:
     runs-on: ubuntu-latest

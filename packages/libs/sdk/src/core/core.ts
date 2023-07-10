@@ -22,18 +22,17 @@ export const buildQNActions = (config: QNCoreClientConfig) => {
 export class Core {
   readonly endpointUrl: string;
   readonly viem: typeof viem;
+  readonly client: QNCoreClient;
 
   // TODO: Determine endpoint chain from qn url
-  constructor({ endpointUrl }: CoreArguments) {
+  constructor({ endpointUrl, config = {} }: CoreArguments) {
     this.endpointUrl = endpointUrl;
     this.viem = viem;
-  }
-  createQNClient(config: QNCoreClientConfig): QNCoreClient {
     const qnClient = createClient({
       chain: mainnet,
       transport: http(this.endpointUrl),
     }).extend(publicActions);
 
-    return qnClient.extend(buildQNActions(config));
+    this.client = qnClient.extend(buildQNActions(config));
   }
 }

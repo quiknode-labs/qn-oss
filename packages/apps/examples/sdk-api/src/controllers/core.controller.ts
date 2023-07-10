@@ -5,18 +5,15 @@ import { QNFetchNFTInput, QNFetchNFTResult } from '@qn-oss/libs/sdk';
 export default {
   sdk_qn_fetchNFTs: async (req: Request, res: Response) => {
     try {
-      const client = core.createQNClient({
-        addOns: { nftTokenV2: true },
-      });
       const input: QNFetchNFTInput = {
         wallet: req.params.wallet,
         contracts: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],
       };
-      const response = await client.qn_fetchNFTs(input);
+      const response = await core.client.qn_fetchNFTs(input);
       console.log(response);
       response satisfies QNFetchNFTResult;
       console.log(req.params.wallet);
-      const response2 = await client.qn_getWalletTokenTransactions({
+      const response2 = await core.client.qn_getWalletTokenTransactions({
         address: req.params.wallet,
         contract: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
       });

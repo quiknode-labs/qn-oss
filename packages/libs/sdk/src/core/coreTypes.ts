@@ -4,10 +4,11 @@ import { NFTAndTokenActions } from './addOns/nftTokenV2/types/action';
 export interface CoreArguments {
   endpointUrl: string;
   network?: string;
+  config?: QNCoreClientConfig;
 }
 
 export type QNCoreClientConfig = {
-  addOns: {
+  addOns?: {
     nftTokenV2: boolean;
   };
 };

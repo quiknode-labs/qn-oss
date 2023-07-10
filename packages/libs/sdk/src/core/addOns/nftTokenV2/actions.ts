@@ -74,7 +74,7 @@ function nftAndTokenValidator(
   args: unknown
 ) {
   checkAddOnEnabled(
-    config.addOns.nftTokenV2,
+    config.addOns?.nftTokenV2 ?? false,
     'NFT And Token RPC API V2',
     'nftTokenV2'
   );

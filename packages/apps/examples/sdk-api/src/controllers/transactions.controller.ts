@@ -21,7 +21,7 @@ export default {
         filter: {
           blockNumber: {
             gt: 17573100,
-            lt: 17573200
+            lt: 17573200,
           },
         },
         first: 5,

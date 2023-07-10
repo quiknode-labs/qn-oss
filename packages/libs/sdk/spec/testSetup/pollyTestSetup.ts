@@ -85,12 +85,10 @@ export default async function withPolly(
     // Remove the x-api-key header from recorded requests
     const { server } = polly;
     server.any().on('beforePersist', (req, recording) => {
-      if (recording.request.url.includes('quiknode.pro')) {
-        const parsedUrl = new URL(recording.request.url);
-        parsedUrl.pathname = '';
-        parsedUrl.href = '';
-        const safeUrl = url.format(parsedUrl);
-        recording.request.url = recording.request.url = safeUrl;
+      const requestUrl: string = recording.request.url;
+      if (requestUrl.includes('quiknode.pro')) {
+        const safeUrl = new URL(requestUrl).origin;
+        recording.request.url = safeUrl;
       }
 
       recording.request.headers = recording.request.headers.filter(

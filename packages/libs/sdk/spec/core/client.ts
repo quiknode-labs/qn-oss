@@ -1,16 +1,10 @@
-import { Core, CoreArguments, QNCoreClient } from '../../src';
+import { Core, CoreArguments } from '../../src';
 
 const coreOpts: CoreArguments = {
   endpointUrl: process.env['QUICKNODE_ENDPOINT_URL'] || '',
+  config: {
+    addOns: { nftTokenV2: true },
+  },
 };
 
 export const core = new Core(coreOpts);
-
-export async function createCoreTestClient(): Promise<QNCoreClient> {
-  const coreClient = await core.createQNClient({
-    addOns: {
-      nftTokenV2: true,
-    },
-  });
-  return coreClient;
-}

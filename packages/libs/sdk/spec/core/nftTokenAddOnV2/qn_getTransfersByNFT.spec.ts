@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qn_getTransfersByNFT', () => {
   it('fetches transfers by NFT with collection and collectionTokenId', async () => {
@@ -15,7 +9,7 @@ describe('client.qn_getTransfersByNFT', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_getTransfersByNFT({
+        const data = await core.client.qn_getTransfersByNFT({
           collection: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           collectionTokenId: '1',
         });
@@ -47,7 +41,7 @@ describe('client.qn_getTransfersByNFT', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data1 = await coreClient.qn_getTransfersByNFT({
+        const data1 = await core.client.qn_getTransfersByNFT({
           collection: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           collectionTokenId: '400',
           page: 1,
@@ -71,7 +65,7 @@ describe('client.qn_getTransfersByNFT', () => {
           }
         `);
 
-        const data2 = await coreClient.qn_getTransfersByNFT({
+        const data2 = await core.client.qn_getTransfersByNFT({
           collection: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           collectionTokenId: '400',
           page: 2,
@@ -103,7 +97,7 @@ describe('client.qn_getTransfersByNFT', () => {
       collectionTokenId: '1',
     };
     await expect(
-      coreClient.qn_getTransfersByNFT(input)
+      core.client.qn_getTransfersByNFT(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: collection: Required"`
     );
@@ -114,7 +108,7 @@ describe('client.qn_getTransfersByNFT', () => {
       collection: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
     };
     await expect(
-      coreClient.qn_getTransfersByNFT(input)
+      core.client.qn_getTransfersByNFT(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: collectionTokenId: Required"`
     );
@@ -125,7 +119,7 @@ describe('client.qn_getTransfersByNFT', () => {
       foo: 'bar',
     };
     await expect(
-      coreClient.qn_getTransfersByNFT(input)
+      core.client.qn_getTransfersByNFT(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: collection: Required, collectionTokenId: Required, Unrecognized key(s) in object: 'foo'"`
     );

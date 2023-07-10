@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qn_getTransactionsByAddress', () => {
   it('fetches transactions with an address', async () => {
@@ -15,7 +9,7 @@ describe('client.qn_getTransactionsByAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_getTransactionsByAddress({
+        const data = await core.client.qn_getTransactionsByAddress({
           address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           perPage: 1,
         });
@@ -49,7 +43,7 @@ describe('client.qn_getTransactionsByAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const dataPage1 = await coreClient.qn_getTransactionsByAddress({
+        const dataPage1 = await core.client.qn_getTransactionsByAddress({
           address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           page: 1,
           perPage: 1,
@@ -74,7 +68,7 @@ describe('client.qn_getTransactionsByAddress', () => {
           }
         `);
 
-        const dataPage2 = await coreClient.qn_getTransactionsByAddress({
+        const dataPage2 = await core.client.qn_getTransactionsByAddress({
           address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           page: 2,
           perPage: 1,
@@ -109,7 +103,7 @@ describe('client.qn_getTransactionsByAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_getTransactionsByAddress({
+        const data = await core.client.qn_getTransactionsByAddress({
           address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           perPage: 1,
           fromBlock: 16802538,
@@ -141,7 +135,7 @@ describe('client.qn_getTransactionsByAddress', () => {
   it('throws an error when no address is provided', async () => {
     const input: any = {};
     await expect(
-      coreClient.qn_getTransactionsByAddress(input)
+      core.client.qn_getTransactionsByAddress(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: address: Required"`
     );
@@ -152,7 +146,7 @@ describe('client.qn_getTransactionsByAddress', () => {
       address: 'invalidaddress',
     };
     await expect(
-      coreClient.qn_getTransactionsByAddress(input)
+      core.client.qn_getTransactionsByAddress(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: address: String must contain exactly 42 character(s), address: Invalid input: must start with \\"0x\\", address: Not a valid address"`
     );
@@ -163,7 +157,7 @@ describe('client.qn_getTransactionsByAddress', () => {
       foo: 'bar',
     };
     await expect(
-      coreClient.qn_getTransactionsByAddress(input)
+      core.client.qn_getTransactionsByAddress(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: address: Required, Unrecognized key(s) in object: 'foo'"`
     );

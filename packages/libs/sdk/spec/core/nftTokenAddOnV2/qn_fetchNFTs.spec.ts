@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qnFetchNFTs', () => {
   it('fetches NFTs with just a wallet', async () => {
@@ -15,7 +9,7 @@ describe('client.qnFetchNFTs', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_fetchNFTs({
+        const data = await core.client.qn_fetchNFTs({
           wallet: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           perPage: 2,
         });
@@ -62,7 +56,7 @@ describe('client.qnFetchNFTs', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_fetchNFTs({
+        const data = await core.client.qn_fetchNFTs({
           wallet: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           contracts: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],
           omitFields: ['traits'],
@@ -105,7 +99,7 @@ describe('client.qnFetchNFTs', () => {
   it('throws an error when no wallet is provided', async () => {
     const input: any = {};
     await expect(
-      coreClient.qn_fetchNFTs(input)
+      core.client.qn_fetchNFTs(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: wallet: Required"`
     );
@@ -116,7 +110,7 @@ describe('client.qnFetchNFTs', () => {
       wallet: '123',
     };
     await expect(
-      coreClient.qn_fetchNFTs(input)
+      core.client.qn_fetchNFTs(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: wallet: String must contain exactly 42 character(s), wallet: Invalid input: must start with \\"0x\\", wallet: Not a valid address"`
     );
@@ -127,7 +121,7 @@ describe('client.qnFetchNFTs', () => {
       foo: 'bar',
     };
     await expect(
-      coreClient.qn_fetchNFTs(input)
+      core.client.qn_fetchNFTs(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: wallet: Required, Unrecognized key(s) in object: 'foo'"`
     );

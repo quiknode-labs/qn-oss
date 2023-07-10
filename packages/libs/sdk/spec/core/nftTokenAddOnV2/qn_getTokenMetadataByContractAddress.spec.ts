@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qn_getTokenMetadataByContractAddress', () => {
   it('fetches token metadata with a contract', async () => {
@@ -15,7 +9,7 @@ describe('client.qn_getTokenMetadataByContractAddress', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_getTokenMetadataByContractAddress({
+        const data = await core.client.qn_getTokenMetadataByContractAddress({
           contract: '0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0',
         });
         expect(data).toMatchInlineSnapshot(`
@@ -35,7 +29,7 @@ describe('client.qn_getTokenMetadataByContractAddress', () => {
   it('throws an error when no contract is provided', async () => {
     const input: any = {};
     await expect(
-      coreClient.qn_getTokenMetadataByContractAddress(input)
+      core.client.qn_getTokenMetadataByContractAddress(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: contract: Required"`
     );
@@ -46,7 +40,7 @@ describe('client.qn_getTokenMetadataByContractAddress', () => {
       contract: '0x12345678',
     };
     await expect(
-      coreClient.qn_getTokenMetadataByContractAddress(input)
+      core.client.qn_getTokenMetadataByContractAddress(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: contract: String must contain exactly 42 character(s), contract: Not a valid address"`
     );
@@ -57,7 +51,7 @@ describe('client.qn_getTokenMetadataByContractAddress', () => {
       foo: 'bar',
     };
     await expect(
-      coreClient.qn_getTokenMetadataByContractAddress(input)
+      core.client.qn_getTokenMetadataByContractAddress(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: contract: Required, Unrecognized key(s) in object: 'foo'"`
     );

@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qn_verifyNFTsOwner', () => {
   it('verifies NFT ownership with a wallet and contracts', async () => {
@@ -15,7 +9,7 @@ describe('client.qn_verifyNFTsOwner', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_verifyNFTsOwner({
+        const data = await core.client.qn_verifyNFTsOwner({
           wallet: '0x91b51c173a4bdaa1a60e234fc3f705a16d228740',
           contracts: [
             '0x2106c00ac7da0a3430ae667879139e832307aeaa:3643',
@@ -40,7 +34,7 @@ describe('client.qn_verifyNFTsOwner', () => {
       contracts: ['0x2106c00ac7da0a3430ae667879139e832307aeaa:3643'],
     };
     await expect(
-      coreClient.qn_verifyNFTsOwner(input)
+      core.client.qn_verifyNFTsOwner(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: wallet: Required"`
     );
@@ -51,7 +45,7 @@ describe('client.qn_verifyNFTsOwner', () => {
       wallet: '0x91b51c173a4bdaa1a60e234fc3f705a16d228740',
     };
     await expect(
-      coreClient.qn_verifyNFTsOwner(input)
+      core.client.qn_verifyNFTsOwner(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: contracts: Required"`
     );
@@ -62,7 +56,7 @@ describe('client.qn_verifyNFTsOwner', () => {
       foo: 'bar',
     };
     await expect(
-      coreClient.qn_verifyNFTsOwner(input)
+      core.client.qn_verifyNFTsOwner(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: wallet: Required, contracts: Required, Unrecognized key(s) in object: 'foo'"`
     );

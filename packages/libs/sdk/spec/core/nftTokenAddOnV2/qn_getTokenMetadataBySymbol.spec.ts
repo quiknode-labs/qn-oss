@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qn_getTokenMetadataBySymbol', () => {
   it('fetches token metadata with a symbol', async () => {
@@ -15,7 +9,7 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_getTokenMetadataBySymbol({
+        const data = await core.client.qn_getTokenMetadataBySymbol({
           symbol: 'WETH',
           perPage: 1,
         });
@@ -43,7 +37,7 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
   it('throws an error when no symbol is provided', async () => {
     const input: any = {};
     await expect(
-      coreClient.qn_getTokenMetadataBySymbol(input)
+      core.client.qn_getTokenMetadataBySymbol(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: symbol: Required"`
     );
@@ -54,7 +48,7 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
       foo: 'bar',
     };
     await expect(
-      coreClient.qn_getTokenMetadataBySymbol(input)
+      core.client.qn_getTokenMetadataBySymbol(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: symbol: Required, Unrecognized key(s) in object: 'foo'"`
     );
@@ -67,7 +61,7 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
         recordIfMissing: true,
       },
       async () => {
-        const dataPage1 = await coreClient.qn_getTokenMetadataBySymbol({
+        const dataPage1 = await core.client.qn_getTokenMetadataBySymbol({
           symbol: 'WETH',
           page: 1,
           perPage: 1,
@@ -90,7 +84,7 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
           }
         `);
 
-        const dataPage2 = await coreClient.qn_getTokenMetadataBySymbol({
+        const dataPage2 = await core.client.qn_getTokenMetadataBySymbol({
           symbol: 'WETH',
           page: 2,
           perPage: 1,

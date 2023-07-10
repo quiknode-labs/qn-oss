@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qn_getWalletTokenBalance', () => {
   it('fetches wallet token balance with a wallet address', async () => {
@@ -15,7 +9,7 @@ describe('client.qn_getWalletTokenBalance', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_getWalletTokenBalance({
+        const data = await core.client.qn_getWalletTokenBalance({
           wallet: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           perPage: 1,
         });
@@ -48,7 +42,7 @@ describe('client.qn_getWalletTokenBalance', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_getWalletTokenBalance({
+        const data = await core.client.qn_getWalletTokenBalance({
           wallet: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           contracts: ['0x1f9840a85d5af5bf1d1762f925bdaddc4201f984'],
           perPage: 1,
@@ -82,7 +76,7 @@ describe('client.qn_getWalletTokenBalance', () => {
         recordIfMissing: true,
       },
       async () => {
-        let data = await coreClient.qn_getWalletTokenBalance({
+        let data = await core.client.qn_getWalletTokenBalance({
           wallet: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           perPage: 1,
           page: 1,
@@ -106,7 +100,7 @@ describe('client.qn_getWalletTokenBalance', () => {
           }
         `);
 
-        data = await coreClient.qn_getWalletTokenBalance({
+        data = await core.client.qn_getWalletTokenBalance({
           wallet: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           perPage: 1,
           page: 2,
@@ -136,7 +130,7 @@ describe('client.qn_getWalletTokenBalance', () => {
   it('throws an error when no wallet address is provided', async () => {
     const input: any = {};
     await expect(
-      coreClient.qn_getWalletTokenBalance(input)
+      core.client.qn_getWalletTokenBalance(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: wallet: Required"`
     );
@@ -147,7 +141,7 @@ describe('client.qn_getWalletTokenBalance', () => {
       wallet: 'invalidwalletaddress',
     };
     await expect(
-      coreClient.qn_getWalletTokenBalance(input)
+      core.client.qn_getWalletTokenBalance(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: wallet: String must contain exactly 42 character(s), wallet: Invalid input: must start with \\"0x\\", wallet: Not a valid address"`
     );
@@ -158,7 +152,7 @@ describe('client.qn_getWalletTokenBalance', () => {
       foo: 'bar',
     };
     await expect(
-      coreClient.qn_getWalletTokenBalance(input)
+      core.client.qn_getWalletTokenBalance(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: wallet: Required, Unrecognized key(s) in object: 'foo'"`
     );

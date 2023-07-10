@@ -8,7 +8,7 @@ export function checkAddOnEnabled(
 ) {
   if (!enabled) {
     throw new Error(
-      `${humanName} is not set as enabled. Please ensure the addon is enabled on both your QuickNode endpoint and enable ${configName} in the createQNClient() configuration argument`
+      `${humanName} is not set as enabled. Please ensure the addon is enabled on both your QuickNode endpoint and enable ${configName} in the Core configuration argument`
     );
   }
 }

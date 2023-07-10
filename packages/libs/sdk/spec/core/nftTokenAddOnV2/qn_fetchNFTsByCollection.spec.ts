@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qn_fetchNFTsByCollection', () => {
   it('fetches collection details with just collection param', async () => {
@@ -15,7 +9,7 @@ describe('client.qn_fetchNFTsByCollection', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_fetchNFTsByCollection({
+        const data = await core.client.qn_fetchNFTsByCollection({
           collection: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           perPage: 1,
         });
@@ -76,7 +70,7 @@ describe('client.qn_fetchNFTsByCollection', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_fetchNFTsByCollection({
+        const data = await core.client.qn_fetchNFTsByCollection({
           collection: '0x2106C00Ac7dA0A3430aE667879139E832307AeAa',
           tokens: ['0'],
         });
@@ -133,14 +127,14 @@ describe('client.qn_fetchNFTsByCollection', () => {
   it('throws an error when no collection is provided', async () => {
     const input: any = {};
     await expect(
-      coreClient.qn_fetchNFTsByCollection(input)
+      core.client.qn_fetchNFTsByCollection(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: collection: Required"`
     );
   });
   it('throws an error when collection is invalid', async () => {
     await expect(
-      coreClient.qn_fetchNFTsByCollection({
+      core.client.qn_fetchNFTsByCollection({
         collection: '123',
       })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
@@ -152,7 +146,7 @@ describe('client.qn_fetchNFTsByCollection', () => {
       foo: 'bar',
     };
     await expect(
-      coreClient.qn_fetchNFTsByCollection(input)
+      core.client.qn_fetchNFTsByCollection(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: collection: Required, Unrecognized key(s) in object: 'foo'"`
     );

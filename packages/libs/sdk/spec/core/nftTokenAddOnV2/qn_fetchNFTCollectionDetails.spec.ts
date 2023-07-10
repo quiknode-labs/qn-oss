@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qn_fetchNFTCollectionDetails', () => {
   it('fetches NFT collection details with contracts', async () => {
@@ -15,7 +9,7 @@ describe('client.qn_fetchNFTCollectionDetails', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_fetchNFTCollectionDetails({
+        const data = await core.client.qn_fetchNFTCollectionDetails({
           contracts: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],
         });
         expect(data).toMatchInlineSnapshot(`
@@ -40,7 +34,7 @@ describe('client.qn_fetchNFTCollectionDetails', () => {
   it('throws an error when no collection is provided', async () => {
     const input: any = {};
     await expect(
-      coreClient.qn_fetchNFTCollectionDetails(input)
+      core.client.qn_fetchNFTCollectionDetails(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: contracts: Required"`
     );
@@ -48,7 +42,7 @@ describe('client.qn_fetchNFTCollectionDetails', () => {
 
   it('throws an error when collection is invalid', async () => {
     await expect(
-      coreClient.qn_fetchNFTCollectionDetails({
+      core.client.qn_fetchNFTCollectionDetails({
         contracts: ['hi'],
       })
     ).rejects.toThrowErrorMatchingInlineSnapshot(
@@ -59,7 +53,7 @@ describe('client.qn_fetchNFTCollectionDetails', () => {
   it('throws an error when invalid params are provided', async () => {
     const input: any = {};
     await expect(
-      coreClient.qn_fetchNFTCollectionDetails(input)
+      core.client.qn_fetchNFTCollectionDetails(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: contracts: Required"`
     );

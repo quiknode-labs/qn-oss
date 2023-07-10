@@ -1,11 +1,5 @@
-import { QNCoreClient } from '../../../src';
 import withPolly from '../../testSetup/pollyTestSetup';
-import { createCoreTestClient } from '../client';
-
-let coreClient: QNCoreClient;
-beforeAll(async () => {
-  coreClient = await createCoreTestClient();
-});
+import { core } from '../client';
 
 describe('client.qn_getWalletTokenTransactions', () => {
   it('fetches wallet token transactions with a valid wallet and contract address', async () => {
@@ -15,7 +9,7 @@ describe('client.qn_getWalletTokenTransactions', () => {
         recordIfMissing: true,
       },
       async () => {
-        const data = await coreClient.qn_getWalletTokenTransactions({
+        const data = await core.client.qn_getWalletTokenTransactions({
           address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           contract: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
           perPage: 1,
@@ -61,7 +55,7 @@ describe('client.qn_getWalletTokenTransactions', () => {
         recordIfMissing: true,
       },
       async () => {
-        let data = await coreClient.qn_getWalletTokenTransactions({
+        let data = await core.client.qn_getWalletTokenTransactions({
           address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           contract: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
           perPage: 1,
@@ -98,7 +92,7 @@ describe('client.qn_getWalletTokenTransactions', () => {
           }
         `);
 
-        data = await coreClient.qn_getWalletTokenTransactions({
+        data = await core.client.qn_getWalletTokenTransactions({
           address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
           contract: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
           perPage: 1,
@@ -143,7 +137,7 @@ describe('client.qn_getWalletTokenTransactions', () => {
       contract: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     };
     await expect(
-      coreClient.qn_getWalletTokenTransactions(input)
+      core.client.qn_getWalletTokenTransactions(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: address: Required"`
     );
@@ -154,7 +148,7 @@ describe('client.qn_getWalletTokenTransactions', () => {
       address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
     };
     await expect(
-      coreClient.qn_getWalletTokenTransactions(input)
+      core.client.qn_getWalletTokenTransactions(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: contract: Required"`
     );
@@ -166,7 +160,7 @@ describe('client.qn_getWalletTokenTransactions', () => {
       contract: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     };
     await expect(
-      coreClient.qn_getWalletTokenTransactions(input)
+      core.client.qn_getWalletTokenTransactions(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: address: String must contain exactly 42 character(s), address: Invalid input: must start with \\"0x\\", address: Not a valid address"`
     );
@@ -178,7 +172,7 @@ describe('client.qn_getWalletTokenTransactions', () => {
       contract: 'invalidcontractaddress',
     };
     await expect(
-      coreClient.qn_getWalletTokenTransactions(input)
+      core.client.qn_getWalletTokenTransactions(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: contract: String must contain exactly 42 character(s), contract: Invalid input: must start with \\"0x\\", contract: Not a valid address"`
     );
@@ -189,7 +183,7 @@ describe('client.qn_getWalletTokenTransactions', () => {
       foo: 'bar',
     };
     await expect(
-      coreClient.qn_getWalletTokenTransactions(input)
+      core.client.qn_getWalletTokenTransactions(input)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"QuickNode SDK Input Validation Error: address: Required, contract: Required, Unrecognized key(s) in object: 'foo'"`
     );

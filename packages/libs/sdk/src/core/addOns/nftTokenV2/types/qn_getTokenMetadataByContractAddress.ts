@@ -13,7 +13,7 @@ export type QNGetTokenMetadataByCAInput = z.infer<
   typeof qnGetTokenMetadataByCAInputSchema
 >;
 
-export type QNGetTokenMetadataByCAResult = RPCTokenMetadata[];
+export type QNGetTokenMetadataByCAResult = RPCTokenMetadata;
 
 export type QNGetTokenMetadataByCAMethod = {
   Method: 'qn_getTokenMetadataByContractAddress';

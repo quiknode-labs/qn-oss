@@ -10,7 +10,9 @@ import { deriveNetworkFromUrl } from './networks';
 import * as viem from 'viem';
 import fetch from 'cross-fetch';
 
-globalThis.fetch = fetch;
+if (!globalThis.fetch) {
+  globalThis.fetch = fetch;
+}
 
 export const buildQNActions = (config: QNCoreClientConfig) => {
   return (client: Client): NFTAndTokenActions => ({

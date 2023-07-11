@@ -86,7 +86,6 @@ export default async function withPolly(
       .filter((req) => /^127.0.0.1:[0-9]+$/.test(req.headers.host))
       .passthrough();
 
-    // Remove the x-api-key header from recorded requests
     const { server } = polly;
     server.any().on('beforePersist', (req, recording) => {
       const requestUrl: string = recording.request.url;
@@ -95,6 +94,7 @@ export default async function withPolly(
         recording.request.url = safeUrl;
       }
 
+      // Remove the x-api-key header from recorded requests
       recording.request.headers = recording.request.headers.filter(
         ({ name }: { name: string }) => name !== 'x-api-key'
       );

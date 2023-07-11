@@ -6,7 +6,7 @@ describe('client.qn_getWalletTokenBalance', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetWalletTokenBalance',
-        recordIfMissing: true,
+        recordIfMissing: false,
       },
       async () => {
         const data = await core.client.qn_getWalletTokenBalance({
@@ -39,7 +39,7 @@ describe('client.qn_getWalletTokenBalance', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetWalletTokenBalance-withContracts',
-        recordIfMissing: true,
+        recordIfMissing: false,
       },
       async () => {
         const data = await core.client.qn_getWalletTokenBalance({
@@ -73,7 +73,7 @@ describe('client.qn_getWalletTokenBalance', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetWalletTokenBalance-pagination',
-        recordIfMissing: true,
+        recordIfMissing: false,
       },
       async () => {
         let data = await core.client.qn_getWalletTokenBalance({

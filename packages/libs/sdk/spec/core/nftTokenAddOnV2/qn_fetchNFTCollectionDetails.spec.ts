@@ -6,7 +6,7 @@ describe('client.qn_fetchNFTCollectionDetails', () => {
     await withPolly(
       {
         recordingName: 'core-qnFetchNFTCollectionDetails',
-        recordIfMissing: true,
+        recordIfMissing: false,
       },
       async () => {
         const data = await core.client.qn_fetchNFTCollectionDetails({

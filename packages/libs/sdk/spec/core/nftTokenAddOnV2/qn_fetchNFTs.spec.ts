@@ -6,7 +6,7 @@ describe('client.qnFetchNFTs', () => {
     await withPolly(
       {
         recordingName: 'core-qnFetchNFTs',
-        recordIfMissing: true,
+        recordIfMissing: false,
       },
       async () => {
         const data = await core.client.qn_fetchNFTs({
@@ -53,7 +53,7 @@ describe('client.qnFetchNFTs', () => {
     await withPolly(
       {
         recordingName: 'core-qnFetchNFTs-walletAndContracts',
-        recordIfMissing: true,
+        recordIfMissing: false,
       },
       async () => {
         const data = await core.client.qn_fetchNFTs({

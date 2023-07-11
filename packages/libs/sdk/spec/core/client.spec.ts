@@ -17,7 +17,7 @@ describe('core client', () => {
     await withPolly(
       {
         recordingName: 'core-client-viem-basic-function',
-        recordIfMissing: true,
+        recordIfMissing: false,
       },
       async () => {
         await expect(

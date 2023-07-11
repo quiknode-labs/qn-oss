@@ -8,7 +8,7 @@ import {
   CodegenTransactionsNodeFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { SimplifyType } from '../../utils/helpers';
+import { SimplifyType } from '../../../lib/types';
 import { z } from 'zod';
 
 // Using the generated CodegenEthMainnetTransactionsByHashQuery as a base for the type here

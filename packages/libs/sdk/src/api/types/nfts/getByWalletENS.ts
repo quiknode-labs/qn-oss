@@ -6,7 +6,7 @@ import {
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
 import { NonQueryInput } from '../input';
-import { SimplifyType } from '../../utils/helpers';
+import { SimplifyType } from '../../../lib/types';
 
 // Using the generated CodegenEthMainnetWalletNFTsByEnsQuery as a base for the type here
 // since the queries for each chain will be the same, so allow for it to be used for all chains

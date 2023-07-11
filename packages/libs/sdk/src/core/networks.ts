@@ -22,7 +22,7 @@ import {
   sepolia,
   Chain,
 } from 'viem/chains';
-import { ValueOf } from 'viem/dist/types/types/utils';
+import { ValueOf } from '../lib/types';
 
 const qnNetworkToViemChain: Record<string, Chain> = {
   'arbitrum-mainnet': arbitrum,

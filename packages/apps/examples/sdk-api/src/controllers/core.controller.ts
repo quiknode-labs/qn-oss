@@ -3,6 +3,15 @@ import { core } from '../client';
 import { QNFetchNFTInput, QNFetchNFTResult } from '@qn-oss/libs/sdk';
 
 export default {
+  sdk_getChainId: async (req: Request, res: Response) => {
+    try {
+      const chainId = core.client?.chain?.id;
+      return res.status(200).send({ chainId: chainId?.toString() });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+    }
+  },
   sdk_qn_fetchNFTs: async (req: Request, res: Response) => {
     try {
       const input: QNFetchNFTInput = {

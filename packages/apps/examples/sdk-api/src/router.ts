@@ -65,4 +65,5 @@ router.get('/api/transactionByHash/:hash', transactionsController.getByHash);
 router.get('/api/getAllEvents/:blockNumber', eventsController.getAllEvents);
 router.get('/api/core/sdk_fetch_nfts/:wallet', coreController.sdk_qn_fetchNFTs);
 router.get('/api/core/sdk_viem_methods', coreController.viemMethods);
+router.get('/api/core/sdk_chain_id', coreController.sdk_getChainId);
 export default router;

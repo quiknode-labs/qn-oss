@@ -1,4 +1,3 @@
-import { mainnet } from 'viem/chains';
 import { createClient, http, type Client, publicActions } from 'viem';
 import { type NFTAndTokenActions } from './addOns/nftTokenV2/types/action';
 import { nftAndTokenActions } from './addOns/nftTokenV2/actions';
@@ -7,6 +6,7 @@ import {
   type CoreArguments,
   type QNCoreClient,
 } from './coreTypes';
+import { deriveNetworkFromUrl } from './networks';
 import * as viem from 'viem';
 import fetch from 'cross-fetch';
 
@@ -29,7 +29,7 @@ export class Core {
     this.endpointUrl = endpointUrl;
     this.viem = viem;
     const baseClient = createClient({
-      chain: mainnet,
+      chain: deriveNetworkFromUrl(endpointUrl),
       transport: http(this.endpointUrl),
     }).extend(publicActions);
 

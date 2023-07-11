@@ -31,6 +31,9 @@ interface RPCTransactionByAddress {
 
 export type QNGetTransactionsByAddressResult = {
   paginatedItems: RPCTransactionByAddress[];
+  totalItems: number;
+  totalPages: number;
+  pageNumber: number;
 };
 
 export type QNGetTransactionsByAddressMethod = {

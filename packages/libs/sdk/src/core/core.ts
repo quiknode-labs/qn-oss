@@ -28,11 +28,12 @@ export class Core {
   constructor({ endpointUrl, config = {} }: CoreArguments) {
     this.endpointUrl = endpointUrl;
     this.viem = viem;
-    const qnClient = createClient({
+    const baseClient = createClient({
       chain: mainnet,
       transport: http(this.endpointUrl),
     }).extend(publicActions);
 
-    this.client = qnClient.extend(buildQNActions(config));
+    const qnClient = baseClient.extend(buildQNActions(config));
+    this.client = qnClient;
   }
 }

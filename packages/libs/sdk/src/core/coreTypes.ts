@@ -1,4 +1,4 @@
-import { Client } from 'viem';
+import { PublicClient } from 'viem';
 import { NFTAndTokenActions } from './addOns/nftTokenV2/types/action';
 
 export interface CoreArguments {
@@ -13,4 +13,4 @@ export type QNCoreClientConfig = {
   };
 };
 
-export type QNCoreClient = Client & NFTAndTokenActions;
+export type QNCoreClient = PublicClient & NFTAndTokenActions;

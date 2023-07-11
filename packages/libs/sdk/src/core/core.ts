@@ -7,14 +7,7 @@ import {
   type QNCoreClient,
 } from './coreTypes';
 import { deriveNetworkFromUrl } from './networks';
-import fetch, { Headers, Request, Response } from 'cross-fetch';
-
-if (!globalThis.fetch) {
-  globalThis.fetch = fetch;
-  globalThis.Headers = Headers;
-  globalThis.Request = Request;
-  globalThis.Response = Response;
-}
+import { setupGlobalFetch } from '../lib/helpers/globalFetch';
 
 export const buildQNActions = (config: QNCoreClientConfig) => {
   return (client: Client): NFTAndTokenActions => ({
@@ -27,6 +20,7 @@ export class Core {
   readonly client: QNCoreClient;
 
   constructor({ endpointUrl, config = {} }: CoreArguments) {
+    setupGlobalFetch();
     this.endpointUrl = endpointUrl;
     const baseClient = createClient({
       chain: deriveNetworkFromUrl(endpointUrl),

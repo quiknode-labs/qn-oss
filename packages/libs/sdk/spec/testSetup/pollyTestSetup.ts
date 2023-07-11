@@ -34,8 +34,7 @@ export default async function withPolly(
     recordIfMissing,
     recordFailedRequests,
     // @ts-ignore
-    logging: true,
-    logLevel: 'debug',
+    logging: false,
     matchRequestsBy: {
       headers: {
         exclude: [

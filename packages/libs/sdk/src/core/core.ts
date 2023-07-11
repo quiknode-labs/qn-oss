@@ -9,9 +9,10 @@ import {
 import { deriveNetworkFromUrl } from './networks';
 import fetch from 'cross-fetch';
 
-if (!globalThis.fetch) {
-  globalThis.fetch = fetch;
-}
+//if (!globalThis.fetch) {
+//  globalThis.fetch = fetch;
+//}
+global.fetch = fetch;
 
 export const buildQNActions = (config: QNCoreClientConfig) => {
   return (client: Client): NFTAndTokenActions => ({

@@ -38,21 +38,18 @@ describe('core client', () => {
   });
 
   it('can derive the correct network from URL', () => {
-    // Arbitrum mainnet
     let ethCore = new Core({
       endpointUrl: 'https://some-cool-name.arbitrum-mainnet.quiknode.pro/abcd/',
     });
     let chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Arbitrum One');
 
-    // Arbitrum Goerli
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.arbitrum-goerli.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Arbitrum Goerli');
 
-    // Avalanche mainnet
     ethCore = new Core({
       endpointUrl:
         'https://some-cool-name.avalanche-mainnet.quiknode.pro/abcd/',
@@ -60,7 +57,6 @@ describe('core client', () => {
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Avalanche');
 
-    // Avalanche Fuji testnet
     ethCore = new Core({
       endpointUrl:
         'https://some-cool-name.avalanche-testnet.quiknode.pro/abcd/',
@@ -68,112 +64,96 @@ describe('core client', () => {
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Avalanche Fuji');
 
-    // Base Goerli
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.base-goerli.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Base Goerli');
 
-    // BSC
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.bsc.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('BNB Smart Chain');
 
-    // BSC Testnet
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.bsc-testnet.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Binance Smart Chain Testnet');
 
-    // Celo mainnet
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.celo-mainnet.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Celo');
 
-    // Fantom
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.fantom.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Fantom');
 
-    // Gnosis (xDai)
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.xdai.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Gnosis');
 
-    // Ethereum Goerli
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.ethereum-goerli.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Goerli');
 
-    // Harmony One
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.harmony-mainnet.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Harmony One');
 
-    // Ethereum mainnet
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Ethereum');
 
-    // Optimism
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.optimism.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Optimism');
 
-    // Optimism Goerli
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.optimism-goerli.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Optimism Goerli');
 
-    // Polygon (Matic)
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.matic.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Polygon');
 
-    // Polygon Mumbai
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.matic-testnet.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Polygon Mumbai');
 
-    // Polygon ZkEvm
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.zkevm-mainnet.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Polygon zkEVM');
 
-    // Polygon ZkEvm Testnet
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.zkevm-testnet.quiknode.pro/abcd/',
     });
     chainName = ethCore.client.chain?.name;
     expect(chainName).toEqual('Polygon zkEVM Testnet');
 
-    // Ethereum Sepolia
     ethCore = new Core({
       endpointUrl: 'https://some-cool-name.ethereum-sepolia.quiknode.pro/abcd/',
     });

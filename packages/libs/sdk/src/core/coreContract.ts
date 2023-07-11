@@ -1,8 +1,6 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { PublicClient, getContract } from 'viem';
 import type API from '../api';
-import fetch from 'cross-fetch';
-global.fetch = fetch;
 
 interface CoreContractsArguments {
   apiClient: API | null | undefined;

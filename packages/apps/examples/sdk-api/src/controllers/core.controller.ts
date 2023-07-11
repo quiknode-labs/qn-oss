@@ -12,21 +12,22 @@ export default {
       return res.status(500).send({});
     }
   },
+
   sdk_qn_fetchNFTs: async (req: Request, res: Response) => {
     try {
       const input: QNFetchNFTInput = {
         wallet: req.params.wallet,
-        contracts: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],
+        contracts: ['0x8D0501d85becDA92B89E56177dDfcEA5Fc1f0AF2'],
       };
       const response = await core.client.qn_fetchNFTs(input);
       console.log(response);
       response satisfies QNFetchNFTResult;
       console.log(req.params.wallet);
-      const response2 = await core.client.qn_getWalletTokenTransactions({
-        address: req.params.wallet,
-        contract: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
-      });
-      console.log(response2);
+      //const response2 = await core.client.qn_getWalletTokenTransactions({
+      //  address: req.params.wallet,
+      //  contract: '0x8D0501d85becDA92B89E56177dDfcEA5Fc1f0AF2',
+      //});
+      //console.log(response2);
 
       return res.status(200).send(response);
     } catch (error) {

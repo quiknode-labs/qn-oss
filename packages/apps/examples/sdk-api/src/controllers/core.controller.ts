@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { core } from '../client';
+import { core, api } from '../client';
 import { QNFetchNFTInput, QNFetchNFTResult } from '@qn-oss/libs/sdk';
 
 export default {
@@ -33,6 +33,19 @@ export default {
     } catch (error) {
       console.error(error);
       return res.status(500).send({});
+    }
+  },
+
+  getContractWithApiClient: async (req: Request, res: Response) => {
+    try {
+      const contract = await core.setupContract({
+        address: req.params.address as `0x${string}`,
+        apiClient: api,
+      });
+      const supply = contract.totalSupply();
+      return res.status(200).send({ supply });
+    } catch (error) {
+      console.error(error);
     }
   },
 

@@ -2,13 +2,6 @@
 import { PublicClient, getContract } from 'viem';
 import type API from '../api';
 
-interface CoreContractsArguments {
-  apiClient: API | null | undefined;
-  publicClient: PublicClient;
-  address: `0x${string}`;
-  abi?: any;
-}
-
 export class CoreContract {
   public contract: any; // TODO: type this
   readonly apiClient: API | null | undefined;
@@ -26,25 +19,5 @@ export class CoreContract {
     this.publicClient = publicClient;
     this.address = address;
     if (abi) this.abi = abi;
-  }
-
-  async setupContract() {
-    if (this.apiClient && !this.abi) {
-      const details = await this.apiClient.contracts.getDetails({
-        contractAddress: this.address,
-      });
-      const abi = details?.contract?.abi;
-      if (!abi) {
-        throw new Error('No abi found or provided for contract');
-      }
-      this.abi = abi;
-    }
-    const contract = getContract({
-      address: this.address,
-      abi: this.abi,
-      publicClient: this.publicClient,
-    });
-
-    return contract;
   }
 }

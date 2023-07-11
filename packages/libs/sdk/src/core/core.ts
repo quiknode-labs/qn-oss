@@ -7,7 +7,6 @@ import {
   type QNCoreClient,
 } from './coreTypes';
 import { deriveNetworkFromUrl } from './networks';
-import * as viem from 'viem';
 import fetch from 'cross-fetch';
 
 if (!globalThis.fetch) {
@@ -22,13 +21,10 @@ export const buildQNActions = (config: QNCoreClientConfig) => {
 
 export class Core {
   readonly endpointUrl: string;
-  readonly viem: typeof viem;
   readonly client: QNCoreClient;
 
-  // TODO: Determine endpoint chain from qn url
   constructor({ endpointUrl, config = {} }: CoreArguments) {
     this.endpointUrl = endpointUrl;
-    this.viem = viem;
     const baseClient = createClient({
       chain: deriveNetworkFromUrl(endpointUrl),
       transport: http(this.endpointUrl),

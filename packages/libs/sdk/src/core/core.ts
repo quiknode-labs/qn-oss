@@ -25,7 +25,6 @@ export class Core {
 
   constructor({ endpointUrl, config = {} }: CoreArguments) {
     this.endpointUrl = endpointUrl;
-    console.log(`testtesttest${this.endpointUrl}`);
     const baseClient = createClient({
       chain: deriveNetworkFromUrl(endpointUrl),
       transport: http(this.endpointUrl),

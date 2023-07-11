@@ -1,18 +1,10 @@
-import {
-  createClient,
-  http,
-  type Client,
-  publicActions,
-  getContract,
-  type Abi,
-} from 'viem';
+import { createClient, http, type Client, publicActions } from 'viem';
 import { type NFTAndTokenActions } from './addOns/nftTokenV2/types/action';
 import { nftAndTokenActions } from './addOns/nftTokenV2/actions';
 import {
   type QNCoreClientConfig,
   type CoreArguments,
   type QNCoreClient,
-  type CoreContractsArguments,
 } from './coreTypes';
 import { deriveNetworkFromUrl } from './networks';
 import * as viem from 'viem';
@@ -44,30 +36,5 @@ export class Core {
 
     const qnClient = baseClient.extend(buildQNActions(config));
     this.client = qnClient;
-  }
-
-  async setupContract({ apiClient, address, abi }: CoreContractsArguments) {
-    if (!apiClient && !abi) {
-      throw new Error(
-        'No abi or apiClient provided to setupContract(), please provide one of these arguments'
-      );
-    }
-    if (apiClient && !abi) {
-      const details = await apiClient.contracts.getDetails({
-        contractAddress: address,
-      });
-      const abi = details.contract?.abi;
-      if (!abi) {
-        throw new Error('No abi found for contract');
-      }
-    }
-
-    const contract = getContract({
-      address: address,
-      abi: abi as Abi,
-      publicClient: this.client,
-    });
-
-    return contract;
   }
 }

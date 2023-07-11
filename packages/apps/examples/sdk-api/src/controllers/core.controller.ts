@@ -36,19 +36,6 @@ export default {
     }
   },
 
-  getContractWithApiClient: async (req: Request, res: Response) => {
-    try {
-      const contract = await core.setupContract({
-        address: req.params.address as `0x${string}`,
-        apiClient: api,
-      });
-      const supply = contract.totalSupply();
-      return res.status(200).send({ supply });
-    } catch (error) {
-      console.error(error);
-    }
-  },
-
   viemMethods: async (req: Request, res: Response) => {
     try {
       const response = core.viem.fromHex(

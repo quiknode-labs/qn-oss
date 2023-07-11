@@ -1,4 +1,4 @@
-import { SimplifyType } from '../../../../../src/api/utils/helpers';
+import { type SimplifyType } from '../../../../lib/types';
 import { RpcSchemaOverride } from 'viem';
 import {
   type QNFetchNFTMethod,

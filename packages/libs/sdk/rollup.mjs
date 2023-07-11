@@ -72,15 +72,15 @@ export default [
     input: toAbsoluteDir('./src/api/index.ts'),
     plugins: [dts()], // Rollup the .d.ts files
     output: {
-      file: `${buildRootDir}/esm/api/index.d.ts`,
+      file: `${buildRootDir}/esm/src/api/index.d.ts`,
       format: 'es',
     },
   }),
   bundle({
-    input: toAbsoluteDir('./src/viemExport/index.ts'),
+    input: toAbsoluteDir('./src/core/index.ts'),
     plugins: [dts()], // Rollup the .d.ts files
     output: {
-      file: `${buildRootDir}/esm/viemExport/index.d.ts`,
+      file: `${buildRootDir}/esm/src/core/index.d.ts`,
       format: 'es',
     },
   }),

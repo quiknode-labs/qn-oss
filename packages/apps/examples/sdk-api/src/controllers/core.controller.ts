@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { core, api } from '../client';
-import { QNFetchNFTInput, QNFetchNFTResult } from '@qn-oss/libs/sdk';
+import { core } from '../client';
+import { QNFetchNFTInput, QNFetchNFTResult, viem } from '@qn-oss/libs/sdk';
 
 export default {
   sdk_getChainId: async (req: Request, res: Response) => {
@@ -38,10 +38,7 @@ export default {
 
   viemMethods: async (req: Request, res: Response) => {
     try {
-      const response = core.viem.fromHex(
-        '0x48656c6c6f20776f726c642e',
-        'string'
-      );
+      const response = viem.fromHex('0x48656c6c6f20776f726c642e', 'string');
       return res.status(200).send({ response });
     } catch (error) {
       console.error(error);

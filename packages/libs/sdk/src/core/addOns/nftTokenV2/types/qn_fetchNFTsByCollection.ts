@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { type SimplifyType } from '../../../../../src/api/utils/helpers';
+import { type SimplifyType } from '../../../../lib/types';
 import {
   isEvmAddress,
   rpcPaginationParams,

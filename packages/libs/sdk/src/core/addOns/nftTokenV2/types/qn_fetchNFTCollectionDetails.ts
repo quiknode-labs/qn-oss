@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { isEvmAddress } from '../../../../lib/validation/validators';
-import { type SimplifyType } from '../../../../../src/api/utils/helpers';
+import { type SimplifyType } from '../../../../lib/types';
 
 export const qnFetchNFTCollectionDetailsInputSchema = z
   .object({

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { RPCTokenMetadata } from './shared';
-import { type SimplifyType } from '../../../../../src/api/utils/helpers';
+import { type SimplifyType } from '../../../../lib/types';
 import { rpcPaginationParams } from '../../../../lib/validation/validators';
 
 export const qnGetTokenMetadataBySymbolInputSchema = z

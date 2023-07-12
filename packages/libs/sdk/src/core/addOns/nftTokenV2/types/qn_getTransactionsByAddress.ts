@@ -12,7 +12,14 @@ export const qnGetTransactionsByAddressInputSchema = z
     toBlock: z.number().positive().nullish(),
   })
   .merge(rpcPaginationParams)
-  .strict();
+  .strict()
+  .refine(
+    ({ fromBlock, toBlock }) => {
+      if (fromBlock && toBlock) return fromBlock < toBlock;
+      return true;
+    },
+    { message: 'fromBlock must be less than toBlock' }
+  );
 
 export type QNGetTransactionsByAddressInput = z.infer<
   typeof qnGetTransactionsByAddressInputSchema

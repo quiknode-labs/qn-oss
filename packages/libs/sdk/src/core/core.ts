@@ -6,7 +6,7 @@ import {
   type CoreArguments,
   type QNCoreClient,
 } from './coreTypes';
-import { deriveNetworkFromUrl } from './networks';
+import { deriveChainFromUrl } from './chains';
 import { setupGlobalFetch } from '../lib/helpers/globalFetch';
 
 export const buildQNActions = (config: QNCoreClientConfig) => {
@@ -19,11 +19,11 @@ export class Core {
   readonly endpointUrl: string;
   readonly client: QNCoreClient;
 
-  constructor({ endpointUrl, config = {} }: CoreArguments) {
+  constructor({ endpointUrl, chain, config = {} }: CoreArguments) {
     setupGlobalFetch();
     this.endpointUrl = endpointUrl;
     const baseClient = createClient({
-      chain: deriveNetworkFromUrl(endpointUrl),
+      chain: chain || deriveChainFromUrl(endpointUrl),
       transport: http(this.endpointUrl),
     }).extend(publicActions);
 

@@ -79,7 +79,7 @@ export type NFTAndTokenActions = {
    * import QuickNode from '@quicknode/sdk';
    *
    * const core = new QuickNode.Core({
-   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
    *   config: {
    *     addOns: { nftTokenV2: true }
    *   }
@@ -105,7 +105,7 @@ export type NFTAndTokenActions = {
    * import QuickNode from '@quicknode/sdk';
    *
    * const core = new QuickNode.Core({
-   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
    *   config: {
    *     addOns: { nftTokenV2: true }
    *   }
@@ -134,7 +134,7 @@ export type NFTAndTokenActions = {
    * import QuickNode from '@quicknode/sdk';
    *
    * const core = new QuickNode.Core({
-   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
    *   config: {
    *     addOns: { nftTokenV2: true }
    *   }
@@ -159,7 +159,7 @@ export type NFTAndTokenActions = {
   * import QuickNode from '@quicknode/sdk';
   *
   * const core = new QuickNode.Core({
-  *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+  *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
   *   config: {
   *     addOns: { nftTokenV2: true }
   *   }
@@ -185,7 +185,7 @@ export type NFTAndTokenActions = {
    * import QuickNode from '@quicknode/sdk';
    *
    * const core = new QuickNode.Core({
-   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
    *   config: {
    *     addOns: { nftTokenV2: true }
    *   }
@@ -216,7 +216,7 @@ export type NFTAndTokenActions = {
    * import QuickNode from '@quicknode/sdk';
    *
    * const core = new QuickNode.Core({
-   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
    *   config: {
    *     addOns: { nftTokenV2: true }
    *   }
@@ -241,7 +241,7 @@ export type NFTAndTokenActions = {
    * import QuickNode from '@quicknode/sdk';
    *
    * const core = new QuickNode.Core({
-   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
    *   config: {
    *     addOns: { nftTokenV2: true }
    *   }
@@ -266,7 +266,7 @@ export type NFTAndTokenActions = {
    * import QuickNode from '@quicknode/sdk';
    *
    * const core = new QuickNode.Core({
-   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
    *   config: {
    *     addOns: { nftTokenV2: true }
    *   }
@@ -292,7 +292,7 @@ export type NFTAndTokenActions = {
    * import QuickNode from '@quicknode/sdk';
    *
    * const core = new QuickNode.Core({
-   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
    *   config: {
    *     addOns: { nftTokenV2: true }
    *   }
@@ -317,7 +317,7 @@ export type NFTAndTokenActions = {
    * import QuickNode from '@quicknode/sdk';
    *
    * const core = new QuickNode.Core({
-   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234/,
+   *   endpointUrl: "https://some-cool-name.quiknode.pro/abcd1234",
    *   config: {
    *     addOns: { nftTokenV2: true }
    *   }

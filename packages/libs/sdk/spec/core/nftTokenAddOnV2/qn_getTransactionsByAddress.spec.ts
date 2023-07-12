@@ -162,4 +162,17 @@ describe('client.qn_getTransactionsByAddress', () => {
       `"QuickNode SDK Input Validation Error: address: Required, Unrecognized key(s) in object: 'foo'"`
     );
   });
+
+  it('throws an error when fromBlock is higher than toBlock', async () => {
+    const input: any = {
+      address: '0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6',
+      fromBlock: 1000,
+      toBlock: 10,
+    };
+    await expect(
+      core.client.qn_getTransactionsByAddress(input)
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"QuickNode SDK Input Validation Error: fromBlock must be less than toBlock"`
+    );
+  });
 });

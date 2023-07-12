@@ -85,7 +85,7 @@ export type NFTAndTokenActions = {
    *   }
    * }
    *
-   * const response = await core.client.client.qn_fetchNFTs({
+   * const response = await core.client.qn_fetchNFTs({
    *   wallet: "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6",
    *   contracts: ['0x2106C00Ac7dA0A3430aE667879139E832307AeAa'],
    * });

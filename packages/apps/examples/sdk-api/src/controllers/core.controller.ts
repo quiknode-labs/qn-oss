@@ -23,12 +23,6 @@ export default {
       console.log(response);
       response satisfies QNFetchNFTResult;
       console.log(req.params.wallet);
-      //const response2 = await core.client.qn_getWalletTokenTransactions({
-      //  address: req.params.wallet,
-      //  contract: '0x8D0501d85becDA92B89E56177dDfcEA5Fc1f0AF2',
-      //});
-      //console.log(response2);
-
       return res.status(200).send(response);
     } catch (error) {
       console.error(error);

@@ -88,8 +88,6 @@ export default async function withPolly(
 
     const { server } = polly;
     server.any().on('beforePersist', (req, recording) => {
-      console.log('grephere');
-      console.log(req.headers);
       const requestUrl: string = recording.request.url;
       if (requestUrl.includes('quiknode.pro')) {
         const safeUrl = new URL(requestUrl).origin;

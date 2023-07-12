@@ -67,7 +67,6 @@ export default [
       format: 'es',
     },
   }),
-  // TODO: the subpath export types don't seem to be working
   bundle({
     input: toAbsoluteDir('./src/api/index.ts'),
     plugins: [dts()], // Rollup the .d.ts files

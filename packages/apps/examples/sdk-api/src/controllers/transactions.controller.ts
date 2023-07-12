@@ -20,8 +20,7 @@ export default {
       const allTransactions = await transactions.getAll({
         filter: {
           blockNumber: {
-            gt: 17573100,
-            lt: 17573200,
+            eq: parseInt(req.params.blockNumber),
           },
         },
         first: 5,

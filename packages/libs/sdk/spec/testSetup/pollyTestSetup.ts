@@ -1,6 +1,7 @@
 import NodeHttpAdapter from '@pollyjs/adapter-node-http';
 import { Polly } from '@pollyjs/core';
 import FileSystemPersister from '@pollyjs/persister-fs';
+import url from 'node:url';
 
 /**
  * Sets up PollyJS to record/replay network interactions performed in a unit test.
@@ -44,6 +45,22 @@ export default async function withPolly(
           'content-length',
         ],
       },
+      // We redact quicknode api keys in URL paths. There is still the hostname that can match, which doesn't
+      // have sensitive info. This could be an issue if we ever need to match on pathname i.e. REST
+      // or non-JSONRPC requests
+      url: {
+        protocol: true,
+        username: false,
+        password: false,
+        hostname: true,
+        port: false,
+        pathname: (pathname, req) => {
+          // Only don't match on pathname for endpoint URLs because the sensitive info will have been redacted
+          if (req.url.includes('quiknode.pro')) return '';
+          return pathname;
+        },
+        hash: false,
+      },
       order: false,
       // @ts-ignore
       body(body, _) {
@@ -69,9 +86,15 @@ export default async function withPolly(
       .filter((req) => /^127.0.0.1:[0-9]+$/.test(req.headers.host))
       .passthrough();
 
-    // Remove the x-api-key header from recorded requests
     const { server } = polly;
     server.any().on('beforePersist', (req, recording) => {
+      const requestUrl: string = recording.request.url;
+      if (requestUrl.includes('quiknode.pro')) {
+        const safeUrl = new URL(requestUrl).origin;
+        recording.request.url = safeUrl;
+      }
+
+      // Remove the x-api-key header from recorded requests
       recording.request.headers = recording.request.headers.filter(
         ({ name }: { name: string }) => name !== 'x-api-key'
       );

@@ -11,6 +11,7 @@ const toAbsoluteDir = (relativeDir) => path.resolve(rootDir, relativeDir);
 
 const esmPackageJson = {
   type: 'module',
+  sideEffects: false,
 };
 
 const cjsPackageJson = {

@@ -10,7 +10,7 @@ import {
   isEvmAddress,
   supportedChainInput,
 } from '../../../lib/validation/validators';
-import { SimplifyType } from '../../utils/helpers';
+import { SimplifyType } from '../../../lib/types';
 import { z } from 'zod';
 
 export type CollectionEventsQuery = {

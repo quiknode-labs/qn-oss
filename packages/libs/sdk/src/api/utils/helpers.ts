@@ -8,7 +8,3 @@ export const emptyPageInfo = {
 export function weiToGwei(wei: number): number {
   return +(wei / 1e9).toFixed(2);
 }
-
-export type SimplifyType<T> = T extends object
-  ? { [K in keyof T]: SimplifyType<T[K]> }
-  : T;

@@ -19,7 +19,10 @@ describe('nfts.verifyOwnership', () => {
     });
     it('when the user owns the NFT by ensName', async () => {
       await withPolly(
-        { recordingName: 'verifyNFTOwnerSingleNFTTrue', recordIfMissing: true },
+        {
+          recordingName: 'verifyNFTOwnerSingleNFTENSTrue',
+          recordIfMissing: true,
+        },
         async () => {
           const data = await apiClient.nfts.verifyOwnership({
             address: 'quicknode.eth',

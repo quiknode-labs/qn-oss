@@ -12,7 +12,7 @@ import {
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
 import { NftErcStandards } from '../nfts';
-import { SimplifyType } from '../../utils/helpers';
+import { SimplifyType } from '../../../lib/types';
 import { z } from 'zod';
 
 export type NFTsByContractAddressQuery = {

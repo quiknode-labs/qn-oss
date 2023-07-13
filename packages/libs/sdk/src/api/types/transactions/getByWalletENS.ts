@@ -5,7 +5,7 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { SimplifyType } from '../../utils/helpers';
+import { SimplifyType } from '../../../lib/types';
 import { NonQueryInput } from '../input';
 
 // Using the generated CodegenEthMainnetTransactionsByWalletENSQuery as a base for the type here

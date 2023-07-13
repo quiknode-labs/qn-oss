@@ -9,7 +9,7 @@ import {
   CodegenPaginationFragment,
 } from '../../graphql/generatedTypes';
 import { ChainName } from '../chains';
-import { SimplifyType } from '../../utils/helpers';
+import { SimplifyType } from '../../../lib/types';
 import { z } from 'zod';
 
 export type NFTTrendingCollectionsQuery = {

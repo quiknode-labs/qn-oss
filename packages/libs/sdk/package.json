@@ -48,11 +48,19 @@
     },
     "./api": {
       "import": "./esm/src/api/index.js",
+      "default": "./cjs/src/api/index.js",
       "types": "./esm/src/api/index.d.ts"
     },
     "./core": {
       "import": "./esm/src/core/index.js",
+      "default": "./cjs/src/core/index.js",
       "types": "./esm/src/core/index.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "api": ["./esm/src/api/index.d.ts"],
+      "core": ["./esm/src/core/index.d.ts"]
     }
   }
 }

@@ -59,8 +59,12 @@
   },
   "typesVersions": {
     "*": {
-      "api": ["./esm/src/api/index.d.ts"],
-      "core": ["./esm/src/core/index.d.ts"]
+      "api": [
+        "./esm/src/api/index.d.ts"
+      ],
+      "core": [
+        "./esm/src/core/index.d.ts"
+      ]
     }
   }
 }

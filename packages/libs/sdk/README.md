@@ -50,6 +50,8 @@ Full example app implementation [here](https://github.com/quiknode-labs/qn-oss/t
 
 Please see [the official QuickNode SDK documentation](https://www.quicknode.com/docs/quicknode-sdk/getting-started) for the full documentation of SDK functions.
 
+<br>
+
 ## Contributing corner
 
 ### Issues

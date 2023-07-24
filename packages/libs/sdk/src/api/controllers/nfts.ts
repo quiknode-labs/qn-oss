@@ -4,6 +4,7 @@ import {
   FieldNode,
   Kind,
   DocumentNode,
+  ExecutableDefinitionNode,
   SelectionNode,
   OperationDefinitionNode,
   SelectionSetNode,
@@ -106,16 +107,35 @@ import { DEFAULT_CHAIN } from '../utils/constants';
 import { NftErcStandards } from '../types/nfts';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
+import { SimplifyType } from '../../lib/types';
 
-type Merge<A, B> = {
-  [K in keyof A | keyof B]: K extends keyof A & keyof B
-    ? A[K] | B[K]
-    : K extends keyof B
-    ? B[K]
-    : K extends keyof A
-    ? A[K]
-    : never;
+type Mutable<T> = {
+  -readonly [k in keyof T]: T[k];
 };
+
+// Names of properties in T with types that include undefined
+type OptionalPropertyNames<T> = {
+  [K in keyof T]: undefined extends T[K] ? K : never;
+}[keyof T];
+
+// Common properties from L and R with undefined in R[K] replaced by type in L[K]
+type SpreadProperties<L, R, K extends keyof L & keyof R> = {
+  [P in K]: L[P] | Exclude<R[P], undefined>;
+};
+
+type Id<T> = T extends infer U ? { [K in keyof U]: U[K] } : never; // see note at bottom*
+
+// Type of { ...L, ...R }
+type Spread<L, R> = Id<
+  // Properties in L that don't exist in R
+  Pick<L, Exclude<keyof L, keyof R>> &
+    // Properties in R with types that exclude undefined
+    Pick<R, Exclude<keyof R, OptionalPropertyNames<R>>> &
+    // Properties in R, with types that include undefined, that don't exist in L
+    Pick<R, Exclude<OptionalPropertyNames<R>, keyof L>> &
+    // Properties in R, with types that include undefined, that exist in L
+    SpreadProperties<L, R, OptionalPropertyNames<R> & keyof L>
+>;
 
 type DerivedSelectionNode<
   C extends ChainName,
@@ -124,7 +144,7 @@ type DerivedSelectionNode<
   kind: Kind.FIELD;
   name: { kind: Kind.NAME; value: 'ethereum' };
 }
-  ? Merge<S, { name: { kind: Kind.NAME; value: C } }>
+  ? Spread<S, { name: { kind: Kind.NAME; value: C } }>
   : S;
 
 type DeriveAllSelectionNodes<
@@ -139,10 +159,27 @@ type DeriveAllSelectionNodes<
     : [First, ...DeriveAllSelectionNodes<C, Rest>]
   : never;
 
+type DerivedDefinitionNode<
+  C extends ChainName,
+  D extends ReadonlyArray<DefinitionNode>
+> = D extends OperationDefinitionNode
+  ? Spread<
+      D,
+      {
+        selectionSet: {
+          selections: DeriveAllSelectionNodes<
+            C,
+            D['selectionSet']['selections']
+          >;
+        };
+      }
+    >
+  : D;
+
 type DerivedDocumentNode<
   C extends ChainName,
-  D extends OperationDefinitionNode
-> = D & DeriveAllSelectionNodes<C, D['selectionSet']['selections']>;
+  D extends Mutable<DocumentNode>
+> = Spread<D, { definitions: DerivedDefinitionNode<C, D['definitions']> }>;
 
 export class NftsController {
   constructor(
@@ -350,12 +387,18 @@ export class NftsController {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
 
-    function derivedQueryDocument<C extends ChainName, D extends DocumentNode>(
+    function derivedQueryDocument<
+      C extends ChainName,
+      D extends Mutable<DocumentNode>
+    >(
       chainName: C,
       documentNode: D
-    ): DerivedDocumentNode<C, D> {
-      documentNode.definitions = documentNode.definitions.map(
-        (doc: DefinitionNode) => {
+    ): Spread<
+      Mutable<DocumentNode>,
+      { definitions: DerivedDocumentNode<C, D> }
+    > {
+      const newDocumentNode: DocumentNode = (documentNode.definitions =
+        documentNode.definitions.map((doc: DefinitionNode) => {
           if (doc.kind === Kind.OPERATION_DEFINITION) {
             doc.selectionSet.selections = doc.selectionSet.selections.map(
               (selection) => {
@@ -378,36 +421,8 @@ export class NftsController {
             );
           }
           return doc;
-        }
-      );
+        }));
       return documentNode;
-    }
-
-    function derivedQueryDocument2<C extends ChainName, D extends DocumentNode>(
-      chainName: C,
-      documentNode: D
-    ): DerivedDocumentNode<C, D> {
-      documentNode.definitions.map((doc: DefinitionNode) => {
-        let ethereumSelection: FieldNode;
-        if (doc.kind === Kind.OPERATION_DEFINITION) {
-          doc.selectionSet.selections.find((selection) => {
-            if (
-              selection.kind === Kind.FIELD &&
-              selection.name.kind == Kind.NAME &&
-              selection.name.value === 'ethereum'
-            ) {
-              ethereumSelection = selection;
-              const updatedChainSelection: FieldNode = {
-                ...ethereumSelection,
-                ...{
-                  name: { ...ethereumSelection.name, value: chainName },
-                },
-              };
-              console.log(JSON.stringify(updatedChainSelection, null, 2));
-            }
-          });
-        }
-      });
     }
 
     const {

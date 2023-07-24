@@ -1,4 +1,13 @@
 import { CustomUrqlClient } from '../graphql/customUrqlClient';
+import {
+  DefinitionNode,
+  FieldNode,
+  Kind,
+  DocumentNode,
+  SelectionNode,
+  OperationDefinitionNode,
+  SelectionSetNode,
+} from 'graphql';
 
 import {
   WalletNFTsByEnsQueryResultInfo,
@@ -77,7 +86,6 @@ import {
   CodegenEthSepoliaWalletNFTsByEnsDocument,
   CodegenEthSepoliaWalletNFTsByContractAddressDocument,
   CodegenEthSepoliaTrendingCollectionsDocument,
-  CodegenEthSepoliaNFTDetailsDocument,
   CodegenEthSepoliaNftCollectionDetailsDocument,
   CodegenEthSepoliaWalletNFTsByAddressDocument,
   CodegenEthSepoliaVerifyOwnershipByAddressDocument,
@@ -86,7 +94,6 @@ import {
   CodegenPolygonMainnetWalletNFTsByEnsDocument,
   CodegenPolygonMainnetNFTsByContractAddressDocument,
   CodegenPolygonMainnetTrendingCollectionsDocument,
-  CodegenPolygonMainnetNFTDetailsDocument,
   CodegenPolygonMainnetNftCollectionDetailsDocument,
   CodegenPolygonMainnetVerifyOwnershipByAddressDocument,
   CodegenPolygonMainnetVerifyOwnershipByENSDocument,
@@ -99,6 +106,43 @@ import { DEFAULT_CHAIN } from '../utils/constants';
 import { NftErcStandards } from '../types/nfts';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
+
+type Merge<A, B> = {
+  [K in keyof A | keyof B]: K extends keyof A & keyof B
+    ? A[K] | B[K]
+    : K extends keyof B
+    ? B[K]
+    : K extends keyof A
+    ? A[K]
+    : never;
+};
+
+type DerivedSelectionNode<
+  C extends ChainName,
+  S extends FieldNode
+> = S extends FieldNode & {
+  kind: Kind.FIELD;
+  name: { kind: Kind.NAME; value: 'ethereum' };
+}
+  ? Merge<S, { name: { kind: Kind.NAME; value: C } }>
+  : S;
+
+type DeriveAllSelectionNodes<
+  C extends ChainName,
+  S extends readonly SelectionNode[]
+> = S extends [
+  infer First extends SelectionNode,
+  ...infer Rest extends SelectionNode[]
+]
+  ? First extends FieldNode
+    ? [DerivedSelectionNode<C, First>, ...DeriveAllSelectionNodes<C, Rest>]
+    : [First, ...DeriveAllSelectionNodes<C, Rest>]
+  : never;
+
+type DerivedDocumentNode<
+  C extends ChainName,
+  D extends OperationDefinitionNode
+> = D & DeriveAllSelectionNodes<C, D['selectionSet']['selections']>;
 
 export class NftsController {
   constructor(
@@ -305,11 +349,66 @@ export class NftsController {
   async getNFTDetails(variables: NFTDetailsInput): Promise<NFTDetailsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetNFTDetailsDocument,
-      polygon: CodegenPolygonMainnetNFTDetailsDocument,
-      ethereumSepolia: CodegenEthSepoliaNFTDetailsDocument,
-    };
+
+    function derivedQueryDocument<C extends ChainName, D extends DocumentNode>(
+      chainName: C,
+      documentNode: D
+    ): DerivedDocumentNode<C, D> {
+      documentNode.definitions = documentNode.definitions.map(
+        (doc: DefinitionNode) => {
+          if (doc.kind === Kind.OPERATION_DEFINITION) {
+            doc.selectionSet.selections = doc.selectionSet.selections.map(
+              (selection) => {
+                if (
+                  selection.kind === Kind.FIELD &&
+                  selection.name.kind == Kind.NAME &&
+                  selection.name.value === 'ethereum'
+                ) {
+                  const updatedChainSelection: FieldNode = {
+                    ...selection,
+                    ...{
+                      name: { ...selection.name, value: chainName },
+                    },
+                  };
+                  console.log(JSON.stringify(updatedChainSelection, null, 2));
+                  return updatedChainSelection; // replace the old selection with the new one
+                }
+                return selection; // keep the old selection if it didn't match 'ethereum'
+              }
+            );
+          }
+          return doc;
+        }
+      );
+      return documentNode;
+    }
+
+    function derivedQueryDocument2<C extends ChainName, D extends DocumentNode>(
+      chainName: C,
+      documentNode: D
+    ): DerivedDocumentNode<C, D> {
+      documentNode.definitions.map((doc: DefinitionNode) => {
+        let ethereumSelection: FieldNode;
+        if (doc.kind === Kind.OPERATION_DEFINITION) {
+          doc.selectionSet.selections.find((selection) => {
+            if (
+              selection.kind === Kind.FIELD &&
+              selection.name.kind == Kind.NAME &&
+              selection.name.value === 'ethereum'
+            ) {
+              ethereumSelection = selection;
+              const updatedChainSelection: FieldNode = {
+                ...ethereumSelection,
+                ...{
+                  name: { ...ethereumSelection.name, value: chainName },
+                },
+              };
+              console.log(JSON.stringify(updatedChainSelection, null, 2));
+            }
+          });
+        }
+      });
+    }
 
     const {
       data: {
@@ -320,7 +419,10 @@ export class NftsController {
       NFTDetailsQuery, // The actual unmodified result from query
       NFTDetailsQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: query[userChain], // The actual graphql query
+      query: derivedQueryDocument(
+        userChain,
+        CodegenEthMainnetVerifyOwnershipByAddressDocument
+      ), // The actual graphql query
       variables: queryVariables,
     });
 

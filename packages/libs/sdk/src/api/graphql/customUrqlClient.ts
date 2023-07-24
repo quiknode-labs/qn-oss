@@ -8,10 +8,12 @@ export class CustomUrqlClient {
   constructor(public urqlClient: Client) {}
 
   async query<
-    TVariables extends Record<string, any>,
-    KResults extends Record<string, any>,
+    TVariables extends Record<string, unknown>,
+    KResults extends Record<string, unknown>,
     KResultsOutput extends ResultOutput
-  >(options: GraphQLRequestParams<any, TVariables>) {
+  >(
+    options: GraphQLRequestParams<any, TVariables>
+  ): Promise<{ data: KResultsOutput | undefined }> {
     const { query, variables, ...additionalOptions } = options;
     const result = await this.urqlClient.query(
       query,

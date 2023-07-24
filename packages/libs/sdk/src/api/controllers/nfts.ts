@@ -107,79 +107,44 @@ import { DEFAULT_CHAIN } from '../utils/constants';
 import { NftErcStandards } from '../types/nfts';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
-import { SimplifyType } from '../../lib/types';
 
 type Mutable<T> = {
   -readonly [k in keyof T]: T[k];
 };
 
-// Names of properties in T with types that include undefined
-type OptionalPropertyNames<T> = {
-  [K in keyof T]: undefined extends T[K] ? K : never;
-}[keyof T];
-
-// Common properties from L and R with undefined in R[K] replaced by type in L[K]
-type SpreadProperties<L, R, K extends keyof L & keyof R> = {
-  [P in K]: L[P] | Exclude<R[P], undefined>;
-};
-
-type Id<T> = T extends infer U ? { [K in keyof U]: U[K] } : never; // see note at bottom*
-
-// Type of { ...L, ...R }
-type Spread<L, R> = Id<
-  // Properties in L that don't exist in R
-  Pick<L, Exclude<keyof L, keyof R>> &
-    // Properties in R with types that exclude undefined
-    Pick<R, Exclude<keyof R, OptionalPropertyNames<R>>> &
-    // Properties in R, with types that include undefined, that don't exist in L
-    Pick<R, Exclude<OptionalPropertyNames<R>, keyof L>> &
-    // Properties in R, with types that include undefined, that exist in L
-    SpreadProperties<L, R, OptionalPropertyNames<R> & keyof L>
->;
-
-type DerivedSelectionNode<
-  C extends ChainName,
-  S extends FieldNode
-> = S extends FieldNode & {
-  kind: Kind.FIELD;
-  name: { kind: Kind.NAME; value: 'ethereum' };
-}
-  ? Spread<S, { name: { kind: Kind.NAME; value: C } }>
-  : S;
-
-type DeriveAllSelectionNodes<
-  C extends ChainName,
-  S extends readonly SelectionNode[]
-> = S extends [
-  infer First extends SelectionNode,
-  ...infer Rest extends SelectionNode[]
-]
-  ? First extends FieldNode
-    ? [DerivedSelectionNode<C, First>, ...DeriveAllSelectionNodes<C, Rest>]
-    : [First, ...DeriveAllSelectionNodes<C, Rest>]
-  : never;
-
-type DerivedDefinitionNode<
-  C extends ChainName,
-  D extends ReadonlyArray<DefinitionNode>
-> = D extends OperationDefinitionNode
-  ? Spread<
-      D,
-      {
-        selectionSet: {
-          selections: DeriveAllSelectionNodes<
-            C,
-            D['selectionSet']['selections']
-          >;
-        };
-      }
-    >
-  : D;
-
-type DerivedDocumentNode<
+function derivedQueryDocument<
+  TQuery,
+  TQueryVariables,
   C extends ChainName,
   D extends Mutable<DocumentNode>
-> = Spread<D, { definitions: DerivedDefinitionNode<C, D['definitions']> }>;
+>(chainName: C, documentNode: D): TypedDocumentNode<TQuery, TQueryVariables> {
+  documentNode.definitions = documentNode.definitions.map(
+    (doc: DefinitionNode) => {
+      if (doc.kind === Kind.OPERATION_DEFINITION) {
+        doc.selectionSet.selections = doc.selectionSet.selections.map(
+          (selection) => {
+            if (
+              selection.kind === Kind.FIELD &&
+              selection.name.kind == Kind.NAME &&
+              selection.name.value === 'ethereum'
+            ) {
+              const updatedChainSelection: FieldNode = {
+                ...selection,
+                ...{
+                  name: { ...selection.name, value: chainName },
+                },
+              };
+              return updatedChainSelection;
+            }
+            return selection;
+          }
+        );
+      }
+      return doc;
+    }
+  );
+  return documentNode;
+}
 
 export class NftsController {
   constructor(
@@ -387,62 +352,29 @@ export class NftsController {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
 
-    function derivedQueryDocument<
-      C extends ChainName,
-      D extends Mutable<DocumentNode>
-    >(
-      chainName: C,
-      documentNode: D
-    ): Spread<
-      Mutable<DocumentNode>,
-      { definitions: DerivedDocumentNode<C, D> }
-    > {
-      const newDocumentNode: DocumentNode = (documentNode.definitions =
-        documentNode.definitions.map((doc: DefinitionNode) => {
-          if (doc.kind === Kind.OPERATION_DEFINITION) {
-            doc.selectionSet.selections = doc.selectionSet.selections.map(
-              (selection) => {
-                if (
-                  selection.kind === Kind.FIELD &&
-                  selection.name.kind == Kind.NAME &&
-                  selection.name.value === 'ethereum'
-                ) {
-                  const updatedChainSelection: FieldNode = {
-                    ...selection,
-                    ...{
-                      name: { ...selection.name, value: chainName },
-                    },
-                  };
-                  console.log(JSON.stringify(updatedChainSelection, null, 2));
-                  return updatedChainSelection; // replace the old selection with the new one
-                }
-                return selection; // keep the old selection if it didn't match 'ethereum'
-              }
-            );
-          }
-          return doc;
-        }));
-      return documentNode;
-    }
+    const query = derivedQueryDocument<
+      NFTDetailsQuery,
+      NFTDetailsQueryVariables,
+      ChainName,
+      Mutable<DocumentNode>
+    >(userChain, CodegenEthMainnetNFTDetailsDocument);
 
-    const {
-      data: {
-        [userChain]: { nft },
-      },
-    } = await this.client.query<
+    const result = await this.client.query<
       NFTDetailsQueryVariables, // What the user can pass in
       NFTDetailsQuery, // The actual unmodified result from query
       NFTDetailsQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: derivedQueryDocument(
-        userChain,
-        CodegenEthMainnetVerifyOwnershipByAddressDocument
-      ), // The actual graphql query
+      query,
       variables: queryVariables,
     });
 
+    if (!result?.data) return { nft: null };
+    const {
+      data: {
+        [userChain]: { nft },
+      },
+    } = result;
     if (nft) return { nft };
-    return { nft: null };
   }
 
   @ValidateInput(nftCollectionDetailsValidator)

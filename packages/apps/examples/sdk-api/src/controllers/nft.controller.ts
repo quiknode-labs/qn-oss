@@ -20,6 +20,7 @@ export default {
       const NFT = await nfts.getNFTDetails({
         contractAddress: req.params.contractAddress,
         tokenId: req.params.tokenId,
+        chain: 'polygon',
       });
       return res.status(200).send(NFT);
     } catch (error) {

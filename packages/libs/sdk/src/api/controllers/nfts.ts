@@ -368,13 +368,9 @@ export class NftsController {
       variables: queryVariables,
     });
 
-    if (!result?.data) return { nft: null };
-    const {
-      data: {
-        [userChain]: { nft },
-      },
-    } = result;
+    const nft = result?.data?.[userChain]?.nft;
     if (nft) return { nft };
+    return { nft: null };
   }
 
   @ValidateInput(nftCollectionDetailsValidator)

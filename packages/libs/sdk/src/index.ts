@@ -2,6 +2,7 @@ import QuickNode from './client';
 import API from './api';
 import Core from './core';
 import * as viem from 'viem';
+// debugging
 
 export { API, Core, viem };
 

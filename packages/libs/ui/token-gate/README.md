@@ -23,7 +23,7 @@ import { TokenGate } from '@quicknode/token-gate';
 />
 ```
 
-1. Use the hook anywhere in your application as a conditional anywhere in you application.
+1. Use the hook anywhere in your application as a conditional anywhere in your application.
 
 ```javascript
 import { useTokenGate } from '@quicknode/token-gate';
@@ -67,7 +67,7 @@ const TokenGatedRoute = ({ children }: { children: any }) => {
 
 This is a client-side library, meaning the "hidden" parts of your application will likely still be available in the source code of your application.
 
-We would love to discuss a more comprehensive gating approach involving a backend library, feel free to file an issue in [our OSS repo](https://github.com/quiknode-labs/qn-oss/issues) if you would like to discuss a use-case.
+We would love to discuss a more comprehensive gating approach involving a backend library, feel free to file an issue in [our OSS repo](https://github.com/quiknode-labs/qn-oss/issues) if you would like to discuss a use case.
 
 ## Contributing
 

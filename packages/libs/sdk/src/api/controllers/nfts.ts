@@ -1,14 +1,5 @@
 import { CustomUrqlClient } from '../graphql/customUrqlClient';
-import {
-  DefinitionNode,
-  FieldNode,
-  Kind,
-  DocumentNode,
-  ExecutableDefinitionNode,
-  SelectionNode,
-  OperationDefinitionNode,
-  SelectionSetNode,
-} from 'graphql';
+import { DocumentNode } from 'graphql';
 
 import {
   WalletNFTsByEnsQueryResultInfo,
@@ -88,49 +79,11 @@ import {
 import { ChainName } from '../types/chains';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
-import { TypedDocumentNode } from '@urql/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { NftErcStandards } from '../types/nfts';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
-
-type Mutable<T> = {
-  -readonly [k in keyof T]: T[k];
-};
-
-function derivedQueryDocument<
-  TQuery,
-  TQueryVariables,
-  C extends ChainName,
-  D extends Mutable<DocumentNode>
->(chainName: C, documentNode: D): TypedDocumentNode<TQuery, TQueryVariables> {
-  documentNode.definitions = documentNode.definitions.map(
-    (doc: DefinitionNode) => {
-      if (doc.kind === Kind.OPERATION_DEFINITION) {
-        doc.selectionSet.selections = doc.selectionSet.selections.map(
-          (selection) => {
-            if (
-              selection.kind === Kind.FIELD &&
-              selection.name.kind == Kind.NAME &&
-              selection.name.value === 'ethereum'
-            ) {
-              const updatedChainSelection: FieldNode = {
-                ...selection,
-                ...{
-                  name: { ...selection.name, value: chainName },
-                },
-              };
-              return updatedChainSelection;
-            }
-            return selection;
-          }
-        );
-      }
-      return doc;
-    }
-  );
-  return documentNode;
-}
+import { Mutable, modifyQueryForChain } from '../graphql/modifyQueryForChain';
 
 export class NftsController {
   constructor(
@@ -161,19 +114,23 @@ export class NftsController {
   ): Promise<WalletNFTsByEnsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const {
-      data: {
-        [userChain]: { walletByENS },
-      },
-    } = await this.client.query<
+    const query = modifyQueryForChain<
+      WalletNFTsByEnsQueryVariables, // What the user can pass in
+      WalletNFTsByEnsQuery, // The actual unmodified result from query
+      ChainName,
+      Mutable<DocumentNode>
+    >(userChain, CodegenEthMainnetWalletNFTsByEnsDocument);
+
+    const result = await this.client.query<
       WalletNFTsByEnsQueryVariables, // What the user can pass in
       WalletNFTsByEnsQuery, // The actual unmodified result from query
       WalletNFTsByEnsQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: query[userChain], // The actual graphql query
+      query: query, // The actual graphql query
       variables: queryVariables,
     });
 
+    const walletByENS = result?.data?.[userChain]?.walletByENS;
     if (!walletByENS?.walletNFTs?.length) {
       // Address can still be valid ENS name, but not have any NFTs
       const address = walletByENS?.address || '';
@@ -199,19 +156,24 @@ export class NftsController {
   ): Promise<WalletNFTsByAddressResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const {
-      data: {
-        [userChain]: { walletByAddress },
-      },
-    } = await this.client.query<
+
+    const query = modifyQueryForChain<
+      WalletNFTsByAddressQueryVariables, // What the user can pass in
+      WalletNFTsByAddressQuery, // The actual unmodified result from query
+      ChainName,
+      Mutable<DocumentNode>
+    >(userChain, CodegenEthMainnetWalletNFTsByAddressDocument);
+
+    const result = await this.client.query<
       WalletNFTsByAddressQueryVariables, // What the user can pass in
       WalletNFTsByAddressQuery, // The actual unmodified result from query
       WalletNFTByAddressQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: query[userChain], // The actual graphql query
+      query: query, // The actual graphql query
       variables: queryVariables,
     });
 
+    const walletByAddress = result?.data?.[userChain]?.walletByAddress;
     if (!walletByAddress?.walletNFTs?.length) {
       const address = walletByAddress?.address || '';
       const ensName = walletByAddress?.ensName || '';
@@ -237,28 +199,40 @@ export class NftsController {
   ): Promise<NFTTrendingCollectionResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const {
-      data: { [userChain]: trendingCollections },
-    } = await this.client.query<
+    const query = modifyQueryForChain<
+      NFTTrendingCollectionsQueryVariables, // What the user can pass in
+      NFTTrendingCollectionsQuery, // The actual unmodified result from query
+      ChainName,
+      Mutable<DocumentNode>
+    >(userChain, CodegenEthMainnetTrendingCollectionsDocument);
+
+    const result = await this.client.query<
       NFTTrendingCollectionsQueryVariables, // What the user can pass in
       NFTTrendingCollectionsQuery, // The actual unmodified result from query
       NFTTrendingCollectionsQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: query[userChain], // The actual graphql query
+      query: query, // The actual graphql query
       variables: queryVariables,
     });
 
-    const formattedResult = formatQueryResult<
-      NFTTrendingCollectionsQueryResultBody,
-      NFTTrendingCollectionResult
-    >(
-      trendingCollections,
-      'trendingCollections',
-      'trendingCollectionsPageInfo',
-      'collection'
-    );
+    const chainResult = result?.data?.[userChain];
+    if (chainResult?.trendingCollections?.length) {
+      const formattedResult = formatQueryResult<
+        NFTTrendingCollectionsQueryResultBody,
+        NFTTrendingCollectionResult
+      >(
+        chainResult,
+        'trendingCollections',
+        'trendingCollectionsPageInfo',
+        'collection'
+      );
 
-    return formattedResult;
+      return formattedResult;
+    }
+    return {
+      results: [],
+      pageInfo: emptyPageInfo,
+    };
   }
 
   @ValidateInput(nftsByContractAddressValidator)
@@ -267,20 +241,23 @@ export class NftsController {
   ): Promise<NFTsByContractAddressResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const query =
-    const {
-      data: {
-        [userChain]: { collection },
-      },
-    } = await this.client.query<
+    const query = modifyQueryForChain<
+      NFTsByContractAddressQueryVariables,
+      NFTsByContractAddressQuery,
+      ChainName,
+      Mutable<DocumentNode>
+    >(userChain, CodegenEthMainnetWalletNFTsByContractAddressDocument);
+
+    const result = await this.client.query<
       NFTsByContractAddressQueryVariables, // What the user can pass in
       NFTsByContractAddressQuery, // The actual unmodified result from query
       NFTsByContractAddressQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: query[userChain], // The actual graphql query
+      query: query, // The actual graphql query
       variables: queryVariables,
     });
 
+    const collection = result?.data?.[userChain]?.collection;
     if (!collection?.nfts?.length) {
       return {
         standard: null,
@@ -315,7 +292,7 @@ export class NftsController {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
 
-    const query = derivedQueryDocument<
+    const query = modifyQueryForChain<
       NFTDetailsQuery,
       NFTDetailsQueryVariables,
       ChainName,
@@ -343,12 +320,12 @@ export class NftsController {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
 
-    const query = derivedQueryDocument<
+    const query = modifyQueryForChain<
       NftCollectionDetailsQueryVariables,
       NftCollectionDetailsQuery,
       ChainName,
       Mutable<DocumentNode>
-    >(userChain, CodegenEthMainnetNFTDetailsDocument);
+    >(userChain, CodegenEthMainnetNftCollectionDetailsDocument);
 
     const result = await this.client.query<
       NftCollectionDetailsQueryVariables, // What the user can pass in
@@ -387,20 +364,24 @@ export class NftsController {
   ): Promise<boolean> {
     const { chain, address, nfts } = variables;
     const userChain = chain || this.defaultChain;
-    const {
-      data: {
-        [userChain]: { walletByAddress },
-      },
-    } = await this.client.query<
+    const query = modifyQueryForChain<
+      VerifyOwnershipByAddressQueryVariablesType,
+      VerifyOwnershipByAddressQueryType,
+      ChainName,
+      Mutable<DocumentNode>
+    >(userChain, CodegenEthMainnetVerifyOwnershipByAddressDocument);
+
+    const result = await this.client.query<
       VerifyOwnershipByAddressQueryVariablesType, // What the user can pass in
       VerifyOwnershipByAddressQueryType, // The actual unmodified result from query
       VerifyOwnershipByAddressQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: query[userChain], // The actual graphql query
+      query: query, // The actual graphql query
       variables: { address, filter: { contractTokens: nfts } },
     });
 
-    return !!walletByAddress?.walletNFTs?.length;
+    const walletNFTs = result?.data?.[userChain]?.walletByAddress?.walletNFTs;
+    return !!walletNFTs?.length;
   }
 
   private async verifyOwnershipByENS(
@@ -409,19 +390,23 @@ export class NftsController {
     const { chain, ensName, nfts } = variables;
     const userChain = chain || this.defaultChain;
 
-    const {
-      data: {
-        [userChain]: { walletByENS },
-      },
-    } = await this.client.query<
+    const query = modifyQueryForChain<
+      VerifyOwnershipByENSQueryVariablesType,
+      VerifyOwnershipByENSQueryType,
+      ChainName,
+      Mutable<DocumentNode>
+    >(userChain, CodegenEthMainnetVerifyOwnershipByENSDocument);
+
+    const result = await this.client.query<
       VerifyOwnershipByENSQueryVariablesType, // What the user can pass in
       VerifyOwnershipByENSQueryType, // The actual unmodified result from query
       VerifyOwnershipByENSQueryResultFull // the modified result (edges and nodes removed)
     >({
-      query: query[userChain], // The actual graphql query
+      query: query, // The actual graphql query
       variables: { ensName, filter: { contractTokens: nfts } },
     });
 
-    return !!walletByENS?.walletNFTs?.length;
+    const walletByENS = result?.data?.[userChain]?.walletByENS?.walletNFTs;
+    return !!walletByENS?.length;
   }
 }

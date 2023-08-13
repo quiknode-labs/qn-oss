@@ -23,8 +23,8 @@ export type TransactionsByWalletENSInput =
   TransactionsByWalletENSQueryVariables & NonQueryInput;
 
 export interface TransactionsByWalletENSQueryResultInfo {
-  address: string;
-  ensName: string;
+  address: string | null;
+  ensName: string | null;
   transactionsPageInfo: CodegenPaginationFragment;
   transactions: CodegenTransactionsNodeFragment[];
 }

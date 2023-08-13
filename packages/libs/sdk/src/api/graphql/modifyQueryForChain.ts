@@ -2,17 +2,17 @@ import { DefinitionNode, FieldNode, Kind, DocumentNode } from 'graphql';
 import { TypedDocumentNode } from '@urql/core';
 import { ChainName } from '../types/chains';
 
-export type Mutable<T> = {
+type Mutable<T> = {
   -readonly [k in keyof T]: T[k];
 };
 
+type MutableDocumentNode = Mutable<DocumentNode>;
+
 // Takes the generated query document and modifies the chain name to the one passed in
-export function modifyQueryForChain<
-  TQuery,
-  TQueryVariables,
-  C extends ChainName,
-  D extends Mutable<DocumentNode> // DocumentNode is readonly, so we need to make it mutable
->(chainName: C, documentNode: D): TypedDocumentNode<TQuery, TQueryVariables> {
+export function modifyQueryForChain<TQuery, TQueryVariables>(
+  chainName: ChainName,
+  documentNode: MutableDocumentNode
+): TypedDocumentNode<TQuery, TQueryVariables> {
   documentNode.definitions = documentNode.definitions.map(
     (doc: DefinitionNode) => {
       if (doc.kind === Kind.OPERATION_DEFINITION) {

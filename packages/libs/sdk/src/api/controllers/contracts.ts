@@ -9,13 +9,9 @@ import {
   ContractDetailsInput,
   contractDetailsValidator,
 } from '../types/contracts/getContractDetails';
-import {
-  CodegenEthMainnetContractDetailsDocument,
-  CodegenEthSepoliaContractDetailsDocument,
-  CodegenPolygonMainnetContractDetailsDocument,
-} from '../graphql/generatedTypes';
-import { TypedDocumentNode } from '@urql/core';
+import { CodegenEthMainnetContractDetailsDocument } from '../graphql/generatedTypes';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
+import { modifyQueryForChain } from 'api/graphql/modifyQueryForChain';
 
 export class ContractsController {
   constructor(
@@ -29,24 +25,20 @@ export class ContractsController {
   ): Promise<ContractDetailsResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetContractDetailsDocument,
-      polygon: CodegenPolygonMainnetContractDetailsDocument,
-      ethereumSepolia: CodegenEthSepoliaContractDetailsDocument,
-    };
+    const query = modifyQueryForChain<
+      ContractDetailsQueryVariables,
+      ContractDetailsQuery
+    >(userChain, CodegenEthMainnetContractDetailsDocument);
 
-    const {
-      data: {
-        [userChain]: { contract },
-      },
-    } = await this.client.query<
+    const result = await this.client.query<
       ContractDetailsQueryVariables,
       ContractDetailsQuery,
       ContractDetailsQueryResultFull
     >({
       variables: queryVariables,
-      query: query[userChain],
+      query: query,
     });
+    const contract = result?.data?.[userChain]?.contract;
     if (contract) return { contract };
     return { contract: null };
   }

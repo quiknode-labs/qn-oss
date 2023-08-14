@@ -22,12 +22,11 @@ import {
   CodegenEthMainnetBalancesByWalletENSDocument,
   CodegenEthMainnetBalancesByWalletAddressDocument,
 } from '../graphql/generatedTypes';
-import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
-import { modifyQueryForChain } from 'api/graphql/modifyQueryForChain';
+import { modifyQueryForChain } from '../graphql/modifyQueryForChain';
 
 export class TokensController {
   constructor(

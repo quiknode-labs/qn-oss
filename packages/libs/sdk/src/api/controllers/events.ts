@@ -44,10 +44,9 @@ import { CustomUrqlClient } from '../graphql/customUrqlClient';
 import { ChainName } from '../types/chains';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { emptyPageInfo } from '../utils/helpers';
-import { TypedDocumentNode } from '@urql/core';
 import { DEFAULT_CHAIN } from '../utils/constants';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
-import { modifyQueryForChain } from 'api/graphql/modifyQueryForChain';
+import { modifyQueryForChain } from '../graphql/modifyQueryForChain';
 
 export class EventsController {
   constructor(

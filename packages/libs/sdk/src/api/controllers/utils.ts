@@ -12,7 +12,7 @@ import {
 import { CodegenEthMainnetGasPricesDocument } from '../graphql/generatedTypes';
 import { weiToGwei } from '../utils/helpers';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
-import { modifyQueryForChain } from 'api/graphql/modifyQueryForChain';
+import { modifyQueryForChain } from '../graphql/modifyQueryForChain';
 
 export class UtilsController {
   constructor(

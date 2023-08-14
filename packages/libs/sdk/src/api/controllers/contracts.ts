@@ -11,7 +11,7 @@ import {
 } from '../types/contracts/getContractDetails';
 import { CodegenEthMainnetContractDetailsDocument } from '../graphql/generatedTypes';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
-import { modifyQueryForChain } from 'api/graphql/modifyQueryForChain';
+import { modifyQueryForChain } from '../graphql/modifyQueryForChain';
 
 export class ContractsController {
   constructor(

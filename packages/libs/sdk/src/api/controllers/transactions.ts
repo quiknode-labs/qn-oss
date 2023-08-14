@@ -44,7 +44,7 @@ import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
 import { balancesByWalletAddressValidator } from '../../api/types/tokens/getBalancesByWalletAddress';
-import { modifyQueryForChain } from '../../api/graphql/modifyQueryForChain';
+import { modifyQueryForChain } from '../graphql/modifyQueryForChain';
 
 export class TransactionsController {
   constructor(

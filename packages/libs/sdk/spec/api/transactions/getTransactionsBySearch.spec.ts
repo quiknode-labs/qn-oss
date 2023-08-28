@@ -252,6 +252,29 @@ describe('transactions.getAll', () => {
     );
   });
 
+  it('should handle transactions with no results', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-transactions-getAll-noResults',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await transactions.getAll({
+          filter: { blockNumber: { eq: 99999999 } },
+        });
+        expect(data).toEqual({
+          results: [],
+          pageInfo: {
+            endCursor: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: null,
+          },
+        });
+      }
+    );
+  });
+
   it('should throw error with incorrect filter param', async () => {
     const input: any = { filter: { foo: 'bar' }, first: 2 };
     await expect(transactions.getAll(input)).rejects.toThrowError(

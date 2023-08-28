@@ -283,6 +283,31 @@ describe('getTrendingCollections', () => {
     );
   });
 
+  it('executes correctly', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getTrendingCollections-noResults',
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.nfts.getTrendingCollections({
+          chain: 'ethereumSepolia', // no data available so it should return empty
+          first: 2,
+        });
+
+        expect(data).toStrictEqual({
+          results: [],
+          pageInfo: {
+            endCursor: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: null,
+          },
+        });
+      }
+    );
+  });
+
   it('throws error with invalid params', async () => {
     const input: any = {
       foo: 'bar',

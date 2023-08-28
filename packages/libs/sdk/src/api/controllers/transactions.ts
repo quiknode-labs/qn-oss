@@ -156,14 +156,12 @@ export class TransactionsController {
     });
 
     const transactions = result?.data?.[userChain];
-    if (transactions) {
-      if (transactions?.transactions?.length > 0) {
-        const formattedResult = formatQueryResult<
-          TransactionsBySearchQueryResultInfo,
-          TransactionsBySearchResult
-        >(transactions, 'transactions', 'transactionsPageInfo');
-        return formattedResult;
-      }
+    if (transactions && transactions?.transactions?.length > 0) {
+      const formattedResult = formatQueryResult<
+        TransactionsBySearchQueryResultInfo,
+        TransactionsBySearchResult
+      >(transactions, 'transactions', 'transactionsPageInfo');
+      return formattedResult;
     }
 
     return {
@@ -193,7 +191,7 @@ export class TransactionsController {
     });
 
     const transaction = result?.data?.[userChain];
-    if (transaction) return transaction;
+    if (transaction?.transaction) return transaction;
     return { transaction: null };
   }
 }

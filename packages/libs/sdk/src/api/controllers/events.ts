@@ -179,12 +179,12 @@ export class EventsController {
       variables: queryVariables,
     });
 
-    const contract = result?.data?.[userChain]?.contract;
-    if (contract?.tokenEvents?.length) {
+    const events = result?.data?.[userChain];
+    if (events?.tokenEvents?.length) {
       const formattedResult = formatQueryResult<
         AllEventsQueryResultInfo,
         AllEventsResult
-      >(contract, 'tokenEvents', 'tokenEventsPageInfo');
+      >(events, 'tokenEvents', 'tokenEventsPageInfo');
       return formattedResult;
     }
     return { results: [], pageInfo: emptyPageInfo };

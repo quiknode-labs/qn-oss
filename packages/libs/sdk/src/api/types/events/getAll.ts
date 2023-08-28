@@ -31,13 +31,9 @@ export interface AllEventsQueryResultInfo {
   tokenEventsPageInfo: CodegenPaginationFragment;
 }
 
-export interface AllEventsQueryResultBody {
-  contract: AllEventsQueryResultInfo;
-}
-
 export type AllEventsQueryResultFull = Record<
   ChainName,
-  AllEventsQueryResultBody
+  AllEventsQueryResultInfo
 >;
 
 export type AllEventsResult = SimplifyType<{

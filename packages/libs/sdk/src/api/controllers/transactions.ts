@@ -132,7 +132,7 @@ export class TransactionsController {
       query: query,
     });
 
-    const walletByENS = result?.data?.[userChain]?.walletByENSName;
+    const walletByENS = result?.data?.[userChain]?.walletByENS;
     return walletByENS;
   }
 
@@ -155,9 +155,9 @@ export class TransactionsController {
       query: query,
     });
 
-    const transactions = result?.data?.[userChain]?.transactionsBySearch;
+    const transactions = result?.data?.[userChain];
     if (transactions) {
-      if (transactions?.transactions?.length === 0) {
+      if (transactions?.transactions?.length > 0) {
         const formattedResult = formatQueryResult<
           TransactionsBySearchQueryResultInfo,
           TransactionsBySearchResult

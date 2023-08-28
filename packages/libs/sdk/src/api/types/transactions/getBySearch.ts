@@ -36,14 +36,10 @@ export interface TransactionsBySearchQueryResultInfo {
   transactions: CodegenTransactionsNodeFragment[];
 }
 
-export interface TransactionsBySearchQueryResultBody {
-  transactionsBySearch: TransactionsBySearchQueryResultInfo;
-}
-
 // What the graphQL query returns after the edges and nodes are removed
 export type TransactionsBySearchQueryResultFull = Record<
   ChainName,
-  TransactionsBySearchQueryResultBody
+  TransactionsBySearchQueryResultInfo
 >;
 
 // What we actually return to the user

@@ -30,7 +30,7 @@ export interface TransactionsByWalletENSQueryResultInfo {
 }
 
 export interface TransactionsByWalletENSQueryResultBody {
-  walletByENSName: TransactionsByWalletENSQueryResultInfo;
+  walletByENS: TransactionsByWalletENSQueryResultInfo;
 }
 
 // What the graphQL query returns after the edges and nodes are removed

@@ -284,7 +284,7 @@ describe('events.getAll', () => {
     );
   });
 
-  it.only('should handle no results', async () => {
+  it('should handle no results', async () => {
     await withPolly(
       {
         recordingName: 'query-getAllEvents-no-results',
@@ -293,14 +293,21 @@ describe('events.getAll', () => {
       },
       async () => {
         const data = await api.events.getAll({
-          first: 2,
           filter: {
             blockNumber: {
               eq: 999414768,
             },
           },
         });
-        expect(data).toStrictEqual({});
+        expect(data).toStrictEqual({
+          results: [],
+          pageInfo: {
+            endCursor: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: null,
+          },
+        });
       }
     );
   });

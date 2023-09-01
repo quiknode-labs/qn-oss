@@ -21,16 +21,12 @@ import {
 import {
   CodegenEthMainnetBalancesByWalletENSDocument,
   CodegenEthMainnetBalancesByWalletAddressDocument,
-  CodegenEthSepoliaBalancesByWalletENSDocument,
-  CodegenEthSepoliaBalancesByWalletAddressDocument,
-  CodegenPolygonMainnetBalancesByWalletENSDocument,
-  CodegenPolygonMainnetBalancesByWalletAddressDocument,
 } from '../graphql/generatedTypes';
-import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
+import { modifyQueryForChain } from '../graphql/modifyQueryForChain';
 
 export class TokensController {
   constructor(
@@ -60,25 +56,21 @@ export class TokensController {
   ): Promise<BalancesByWalletENSResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetBalancesByWalletENSDocument,
-      polygon: CodegenPolygonMainnetBalancesByWalletENSDocument,
-      ethereumSepolia: CodegenEthSepoliaBalancesByWalletENSDocument,
-    };
+    const query = modifyQueryForChain<
+      BalancesByWalletENSQueryVariables,
+      BalancesByWalletENSQuery
+    >(userChain, CodegenEthMainnetBalancesByWalletENSDocument);
 
-    const {
-      data: {
-        [userChain]: { walletByENS },
-      },
-    } = await this.client.query<
+    const result = await this.client.query<
       BalancesByWalletENSQueryVariables,
       BalancesByWalletENSQuery,
       BalancesByWalletENSQueryResultFull
     >({
       variables: queryVariables,
-      query: query[userChain],
+      query: query,
     });
 
+    const walletByENS = result?.data?.[userChain]?.walletByENS;
     if (!walletByENS?.tokenBalances?.length) {
       // Address can still be valid ENS name, but not have any balances
       const address = walletByENS?.address || '';
@@ -110,25 +102,21 @@ export class TokensController {
   ): Promise<BalancesByWalletAddressResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetBalancesByWalletAddressDocument,
-      polygon: CodegenPolygonMainnetBalancesByWalletAddressDocument,
-      ethereumSepolia: CodegenEthSepoliaBalancesByWalletAddressDocument,
-    };
+    const query = modifyQueryForChain<
+      BalancesByWalletAddressQueryVariables,
+      BalancesByWalletAddressQuery
+    >(userChain, CodegenEthMainnetBalancesByWalletAddressDocument);
 
-    const {
-      data: {
-        [userChain]: { walletByAddress },
-      },
-    } = await this.client.query<
+    const result = await this.client.query<
       BalancesByWalletAddressQueryVariables,
       BalancesByWalletAddressQuery,
       BalancesByWalletAddressQueryResultFull
     >({
       variables: queryVariables,
-      query: query[userChain],
+      query: query,
     });
 
+    const walletByAddress = result?.data?.[userChain]?.walletByAddress;
     if (!walletByAddress?.tokenBalances?.length) {
       // Address can still be valid address, but not have any balances
       const address = walletByAddress?.address || '';

@@ -9,14 +9,10 @@ import {
   GasPricesInput,
   gasPricesValidator,
 } from '../types/utils/gasPrices';
-import {
-  CodegenEthMainnetGasPricesDocument,
-  CodegenEthSepoliaGasPricesDocument,
-  CodegenPolygonMainnetGasPricesDocument,
-} from '../graphql/generatedTypes';
-import { TypedDocumentNode } from '@urql/core';
+import { CodegenEthMainnetGasPricesDocument } from '../graphql/generatedTypes';
 import { weiToGwei } from '../utils/helpers';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
+import { modifyQueryForChain } from '../graphql/modifyQueryForChain';
 
 export class UtilsController {
   constructor(
@@ -29,25 +25,21 @@ export class UtilsController {
     const { chain, ...queryVariables } = variables;
     const returnInGwei = variables.returnInGwei || false;
     const userChain: ChainName = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetGasPricesDocument,
-      polygon: CodegenPolygonMainnetGasPricesDocument,
-      ethereumSepolia: CodegenEthSepoliaGasPricesDocument,
-    };
+    const query = modifyQueryForChain(
+      userChain,
+      CodegenEthMainnetGasPricesDocument
+    );
 
-    const {
-      data: {
-        [userChain]: { gasPrices },
-      },
-    } = await this.client.query<
+    const result = await this.client.query<
       GasPricesQueryVariables,
       GasPricesQuery,
       GasPricesQueryResultFull
     >({
-      query: query[userChain],
+      query: query,
       variables: queryVariables,
     });
 
+    const gasPrices = result?.data?.[userChain]?.gasPrices;
     if (Array.isArray(gasPrices) && gasPrices.length > 0) {
       if (returnInGwei) {
         const fieldsToTransform = [

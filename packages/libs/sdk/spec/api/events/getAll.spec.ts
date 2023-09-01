@@ -284,6 +284,34 @@ describe('events.getAll', () => {
     );
   });
 
+  it('should handle no results', async () => {
+    await withPolly(
+      {
+        recordingName: 'query-getAllEvents-no-results',
+        recordFailedRequests: true,
+        recordIfMissing: true,
+      },
+      async () => {
+        const data = await api.events.getAll({
+          filter: {
+            blockNumber: {
+              eq: 999414768,
+            },
+          },
+        });
+        expect(data).toStrictEqual({
+          results: [],
+          pageInfo: {
+            endCursor: null,
+            hasNextPage: false,
+            hasPreviousPage: false,
+            startCursor: null,
+          },
+        });
+      }
+    );
+  });
+
   it('throws error if blockNumber filter is invalid', async () => {
     await expect(
       api.events.getAll({

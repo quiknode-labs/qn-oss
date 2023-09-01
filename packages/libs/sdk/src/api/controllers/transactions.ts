@@ -38,21 +38,13 @@ import {
   CodegenEthMainnetTransactionsByWalletENSDocument,
   CodegenEthMainnetTransactionsBySearchDocument,
   CodegenEthMainnetTransactionsByHashDocument,
-  CodegenEthSepoliaTransactionsByWalletAddressDocument,
-  CodegenEthSepoliaTransactionsByWalletENSDocument,
-  CodegenEthSepoliaTransactionsBySearchDocument,
-  CodegenEthSepoliaTransactionsByHashDocument,
-  CodegenPolygonMainnetTransactionsByWalletAddressDocument,
-  CodegenPolygonMainnetTransactionsByWalletENSDocument,
-  CodegenPolygonMainnetTransactionsBySearchDocument,
-  CodegenPolygonMainnetTransactionsByHashDocument,
 } from '../graphql/generatedTypes';
-import { TypedDocumentNode } from '@urql/core';
 import { emptyPageInfo } from '../utils/helpers';
 import { formatQueryResult } from '../utils/postQueryFormatter';
 import { isValidENSAddress } from '../utils/isValidENSAddress';
 import { ValidateInput } from '../../lib/validation/ValidateInput';
 import { balancesByWalletAddressValidator } from '../../api/types/tokens/getBalancesByWalletAddress';
+import { modifyQueryForChain } from '../graphql/modifyQueryForChain';
 
 export class TransactionsController {
   constructor(
@@ -65,7 +57,7 @@ export class TransactionsController {
     variables: TransactionsByWalletAddressInput
   ): Promise<TransactionsByWalletAddressResult> {
     const { address, ...allVariables } = variables;
-    let queryResult: TransactionsByWalletAddressQueryResultInfo;
+    let queryResult: TransactionsByWalletAddressQueryResultInfo | undefined;
     if (isValidENSAddress(address)) {
       queryResult = await this.getByWalletENS({
         ensName: address,
@@ -100,53 +92,47 @@ export class TransactionsController {
 
   private async getByWalletAddress(
     variables: TransactionsByWalletAddressInput
-  ): Promise<TransactionsByWalletAddressQueryResultInfo> {
+  ): Promise<TransactionsByWalletAddressQueryResultInfo | undefined> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetTransactionsByWalletAddressDocument,
-      polygon: CodegenPolygonMainnetTransactionsByWalletAddressDocument,
-      ethereumSepolia: CodegenEthSepoliaTransactionsByWalletAddressDocument,
-    };
-    const {
-      data: {
-        [userChain]: { walletByAddress },
-      },
-    } = await this.client.query<
+    const query = modifyQueryForChain<
+      TransactionsByWalletAddressQueryVariables,
+      TransactionsByWalletAddressQuery
+    >(userChain, CodegenEthMainnetTransactionsByWalletAddressDocument);
+
+    const result = await this.client.query<
       TransactionsByWalletAddressQueryVariables,
       TransactionsByWalletAddressQuery,
       TransactionsByWalletAddressQueryResultFull
     >({
       variables: queryVariables,
-      query: query[userChain],
+      query: query,
     });
 
+    const walletByAddress = result?.data?.[userChain]?.walletByAddress;
     return walletByAddress;
   }
 
   private async getByWalletENS(
     variables: TransactionsByWalletENSInput
-  ): Promise<TransactionsByWalletENSQueryResultInfo> {
+  ): Promise<TransactionsByWalletENSQueryResultInfo | undefined> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetTransactionsByWalletENSDocument,
-      polygon: CodegenPolygonMainnetTransactionsByWalletENSDocument,
-      ethereumSepolia: CodegenEthSepoliaTransactionsByWalletENSDocument,
-    };
-    const {
-      data: {
-        [userChain]: { walletByENS },
-      },
-    } = await this.client.query<
+    const query = modifyQueryForChain<
+      TransactionsByWalletENSQueryVariables,
+      TransactionsByWalletENSQuery
+    >(userChain, CodegenEthMainnetTransactionsByWalletENSDocument);
+
+    const result = await this.client.query<
       TransactionsByWalletENSQueryVariables,
       TransactionsByWalletENSQuery,
       TransactionsByWalletENSQueryResultFull
     >({
       variables: queryVariables,
-      query: query[userChain],
+      query: query,
     });
 
+    const walletByENS = result?.data?.[userChain]?.walletByENS;
     return walletByENS;
   }
 
@@ -156,28 +142,32 @@ export class TransactionsController {
   ): Promise<TransactionsBySearchResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetTransactionsBySearchDocument,
-      polygon: CodegenPolygonMainnetTransactionsBySearchDocument,
-      ethereumSepolia: CodegenEthSepoliaTransactionsBySearchDocument,
-    };
-    const {
-      data: { [userChain]: transactions },
-    } = await this.client.query<
+    const query = modifyQueryForChain<
+      TransactionsBySearchQueryVariables,
+      TransactionsBySearchQuery
+    >(userChain, CodegenEthMainnetTransactionsBySearchDocument);
+    const result = await this.client.query<
       TransactionsBySearchQueryVariables,
       TransactionsBySearchQuery,
       TransactionsBySearchQueryResultFull
     >({
       variables: queryVariables,
-      query: query[userChain],
+      query: query,
     });
 
-    const formattedResult = formatQueryResult<
-      TransactionsBySearchQueryResultInfo,
-      TransactionsBySearchResult
-    >(transactions, 'transactions', 'transactionsPageInfo');
+    const transactions = result?.data?.[userChain];
+    if (transactions && transactions?.transactions?.length > 0) {
+      const formattedResult = formatQueryResult<
+        TransactionsBySearchQueryResultInfo,
+        TransactionsBySearchResult
+      >(transactions, 'transactions', 'transactionsPageInfo');
+      return formattedResult;
+    }
 
-    return formattedResult;
+    return {
+      results: [],
+      pageInfo: emptyPageInfo,
+    };
   }
 
   @ValidateInput(transactionsByHashValidator)
@@ -186,23 +176,21 @@ export class TransactionsController {
   ): Promise<TransactionsByHashResult> {
     const { chain, ...queryVariables } = variables;
     const userChain: ChainName = chain || this.defaultChain;
-    const query: Record<ChainName, TypedDocumentNode<any, any>> = {
-      ethereum: CodegenEthMainnetTransactionsByHashDocument,
-      polygon: CodegenPolygonMainnetTransactionsByHashDocument,
-      ethereumSepolia: CodegenEthSepoliaTransactionsByHashDocument,
-    };
+    const query = modifyQueryForChain<
+      TransactionsByHashQueryVariables,
+      TransactionsByHashQuery
+    >(userChain, CodegenEthMainnetTransactionsByHashDocument);
 
-    const {
-      data: { [userChain]: transaction },
-    } = await this.client.query<
+    const result = await this.client.query<
       TransactionsByHashQueryVariables,
       TransactionsByHashQuery,
       TransactionsByHashQueryResultFull
     >({
       variables: queryVariables,
-      query: query[userChain],
+      query: query,
     });
 
+    const transaction = result?.data?.[userChain];
     if (transaction?.transaction) return transaction;
     return { transaction: null };
   }

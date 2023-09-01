@@ -26,10 +26,14 @@ export const nftTrendingCollectionsValidator = paginationParams
 export type NFTTrendingCollectionsInput = z.infer<
   typeof nftTrendingCollectionsValidator
 >;
-export interface NFTTrendingCollectionsQueryResultBody {
+
+export type NFTTrendingCollectionsQueryResultInfo =
+  CodegenTrendingCollectionInfoFragment[];
+
+export type NFTTrendingCollectionsQueryResultBody = {
   trendingCollectionsPageInfo: CodegenPaginationFragment;
   trendingCollections: CodegenTrendingCollectionInfoFragment[];
-}
+};
 
 // What the graphQL query returns after the edges and nodes are removed
 export type NFTTrendingCollectionsQueryResultFull = Record<

@@ -38,8 +38,8 @@ export type TransactionsByWalletAddressInput = z.infer<
 >;
 
 export interface TransactionsByWalletAddressQueryResultInfo {
-  address: string;
-  ensName: string;
+  address: string | null;
+  ensName: string | null;
   transactionsPageInfo: CodegenPaginationFragment;
   transactions: CodegenTransactionsNodeFragment[];
 }

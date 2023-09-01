@@ -23,14 +23,14 @@ export type TransactionsByWalletENSInput =
   TransactionsByWalletENSQueryVariables & NonQueryInput;
 
 export interface TransactionsByWalletENSQueryResultInfo {
-  address: string;
-  ensName: string;
+  address: string | null;
+  ensName: string | null;
   transactionsPageInfo: CodegenPaginationFragment;
   transactions: CodegenTransactionsNodeFragment[];
 }
 
 export interface TransactionsByWalletENSQueryResultBody {
-  walletByENSName: TransactionsByWalletENSQueryResultInfo;
+  walletByENS: TransactionsByWalletENSQueryResultInfo;
 }
 
 // What the graphQL query returns after the edges and nodes are removed

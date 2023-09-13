@@ -12,7 +12,6 @@ import {
 } from './controllers';
 import { ChainName } from './types/chains';
 import { DEFAULT_CHAIN } from './utils/constants';
-import schema from './graphql/schema.json';
 import { TransactionsController } from './controllers/transactions';
 import packageJson from '../../package.json';
 
@@ -85,7 +84,6 @@ export class API {
     const useTransactionHashAndIndex = (data: Data) =>
       `${data['transactionHash']}:${data['transferIndex']}`;
     const urqlCache = cacheExchange({
-      schema,
       keys: {
         EVMSchemaType: () => null, // The entity has no key and no parent entity so effectively won't cache
         Collection: useAddressAsKey,

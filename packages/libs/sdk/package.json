@@ -6,7 +6,7 @@
     "directory": "packages/libs/sdk"
   },
   "license": "MIT",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "./cjs/index.js",
   "module": "./esm/src/index.js",
   "types": "./index.d.ts",
@@ -23,7 +23,6 @@
   "devDependencies": {
     "@graphql-codegen/cli": "4.0.1",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/introspection": "^3.0.1",
     "@graphql-codegen/typed-document-node": "^4.0.1",
     "@graphql-codegen/typescript": "2.8.0",
     "@graphql-codegen/typescript-operations": "^2.5.5",

@@ -12,7 +12,8 @@
     ],
     "Contract": [
       "NFTContract",
-      "TokenContract"
+      "TokenContract",
+      "UnclassifiedContract"
     ],
     "NFT": [
       "ERC721NFT",

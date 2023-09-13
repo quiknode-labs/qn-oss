@@ -98,6 +98,8 @@ export type CodegenCollectionCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
@@ -335,6 +337,8 @@ export type CodegenContractCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 export type CodegenContractStandard =
@@ -360,17 +364,6 @@ export type CodegenContractTokenEventsConnection = {
 export type CodegenContractTokenEventsConnectionEdge = {
   cursor: Scalars['String'];
   node: CodegenTokenEvent;
-};
-
-export type CodegenContractsConnection = {
-  edges: Array<CodegenContractsEdge>;
-  pageInfo: CodegenPageInfo;
-  totalCount?: Maybe<Scalars['Int']>;
-};
-
-export type CodegenContractsEdge = {
-  cursor: Scalars['String'];
-  node: CodegenContract;
 };
 
 /** Filter input for contracts */
@@ -489,6 +482,8 @@ export type CodegenERC721CollectionCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
@@ -548,6 +543,8 @@ export type CodegenERC721NFTCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 export type CodegenERC1155Collection = CodegenCollection & {
@@ -647,6 +644,8 @@ export type CodegenERC1155CollectionCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
@@ -704,6 +703,8 @@ export type CodegenERC1155NFTCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
@@ -734,7 +735,7 @@ export type CodegenEVMSchemaType = {
   collection?: Maybe<CodegenCollection>;
   collections: CodegenEVMSchemaTypeCollectionsConnection;
   contract?: Maybe<CodegenContract>;
-  contracts: CodegenContractsConnection;
+  contracts: CodegenEVMSchemaTypeContractsConnection;
   /** Fetch historical gas prices by block number. */
   gasPrices?: Maybe<Array<CodegenGasPrice>>;
   nft?: Maybe<CodegenNFT>;
@@ -796,6 +797,8 @@ export type CodegenEVMSchemaTypeCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
@@ -843,6 +846,17 @@ export type CodegenEVMSchemaTypeCollectionsConnection = {
 export type CodegenEVMSchemaTypeCollectionsConnectionEdge = {
   cursor: Scalars['String'];
   node: CodegenCollection;
+};
+
+export type CodegenEVMSchemaTypeContractsConnection = {
+  edges: Array<CodegenEVMSchemaTypeContractsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type CodegenEVMSchemaTypeContractsConnectionEdge = {
+  cursor: Scalars['String'];
+  node: CodegenContract;
 };
 
 export type CodegenEVMSchemaTypeTokenEventsConnection = {
@@ -963,6 +977,8 @@ export type CodegenNFTCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 export type CodegenNFTContract = CodegenContract & {
@@ -989,6 +1005,8 @@ export type CodegenNFTContractCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 export type CodegenNFTTokenEventsConnection = {
@@ -1042,6 +1060,8 @@ export type CodegenQuery = {
 };
 
 export type CodegenStringInput = {
+  /** Contains */
+  contains?: InputMaybe<Scalars['String']>;
   /** Equal to */
   eq?: InputMaybe<Scalars['String']>;
   /** In */
@@ -1107,6 +1127,8 @@ export type CodegenTokenContractCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 /** Token details */
@@ -1132,6 +1154,9 @@ export type CodegenTokenEvent = {
   transferIndex: Scalars['Int'];
   type: CodegenTokenTransferType;
 };
+
+export type CodegenTokenEventOrderBy =
+  | 'TIMESTAMP';
 
 /** Filter input for token events */
 export type CodegenTokenEventsFilterInput = {
@@ -1407,6 +1432,33 @@ export type CodegenTrendingPeriod =
   | 'THIRTY_MINUTES'
   | 'TWELVE_HOURS';
 
+export type CodegenUnclassifiedContract = CodegenContract & {
+  /** The ABI of the contract */
+  abi?: Maybe<Scalars['JSON']>;
+  /** The contract address */
+  address: Scalars['String'];
+  /** Contract with verified ABI */
+  isVerified?: Maybe<Scalars['Boolean']>;
+  /** The name of the contract */
+  name?: Maybe<Scalars['String']>;
+  /** The supported ERC interfaces of the contract */
+  supportedErcInterfaces?: Maybe<Array<Scalars['String']>>;
+  /** The symbol of the contract */
+  symbol?: Maybe<Scalars['String']>;
+  tokenEvents: CodegenContractTokenEventsConnection;
+};
+
+
+export type CodegenUnclassifiedContractCodegentokenEventsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<CodegenTokenEventsFilterInput>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
+};
+
 export type CodegenWallet = {
   /** The address of the wallet */
   address: Scalars['String'];
@@ -1419,7 +1471,7 @@ export type CodegenWallet = {
   walletCollection?: Maybe<CodegenWalletCollection>;
   walletCollections: CodegenWalletWalletCollectionsConnection;
   walletNFT?: Maybe<CodegenWalletNFT>;
-  walletNFTs: CodegenWalletNFTsConnection;
+  walletNFTs: CodegenWalletWalletNFTsConnection;
 };
 
 
@@ -1439,6 +1491,8 @@ export type CodegenWalletCodegentokenEventsArgs = {
   filter?: InputMaybe<CodegenTokenEventsFilterInput>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<CodegenTokenEventOrderBy>;
+  orderDirection?: InputMaybe<CodegenOrderDirection>;
 };
 
 
@@ -1498,6 +1552,8 @@ export type CodegenWalletCollectionOrderBy =
 
 /** Filter of collections in a wallet */
 export type CodegenWalletCollectionsFilterInput = {
+  /** The name of the collection */
+  collectionName?: InputMaybe<CodegenStringInput>;
   contractAddressIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -1505,17 +1561,6 @@ export type CodegenWalletNFT = {
   nft?: Maybe<CodegenNFT>;
   /** The number of NFTs from this collection within the wallet */
   nftsCount?: Maybe<Scalars['Int']>;
-};
-
-export type CodegenWalletNFTsConnection = {
-  edges: Array<CodegenWalletNFTsConnectionEdge>;
-  pageInfo: CodegenPageInfo;
-  totalCount?: Maybe<Scalars['Int']>;
-};
-
-export type CodegenWalletNFTsConnectionEdge = {
-  cursor: Scalars['String'];
-  node: CodegenWalletNFT;
 };
 
 /** Filter of nfts in a wallet by contract address and optional token id. Results are returned if any of the conditions are matched. */
@@ -1527,6 +1572,8 @@ export type CodegenWalletNFTsContractTokenFilterInput = {
 /** Filter of nfts in a wallet */
 export type CodegenWalletNFTsFilterInput = {
   contractTokens?: InputMaybe<Array<CodegenWalletNFTsContractTokenFilterInput>>;
+  /** The name of the nft */
+  nftName?: InputMaybe<CodegenStringInput>;
 };
 
 export type CodegenWalletNFTsOrderBy =
@@ -1571,12 +1618,12 @@ export type CodegenWalletTokenEventsConnectionEdge = {
 };
 
 export type CodegenWalletTransactionsConnection = {
-  edges: Array<CodegenWalletTransactionsEdge>;
+  edges: Array<CodegenWalletTransactionsConnectionEdge>;
   pageInfo: CodegenPageInfo;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type CodegenWalletTransactionsEdge = {
+export type CodegenWalletTransactionsConnectionEdge = {
   cursor: Scalars['String'];
   node: CodegenTransaction;
 };
@@ -1590,6 +1637,17 @@ export type CodegenWalletWalletCollectionsConnection = {
 export type CodegenWalletWalletCollectionsConnectionEdge = {
   cursor: Scalars['String'];
   node: CodegenWalletCollection;
+};
+
+export type CodegenWalletWalletNFTsConnection = {
+  edges: Array<CodegenWalletWalletNFTsConnectionEdge>;
+  pageInfo: CodegenPageInfo;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type CodegenWalletWalletNFTsConnectionEdge = {
+  cursor: Scalars['String'];
+  node: CodegenWalletNFT;
 };
 
 export type CodegenEthMainnetContractDetailsQueryVariables = Exact<{
@@ -1781,7 +1839,7 @@ export type CodegenEthMainnetGasPricesQuery = { ethereum: CodegenGasPriceFragmen
 
 export type CodegenCollectionEventsFragmentFragment = { collection?: { address: string, tokenEvents: { pageInfo: CodegenPaginationFragment, edges: Array<{ node: CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment }> } } | { address: string, tokenEvents: { pageInfo: CodegenPaginationFragment, edges: Array<{ node: CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment }> } } | null };
 
-export type CodegenEventsByContractFragment = { contract?: { tokenEvents: { edges: Array<{ node: CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment }>, pageInfo: CodegenPaginationFragment } } | { tokenEvents: { edges: Array<{ node: CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment }>, pageInfo: CodegenPaginationFragment } } | null };
+export type CodegenEventsByContractFragment = { contract?: { tokenEvents: { edges: Array<{ node: CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment }>, pageInfo: CodegenPaginationFragment } } | { tokenEvents: { edges: Array<{ node: CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment }>, pageInfo: CodegenPaginationFragment } } | { tokenEvents: { edges: Array<{ node: CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment }>, pageInfo: CodegenPaginationFragment } } | null };
 
 export type CodegenNftEventsFragmentFragment = { nft?: { contractAddress: string, tokenId: any, tokenEvents: { pageInfo: CodegenPaginationFragment, edges: Array<{ node: CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment }> } } | { contractAddress: string, tokenId: any, tokenEvents: { pageInfo: CodegenPaginationFragment, edges: Array<{ node: CodegenTokenEventInfo_CodegenTokenBurnEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenMintEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSaleEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenSwapEvent_CodegenFragment | CodegenTokenEventInfo_CodegenTokenTransferEvent_CodegenFragment }> } } | null };
 
@@ -1797,7 +1855,7 @@ export type CodegenVerifyOwnershipInfoByENSFragment = { walletByENS?: { walletNF
 
 export type CodegenVerifyOwnershipNFTDetailsFragment = { nft?: { contractAddress: string, tokenId: any } | { contractAddress: string, tokenId: any } | null };
 
-export type CodegenContractDetailsFragment = { contract?: CodegenContractInfo_CodegenNFTContract_CodegenFragment | CodegenContractInfo_CodegenTokenContract_CodegenFragment | null };
+export type CodegenContractDetailsFragment = { contract?: CodegenContractInfo_CodegenNFTContract_CodegenFragment | CodegenContractInfo_CodegenTokenContract_CodegenFragment | CodegenContractInfo_CodegenUnclassifiedContract_CodegenFragment | null };
 
 export type CodegenGetBalancesByWalletAddressFragmentFragment = { walletByAddress?: { address: string, ensName?: string | null, tokenBalances: { edges: Array<{ node: CodegenTokenBalanceNodeFragment }>, pageInfo: CodegenPaginationFragment } } | null };
 
@@ -1835,7 +1893,9 @@ export type CodegenContractInfo_CodegenNFTContract_CodegenFragment = { __typenam
 
 export type CodegenContractInfo_CodegenTokenContract_CodegenFragment = { __typename: 'TokenContract', decimals?: any | null, abi?: any | null, address: string, isVerified?: boolean | null, name?: string | null, supportedErcInterfaces?: Array<string> | null, symbol?: string | null };
 
-export type CodegenContractInfoFragment = CodegenContractInfo_CodegenNFTContract_CodegenFragment | CodegenContractInfo_CodegenTokenContract_CodegenFragment;
+export type CodegenContractInfo_CodegenUnclassifiedContract_CodegenFragment = { __typename: 'UnclassifiedContract', abi?: any | null, address: string, isVerified?: boolean | null, name?: string | null, supportedErcInterfaces?: Array<string> | null, symbol?: string | null };
+
+export type CodegenContractInfoFragment = CodegenContractInfo_CodegenNFTContract_CodegenFragment | CodegenContractInfo_CodegenTokenContract_CodegenFragment | CodegenContractInfo_CodegenUnclassifiedContract_CodegenFragment;
 
 export type CodegenGasPriceInfoFragment = { blockNumber: number, total: number, average: number, ceiling: number, floor: number, median: number };
 

@@ -30,16 +30,19 @@ export type RPCFullTokenMetadata = {
 };
 
 export type RPCTokenTransaction = {
-  name: string | null;
-  symbol: string | null;
-  decimals: string | null;
-  address: string;
-  quantityIn: string;
-  quantityOut: string;
   blockNumber: string;
   transactionHash: string;
+  toAddress: string;
+  fromAddress: string;
+  logIndex: number;
+  type: string;
   timestamp: string;
-  totalBalance: string;
+  receivedTokenContractAddress: string | null;
+  sentTokenContractAddress: string | null;
+  sentAmount: string;
+  receivedAmount: string;
+  decimalSentAmount: string;
+  decimalReceivedAmount: string;
 };
 
 export type QNGetWalletTokenTransactionsResult = {

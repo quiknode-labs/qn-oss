@@ -39,6 +39,7 @@ router.get(
   '/api/verifyOwnership/:walletAddress/:contractAddress',
   nftController.verifyOwnershipByAddress
 );
+router.get('/api/twoChainQuery', nftController.twoChainQuery);
 router.get('/api/graphQuery', graphController.graphQuery);
 router.get(
   '/api/getBalancesByWallet/:address',

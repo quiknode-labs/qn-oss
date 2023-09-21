@@ -1,6 +1,7 @@
 import { DefinitionNode, FieldNode, Kind, DocumentNode } from 'graphql';
 import { TypedDocumentNode } from '@urql/core';
 import { ChainName } from '../types/chains';
+import { klona } from 'klona';
 
 type Mutable<T> = {
   -readonly [k in keyof T]: T[k];
@@ -8,11 +9,14 @@ type Mutable<T> = {
 
 type MutableDocumentNode = Mutable<DocumentNode>;
 
-// Takes the generated query document and modifies the chain name to the one passed in
 export function modifyQueryForChain<TQuery, TQueryVariables>(
   chainName: ChainName,
-  documentNode: MutableDocumentNode
+  originalDocumentNode: MutableDocumentNode
 ): TypedDocumentNode<TQuery, TQueryVariables> {
+  // We need to deep clone the document node in order to not mutate the query so it is consistent
+  // across multiple calls to the same query with different chains
+  const documentNode = klona(originalDocumentNode);
+
   documentNode.definitions = documentNode.definitions.map(
     (doc: DefinitionNode) => {
       if (doc.kind === Kind.OPERATION_DEFINITION) {
@@ -25,9 +29,7 @@ export function modifyQueryForChain<TQuery, TQueryVariables>(
             ) {
               const updatedChainSelection: FieldNode = {
                 ...selection,
-                ...{
-                  name: { ...selection.name, value: chainName },
-                },
+                name: { ...selection.name, value: chainName },
               };
               return updatedChainSelection;
             }
@@ -38,5 +40,6 @@ export function modifyQueryForChain<TQuery, TQueryVariables>(
       return doc;
     }
   );
+
   return documentNode;
 }

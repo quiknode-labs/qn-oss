@@ -13,7 +13,7 @@
   "sideEffects": false,
   "dependencies": {
     "@urql/core": "^4.0.7",
-    "@urql/exchange-graphcache": "^6.0.4",
+    "@quicknode/exchange-graphcache": "^6.0.4",
     "cross-fetch": "^3.1.6",
     "graphql": "^16.6.0",
     "klona": "^2.0.6",

@@ -2171,6 +2171,15 @@
     qs "^6.10.1"
     url-parse "^1.5.3"
 
+"@quicknode/exchange-graphcache@^6.0.4":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@quicknode/exchange-graphcache/-/exchange-graphcache-6.0.4.tgz#9712986e055525f2086aa696bb0b0ef658ab3574"
+  integrity sha512-COE+gWWfpqhDNF3qIXRGIeEVjzgAYd8zdJqoIopD+H6Vc2cbnqsGgBYAC/jgpO8gON3v9ppIgm3o9t5D6xCARg==
+  dependencies:
+    "@0no-co/graphql.web" "^1.0.1"
+    "@urql/core" ">=4.0.0"
+    wonka "^6.3.2"
+
 "@remix-run/router@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.0.3.tgz#953b88c20ea00d0eddaffdc1b115c08474aa295d"
@@ -3000,15 +3009,6 @@
   integrity sha512-UtZ9oSbSFODXzFydgLCXpAQz26KGT1d6uEfcylKphiRWNXSWZi8k7vhJXNceNm/Dn0MiZ+kaaJHKcnGY1jvHRQ==
   dependencies:
     "@0no-co/graphql.web" "^1.0.1"
-    wonka "^6.3.2"
-
-"@urql/exchange-graphcache@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-6.0.4.tgz#55b9dab64369f4a887f10a1a5e5f855ba68283ae"
-  integrity sha512-fzfCUrHzhLycPRa6kYrQYryk0pwmUfeHY9Xqh11A6wtp4/diV7FASlffB5k2j3AWRBxBnqThXDssRXI/G8cACQ==
-  dependencies:
-    "@0no-co/graphql.web" "^1.0.1"
-    "@urql/core" ">=4.0.0"
     wonka "^6.3.2"
 
 "@wagmi/chains@1.2.0":

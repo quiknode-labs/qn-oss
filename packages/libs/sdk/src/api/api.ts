@@ -1,8 +1,11 @@
 import fetch from 'cross-fetch';
 import { CustomUrqlClient } from './graphql/customUrqlClient';
 import { Client, fetchExchange } from '@urql/core';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { Data, cacheExchange } from '@urql/exchange-graphcache';
+// Using a fork of the @urql/exchange-graphcache package that hides warnings in development
+// mode. Because the SDK is abstracting the GraphQL queries away from the user, the user
+// can't do anything about the warnings and it's on us to fix the important ones.
+// https://github.com/urql-graphql/urql/issues/3404
+import { Data, cacheExchange } from '@quicknode/exchange-graphcache';
 import {
   NftsController,
   TokensController,

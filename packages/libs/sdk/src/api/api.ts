@@ -1,8 +1,7 @@
 import fetch from 'cross-fetch';
 import { CustomUrqlClient } from './graphql/customUrqlClient';
 import { Client, fetchExchange } from '@urql/core';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { Data, cacheExchange } from '@urql/exchange-graphcache';
+
 import {
   NftsController,
   TokensController,
@@ -78,48 +77,14 @@ export class API {
     if (this.graphApiKey) headers['x-api-key'] = this.graphApiKey;
     headers['x-quicknode-sdk'] = 'js-sdk';
     headers['x-quicknode-sdk-version'] = packageJson?.version || 'n/a';
-    const useNftKey = (data: Data) =>
-      `${data['contractAddress']}:${data['tokenId']}`;
-    const useAddressAsKey = (data: Data) => `${data['address']}`;
-    const useTransactionHashAndIndex = (data: Data) =>
-      `${data['transactionHash']}:${data['transferIndex']}`;
-    const urqlCache = cacheExchange({
-      keys: {
-        EVMSchemaType: () => null, // The entity has no key and no parent entity so effectively won't cache
-        Collection: useAddressAsKey,
-        CollectionOHLCVChart: () => null, // Entities without keys will be embedded directly on the parent entity.
-        Contract: useAddressAsKey,
-        ERC721NFT: useNftKey,
-        ERC721Collection: useAddressAsKey,
-        ERC1155NFT: useNftKey,
-        ERC1155Collection: useAddressAsKey,
-        GasPrice: () => null,
-        NFT: useNftKey,
-        NFTContract: useAddressAsKey,
-        TokenAttribute: () => null,
-        TokenContract: useAddressAsKey,
-        TokenEvent: useTransactionHashAndIndex,
-        TokenMintEvent: useTransactionHashAndIndex,
-        TokenBurnEvent: useTransactionHashAndIndex,
-        TokenSaleEvent: useTransactionHashAndIndex,
-        TokenSwapEvent: useTransactionHashAndIndex,
-        TokenTransferEvent: useTransactionHashAndIndex,
-        TokenUpload: () => null,
-        OpenSeaMetadata: () => null,
-        Transaction: (data) => `${data['hash']}`,
-        TrendingCollection: () => null,
-        Wallet: (data) => `${data['address']}`,
-        WalletNFT: () => null,
-        WalletTokenBalance: () => null,
-      },
-    });
 
     const client = new Client({
       fetch,
       url:
         process.env['NX_GRAPHQL_API_URI'] ||
         'https://api.quicknode.com/graphql',
-      exchanges: [urqlCache, fetchExchange],
+      exchanges: [fetchExchange],
+      requestPolicy: 'network-only',
       fetchOptions: () => ({ headers }),
     });
 

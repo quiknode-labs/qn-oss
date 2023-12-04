@@ -19,7 +19,7 @@
     "klona": "^2.0.6",
     "tslib": "^2.5.3",
     "viem": "^1.2.0",
-    "zod": "^3.21.4"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "4.0.1",

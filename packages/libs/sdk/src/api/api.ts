@@ -84,6 +84,17 @@ export class API {
     const useTransactionHashAndIndex = (data: Data) =>
       `${data['transactionHash']}:${data['transferIndex']}`;
     const urqlCache = cacheExchange({
+      logger: (severity: 'debug' | 'error' | 'warn', message: string) => {
+        if (severity === 'warn' && process.env['SHOW_URQL_WARNINGS']) {
+          console.warn(message);
+        }
+        if (severity === 'debug' && process.env['SHOW_URQL_DEBUG']) {
+          console.debug(message);
+        }
+        if (severity === 'error') {
+          console.error(message);
+        }
+      },
       keys: {
         EVMSchemaType: () => null, // The entity has no key and no parent entity so effectively won't cache
         Collection: useAddressAsKey,

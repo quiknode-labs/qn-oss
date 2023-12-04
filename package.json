@@ -18,8 +18,8 @@
   "dependencies": {
     "@apollo/client": "^3.7.12",
     "@ethersproject/providers": "^5.7.2",
-    "@urql/core": "^4.0.7",
-    "@urql/exchange-graphcache": "^6.0.4",
+    "@urql/core": "^4.2.0",
+    "@urql/exchange-graphcache": "^6.4.0",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.6.5",
     "cross-fetch": "^3.1.5",

@@ -1,7 +1,6 @@
 import NodeHttpAdapter from '@pollyjs/adapter-node-http';
 import { Polly } from '@pollyjs/core';
 import FileSystemPersister from '@pollyjs/persister-fs';
-import url from 'node:url';
 
 /**
  * Sets up PollyJS to record/replay network interactions performed in a unit test.

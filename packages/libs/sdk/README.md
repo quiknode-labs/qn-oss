@@ -30,15 +30,11 @@ Currently the SDK makes it even easier to use the [QuickNode Graph API](https://
 ### Quickstart
 
 ```ts
-import QuickNode from '@quicknode/sdk';
+import Core from "@quicknode/sdk/core";
 
-const qn = new QuickNode.API({ graphApiKey: 'my-api-key' });
+const core = new Core({ endpointUrl: "replaceme" });
 
-qn.nfts
-  .getByWallet({
-    address: 'quicknode.eth',
-    first: 5,
-  })
+const blockNumber = core.client.getBlockNumber()
   .then((response) => console.log(response));
 ```
 

@@ -17,7 +17,7 @@ export default {
     try {
       const input: QNFetchNFTInput = {
         wallet: req.params.wallet,
-        contracts: ['0x8D0501d85becDA92B89E56177dDfcEA5Fc1f0AF2'],
+        contracts: ['0x93C46aA4DdfD0413d95D0eF3c478982997cE9861'],
       };
       const response = await core.client.qn_fetchNFTs(input);
       console.log(response);

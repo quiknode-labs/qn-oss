@@ -1,4 +1,4 @@
-import { ZodType, ZodError } from 'zod';
+import { ZodError } from 'zod';
 import { QNInputValidationError } from '../errors';
 
 export function formatErrors(
@@ -18,28 +18,4 @@ export function formatErrors(
         zodError: baseError,
       })
     : null;
-}
-
-// Decorator for runtime validation to handle input that is unknown at compile time
-export function ValidateInput(schema: ZodType<unknown>) {
-  return function (
-    target: unknown,
-    propertyName: string,
-    descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>
-  ) {
-    const method = descriptor.value;
-    if (!method) return;
-
-    descriptor.value = async function (...args: ZodType<unknown>[]) {
-      const [input] = args;
-      const validation = schema.safeParse(input);
-      if (!validation.success) {
-        const formattedErrors = formatErrors(validation.error);
-        if (formattedErrors) {
-          throw formattedErrors;
-        }
-      }
-      return method.apply(this, args);
-    };
-  };
 }

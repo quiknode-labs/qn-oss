@@ -8,25 +8,16 @@
   "license": "MIT",
   "version": "2.0.0",
   "main": "./cjs/index.js",
-  "module": "./esm/src/index.js",
+  "module": "./esm/index.js",
   "types": "./index.d.ts",
   "sideEffects": false,
   "dependencies": {
-    "@urql/core": "^4.2.0",
-    "@urql/exchange-graphcache": "^6.4.0",
     "cross-fetch": "^3.1.6",
-    "graphql": "^16.6.0",
-    "klona": "^2.0.6",
     "tslib": "^2.5.3",
     "viem": "^1.20.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "4.0.1",
-    "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/typed-document-node": "^4.0.1",
-    "@graphql-codegen/typescript": "2.8.0",
-    "@graphql-codegen/typescript-operations": "^2.5.5",
     "@pollyjs/adapter-node-http": "^6.0.5",
     "@pollyjs/core": "^6.0.5",
     "@pollyjs/persister-fs": "^6.0.5",
@@ -38,32 +29,22 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "supertest": "^6.3.3"
   },
-  "scripts": {
-    "codegen": "npx graphql-codegen --require dotenv/config"
-  },
+  "scripts": {},
   "exports": {
     ".": {
-      "import": "./esm/src/index.js",
+      "import": "./esm/index.js",
       "require": "./cjs/index.js"
     },
-    "./api": {
-      "import": "./esm/src/api/index.js",
-      "default": "./cjs/src/api/index.js",
-      "types": "./esm/src/api/index.d.ts"
-    },
     "./core": {
-      "import": "./esm/src/core/index.js",
-      "default": "./cjs/src/core/index.js",
-      "types": "./esm/src/core/index.d.ts"
+      "import": "./esm/core/index.js",
+      "default": "./cjs/core/index.js",
+      "types": "./esm/core/index.d.ts"
     }
   },
   "typesVersions": {
     "*": {
-      "api": [
-        "./esm/src/api/index.d.ts"
-      ],
       "core": [
-        "./esm/src/core/index.d.ts"
+        "./esm/core/index.d.ts"
       ]
     }
   }

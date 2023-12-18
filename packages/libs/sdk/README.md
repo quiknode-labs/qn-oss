@@ -30,12 +30,11 @@ Currently the SDK makes it even easier to use the [QuickNode Graph API](https://
 ### Quickstart
 
 ```ts
-import Core from "@quicknode/sdk/core";
+import Core from '@quicknode/sdk/core';
 
-const core = new Core({ endpointUrl: "replaceme" });
+const core = new Core({ endpointUrl: 'replaceme' });
 
-const blockNumber = core.client.getBlockNumber()
-  .then((response) => console.log(response));
+const blockNumber = core.client.getBlockNumber().then((response) => console.log(response));
 ```
 
 Full example app implementation [here](https://github.com/quiknode-labs/qn-oss/tree/main/packages/apps/examples/sdk-api)

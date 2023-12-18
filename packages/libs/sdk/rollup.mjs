@@ -71,7 +71,7 @@ export default [
     input: toAbsoluteDir('./src/core/index.ts'),
     plugins: [dts()], // Rollup the .d.ts files
     output: {
-      file: `${buildRootDir}/esm/src/core/index.d.ts`,
+      file: `${buildRootDir}/esm/core/index.d.ts`,
       format: 'es',
     },
   }),

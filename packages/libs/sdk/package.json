@@ -8,7 +8,7 @@
   "license": "MIT",
   "version": "2.0.0",
   "main": "./cjs/index.js",
-  "module": "./esm/src/index.js",
+  "module": "./esm/index.js",
   "types": "./index.d.ts",
   "sideEffects": false,
   "dependencies": {
@@ -33,19 +33,19 @@
   },
   "exports": {
     ".": {
-      "import": "./esm/src/index.js",
+      "import": "./esm/index.js",
       "require": "./cjs/index.js"
     },
    "./core": {
-      "import": "./esm/src/core/index.js",
-      "default": "./cjs/src/core/index.js",
-      "types": "./esm/src/core/index.d.ts"
+      "import": "./esm/core/index.js",
+      "default": "./cjs/core/index.js",
+      "types": "./esm/core/index.d.ts"
     }
   },
   "typesVersions": {
     "*": {
      "core": [
-        "./esm/src/core/index.d.ts"
+        "./esm/core/index.d.ts"
       ]
     }
   }

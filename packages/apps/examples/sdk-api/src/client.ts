@@ -10,17 +10,6 @@ if (process.env.ADDITIONAL_SDK_HEADER_KEY) {
       process.env.ADDITIONAL_SDK_HEADER_VALUE,
   };
 }
-export const api = new QuickNode.API(opts);
-export const apiPolygon = new QuickNode.API({
-  ...opts,
-  defaultChain: 'polygon',
-});
-export const nfts = api.nfts;
-export const tokens = api.tokens;
-export const utils = api.utils;
-export const contracts = api.contracts;
-export const transactions = api.transactions;
-export const events = api.events;
 
 export const core = new QuickNode.Core({
   endpointUrl: process.env['QUICKNODE_ENDPOINT_URL'] || '',

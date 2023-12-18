@@ -68,14 +68,6 @@ export default [
     },
   }),
   bundle({
-    input: toAbsoluteDir('./src/api/index.ts'),
-    plugins: [dts()], // Rollup the .d.ts files
-    output: {
-      file: `${buildRootDir}/esm/src/api/index.d.ts`,
-      format: 'es',
-    },
-  }),
-  bundle({
     input: toAbsoluteDir('./src/core/index.ts'),
     plugins: [dts()], // Rollup the .d.ts files
     output: {

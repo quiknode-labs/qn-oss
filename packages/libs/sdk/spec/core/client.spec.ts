@@ -123,7 +123,7 @@ describe('core client', () => {
       endpointUrl: 'https://some-cool-name.optimism.quiknode.pro/abcd/',
     });
     chainName = endpoint.client.chain?.name;
-    expect(chainName).toEqual('Optimism');
+    expect(chainName).toEqual('OP Mainnet');
 
     endpoint = new Core({
       endpointUrl: 'https://some-cool-name.optimism-goerli.quiknode.pro/abcd/',

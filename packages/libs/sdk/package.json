@@ -29,14 +29,13 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "supertest": "^6.3.3"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "exports": {
     ".": {
       "import": "./esm/index.js",
       "require": "./cjs/index.js"
     },
-   "./core": {
+    "./core": {
       "import": "./esm/core/index.js",
       "default": "./cjs/core/index.js",
       "types": "./esm/core/index.d.ts"
@@ -44,7 +43,7 @@
   },
   "typesVersions": {
     "*": {
-     "core": [
+      "core": [
         "./esm/core/index.d.ts"
       ]
     }

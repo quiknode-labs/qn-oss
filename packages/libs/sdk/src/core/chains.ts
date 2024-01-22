@@ -11,6 +11,7 @@ import {
   fantom,
   gnosis,
   goerli,
+  holesky,
   harmonyOne,
   mainnet,
   optimism,
@@ -48,6 +49,7 @@ const qnChainToViemChain: Record<string, Chain> = {
   'zkevm-mainnet': polygonZkEvm,
   'zkevm-testnet': polygonZkEvmTestnet,
   'ethereum-sepolia': sepolia,
+  'ethereum-holesky': holesky,
 };
 
 function chainNameFromEndpoint(endpointUrl: string): string {

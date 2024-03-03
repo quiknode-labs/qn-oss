@@ -4,8 +4,6 @@ A SDK from [QuickNode](https://www.quicknode.com/) making it easy for developers
 
 QuickNode's SDK is a JavaScript and TypeScript framework-agnostic library that supports both CommonJS and ES module systems.
 
-Currently the SDK makes it even easier to use the [QuickNode Graph API](https://www.quicknode.com/graph-api) to query market insights, trading data, transactions by wallets and contracts, cached NFT images, and more!
-
 > :grey_question: We want to hear from you! Please take a few minutes to fill out our [QuickNode SDK feedback form](https://forms.gle/vWFXDDjEUySjWUof6) and let us know what you currently think about the SDK. This helps us further improve the SDK.
 
 [![Coverage Status](https://coveralls.io/repos/github/quiknode-labs/qn-oss/badge.svg?branch=main)](https://coveralls.io/github/quiknode-labs/qn-oss?branch=main)
@@ -80,11 +78,3 @@ API responses are recorded using [polly.js](https://github.com/Netflix/pollyjs).
 Run `nx lint libs-sdk` to execute the lint via [ESLint](https://eslint.org/).
 
 <br>
-
-### Generate graphql codegen typings
-
-Generate graphql typings via [Codegen](https://www.the-guild.dev/graphql/codegen).
-
-1. navigate to `packages/libs/sdk` from `qn-oss` monorepo root
-1. `cp .env.example .env` and add api key
-1. run `yarn run codegen`

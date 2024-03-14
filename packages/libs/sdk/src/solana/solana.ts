@@ -25,30 +25,31 @@ export class Solana {
     this.connection = new Connection(endpointUrl);
   }
 
-  async customFeeEstimateRpcStrategy(
+  async sendWithPriorityFees(
     transaction: Transaction,
-    mainKeyPair: Keypair
+    keyPair: Keypair,
+    feeLevel: PriorityFeeLevels = 'medium'
   ) {
     // eslint-disable-next-line prefer-const
     let [computeUnitPriceInstruction, units, recentBlockhash] =
       await Promise.all([
-        this.createDynamicPriorityFeeInstruction(),
+        this.createDynamicPriorityFeeInstruction(feeLevel),
         this.getSimulationUnits(
           this.connection,
           transaction.instructions,
-          mainKeyPair.publicKey
+          keyPair.publicKey
         ),
         this.connection.getLatestBlockhash(),
       ]);
 
     transaction.add(computeUnitPriceInstruction);
     if (units) {
-      units = Math.ceil(units * 1.01); // margin of error
+      units = Math.ceil(units * 1.05); // margin of error
       transaction.add(ComputeBudgetProgram.setComputeUnitLimit({ units }));
     }
-    transaction.feePayer = mainKeyPair.publicKey;
+    transaction.feePayer = keyPair.publicKey;
     transaction.recentBlockhash = recentBlockhash.blockhash;
-    transaction.sign(mainKeyPair);
+    transaction.sign(keyPair);
 
     const hash = await this.connection.sendRawTransaction(
       transaction.serialize(),
@@ -86,7 +87,12 @@ export class Solana {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      if (response.status === 404) {
+        throw new Error(
+          `The RPC method qn_estimatePriorityFees was not found on your endpoint! Your endpoint likely does not have the Priority Fee API add-on installed. Please visit https://marketplace.quicknode.com/add-on/solana-priority-fee to install the Priority Fee API and use this method to send your transactions with priority fees calculated with real-time data.`
+        );
+      }
+      throw new Error('Failed to fetch priority fee estimates');
     }
 
     const data: PriorityFeeResponseData = await response.json();
@@ -97,7 +103,7 @@ export class Solana {
     feeType: PriorityFeeLevels = 'medium'
   ) {
     const { result } = await this.fetchEstimatePriorityFees({});
-    const priorityFee = result.per_compute_unit[feeType]; // 👈 Insert business logic to calculate fees depending on your transaction requirements (e.g., low, medium, high, or specific percentile)
+    const priorityFee = result.per_compute_unit[feeType];
     const priorityFeeInstruction = ComputeBudgetProgram.setComputeUnitPrice({
       microLamports: priorityFee,
     });

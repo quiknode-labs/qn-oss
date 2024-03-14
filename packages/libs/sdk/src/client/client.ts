@@ -1,4 +1,5 @@
 import Core from '../core';
+import Solana from '../solana';
 
 const QuickNode = {
   Core: Core,

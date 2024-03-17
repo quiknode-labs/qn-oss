@@ -14,33 +14,39 @@ import {
   type PriorityFeeRequestPayload,
   type PriorityFeeResponseData,
   type PriorityFeeLevels,
+  type SolanaClientArgs,
 } from './types';
 
 export class Solana {
   readonly endpointUrl: string;
   readonly connection: Connection;
 
-  constructor({ endpointUrl }: { endpointUrl: string }) {
+  constructor({ endpointUrl }: SolanaClientArgs) {
     this.endpointUrl = endpointUrl;
     this.connection = new Connection(endpointUrl);
   }
 
-  async sendWithPriorityFees(
+  async sendSmartTransaction(
     transaction: Transaction,
     keyPair: Keypair,
     feeLevel: PriorityFeeLevels = 'medium'
   ) {
+    const computeUnitPriceInstruction =
+      await this.createDynamicPriorityFeeInstruction(feeLevel);
+    const allInstructions = [
+      ...transaction.instructions,
+      computeUnitPriceInstruction,
+    ];
+
     // eslint-disable-next-line prefer-const
-    let [computeUnitPriceInstruction, units, recentBlockhash] =
-      await Promise.all([
-        this.createDynamicPriorityFeeInstruction(feeLevel),
-        this.getSimulationUnits(
-          this.connection,
-          transaction.instructions,
-          keyPair.publicKey
-        ),
-        this.connection.getLatestBlockhash(),
-      ]);
+    let [units, recentBlockhash] = await Promise.all([
+      this.getSimulationUnits(
+        this.connection,
+        allInstructions,
+        keyPair.publicKey
+      ),
+      this.connection.getLatestBlockhash(),
+    ]);
 
     transaction.add(computeUnitPriceInstruction);
     if (units) {

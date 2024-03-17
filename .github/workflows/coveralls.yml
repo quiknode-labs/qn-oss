@@ -10,6 +10,7 @@ env:
   # This should match the hostname of the endpoint used to record the pollyjs test
   # This shouldn't be a valid endpoint URL, the auth token should be redacted
   QUICKNODE_ENDPOINT_URL: ${{ secrets.QUICKNODE_ENDPOINT_URL }}
+  QUICKNODE_SOLANA_ENDPOINT_URL: ${{ secrets.QUICKNODE_SOLANA_ENDPOINT_URL }}
 jobs:
   libs-sdk:
     runs-on: ubuntu-latest

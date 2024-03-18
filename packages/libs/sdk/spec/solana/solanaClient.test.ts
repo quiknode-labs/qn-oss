@@ -45,13 +45,18 @@ describe('solana client', () => {
     await withPolly(
       {
         recordingName: 'solana-client-prepareSmartTransaction',
-        recordIfMissing: true,
       },
       async () => {
         const transaction = new Transaction();
         const feeLevel = 'medium';
-        await expect(solana.prepareSmartTransaction(transaction, feeLevel))
-          .resolves.toMatchInlineSnapshot(`
+        const keypair = Keypair.generate();
+        await expect(
+          solana.prepareSmartTransaction(
+            transaction,
+            keypair.publicKey,
+            feeLevel
+          )
+        ).resolves.toMatchInlineSnapshot(`
           Object {
             "feePayer": null,
             "instructions": Array [

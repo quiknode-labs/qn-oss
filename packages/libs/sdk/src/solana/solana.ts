@@ -28,8 +28,7 @@ export class Solana {
   }
 
   /**
-   * Sends a transaction with a dynamically generated priority fee based on the current network
-   * conditions and compute units needed by the transaction.
+   * Sends a transaction with a dynamically generated priority fee based on the current network conditions and compute units needed by the transaction.
    */
   async sendSmartTransaction(
     transaction: Transaction,
@@ -39,9 +38,9 @@ export class Solana {
   ) {
     const smartTransaction = await this.prepareSmartTransaction(
       transaction,
+      keyPair.publicKey,
       feeLevel
     );
-    transaction.feePayer = keyPair.publicKey;
     smartTransaction.sign(keyPair);
 
     const hash = await this.connection.sendRawTransaction(
@@ -60,7 +59,7 @@ export class Solana {
    */
   async prepareSmartTransaction(
     transaction: Transaction,
-    payerKey: Keypair, // Needed for the simulation to avoid "invalid transaction: Transaction failed to sanitize accounts offsets correctly"
+    payerPublicKey: PublicKey,
     feeLevel: PriorityFeeLevels = 'medium'
   ) {
     const computeUnitPriceInstruction =
@@ -75,7 +74,7 @@ export class Solana {
       this.getSimulationUnits(
         this.connection,
         allInstructions,
-        payerKey,
+        payerPublicKey,
         feeLevel
       ),
       this.connection.getLatestBlockhash(),
@@ -87,6 +86,7 @@ export class Solana {
       transaction.add(ComputeBudgetProgram.setComputeUnitLimit({ units }));
     }
     transaction.recentBlockhash = recentBlockhash.blockhash;
+
     return transaction;
   }
 
@@ -144,7 +144,7 @@ export class Solana {
   private async getSimulationUnits(
     connection: Connection,
     instructions: TransactionInstruction[],
-    payerKey: Keypair,
+    publicKey: PublicKey,
     feeLevel: PriorityFeeLevels
   ): Promise<number | undefined> {
     const computeUnitPriceInstruction =
@@ -154,7 +154,7 @@ export class Solana {
     const testVersionedTxn = new VersionedTransaction(
       new TransactionMessage({
         instructions: testInstructions,
-        payerKey: payerKey.publicKey,
+        payerKey: publicKey,
         recentBlockhash: PublicKey.default.toString(), // just a placeholder
       }).compileToV0Message()
     );

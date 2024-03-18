@@ -36,8 +36,46 @@ describe('solana client', () => {
         await expect(
           solana.sendSmartTransaction(transaction, keyPair, feeLevel)
         ).resolves.toMatchInlineSnapshot(
-          `"dbW8AT3NwaUxEwM9VND16EJeeD8ecusCm3rD8GgVYZdrnFd1WzSydTQDMdzLLYcPJ1nhUFpGwtsZRjAyNruowmp"`
+          `"5PckAvNaSkW2fgWpk2tkeAz8finKFceTqCbJn319yUep8MxBCkFhPdbS4N5TJYbWf6rc5JxZ1uwE3TL3cvj1Skgx"`
         );
+      }
+    );
+  });
+  it('should call solana prepareSmartTransaction', async () => {
+    await withPolly(
+      {
+        recordingName: 'solana-client-prepareSmartTransaction',
+        recordIfMissing: true,
+      },
+      async () => {
+        const transaction = new Transaction();
+        const feeLevel = 'medium';
+        await expect(solana.prepareSmartTransaction(transaction, feeLevel))
+          .resolves.toMatchInlineSnapshot(`
+          Object {
+            "feePayer": null,
+            "instructions": Array [
+              Object {
+                "data": Array [
+                  3,
+                  133,
+                  48,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "keys": Array [],
+                "programId": "ComputeBudget111111111111111111111111111111",
+              },
+            ],
+            "nonceInfo": null,
+            "recentBlockhash": "2acCVCzy5dPndawWVvTYDoHWqoe4dXo1srhWQ4W5btnb",
+            "signers": Array [],
+          }
+        `);
       }
     );
   });

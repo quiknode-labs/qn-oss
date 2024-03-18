@@ -8,6 +8,7 @@ import {
   PublicKey,
   TransactionMessage,
   VersionedTransaction,
+  SendOptions,
 } from '@solana/web3.js';
 import {
   type EstimatePriorityFeesParams,
@@ -26,9 +27,40 @@ export class Solana {
     this.connection = new Connection(endpointUrl);
   }
 
+  /**
+   * Sends a transaction with a dynamically generated priority fee based on the current network
+   * conditions and compute units needed by the transaction.
+   */
   async sendSmartTransaction(
     transaction: Transaction,
     keyPair: Keypair,
+    feeLevel: PriorityFeeLevels = 'medium',
+    sendTransactionOptions?: SendOptions
+  ) {
+    const smartTransaction = await this.prepareSmartTransaction(
+      transaction,
+      feeLevel
+    );
+    transaction.feePayer = keyPair.publicKey;
+    smartTransaction.sign(keyPair);
+
+    const hash = await this.connection.sendRawTransaction(
+      transaction.serialize(),
+      { skipPreflight: true, ...sendTransactionOptions }
+    );
+
+    return hash;
+  }
+
+  /**
+   * Prepares a transaction to be sent with a dynamically generated priority fee based
+   * on the current network conditions. It adds a `setComputeUnitPrice` instruction to the transaction
+   * and simulates the transaction to estimate the number of compute units it will consume.
+   * The returned transaction still needs to be signed and sent to the network.
+   */
+  async prepareSmartTransaction(
+    transaction: Transaction,
+    payerKey: Keypair, // Needed for the simulation to avoid "invalid transaction: Transaction failed to sanitize accounts offsets correctly"
     feeLevel: PriorityFeeLevels = 'medium'
   ) {
     const computeUnitPriceInstruction =
@@ -43,7 +75,8 @@ export class Solana {
       this.getSimulationUnits(
         this.connection,
         allInstructions,
-        keyPair.publicKey
+        payerKey,
+        feeLevel
       ),
       this.connection.getLatestBlockhash(),
     ]);
@@ -53,20 +86,23 @@ export class Solana {
       units = Math.ceil(units * 1.05); // margin of error
       transaction.add(ComputeBudgetProgram.setComputeUnitLimit({ units }));
     }
-    transaction.feePayer = keyPair.publicKey;
     transaction.recentBlockhash = recentBlockhash.blockhash;
-    transaction.sign(keyPair);
+    return transaction;
+  }
 
-    const hash = await this.connection.sendRawTransaction(
-      transaction.serialize(),
-      { skipPreflight: true, maxRetries: 0 }
-    );
-
-    return hash;
+  private async createDynamicPriorityFeeInstruction(
+    feeType: PriorityFeeLevels = 'medium'
+  ) {
+    const { result } = await this.fetchEstimatePriorityFees({});
+    const priorityFee = result.per_compute_unit[feeType];
+    const priorityFeeInstruction = ComputeBudgetProgram.setComputeUnitPrice({
+      microLamports: priorityFee,
+    });
+    return priorityFeeInstruction;
   }
 
   private async fetchEstimatePriorityFees({
-    last_n_blocks = 10,
+    last_n_blocks = 100,
     account = undefined,
   }: EstimatePriorityFeesParams): Promise<PriorityFeeResponseData> {
     const params: { last_n_blocks?: number; account?: string } = {};
@@ -105,32 +141,21 @@ export class Solana {
     return data;
   }
 
-  private async createDynamicPriorityFeeInstruction(
-    feeType: PriorityFeeLevels = 'medium'
-  ) {
-    const { result } = await this.fetchEstimatePriorityFees({});
-    const priorityFee = result.per_compute_unit[feeType];
-    const priorityFeeInstruction = ComputeBudgetProgram.setComputeUnitPrice({
-      microLamports: priorityFee,
-    });
-    return priorityFeeInstruction;
-  }
-
   private async getSimulationUnits(
     connection: Connection,
     instructions: TransactionInstruction[],
-    payer: PublicKey
+    payerKey: Keypair,
+    feeLevel: PriorityFeeLevels
   ): Promise<number | undefined> {
-    const testInstructions = [
-      ComputeBudgetProgram.setComputeUnitLimit({ units: 1_400_000 }),
-      ...instructions,
-    ];
+    const computeUnitPriceInstruction =
+      await this.createDynamicPriorityFeeInstruction(feeLevel);
+    const testInstructions = [...instructions, computeUnitPriceInstruction];
 
     const testVersionedTxn = new VersionedTransaction(
       new TransactionMessage({
         instructions: testInstructions,
-        payerKey: payer,
-        recentBlockhash: PublicKey.default.toString(),
+        payerKey: payerKey.publicKey,
+        recentBlockhash: PublicKey.default.toString(), // just a placeholder
       }).compileToV0Message()
     );
 

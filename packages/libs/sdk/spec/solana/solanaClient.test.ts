@@ -3,6 +3,20 @@ import { Transaction, Keypair } from '@solana/web3.js';
 import withPolly from '../testSetup/pollyTestSetup';
 
 describe('solana client', () => {
+  let keypair: Keypair;
+
+  beforeAll(() => {
+    keypair = Keypair.fromSecretKey(
+      new Uint8Array([
+        130, 116, 86, 249, 242, 108, 166, 19, 25, 227, 239, 208, 22, 150, 37,
+        135, 84, 53, 70, 45, 157, 16, 240, 233, 200, 163, 11, 93, 165, 225, 199,
+        93, 132, 17, 199, 50, 81, 22, 117, 194, 161, 238, 140, 6, 87, 103, 78,
+        85, 31, 214, 174, 121, 253, 229, 38, 9, 14, 5, 241, 29, 190, 218, 99,
+        40,
+      ])
+    );
+  });
+
   it('should call basic solana functions', async () => {
     await withPolly(
       {
@@ -23,18 +37,9 @@ describe('solana client', () => {
       },
       async () => {
         const transaction = new Transaction();
-        const keyPair = Keypair.fromSecretKey(
-          new Uint8Array([
-            130, 116, 86, 249, 242, 108, 166, 19, 25, 227, 239, 208, 22, 150,
-            37, 135, 84, 53, 70, 45, 157, 16, 240, 233, 200, 163, 11, 93, 165,
-            225, 199, 93, 132, 17, 199, 50, 81, 22, 117, 194, 161, 238, 140, 6,
-            87, 103, 78, 85, 31, 214, 174, 121, 253, 229, 38, 9, 14, 5, 241, 29,
-            190, 218, 99, 40,
-          ])
-        );
         const feeLevel = 'medium';
         await expect(
-          solana.sendSmartTransaction(transaction, keyPair, feeLevel)
+          solana.sendSmartTransaction(transaction, keypair, feeLevel)
         ).resolves.toMatchInlineSnapshot(
           `"5PckAvNaSkW2fgWpk2tkeAz8finKFceTqCbJn319yUep8MxBCkFhPdbS4N5TJYbWf6rc5JxZ1uwE3TL3cvj1Skgx"`
         );
@@ -49,7 +54,6 @@ describe('solana client', () => {
       async () => {
         const transaction = new Transaction();
         const feeLevel = 'medium';
-        const keypair = Keypair.generate();
         await expect(
           solana.prepareSmartTransaction(
             transaction,

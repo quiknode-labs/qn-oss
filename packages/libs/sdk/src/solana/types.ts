@@ -1,3 +1,5 @@
+import { Transaction, Keypair, PublicKey, SendOptions } from '@solana/web3.js';
+
 type PercentileRangeUnion =
   | '0'
   | '5'
@@ -64,4 +66,18 @@ export interface EstimatePriorityFeesParams {
 
 export interface SolanaClientArgs {
   endpointUrl: string;
+}
+
+export interface SmartTransactionBaseArgs {
+  transaction: Transaction;
+  feeLevel?: PriorityFeeLevels;
+}
+
+export interface PrepareSmartTransactionArgs extends SmartTransactionBaseArgs {
+  payerPublicKey: PublicKey;
+}
+
+export interface SendSmartTransactionArgs extends SmartTransactionBaseArgs {
+  keyPair: Keypair;
+  sendTransactionOptions?: SendOptions;
 }

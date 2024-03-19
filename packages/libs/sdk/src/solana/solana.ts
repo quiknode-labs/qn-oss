@@ -1,14 +1,11 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {
-  Transaction,
-  Keypair,
   ComputeBudgetProgram,
   Connection,
   TransactionInstruction,
   PublicKey,
   TransactionMessage,
   VersionedTransaction,
-  SendOptions,
 } from '@solana/web3.js';
 import {
   type EstimatePriorityFeesParams,
@@ -16,6 +13,8 @@ import {
   type PriorityFeeResponseData,
   type PriorityFeeLevels,
   type SolanaClientArgs,
+  type SendSmartTransactionArgs,
+  type PrepareSmartTransactionArgs,
 } from './types';
 
 export class Solana {
@@ -30,17 +29,18 @@ export class Solana {
   /**
    * Sends a transaction with a dynamically generated priority fee based on the current network conditions and compute units needed by the transaction.
    */
-  async sendSmartTransaction(
-    transaction: Transaction,
-    keyPair: Keypair,
-    feeLevel: PriorityFeeLevels = 'medium',
-    sendTransactionOptions?: SendOptions
-  ) {
-    const smartTransaction = await this.prepareSmartTransaction(
+  async sendSmartTransaction(args: SendSmartTransactionArgs) {
+    const {
       transaction,
-      keyPair.publicKey,
-      feeLevel
-    );
+      keyPair,
+      feeLevel = 'medium',
+      sendTransactionOptions = {},
+    } = args;
+    const smartTransaction = await this.prepareSmartTransaction({
+      transaction,
+      payerPublicKey: keyPair.publicKey,
+      feeLevel,
+    });
     smartTransaction.sign(keyPair);
 
     const hash = await this.connection.sendRawTransaction(
@@ -57,11 +57,8 @@ export class Solana {
    * and simulates the transaction to estimate the number of compute units it will consume.
    * The returned transaction still needs to be signed and sent to the network.
    */
-  async prepareSmartTransaction(
-    transaction: Transaction,
-    payerPublicKey: PublicKey,
-    feeLevel: PriorityFeeLevels = 'medium'
-  ) {
+  async prepareSmartTransaction(args: PrepareSmartTransactionArgs) {
+    const { transaction, payerPublicKey, feeLevel = 'medium' } = args;
     const computeUnitPriceInstruction =
       await this.createDynamicPriorityFeeInstruction(feeLevel);
     const allInstructions = [

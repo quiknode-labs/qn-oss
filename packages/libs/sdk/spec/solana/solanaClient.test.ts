@@ -3,10 +3,10 @@ import { Transaction, Keypair } from '@solana/web3.js';
 import withPolly from '../testSetup/pollyTestSetup';
 
 describe('solana client', () => {
-  let keypair: Keypair;
+  let keyPair: Keypair;
 
   beforeAll(() => {
-    keypair = Keypair.fromSecretKey(
+    keyPair = Keypair.fromSecretKey(
       new Uint8Array([
         130, 116, 86, 249, 242, 108, 166, 19, 25, 227, 239, 208, 22, 150, 37,
         135, 84, 53, 70, 45, 157, 16, 240, 233, 200, 163, 11, 93, 165, 225, 199,
@@ -39,7 +39,7 @@ describe('solana client', () => {
         const transaction = new Transaction();
         const feeLevel = 'medium';
         await expect(
-          solana.sendSmartTransaction(transaction, keypair, feeLevel)
+          solana.sendSmartTransaction({ transaction, keyPair, feeLevel })
         ).resolves.toMatchInlineSnapshot(
           `"5PckAvNaSkW2fgWpk2tkeAz8finKFceTqCbJn319yUep8MxBCkFhPdbS4N5TJYbWf6rc5JxZ1uwE3TL3cvj1Skgx"`
         );
@@ -55,11 +55,11 @@ describe('solana client', () => {
         const transaction = new Transaction();
         const feeLevel = 'medium';
         await expect(
-          solana.prepareSmartTransaction(
+          solana.prepareSmartTransaction({
             transaction,
-            keypair.publicKey,
-            feeLevel
-          )
+            payerPublicKey: keyPair.publicKey,
+            feeLevel,
+          })
         ).resolves.toMatchInlineSnapshot(`
           Object {
             "feePayer": null,

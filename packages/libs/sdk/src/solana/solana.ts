@@ -87,18 +87,8 @@ export class Solana {
     return transaction;
   }
 
-  private async createDynamicPriorityFeeInstruction(
-    feeType: PriorityFeeLevels = 'medium'
-  ) {
-    const { result } = await this.fetchEstimatePriorityFees({});
-    const priorityFee = result.per_compute_unit[feeType];
-    const priorityFeeInstruction = ComputeBudgetProgram.setComputeUnitPrice({
-      microLamports: priorityFee,
-    });
-    return priorityFeeInstruction;
-  }
-
-  private async fetchEstimatePriorityFees({
+  // Get the priority fee averages based on fee data from the latest blocks
+  async fetchEstimatePriorityFees({
     last_n_blocks = 100,
     account = undefined,
   }: EstimatePriorityFeesParams): Promise<PriorityFeeResponseData> {
@@ -136,6 +126,17 @@ export class Solana {
 
     const data: PriorityFeeResponseData = await response.json();
     return data;
+  }
+
+  private async createDynamicPriorityFeeInstruction(
+    feeType: PriorityFeeLevels = 'medium'
+  ) {
+    const { result } = await this.fetchEstimatePriorityFees({});
+    const priorityFee = result.per_compute_unit[feeType];
+    const priorityFeeInstruction = ComputeBudgetProgram.setComputeUnitPrice({
+      microLamports: priorityFee,
+    });
+    return priorityFeeInstruction;
   }
 
   private async getSimulationUnits(

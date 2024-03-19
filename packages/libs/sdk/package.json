@@ -6,7 +6,7 @@
     "directory": "packages/libs/sdk"
   },
   "license": "MIT",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "types": "./index.d.ts",
@@ -21,6 +21,7 @@
     "@pollyjs/adapter-node-http": "^6.0.5",
     "@pollyjs/core": "^6.0.5",
     "@pollyjs/persister-fs": "^6.0.5",
+    "@solana/web3.js": "^1.91",
     "@types/jest": "^29.5.1",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.13.0",
@@ -40,12 +41,20 @@
       "import": "./esm/core/index.js",
       "default": "./cjs/core/index.js",
       "types": "./esm/core/index.d.ts"
+    },
+    "./solana": {
+      "import": "./esm/solana/index.js",
+      "default": "./cjs/solana/index.js",
+      "types": "./esm/solana/index.d.ts"
     }
   },
   "typesVersions": {
     "*": {
       "core": [
         "./esm/core/index.d.ts"
+      ],
+      "solana": [
+        "./esm/solana/index.d.ts"
       ]
     }
   }

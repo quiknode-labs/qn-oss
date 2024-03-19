@@ -75,4 +75,12 @@ export default [
       format: 'es',
     },
   }),
+  bundle({
+    input: toAbsoluteDir('./src/solana/index.ts'),
+    plugins: [dts()], // Rollup the .d.ts files
+    output: {
+      file: `${buildRootDir}/esm/solana/index.d.ts`,
+      format: 'es',
+    },
+  }),
 ];

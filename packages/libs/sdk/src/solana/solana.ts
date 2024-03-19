@@ -88,21 +88,12 @@ export class Solana {
   }
 
   // Get the priority fee averages based on fee data from the latest blocks
-  async fetchEstimatePriorityFees({
-    last_n_blocks = 100,
-    account = undefined,
-  }: EstimatePriorityFeesParams): Promise<PriorityFeeResponseData> {
-    const params: { last_n_blocks?: number; account?: string } = {};
-    if (last_n_blocks !== undefined) {
-      params.last_n_blocks = last_n_blocks;
-    }
-    if (account !== undefined) {
-      params.account = account;
-    }
-
+  async fetchEstimatePriorityFees(
+    args: EstimatePriorityFeesParams = {}
+  ): Promise<PriorityFeeResponseData> {
     const payload: PriorityFeeRequestPayload = {
       method: 'qn_estimatePriorityFees',
-      params,
+      params: args,
       id: 1,
       jsonrpc: '2.0',
     };

@@ -41,7 +41,7 @@ describe('solana client', () => {
         await expect(
           solana.sendSmartTransaction({ transaction, keyPair, feeLevel })
         ).resolves.toMatchInlineSnapshot(
-          `"5PckAvNaSkW2fgWpk2tkeAz8finKFceTqCbJn319yUep8MxBCkFhPdbS4N5TJYbWf6rc5JxZ1uwE3TL3cvj1Skgx"`
+          `"51n3WTQdDFiergup4SMrS3A3mgD16mMH5DJ2Fs1v7F4AGRsnd8XQmTnfCcFcQ9JTMfb36bX2ib1mJGxJkUV75XmJ"`
         );
       }
     );
@@ -67,9 +67,9 @@ describe('solana client', () => {
               Object {
                 "data": Array [
                   3,
-                  133,
-                  48,
-                  1,
+                  23,
+                  151,
+                  0,
                   0,
                   0,
                   0,
@@ -83,6 +83,84 @@ describe('solana client', () => {
             "nonceInfo": null,
             "recentBlockhash": "2acCVCzy5dPndawWVvTYDoHWqoe4dXo1srhWQ4W5btnb",
             "signers": Array [],
+          }
+        `);
+      }
+    );
+  });
+
+  it('should call fetchEstimatePriorityFees', async () => {
+    await withPolly(
+      {
+        recordingName: 'solana-client-fetchEstimatePriorityFees',
+      },
+      async () => {
+        await expect(solana.fetchEstimatePriorityFees()).resolves
+          .toMatchInlineSnapshot(`
+          Object {
+            "id": 1,
+            "jsonrpc": "2.0",
+            "result": Object {
+              "context": Object {
+                "slot": 255150582,
+              },
+              "per_compute_unit": Object {
+                "extreme": 630734,
+                "high": 119250,
+                "low": 10714,
+                "medium": 35714,
+                "percentiles": Object {
+                  "10": 714,
+                  "100": 2000000000,
+                  "15": 1048,
+                  "20": 2000,
+                  "25": 2718,
+                  "30": 4895,
+                  "35": 6948,
+                  "40": 10714,
+                  "45": 13133,
+                  "5": 100,
+                  "50": 19667,
+                  "55": 25541,
+                  "60": 35714,
+                  "65": 50000,
+                  "70": 66918,
+                  "75": 90000,
+                  "80": 119250,
+                  "85": 183005,
+                  "90": 265586,
+                  "95": 630734,
+                },
+              },
+              "per_transaction": Object {
+                "extreme": 886796,
+                "high": 245714,
+                "low": 28242,
+                "medium": 95010,
+                "percentiles": Object {
+                  "10": 700,
+                  "100": 2000000000,
+                  "15": 1303,
+                  "20": 3126,
+                  "25": 8571,
+                  "30": 12000,
+                  "35": 20000,
+                  "40": 28242,
+                  "45": 40225,
+                  "5": 0,
+                  "50": 50000,
+                  "55": 75019,
+                  "60": 95010,
+                  "65": 110000,
+                  "70": 140214,
+                  "75": 180511,
+                  "80": 245714,
+                  "85": 265450,
+                  "90": 296041,
+                  "95": 886796,
+                },
+              },
+            },
           }
         `);
       }

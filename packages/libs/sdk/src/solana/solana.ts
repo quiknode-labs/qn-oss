@@ -59,6 +59,8 @@ export class Solana {
    */
   async prepareSmartTransaction(args: PrepareSmartTransactionArgs) {
     const { transaction, payerPublicKey, feeLevel = 'medium' } = args;
+    // Need to fetch this ahead of time and add to transaction so it's in the transaction instructions
+    // for the simulation
     const computeUnitPriceInstruction =
       await this.createDynamicPriorityFeeInstruction(feeLevel);
     const allInstructions = [
@@ -68,12 +70,7 @@ export class Solana {
 
     // eslint-disable-next-line prefer-const
     let [units, recentBlockhash] = await Promise.all([
-      this.getSimulationUnits(
-        this.connection,
-        allInstructions,
-        payerPublicKey,
-        feeLevel
-      ),
+      this.getSimulationUnits(this.connection, allInstructions, payerPublicKey),
       this.connection.getLatestBlockhash(),
     ]);
 
@@ -133,16 +130,11 @@ export class Solana {
   private async getSimulationUnits(
     connection: Connection,
     instructions: TransactionInstruction[],
-    publicKey: PublicKey,
-    feeLevel: PriorityFeeLevels
+    publicKey: PublicKey
   ): Promise<number | undefined> {
-    const computeUnitPriceInstruction =
-      await this.createDynamicPriorityFeeInstruction(feeLevel);
-    const testInstructions = [...instructions, computeUnitPriceInstruction];
-
     const testVersionedTxn = new VersionedTransaction(
       new TransactionMessage({
-        instructions: testInstructions,
+        instructions: instructions,
         payerKey: publicKey,
         recentBlockhash: PublicKey.default.toString(), // just a placeholder
       }).compileToV0Message()

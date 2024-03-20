@@ -85,7 +85,7 @@ export class Solana {
   }
 
   // Get the priority fee averages based on fee data from the latest blocks
-  async getPriorityFeeEstimates(
+  async fetchEstimatePriorityFees(
     args: EstimatePriorityFeesParams = {}
   ): Promise<PriorityFeeResponseData> {
     const payload: PriorityFeeRequestPayload = {
@@ -119,7 +119,7 @@ export class Solana {
   private async createDynamicPriorityFeeInstruction(
     feeType: PriorityFeeLevels = 'medium'
   ) {
-    const { result } = await this.getPriorityFeeEstimates({});
+    const { result } = await this.fetchEstimatePriorityFees({});
     const priorityFee = result.per_compute_unit[feeType];
     const priorityFeeInstruction = ComputeBudgetProgram.setComputeUnitPrice({
       microLamports: priorityFee,

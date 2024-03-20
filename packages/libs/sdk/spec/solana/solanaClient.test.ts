@@ -95,7 +95,7 @@ describe('solana client', () => {
         recordingName: 'solana-client-fetchEstimatePriorityFees',
       },
       async () => {
-        await expect(solana.fetchEstimatePriorityFees()).resolves
+        await expect(solana.getPriorityFeeEstimates()).resolves
           .toMatchInlineSnapshot(`
           Object {
             "id": 1,

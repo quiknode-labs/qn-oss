@@ -76,7 +76,7 @@ export class Solana {
 
     transaction.add(computeUnitPriceInstruction);
     if (units) {
-      units = Math.ceil(units * 1.05); // margin of error
+      units = Math.ceil(units * 1.1); // margin of error
       transaction.add(ComputeBudgetProgram.setComputeUnitLimit({ units }));
     }
     transaction.recentBlockhash = recentBlockhash.blockhash;
@@ -85,7 +85,7 @@ export class Solana {
   }
 
   // Get the priority fee averages based on fee data from the latest blocks
-  async fetchEstimatePriorityFees(
+  async getPriorityFeeEstimates(
     args: EstimatePriorityFeesParams = {}
   ): Promise<PriorityFeeResponseData> {
     const payload: PriorityFeeRequestPayload = {
@@ -119,7 +119,7 @@ export class Solana {
   private async createDynamicPriorityFeeInstruction(
     feeType: PriorityFeeLevels = 'medium'
   ) {
-    const { result } = await this.fetchEstimatePriorityFees({});
+    const { result } = await this.getPriorityFeeEstimates({});
     const priorityFee = result.per_compute_unit[feeType];
     const priorityFeeInstruction = ComputeBudgetProgram.setComputeUnitPrice({
       microLamports: priorityFee,

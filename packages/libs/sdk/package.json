@@ -6,12 +6,13 @@
     "directory": "packages/libs/sdk"
   },
   "license": "MIT",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "types": "./index.d.ts",
   "sideEffects": false,
   "dependencies": {
+    "@solana/web3.js": "^1.91",
     "cross-fetch": "^3.1.6",
     "tslib": "^2.5.3",
     "viem": "^1.20.0",
@@ -21,7 +22,6 @@
     "@pollyjs/adapter-node-http": "^6.0.5",
     "@pollyjs/core": "^6.0.5",
     "@pollyjs/persister-fs": "^6.0.5",
-    "@solana/web3.js": "^1.91",
     "@types/jest": "^29.5.1",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.13.0",

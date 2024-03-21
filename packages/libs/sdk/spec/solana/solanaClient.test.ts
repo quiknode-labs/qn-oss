@@ -1,5 +1,10 @@
 import { solana } from './client';
-import { Transaction, Keypair } from '@solana/web3.js';
+import {
+  Transaction,
+  Keypair,
+  SystemProgram,
+  PublicKey,
+} from '@solana/web3.js';
 import withPolly from '../testSetup/pollyTestSetup';
 
 describe('solana client', () => {
@@ -37,11 +42,20 @@ describe('solana client', () => {
       },
       async () => {
         const transaction = new Transaction();
+        transaction.add(
+          SystemProgram.transfer({
+            fromPubkey: keyPair.publicKey,
+            toPubkey: new PublicKey(
+              '7nkMt6a2VQE86LFp5uPKfjvboNtTFbGe755fkrTUA2Nv'
+            ),
+            lamports: 100,
+          })
+        );
         const feeLevel = 'medium';
         await expect(
           solana.sendSmartTransaction({ transaction, keyPair, feeLevel })
         ).resolves.toMatchInlineSnapshot(
-          `"51n3WTQdDFiergup4SMrS3A3mgD16mMH5DJ2Fs1v7F4AGRsnd8XQmTnfCcFcQ9JTMfb36bX2ib1mJGxJkUV75XmJ"`
+          `"Y4bnQNsHzWshsquWZcQ88Lq7hKpYFkfd27GvTgizmZpEbtEQdgPs4TNhZ4qvMSUYsTLFBJckjqXg7aLg3GFHcQf"`
         );
       }
     );
@@ -53,6 +67,15 @@ describe('solana client', () => {
       },
       async () => {
         const transaction = new Transaction();
+        transaction.add(
+          SystemProgram.transfer({
+            fromPubkey: keyPair.publicKey,
+            toPubkey: new PublicKey(
+              '7nkMt6a2VQE86LFp5uPKfjvboNtTFbGe755fkrTUA2Nv'
+            ),
+            lamports: 100,
+          })
+        );
         const feeLevel = 'medium';
         await expect(
           solana.prepareSmartTransaction({
@@ -66,6 +89,35 @@ describe('solana client', () => {
             "instructions": Array [
               Object {
                 "data": Array [
+                  2,
+                  0,
+                  0,
+                  0,
+                  100,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+                "keys": Array [
+                  Object {
+                    "isSigner": true,
+                    "isWritable": true,
+                    "pubkey": "9tYYGith1uMmFgWeUD7mouq7JaUhzvDSBYd9aZ25JEFZ",
+                  },
+                  Object {
+                    "isSigner": false,
+                    "isWritable": true,
+                    "pubkey": "7nkMt6a2VQE86LFp5uPKfjvboNtTFbGe755fkrTUA2Nv",
+                  },
+                ],
+                "programId": "11111111111111111111111111111111",
+              },
+              Object {
+                "data": Array [
                   3,
                   23,
                   151,
@@ -73,6 +125,17 @@ describe('solana client', () => {
                   0,
                   0,
                   0,
+                  0,
+                  0,
+                ],
+                "keys": Array [],
+                "programId": "ComputeBudget111111111111111111111111111111",
+              },
+              Object {
+                "data": Array [
+                  2,
+                  217,
+                  1,
                   0,
                   0,
                 ],

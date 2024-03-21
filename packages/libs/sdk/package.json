@@ -6,7 +6,7 @@
     "directory": "packages/libs/sdk"
   },
   "license": "MIT",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "types": "./index.d.ts",

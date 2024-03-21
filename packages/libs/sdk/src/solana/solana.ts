@@ -59,24 +59,32 @@ export class Solana {
    */
   async prepareSmartTransaction(args: PrepareSmartTransactionArgs) {
     const { transaction, payerPublicKey, feeLevel = 'medium' } = args;
-    // Need to fetch this ahead of time and add to transaction so it's in the transaction instructions
-    // for the simulation
-    const computeUnitPriceInstruction =
-      await this.createDynamicPriorityFeeInstruction(feeLevel);
-    const allInstructions = [
+
+    // Send simulation with placeholders so the value calculated is accurate
+    // placeholders kept low to avoid InsufficientFundsForFee error with the high cu budget limit
+    const simulationInstructions = [
+      ComputeBudgetProgram.setComputeUnitPrice({
+        microLamports: 1,
+      }),
+      ComputeBudgetProgram.setComputeUnitLimit({ units: 1_400_000 }),
       ...transaction.instructions,
-      computeUnitPriceInstruction,
     ];
 
     // eslint-disable-next-line prefer-const
-    let [units, recentBlockhash] = await Promise.all([
-      this.getSimulationUnits(this.connection, allInstructions, payerPublicKey),
-      this.connection.getLatestBlockhash(),
-    ]);
+    let [units, computeUnitPriceInstruction, recentBlockhash] =
+      await Promise.all([
+        this.getSimulationUnits(
+          this.connection,
+          simulationInstructions,
+          payerPublicKey
+        ),
+        this.createDynamicPriorityFeeInstruction(feeLevel),
+        this.connection.getLatestBlockhash(),
+      ]);
 
     transaction.add(computeUnitPriceInstruction);
     if (units) {
-      units = Math.ceil(units * 1.1); // margin of error
+      units = Math.ceil(units * 1.05); // margin of error
       transaction.add(ComputeBudgetProgram.setComputeUnitLimit({ units }));
     }
     transaction.recentBlockhash = recentBlockhash.blockhash;
@@ -145,7 +153,8 @@ export class Solana {
       sigVerify: false,
     });
     if (simulation.value.err) {
-      return undefined;
+      console.error('Simulation error:', simulation.value.err);
+      throw new Error(`Failed to simulate transaction ${simulation.value.err}`);
     }
     return simulation.value.unitsConsumed;
   }

@@ -6,7 +6,7 @@
     "directory": "packages/libs/sdk"
   },
   "license": "MIT",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "types": "./index.d.ts",
@@ -15,7 +15,7 @@
     "@solana/web3.js": "^1.91",
     "cross-fetch": "^3.1.6",
     "tslib": "^2.5.3",
-    "viem": "^1.20.0",
+    "viem": "^2.13.7",
     "zod": "^3.21.4"
   },
   "devDependencies": {

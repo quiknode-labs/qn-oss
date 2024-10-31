@@ -12,7 +12,9 @@
   "types": "./index.d.ts",
   "sideEffects": false,
   "dependencies": {
+    "@solana-program/compute-budget": "^0.5.4",
     "@solana/web3.js": "^1.91",
+    "@solana/web3.js-v2": "npm:@solana/web3.js@^2.0.0-rc.3",
     "cross-fetch": "^3.1.6",
     "tslib": "^2.5.3",
     "viem": "^2.13.7",

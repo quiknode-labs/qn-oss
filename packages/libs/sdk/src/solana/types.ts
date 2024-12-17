@@ -63,6 +63,7 @@ export interface EstimatePriorityFeesParams {
   last_n_blocks?: number;
   // The program account to use for fetching the local estimate (e.g., Jupiter: JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4)
   account?: string;
+  api_version?: number;
 }
 
 export interface SolanaClientArgs {

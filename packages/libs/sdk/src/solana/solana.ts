@@ -98,7 +98,7 @@ export class Solana {
   ): Promise<PriorityFeeResponseData> {
     const payload: PriorityFeeRequestPayload = {
       method: 'qn_estimatePriorityFees',
-      params: args,
+      params: { api_version: 2, ...args },
       id: 1,
       jsonrpc: '2.0',
     };

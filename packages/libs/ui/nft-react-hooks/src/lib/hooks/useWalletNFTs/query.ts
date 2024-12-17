@@ -4,15 +4,12 @@ import { Connection, PaginationArgs } from '../../types';
 
 export const walletNFTsQuery = gql`
   query WalletNFTs(
-    $address: String,
-    $ensName: String,
-    $first: Int,
+    $address: String
+    $ensName: String
+    $first: Int
     $after: String
   ) {
-    wallet(
-      address: $address,
-      ensName: $ensName
-    ) {
+    wallet(address: $address, ensName: $ensName) {
       ensName
       address
       tokens(first: $first, after: $after) {

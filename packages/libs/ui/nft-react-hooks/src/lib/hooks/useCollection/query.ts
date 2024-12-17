@@ -13,7 +13,7 @@ export const collectionQuery = gql`
           floor
           totalSales
           volume
-        } 
+        }
         unsafeOpenseaBannerImageUrl
         unsafeOpenseaImageUrl
         unsafeOpenseaSlug

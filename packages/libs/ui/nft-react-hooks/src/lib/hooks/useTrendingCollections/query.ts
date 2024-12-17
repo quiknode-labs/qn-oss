@@ -4,17 +4,17 @@ import { Connection, PaginationArgs } from '../../types';
 
 export const trendingCollectionsQuery = gql`
   query TrendingCollections(
-    $first: Int,
-    $after: String,
-    $orderBy: TrendingCollectionsOrderByEnum,
-    $orderDirection: OrderDirectionEnum,
+    $first: Int
+    $after: String
+    $orderBy: TrendingCollectionsOrderByEnum
+    $orderDirection: OrderDirectionEnum
     $timePeriod: TrendingCollectionsTimePeriodEnum
   ) {
     trendingCollections(
-      first: $first,
-      after: $after,
-      orderBy: $orderBy,
-      orderDirection: $orderDirection,
+      first: $first
+      after: $after
+      orderBy: $orderBy
+      orderDirection: $orderDirection
       timePeriod: $timePeriod
     ) {
       pageInfo {
@@ -64,7 +64,7 @@ export enum TrendingCollectionsTimePeriod {
   ONE_HOUR = 'ONE_HOUR',
   TWELVE_HOURS = 'TWELVE_HOURS',
   ONE_DAY = 'ONE_DAY',
-  SEVEN_DAYS = 'SEVEN_DAYS'
+  SEVEN_DAYS = 'SEVEN_DAYS',
 }
 
 export interface TrendingCollectionsQueryVariables extends PaginationArgs {

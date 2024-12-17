@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -37,7 +37,7 @@ code {
   border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
-  opacity: .75;
+  opacity: 0.75;
 }
 .nav .links {
   display: grid;
@@ -46,13 +46,12 @@ code {
 
 .nav a:hover {
   opacity: 1;
-  background: #292A2B;
+  background: #292a2b;
 }
 
 .search {
   display: inline-flex;
   margin: 16px auto;
-
 }
 .search button {
   background: #434445;
@@ -61,7 +60,7 @@ code {
   height: 40px;
   padding: 0 16px;
   font-weight: 600;
-    transition: all 150ms ease-out;
+  transition: all 150ms ease-out;
 
   cursor: pointer;
   font-size: 16px;
@@ -81,16 +80,16 @@ code {
 
 .empty {
   padding: 32px;
-  background: #292A2B;
+  background: #292a2b;
   border-radius: 6px;
-  color: #AEAEB2;
+  color: #aeaeb2;
   text-align: center;
 }
 
 .mono {
   text-align: right;
   font-family: 'Roboto Mono', monospace;
-  opacity: .75;
+  opacity: 0.75;
 }
 
 :root {
@@ -98,7 +97,7 @@ code {
 }
 
 .card {
-  background: #292A2B;
+  background: #292a2b;
   padding: 16px;
   margin: 32px;
   border-radius: 12px;
@@ -144,7 +143,7 @@ code {
 }
 
 .top h2 {
-  opacity: .5;
+  opacity: 0.5;
   margin-top: 12px;
   font-size: 16px;
 }

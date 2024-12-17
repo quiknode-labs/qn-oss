@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { IcyProvider } from '@quicknode/icy-nft-hooks';
 
 import './styles.css';
@@ -18,7 +14,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const apiKey = process.env['NX_ICY_API_KEY'] || ''
+const apiKey = process.env['NX_ICY_API_KEY'] || '';
 
 root.render(
   <React.StrictMode>

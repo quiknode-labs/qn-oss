@@ -108,9 +108,7 @@ const { nfts, loading, isSearchValid } = useWalletNFTs({
     ensName: string;
   }
 
-  export type WalletNFTsQueryVariables =
-    | WalletNFTsQueryAddressVariables
-    | WalletNFTsQueryENSVariables;
+  export type WalletNFTsQueryVariables = WalletNFTsQueryAddressVariables | WalletNFTsQueryENSVariables;
   ```
 
 ###### returns:

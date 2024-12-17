@@ -128,9 +128,10 @@ export class Solana {
     feeType: PriorityFeeLevels = 'medium'
   ) {
     const { result } = await this.fetchEstimatePriorityFees({});
-    const priorityFee = feeType === 'recommended'
-      ? result.recommended
-      : result.per_compute_unit[feeType];
+    const priorityFee =
+      feeType === 'recommended'
+        ? result.recommended
+        : result.per_compute_unit[feeType];
 
     const priorityFeeInstruction = ComputeBudgetProgram.setComputeUnitPrice({
       microLamports: priorityFee,

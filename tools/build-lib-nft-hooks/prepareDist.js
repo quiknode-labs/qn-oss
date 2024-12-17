@@ -16,7 +16,7 @@ const path = require('path');
 
 const libPath = `packages/libs/ui/nft-react-hooks`;
 const distRoot = `${__dirname}/../../dist/${libPath}`;
-fs.copyFileSync(`${distRoot}/package.json`,  `${__dirname}/package.json`);
+fs.copyFileSync(`${distRoot}/package.json`, `${__dirname}/package.json`);
 
 const packageJson = require('./package.json');
 
@@ -35,13 +35,13 @@ delete packageJson.scripts;
 delete packageJson.bundlesize;
 delete packageJson.engines;
 
-packageJson.main = './main.cjs'
+packageJson.main = './main.cjs';
 
 // The root package.json points to the CJS/ESM source in "dist", to support
 // on-going package development (e.g. running tests, supporting npm link, etc.).
 // When publishing from "dist" however, we need to update the package.json
 // to point to the files within the same directory.
-const distPackageJson = JSON.stringify(packageJson, null, 2) + "\n";
+const distPackageJson = JSON.stringify(packageJson, null, 2) + '\n';
 
 // Save the modified package.json to "dist"
 fs.writeFileSync(`${distRoot}/package.json`, distPackageJson);
@@ -50,5 +50,4 @@ fs.unlinkSync(`${__dirname}/package.json`);
 // Copy supporting files into "dist"
 const topDir = `${__dirname}/../..`;
 // fs.copyFileSync(`${topDir}/${libPath}/README.md`,  `${distRoot}/README.md`);
-fs.copyFileSync(`${topDir}/LICENSE.txt`,  `${distRoot}/LICENSE.txt`);
-
+fs.copyFileSync(`${topDir}/LICENSE.txt`, `${distRoot}/LICENSE.txt`);

@@ -23,7 +23,7 @@ type PercentileRangeUnion =
   | '95'
   | '100';
 
-export type PriorityFeeLevels = 'low' | 'medium' | 'high' | 'extreme';
+export type PriorityFeeLevels = 'low' | 'medium' | 'high' | 'extreme' | 'recommended';
 
 export interface PriorityFeeRequestPayload {
   method: string;
@@ -53,6 +53,7 @@ export interface PriorityFeeResponseData {
     };
     per_compute_unit: PriorityFeeEstimates;
     per_transaction: PriorityFeeEstimates;
+    recommended: number;
   };
   id: number;
 }

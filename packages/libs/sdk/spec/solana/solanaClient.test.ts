@@ -39,6 +39,7 @@ describe('solana client', () => {
     await withPolly(
       {
         recordingName: 'solana-client-sendSmartTransaction',
+        recordIfMissing: true
       },
       async () => {
         const transaction = new Transaction();
@@ -64,6 +65,7 @@ describe('solana client', () => {
     await withPolly(
       {
         recordingName: 'solana-client-prepareSmartTransaction',
+        recordIfMissing: true
       },
       async () => {
         const transaction = new Transaction();
@@ -156,6 +158,7 @@ describe('solana client', () => {
     await withPolly(
       {
         recordingName: 'solana-client-fetchEstimatePriorityFees',
+        recordIfMissing: true
       },
       async () => {
         await expect(solana.fetchEstimatePriorityFees()).resolves

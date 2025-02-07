@@ -157,8 +157,11 @@ export class Solana {
       sigVerify: false,
     });
     if (simulation.value.err) {
-      console.error('Simulation error:', simulation.value.err);
-      throw new Error(`Failed to simulate transaction ${simulation.value.err}`);
+      const errorMsg =
+        typeof simulation.value.err === 'string'
+          ? simulation.value.err
+          : JSON.stringify(simulation.value.err);
+      throw new Error(`Failed to simulate transaction: ${errorMsg}`);
     }
     return simulation.value.unitsConsumed;
   }

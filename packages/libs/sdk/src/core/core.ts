@@ -21,14 +21,14 @@ export class Core {
 
   constructor({ endpointUrl, chain, config = {} }: CoreArguments) {
     setupGlobalFetch();
-    const clientHeaders = getClientHeaders()
+    const clientHeaders = getClientHeaders();
     this.endpointUrl = endpointUrl;
     const baseClient = createClient({
       chain: chain || deriveChainFromUrl(endpointUrl),
       transport: http(this.endpointUrl, {
         fetchOptions: {
-          headers: clientHeaders
-        }
+          headers: clientHeaders,
+        },
       }),
     }).extend(publicActions);
 

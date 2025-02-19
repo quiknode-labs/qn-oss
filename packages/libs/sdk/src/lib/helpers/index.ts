@@ -1,2 +1,2 @@
-export * from './globalFetch'
-export * from './getClientHeaders'
+export * from './globalFetch';
+export * from './getClientHeaders';

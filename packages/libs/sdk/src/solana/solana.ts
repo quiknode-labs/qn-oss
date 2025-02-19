@@ -25,7 +25,9 @@ export class Solana {
   constructor({ endpointUrl }: SolanaClientArgs) {
     const clientHeaders = getClientHeaders();
     this.endpointUrl = endpointUrl;
-    this.connection = new Connection(endpointUrl, { httpHeaders: clientHeaders });
+    this.connection = new Connection(endpointUrl, {
+      httpHeaders: clientHeaders,
+    });
   }
 
   /**

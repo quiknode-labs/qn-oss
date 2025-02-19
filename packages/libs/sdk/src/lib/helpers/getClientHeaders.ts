@@ -1,4 +1,4 @@
-import { PACKAGE_VERSION } from 'lib/constants';
+import { PACKAGE_VERSION } from '../../lib/constants';
 
 // Headers to use in RPC clients
 export function getClientHeaders(): { [key: string]: string } {

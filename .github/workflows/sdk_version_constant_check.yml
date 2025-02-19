@@ -1,0 +1,47 @@
+name: SDK Version Constant Check
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/libs/sdk/**'
+  pull_request:
+    paths:
+      - 'packages/libs/sdk/**'
+
+jobs:
+  check-versions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Check version consistency
+        id: version-check
+        run: |
+          # Get version from package.json
+          PACKAGE_VERSION=$(jq -r '.version' packages/libs/sdk/package.json)
+          echo "Package.json version: $PACKAGE_VERSION"
+
+          # Get version from constants.ts
+          CONSTANTS_VERSION=$(grep -o "PACKAGE_VERSION = '[^']*'" packages/libs/sdk/src/lib/constants.ts | cut -d"'" -f2)
+          echo "Constants.ts version: $CONSTANTS_VERSION"
+
+          # Compare versions
+          if [ "$PACKAGE_VERSION" = "$CONSTANTS_VERSION" ]; then
+            echo "✅ Versions match: $PACKAGE_VERSION"
+            exit 0
+          else
+            echo "❌ Version mismatch! package.json: $PACKAGE_VERSION, constants.ts: $CONSTANTS_VERSION"
+            exit 1
+          fi

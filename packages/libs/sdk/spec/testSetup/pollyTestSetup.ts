@@ -41,6 +41,7 @@ export default async function withPolly(
           'x-api-key',
           'x-quicknode-sdk',
           'x-quicknode-sdk-version',
+          'x-qn-sdk-version',
           'content-length',
         ],
       },

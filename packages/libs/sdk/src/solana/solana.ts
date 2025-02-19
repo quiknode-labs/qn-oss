@@ -16,14 +16,18 @@ import {
   type SendSmartTransactionArgs,
   type PrepareSmartTransactionArgs,
 } from './types';
+import { getClientHeaders } from '../lib/helpers';
 
 export class Solana {
   readonly endpointUrl: string;
   readonly connection: Connection;
 
   constructor({ endpointUrl }: SolanaClientArgs) {
+    const clientHeaders = getClientHeaders();
     this.endpointUrl = endpointUrl;
-    this.connection = new Connection(endpointUrl);
+    this.connection = new Connection(endpointUrl, {
+      httpHeaders: clientHeaders,
+    });
   }
 
   /**

@@ -7,7 +7,7 @@ import {
   type QNCoreClient,
 } from './coreTypes';
 import { deriveChainFromUrl } from './chains';
-import { setupGlobalFetch } from '../lib/helpers/globalFetch';
+import { setupGlobalFetch, getClientHeaders } from '../lib/helpers';
 
 export const buildQNActions = (config: QNCoreClientConfig) => {
   return (client: Client): NFTAndTokenActions => ({
@@ -21,10 +21,15 @@ export class Core {
 
   constructor({ endpointUrl, chain, config = {} }: CoreArguments) {
     setupGlobalFetch();
+    const clientHeaders = getClientHeaders();
     this.endpointUrl = endpointUrl;
     const baseClient = createClient({
       chain: chain || deriveChainFromUrl(endpointUrl),
-      transport: http(this.endpointUrl),
+      transport: http(this.endpointUrl, {
+        fetchOptions: {
+          headers: clientHeaders,
+        },
+      }),
     }).extend(publicActions);
 
     const qnClient = baseClient.extend(buildQNActions(config));

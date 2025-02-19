@@ -34,7 +34,7 @@ jobs:
           echo "Package.json version: $PACKAGE_VERSION"
 
           # Get version from constants.ts
-          CONSTANTS_VERSION=$(grep -o 'PACKAGE_VERSION = "[^"]*"' packages/libs/sdk/src/lib/constants.ts | cut -d'"' -f2)
+          CONSTANTS_VERSION=$(grep -o "PACKAGE_VERSION = '[^']*'" packages/libs/sdk/src/lib/constants.ts | cut -d"'" -f2)
           echo "Constants.ts version: $CONSTANTS_VERSION"
 
           # Compare versions

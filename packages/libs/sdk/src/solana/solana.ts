@@ -162,7 +162,9 @@ export class Solana {
     });
     if (simulation.value.err) {
       console.error('Simulation error:', simulation.value.err);
-      throw new Error(`Failed to simulate transaction ${simulation.value.err}`);
+      throw new Error(
+        `Failed to simulate transaction ${JSON.stringify(simulation.value.err)}`
+      );
     }
     return simulation.value.unitsConsumed;
   }

@@ -18,10 +18,15 @@ import {
   cyber,
   cyberTestnet,
   fantom,
+  flare,
+  flareTestnet,
   gnosis,
   goerli,
   holesky,
   harmonyOne,
+  immutableZkEvm,
+  immutableZkEvmTestnet,
+  linea,
   mainnet,
   mantle,
   mantleSepoliaTestnet,
@@ -38,6 +43,7 @@ import {
   scrollSepolia,
   sei,
   seiDevnet,
+  xLayer,
   Chain,
 } from 'viem/chains';
 import { ValueOf } from '../lib/types';
@@ -84,6 +90,12 @@ const qnChainToViemChain: Record<string, Chain> = {
   'sei-arctic': seiDevnet,
   'ethereum-sepolia': sepolia,
   'ethereum-holesky': holesky,
+  'flare-mainnet': flare,
+  'flare-coston2': flareTestnet,
+  'imx-testnet': immutableZkEvmTestnet,
+  'imx-mainnet': immutableZkEvm,
+  'linea-mainnet': linea,
+  'xlayer-mainnet': xLayer,
 };
 
 function chainNameFromEndpoint(endpointUrl: string): string {

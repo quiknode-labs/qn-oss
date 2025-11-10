@@ -9,6 +9,7 @@ export enum OWNERSHIP_STATUS {
   'VERIFIED',
   'SIGNED',
   'DENIED',
+  'ERROR',
 }
 
 export enum WALLET_PROVIDERS {

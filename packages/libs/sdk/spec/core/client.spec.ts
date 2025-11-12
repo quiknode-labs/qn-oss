@@ -159,6 +159,360 @@ describe('core client', () => {
     });
     chainName = endpoint.client.chain?.name;
     expect(chainName).toEqual('Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.arbitrum-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Arbitrum Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.arbitrum-nova.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Arbitrum Nova');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.base-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Base');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.base-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Base Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.bera-artio.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Berachain Artio');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.blast-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Blast');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.blast-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Blast Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.cyber-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Cyber');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.cyber-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Cyber Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.gnosis.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Gnosis');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.ethereum-holesky.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Holesky');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.mantle-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Mantle');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.mantle-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Mantle Sepolia Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.optimism-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('OP Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.polygon.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Polygon');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.scroll-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Scroll');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.scroll-testnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Scroll Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.matic-amoy.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Polygon Amoy');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.sei-pacific.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Sei Network');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.sei-arctic.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Sei Devnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.0g-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('0G Mainnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.0g-galileo.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('0G Galileo Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.abstract-testnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Abstract Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.abstract-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Abstract');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.b3-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('B3');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.b3-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('B3 Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.flare-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Flare Mainnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.flare-coston2.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Flare Testnet Coston2');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.gravity-alpham.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Gravity Alpha Mainnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.hemi-testnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Hemi Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.hemi-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Hemi');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.hype-testnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Hyperliquid EVM Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.imx-testnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Immutable zkEVM Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.imx-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Immutable zkEVM');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.ink-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Ink');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.ink-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Ink Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.joc-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Japan Open Chain Mainnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.kaia-kairos.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Kairos Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.kaia-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Kaia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.linea-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Linea Mainnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.monad-testnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Monad Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.morph-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Morph');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.nomina-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Nomina');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.peaq-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Peaq');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.plasma-testnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Plasma Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.plasma-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Plasma');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.soneium-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Soneium Mainnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.sonic-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Sonic');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.story-aeneid.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Story Aeneid');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.story-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Story');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.unichain-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Unichain');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.unichain-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Unichain Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.vana-moksha.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Vana Moksha Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.vana-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Vana');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.worldchain-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('World Chain');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.worldchain-sepolia.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('World Chain Sepolia');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.xai-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Xai Mainnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.xai-testnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('Xai Testnet');
+
+    endpoint = new Core({
+      endpointUrl: 'https://some-cool-name.xlayer-mainnet.quiknode.pro/abcd/',
+    });
+    chainName = endpoint.client.chain?.name;
+    expect(chainName).toEqual('X Layer Mainnet');
   });
 
   it('can derive network name from discover endpoints', () => {

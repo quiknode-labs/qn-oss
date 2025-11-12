@@ -485,13 +485,15 @@ describe('core client', () => {
     expect(chainName).toEqual('Vana');
 
     endpoint = new Core({
-      endpointUrl: 'https://some-cool-name.worldchain-mainnet.quiknode.pro/abcd/',
+      endpointUrl:
+        'https://some-cool-name.worldchain-mainnet.quiknode.pro/abcd/',
     });
     chainName = endpoint.client.chain?.name;
     expect(chainName).toEqual('World Chain');
 
     endpoint = new Core({
-      endpointUrl: 'https://some-cool-name.worldchain-sepolia.quiknode.pro/abcd/',
+      endpointUrl:
+        'https://some-cool-name.worldchain-sepolia.quiknode.pro/abcd/',
     });
     chainName = endpoint.client.chain?.name;
     expect(chainName).toEqual('World Chain Sepolia');

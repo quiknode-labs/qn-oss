@@ -6,7 +6,6 @@ describe('client.qn_getTransfersByNFT', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTransfersByNFT',
-        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_getTransfersByNFT({
@@ -38,7 +37,6 @@ describe('client.qn_getTransfersByNFT', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTransfersByNFT-multiplePages',
-        recordIfMissing: true,
       },
       async () => {
         const data1 = await core.client.qn_getTransfersByNFT({

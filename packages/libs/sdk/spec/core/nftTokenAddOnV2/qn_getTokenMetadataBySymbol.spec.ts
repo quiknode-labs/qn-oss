@@ -6,7 +6,6 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTokenMetadataBySymbol',
-        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_getTokenMetadataBySymbol({
@@ -58,7 +57,6 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTokenMetadataBySymbol-pagination',
-        recordIfMissing: true,
       },
       async () => {
         const dataPage1 = await core.client.qn_getTokenMetadataBySymbol({

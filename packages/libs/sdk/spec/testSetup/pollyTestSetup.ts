@@ -11,11 +11,13 @@ import FileSystemPersister from '@pollyjs/persister-fs';
  * Network interactions are saved in the `recordings/` directory.
  * https://netflix.github.io/pollyjs/#/README
  * This is analogous to how the VCR gem in Ruby.
+ *
+ * Environment variable POLLY_RECORD_IF_MISSING can be set to 'true' to enable recording missing interactions.
  */
 export default async function withPolly(
   {
     recordingName,
-    recordIfMissing = false,
+    recordIfMissing = process.env['POLLY_RECORD_IF_MISSING'] === 'true',
     recordFailedRequests = false,
   }: {
     recordingName: string;

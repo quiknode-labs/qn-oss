@@ -6,7 +6,6 @@ describe('client.qn_verifyNFTsOwner', () => {
     await withPolly(
       {
         recordingName: 'core-qnVerifyNFTsOwner',
-        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_verifyNFTsOwner({

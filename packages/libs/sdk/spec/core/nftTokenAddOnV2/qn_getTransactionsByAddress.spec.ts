@@ -6,7 +6,6 @@ describe('client.qn_getTransactionsByAddress', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTransactionsByAddress',
-        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_getTransactionsByAddress({
@@ -43,7 +42,6 @@ describe('client.qn_getTransactionsByAddress', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTransactionsByAddress-pagination',
-        recordIfMissing: true,
       },
       async () => {
         const dataPage1 = await core.client.qn_getTransactionsByAddress({
@@ -109,7 +107,6 @@ describe('client.qn_getTransactionsByAddress', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTransactionsByAddress-fromBlock',
-        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_getTransactionsByAddress({

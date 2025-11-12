@@ -18,7 +18,6 @@ describe('core client', () => {
     await withPolly(
       {
         recordingName: 'core-client-viem-basic-function',
-        recordIfMissing: true,
       },
       async () => {
         await expect(
@@ -81,7 +80,7 @@ describe('core client', () => {
       endpointUrl: 'https://some-cool-name.bsc-testnet.quiknode.pro/abcd/',
     });
     chainName = endpoint.client.chain?.name;
-    expect(chainName).toEqual('Binance Smart Chain Testnet');
+    expect(chainName).toEqual('BNB Smart Chain Testnet');
 
     endpoint = new Core({
       endpointUrl: 'https://some-cool-name.celo-mainnet.quiknode.pro/abcd/',

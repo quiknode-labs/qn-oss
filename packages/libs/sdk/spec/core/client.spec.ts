@@ -18,12 +18,12 @@ describe('core client', () => {
     await withPolly(
       {
         recordingName: 'core-client-viem-basic-function',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         await expect(
           core.client.getBlockNumber()
-        ).resolves.toMatchInlineSnapshot(`17667183n`);
+        ).resolves.toMatchInlineSnapshot(`23784444n`);
       }
     );
   });

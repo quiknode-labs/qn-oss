@@ -6,7 +6,7 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTokenMetadataBySymbol',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_getTokenMetadataBySymbol({
@@ -18,16 +18,16 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
             "pageNumber": 1,
             "tokens": Array [
               Object {
-                "contractAddress": "0x526f0603a845e4c324d5c40888f109f1c3633828",
+                "contractAddress": "0x32d222e1f6386b3df7065d639870be0ef76d3599",
                 "decimals": "18",
-                "genesisBlock": "17447077",
-                "genesisTransaction": "0x5a741eae0996c754b9c57ed0c4bff266360ae5ffb50420e1ac56b9ee1c0f50d5",
-                "name": "WETH",
+                "genesisBlock": null,
+                "genesisTransaction": null,
+                "name": "Wrapped Ether",
                 "symbol": "WETH",
               },
             ],
-            "totalItems": 122,
-            "totalPages": 122,
+            "totalItems": 742,
+            "totalPages": 742,
           }
         `);
       }
@@ -58,7 +58,7 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTokenMetadataBySymbol-pagination',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         const dataPage1 = await core.client.qn_getTokenMetadataBySymbol({
@@ -71,16 +71,16 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
             "pageNumber": 1,
             "tokens": Array [
               Object {
-                "contractAddress": "0x526f0603a845e4c324d5c40888f109f1c3633828",
+                "contractAddress": "0x32d222e1f6386b3df7065d639870be0ef76d3599",
                 "decimals": "18",
-                "genesisBlock": "17447077",
-                "genesisTransaction": "0x5a741eae0996c754b9c57ed0c4bff266360ae5ffb50420e1ac56b9ee1c0f50d5",
-                "name": "WETH",
+                "genesisBlock": null,
+                "genesisTransaction": null,
+                "name": "Wrapped Ether",
                 "symbol": "WETH",
               },
             ],
-            "totalItems": 122,
-            "totalPages": 122,
+            "totalItems": 742,
+            "totalPages": 742,
           }
         `);
 
@@ -94,16 +94,16 @@ describe('client.qn_getTokenMetadataBySymbol', () => {
             "pageNumber": 2,
             "tokens": Array [
               Object {
-                "contractAddress": "0x9ca936be17ba328efdaead3df5e661f6889a9400",
+                "contractAddress": "0xe0b469cb3eda0ece9e425cfeda4df986a55ea9f8",
                 "decimals": "18",
-                "genesisBlock": "14485068",
-                "genesisTransaction": "0xaf93e7499413102511cf3932e8c8c0d8634153d094374e59a610e78c2a49ac0b",
-                "name": "Wrapped Ether",
+                "genesisBlock": "16925720",
+                "genesisTransaction": "0x3a2bd9de44ec0d17295e1b5d7eeabbe119d2fb7113423e234667b0ec977f778f",
+                "name": "Wrapped ETH",
                 "symbol": "WETH",
               },
             ],
-            "totalItems": 122,
-            "totalPages": 122,
+            "totalItems": 742,
+            "totalPages": 742,
           }
         `);
       }

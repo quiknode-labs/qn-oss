@@ -6,7 +6,7 @@ describe('client.qn_getWalletTokenBalance', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetWalletTokenBalance',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_getWalletTokenBalance({
@@ -15,6 +15,9 @@ describe('client.qn_getWalletTokenBalance', () => {
         });
         expect(data).toMatchInlineSnapshot(`
           Object {
+            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
+            "ensName": null,
+            "nativeTokenBalance": "41.409291790342283658",
             "pageNumber": 1,
             "result": Array [
               Object {
@@ -27,8 +30,8 @@ describe('client.qn_getWalletTokenBalance', () => {
                 "totalBalance": "3289000000",
               },
             ],
-            "totalItems": 84,
-            "totalPages": 84,
+            "totalItems": 120,
+            "totalPages": 120,
           }
         `);
       }
@@ -39,7 +42,7 @@ describe('client.qn_getWalletTokenBalance', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetWalletTokenBalance-withContracts',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_getWalletTokenBalance({
@@ -49,16 +52,19 @@ describe('client.qn_getWalletTokenBalance', () => {
         });
         expect(data).toMatchInlineSnapshot(`
           Object {
+            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
+            "ensName": null,
+            "nativeTokenBalance": "41.409291790342283658",
             "pageNumber": 1,
             "result": Array [
               Object {
                 "address": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
                 "decimals": "18",
                 "name": "Uniswap",
-                "quantityIn": "38991442340000000000",
+                "quantityIn": "38991542340000000000",
                 "quantityOut": "0",
                 "symbol": "UNI",
-                "totalBalance": "38991442340000000000",
+                "totalBalance": "38991542340000000000",
               },
             ],
             "totalItems": 1,
@@ -73,7 +79,7 @@ describe('client.qn_getWalletTokenBalance', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetWalletTokenBalance-pagination',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         let data = await core.client.qn_getWalletTokenBalance({
@@ -83,6 +89,9 @@ describe('client.qn_getWalletTokenBalance', () => {
         });
         expect(data).toMatchInlineSnapshot(`
           Object {
+            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
+            "ensName": null,
+            "nativeTokenBalance": "41.409291790342283658",
             "pageNumber": 1,
             "result": Array [
               Object {
@@ -95,8 +104,8 @@ describe('client.qn_getWalletTokenBalance', () => {
                 "totalBalance": "3289000000",
               },
             ],
-            "totalItems": 84,
-            "totalPages": 84,
+            "totalItems": 120,
+            "totalPages": 120,
           }
         `);
 
@@ -107,20 +116,23 @@ describe('client.qn_getWalletTokenBalance', () => {
         });
         expect(data).toMatchInlineSnapshot(`
           Object {
+            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
+            "ensName": null,
+            "nativeTokenBalance": "41.409291790342283658",
             "pageNumber": 2,
             "result": Array [
               Object {
-                "address": "0x02ba9b528425f9de08f961b88a10b03be8b8b998",
+                "address": "0x0131c9a2fe609f03f6f7a0cf850a417a648c695e",
                 "decimals": "18",
-                "name": "MASQ",
-                "quantityIn": "12000000000000000000000",
+                "name": "mbird.fun",
+                "quantityIn": "1800000000000000000000",
                 "quantityOut": "0",
-                "symbol": "MASQ",
-                "totalBalance": "12000000000000000000000",
+                "symbol": "mbird.fun",
+                "totalBalance": "1800000000000000000000",
               },
             ],
-            "totalItems": 84,
-            "totalPages": 84,
+            "totalItems": 120,
+            "totalPages": 120,
           }
         `);
       }

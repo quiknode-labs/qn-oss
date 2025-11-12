@@ -6,7 +6,7 @@ describe('client.qn_getTokenMetadataByContractAddress', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetTokenMetadataByContractAddress',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_getTokenMetadataByContractAddress({

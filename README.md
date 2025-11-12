@@ -4,7 +4,7 @@
 
 ## Packages
 
-- [QuickNode SDK](./packages/libs/sdk/README.md): Framework agnostic library that serves as a wrapper to QuickNode's APIs, currently supports [the QuickNode GraphQL API](https://docs.quicknode.com/docs/graphql/getting-started).
+- [QuickNode SDK](./packages/libs/sdk/README.md): Framework agnostic library that serves as a wrapper to QuickNode's APIs and an easy way to use your endpoint
 - [Token Gate](./packages/libs/ui/token-gate): A React library for conditionally showing parts of your application based on NFT ownership
 - [nft-react-hooks](./packages/libs/ui/nft-react-hooks/README.md): React hook library that serves as a wrapper to the [icy.tools GraphQL API](https://developers.icy.tools).
 

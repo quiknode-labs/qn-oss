@@ -6,7 +6,7 @@ describe('client.qn_fetchNFTCollectionDetails', () => {
     await withPolly(
       {
         recordingName: 'core-qnFetchNFTCollectionDetails',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_fetchNFTCollectionDetails({
@@ -16,7 +16,7 @@ describe('client.qn_fetchNFTCollectionDetails', () => {
           Array [
             Object {
               "address": "0x2106c00ac7da0a3430ae667879139e832307aeaa",
-              "circulatingSupply": 9988,
+              "circulatingSupply": 9966,
               "description": "Loopy Donuts",
               "erc1155": false,
               "erc721": true,

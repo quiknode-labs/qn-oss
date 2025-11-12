@@ -6,7 +6,7 @@ describe('client.qnFetchNFTs', () => {
     await withPolly(
       {
         recordingName: 'core-qnFetchNFTs',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_fetchNFTs({
@@ -18,31 +18,43 @@ describe('client.qnFetchNFTs', () => {
             "assets": Array [
               Object {
                 "chain": "ETH",
-                "collectionAddress": "0xc1eab49cf9d2e23e43bcf23b36b2be14fc2f8838",
-                "collectionName": "Mokens",
-                "collectionTokenId": "330",
-                "description": "",
-                "imageUrl": "",
-                "name": "",
+                "collectionAddress": "0x0447433bd197f03be984a6053241ae8d347c5539",
+                "collectionName": "LogicBots",
+                "collectionTokenId": "292",
+                "description": "RobotADay  
+          Logic_Bot 307  
+          2023/5/29
+
+          \\"Strange Attractor\\"  
+          Inspired by Track 5 from \\"Fractal Canyons\\" by LogicBeach  
+           https://open.spotify.com/album/5eoRkx0N4gzc7QlzuD8fAk?si=ozuHUYvlSzmAPpdOdIhiEA",
+                "imageUrl": "https://arweave.net/bnHxrwiCsP6HFLNW3XkEya_YvkPcD4usoFd3kb2zL5Q",
+                "name": "307",
                 "network": "MAINNET",
-                "traits": Array [],
+                "traits": Array [
+                  Object {
+                    "trait_type": "Artist",
+                    "value": "logicbeach",
+                  },
+                ],
               },
               Object {
                 "chain": "ETH",
-                "collectionAddress": "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85",
-                "collectionName": "ENS: Ethereum Name Service",
-                "collectionTokenId": "50685890871471191256342199015362929537282628462001704949203871531598631920212",
-                "description": "",
-                "imageUrl": "",
-                "name": "",
+                "collectionAddress": "0x2c4e64832208db7dc0a416a2bc46428ed9de6e1f",
+                "collectionName": "APE Mysterybox NFT",
+                "collectionTokenId": "1",
+                "description": "If you received this NFT you are the lucky owner of a APE Mysterybox NFT! Holders of the APE Mysterybox NFT can exchange this for APE rewards. For more information visit: https://apy-apecoin.com",
+                "imageUrl": "https://ipfs.io/ipfs/QmQKR5TTq3honjFZNHHVGidwsPB7vAv59DYfWqzDsZZNfm",
+                "name": "APE Mysterybox NFT",
                 "network": "MAINNET",
                 "traits": Array [],
               },
             ],
-            "owner": "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6",
+            "ensName": null,
+            "owner": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
             "pageNumber": 1,
-            "totalItems": 48,
-            "totalPages": 24,
+            "totalItems": 85,
+            "totalPages": 43,
           }
         `);
       }
@@ -53,7 +65,7 @@ describe('client.qnFetchNFTs', () => {
     await withPolly(
       {
         recordingName: 'core-qnFetchNFTs-walletAndContracts',
-        recordIfMissing: false,
+        recordIfMissing: true,
       },
       async () => {
         const data = await core.client.qn_fetchNFTs({
@@ -69,24 +81,25 @@ describe('client.qnFetchNFTs', () => {
                 "chain": "ETH",
                 "collectionAddress": "0x2106c00ac7da0a3430ae667879139e832307aeaa",
                 "collectionName": "Loopy Donuts",
-                "collectionTokenId": "3972",
+                "collectionTokenId": "3734",
                 "description": "",
-                "imageUrl": "",
-                "name": "Loopy Donut #3972",
+                "imageUrl": "https://quicknode-content.quicknode-ipfs.com/ipfs/QmSNmVFTJv6cG9M8ZRU8T9F4Kz9HHxmV85ssGP5W8ZsTPa/3734.png",
+                "name": "Loopy Donut #3734",
                 "network": "MAINNET",
               },
               Object {
                 "chain": "ETH",
                 "collectionAddress": "0x2106c00ac7da0a3430ae667879139e832307aeaa",
                 "collectionName": "Loopy Donuts",
-                "collectionTokenId": "9925",
+                "collectionTokenId": "3972",
                 "description": "",
-                "imageUrl": "https://quicknode.mypinata.cloud/ipfs/QmSNmVFTJv6cG9M8ZRU8T9F4Kz9HHxmV85ssGP5W8ZsTPa/9925.png",
-                "name": "Loopy Donut #9925",
+                "imageUrl": "https://quicknode-content.quicknode-ipfs.com/ipfs/QmSNmVFTJv6cG9M8ZRU8T9F4Kz9HHxmV85ssGP5W8ZsTPa/3972.png",
+                "name": "Loopy Donut #3972",
                 "network": "MAINNET",
               },
             ],
-            "owner": "0xD10E24685c7CDD3cd3BaAA86b09C92Be28c834B6",
+            "ensName": null,
+            "owner": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
             "pageNumber": 1,
             "totalItems": 3,
             "totalPages": 2,

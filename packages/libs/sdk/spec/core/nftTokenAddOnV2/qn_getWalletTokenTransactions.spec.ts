@@ -6,7 +6,6 @@ describe('client.qn_getWalletTokenTransactions', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetWalletTokenTransactions',
-        recordIfMissing: false,
       },
       async () => {
         const data = await core.client.qn_getWalletTokenTransactions({
@@ -52,7 +51,6 @@ describe('client.qn_getWalletTokenTransactions', () => {
     await withPolly(
       {
         recordingName: 'core-qnGetWalletTokenTransactions-pagination',
-        recordIfMissing: false,
       },
       async () => {
         let data = await core.client.qn_getWalletTokenTransactions({

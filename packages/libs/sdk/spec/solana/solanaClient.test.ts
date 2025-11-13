@@ -19,7 +19,6 @@ describe('solana client', () => {
     await withPolly(
       {
         recordingName: 'solana-client-fetchEstimatePriorityFees',
-        recordIfMissing: true,
       },
       async () => {
         await expect(solana.fetchEstimatePriorityFees()).resolves

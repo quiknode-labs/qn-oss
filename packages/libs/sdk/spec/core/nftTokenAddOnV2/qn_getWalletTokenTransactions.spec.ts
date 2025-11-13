@@ -15,24 +15,19 @@ describe('client.qn_getWalletTokenTransactions', () => {
         });
         expect(data).toMatchInlineSnapshot(`
           Object {
-            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-            "ensName": null,
             "pageNumber": 1,
             "paginatedItems": Array [
               Object {
-                "blockNumber": "23256301",
-                "decimalReceivedAmount": "0",
-                "decimalSentAmount": "0.0000001",
-                "fromAddress": "0xfdb30018891e5b03397d9f4ce8d8ec8e12150621",
-                "logIndex": 325,
-                "receivedAmount": "0",
-                "receivedTokenContractAddress": null,
-                "sentAmount": "100000000000",
-                "sentTokenContractAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-                "timestamp": "2025-08-30T20:19:35.000Z",
-                "toAddress": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-                "transactionHash": "0x1b54d38dc4ea15baec0e792ae7ef2f4862269717e9de4fb7cd5a48526730032b",
-                "type": "TRANSFER",
+                "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+                "blockNumber": "16443123",
+                "decimals": "18",
+                "name": "Wrapped Ether",
+                "quantityIn": "0",
+                "quantityOut": "39750000000000000",
+                "symbol": "WETH",
+                "timestamp": "2023-01-19T20:05:35.000Z",
+                "totalBalance": "-39750000000000000",
+                "transactionHash": "0xea0103e8e6deeed812e81ff81b384faa04bb173c759b08bfa8fae89c9026d059",
               },
             ],
             "token": Object {
@@ -44,8 +39,8 @@ describe('client.qn_getWalletTokenTransactions', () => {
               "name": "Wrapped Ether",
               "symbol": "WETH",
             },
-            "totalItems": 9,
-            "totalPages": 9,
+            "totalItems": 3,
+            "totalPages": 3,
           }
         `);
       }
@@ -66,24 +61,19 @@ describe('client.qn_getWalletTokenTransactions', () => {
         });
         expect(data).toMatchInlineSnapshot(`
           Object {
-            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-            "ensName": null,
             "pageNumber": 1,
             "paginatedItems": Array [
               Object {
-                "blockNumber": "23256301",
-                "decimalReceivedAmount": "0",
-                "decimalSentAmount": "0.0000001",
-                "fromAddress": "0xfdb30018891e5b03397d9f4ce8d8ec8e12150621",
-                "logIndex": 325,
-                "receivedAmount": "0",
-                "receivedTokenContractAddress": null,
-                "sentAmount": "100000000000",
-                "sentTokenContractAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-                "timestamp": "2025-08-30T20:19:35.000Z",
-                "toAddress": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-                "transactionHash": "0x1b54d38dc4ea15baec0e792ae7ef2f4862269717e9de4fb7cd5a48526730032b",
-                "type": "TRANSFER",
+                "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+                "blockNumber": "16443123",
+                "decimals": "18",
+                "name": "Wrapped Ether",
+                "quantityIn": "0",
+                "quantityOut": "39750000000000000",
+                "symbol": "WETH",
+                "timestamp": "2023-01-19T20:05:35.000Z",
+                "totalBalance": "-39750000000000000",
+                "transactionHash": "0xea0103e8e6deeed812e81ff81b384faa04bb173c759b08bfa8fae89c9026d059",
               },
             ],
             "token": Object {
@@ -95,8 +85,8 @@ describe('client.qn_getWalletTokenTransactions', () => {
               "name": "Wrapped Ether",
               "symbol": "WETH",
             },
-            "totalItems": 9,
-            "totalPages": 9,
+            "totalItems": 3,
+            "totalPages": 3,
           }
         `);
 
@@ -108,24 +98,19 @@ describe('client.qn_getWalletTokenTransactions', () => {
         });
         expect(data).toMatchInlineSnapshot(`
           Object {
-            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-            "ensName": null,
             "pageNumber": 2,
             "paginatedItems": Array [
               Object {
-                "blockNumber": "19689937",
-                "decimalReceivedAmount": "0",
-                "decimalSentAmount": "0.07075",
-                "fromAddress": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-                "logIndex": 229,
-                "receivedAmount": "0",
-                "receivedTokenContractAddress": null,
-                "sentAmount": "70750000000000000",
-                "sentTokenContractAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-                "timestamp": "2024-04-19T13:59:47.000Z",
-                "toAddress": "0x4b62fa30fea125e43780dc425c2be5acb4ba743b",
-                "transactionHash": "0x23ee6ff532c013e208701c56b690f64f5dd01265874a7ee56d6da1aec18d231e",
-                "type": "TRANSFER",
+                "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+                "blockNumber": "16443123",
+                "decimals": "18",
+                "name": "Wrapped Ether",
+                "quantityIn": "0",
+                "quantityOut": "79500000000000000",
+                "symbol": "WETH",
+                "timestamp": "2023-01-19T20:05:35.000Z",
+                "totalBalance": "-79500000000000000",
+                "transactionHash": "0xea0103e8e6deeed812e81ff81b384faa04bb173c759b08bfa8fae89c9026d059",
               },
             ],
             "token": Object {
@@ -137,8 +122,8 @@ describe('client.qn_getWalletTokenTransactions', () => {
               "name": "Wrapped Ether",
               "symbol": "WETH",
             },
-            "totalItems": 9,
-            "totalPages": 9,
+            "totalItems": 3,
+            "totalPages": 3,
           }
         `);
       }

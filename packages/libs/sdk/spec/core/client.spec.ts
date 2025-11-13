@@ -22,7 +22,7 @@ describe('core client', () => {
       async () => {
         await expect(
           core.client.getBlockNumber()
-        ).resolves.toMatchInlineSnapshot(`23784444n`);
+        ).resolves.toMatchInlineSnapshot(`17667183n`);
       }
     );
   });

@@ -23,7 +23,7 @@ describe('client.qn_fetchNFTsByCollection', () => {
                 "collectionName": "Loopy Donuts",
                 "collectionTokenId": "0",
                 "description": "",
-                "imageUrl": "https://quicknode-content.quicknode-ipfs.com/ipfs/QmSNmVFTJv6cG9M8ZRU8T9F4Kz9HHxmV85ssGP5W8ZsTPa/0.png",
+                "imageUrl": "https://quicknode.mypinata.cloud/ipfs/QmSNmVFTJv6cG9M8ZRU8T9F4Kz9HHxmV85ssGP5W8ZsTPa/0.png",
                 "name": "Loopy Donut #0",
                 "network": "MAINNET",
                 "traits": Array [
@@ -83,7 +83,7 @@ describe('client.qn_fetchNFTsByCollection', () => {
                 "collectionName": "Loopy Donuts",
                 "collectionTokenId": "0",
                 "description": "",
-                "imageUrl": "https://quicknode-content.quicknode-ipfs.com/ipfs/QmSNmVFTJv6cG9M8ZRU8T9F4Kz9HHxmV85ssGP5W8ZsTPa/0.png",
+                "imageUrl": "https://quicknode.mypinata.cloud/ipfs/QmSNmVFTJv6cG9M8ZRU8T9F4Kz9HHxmV85ssGP5W8ZsTPa/0.png",
                 "name": "Loopy Donut #0",
                 "network": "MAINNET",
                 "traits": Array [

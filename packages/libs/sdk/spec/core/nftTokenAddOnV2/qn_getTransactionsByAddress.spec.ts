@@ -14,24 +14,21 @@ describe('client.qn_getTransactionsByAddress', () => {
         });
         expect(data).toMatchInlineSnapshot(`
           Object {
-            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-            "ensName": null,
             "pageNumber": 1,
             "paginatedItems": Array [
               Object {
-                "blockNumber": "23298168",
-                "blockTimestamp": "2025-09-05T16:41:59.000Z",
+                "blockNumber": "17166949",
+                "blockTimestamp": "2023-05-01T15:44:59.000Z",
                 "contractAddress": null,
                 "fromAddress": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-                "status": "success",
-                "toAddress": "0x38c0dc5d3e6e98dcf02ac97829d019b2ee348d94",
-                "transactionHash": "0xfe07c2a7ff717b9c59355f8747cfe549e5d525356eb4ec39a4fdd9767f3febf4",
-                "transactionIndex": 84,
-                "value": "0",
+                "toAddress": "0x9d90669665607f08005cae4a7098143f554c59ef",
+                "transactionHash": "0x13a680b3899614265b0602569e592dafe4763f0acc9976d153b89abe8f646d5a",
+                "transactionIndex": 137,
+                "value": "2331000000000000",
               },
             ],
-            "totalItems": 556,
-            "totalPages": 556,
+            "totalItems": 516,
+            "totalPages": 516,
           }
         `);
       }
@@ -51,24 +48,21 @@ describe('client.qn_getTransactionsByAddress', () => {
         });
         expect(dataPage1).toMatchInlineSnapshot(`
           Object {
-            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-            "ensName": null,
             "pageNumber": 1,
             "paginatedItems": Array [
               Object {
-                "blockNumber": "23298168",
-                "blockTimestamp": "2025-09-05T16:41:59.000Z",
+                "blockNumber": "17166949",
+                "blockTimestamp": "2023-05-01T15:44:59.000Z",
                 "contractAddress": null,
                 "fromAddress": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-                "status": "success",
-                "toAddress": "0x38c0dc5d3e6e98dcf02ac97829d019b2ee348d94",
-                "transactionHash": "0xfe07c2a7ff717b9c59355f8747cfe549e5d525356eb4ec39a4fdd9767f3febf4",
-                "transactionIndex": 84,
-                "value": "0",
+                "toAddress": "0x9d90669665607f08005cae4a7098143f554c59ef",
+                "transactionHash": "0x13a680b3899614265b0602569e592dafe4763f0acc9976d153b89abe8f646d5a",
+                "transactionIndex": 137,
+                "value": "2331000000000000",
               },
             ],
-            "totalItems": 556,
-            "totalPages": 556,
+            "totalItems": 516,
+            "totalPages": 516,
           }
         `);
 
@@ -79,24 +73,21 @@ describe('client.qn_getTransactionsByAddress', () => {
         });
         expect(dataPage2).toMatchInlineSnapshot(`
           Object {
-            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-            "ensName": null,
             "pageNumber": 2,
             "paginatedItems": Array [
               Object {
-                "blockNumber": "23289114",
-                "blockTimestamp": "2025-09-04T10:19:59.000Z",
+                "blockNumber": "16802538",
+                "blockTimestamp": "2023-03-11T04:41:59.000Z",
                 "contractAddress": null,
                 "fromAddress": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-                "status": "success",
-                "toAddress": "0x4e1dcf7ad4e460cfd30791ccc4f9c8a4f820ec67",
-                "transactionHash": "0x265cc13825ed0d0ce00073633879012395befcaf9b55f771b183783e6ddaca50",
-                "transactionIndex": 81,
+                "toAddress": "0x881d40237659c251811cec9c364ef91dc08d300c",
+                "transactionHash": "0xa5f3d56cf9cb43ea80e66eab9e49b5e6513f16b4d33ba67a74998ceb7644b4ed",
+                "transactionIndex": 88,
                 "value": "0",
               },
             ],
-            "totalItems": 556,
-            "totalPages": 556,
+            "totalItems": 516,
+            "totalPages": 516,
           }
         `);
       }
@@ -117,8 +108,6 @@ describe('client.qn_getTransactionsByAddress', () => {
         });
         expect(data).toMatchInlineSnapshot(`
           Object {
-            "address": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-            "ensName": null,
             "pageNumber": 1,
             "paginatedItems": Array [
               Object {
@@ -126,7 +115,6 @@ describe('client.qn_getTransactionsByAddress', () => {
                 "blockTimestamp": "2023-05-01T15:44:59.000Z",
                 "contractAddress": null,
                 "fromAddress": "0xd10e24685c7cdd3cd3baaa86b09c92be28c834b6",
-                "status": "success",
                 "toAddress": "0x9d90669665607f08005cae4a7098143f554c59ef",
                 "transactionHash": "0x13a680b3899614265b0602569e592dafe4763f0acc9976d153b89abe8f646d5a",
                 "transactionIndex": 137,

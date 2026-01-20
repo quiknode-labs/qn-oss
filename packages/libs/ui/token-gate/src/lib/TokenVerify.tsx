@@ -10,12 +10,10 @@ export interface TokenGateProps {
   appElement: string;
   quicknodeUrl: string;
   nftContractAddress: string;
+  verificationMessage?: string;
 }
 
 // Using this global state to persist the verification state between page navigation
-// TODO: Can we do this with a localstorage or a cookie in a secure way?
-// that can't be faked by non-nft holders with an expiration?
-// TODO: Can we use redux here?
 const initialState = { fullyVerified: false, isModalOpen: false };
 const { useGlobalState } = createGlobalState<{
   fullyVerified: boolean;
@@ -27,6 +25,7 @@ export function TokenGate({
   appElement,
   nftContractAddress,
   quicknodeUrl,
+  verificationMessage = 'This message is used to verify your wallet ownership.\n\nSigning this message will not make any transactions.',
 }: TokenGateProps) {
   const browserProvider = new ethers.BrowserProvider((window as any).ethereum);
   const qnProvider = new JsonRpcProvider(quicknodeUrl);
@@ -82,12 +81,7 @@ export function TokenGate({
 
   async function validateWallet() {
     const signer = await browserProvider.getSigner();
-    // TODO: make message customizable
-    const message =
-      'This message is used to verify your wallet ownership.\n\nSigning this message will not make any transactions.';
-    await signer.signMessage(message);
-    // TODO: Store the hashed message, and re-verify hash instead of having to ask wallet to sign each time
-    // https://github.com/ethers-io/ethers.js/issues/447
+    await signer.signMessage(verificationMessage);
     setOwnershipStatus(OWNERSHIP_STATUS.SIGNED);
   }
 
@@ -103,8 +97,7 @@ export function TokenGate({
       }
     } catch (e) {
       console.error(e);
-      // TODO: make an error handler status
-      setOwnershipStatus(OWNERSHIP_STATUS.DENIED);
+      setOwnershipStatus(OWNERSHIP_STATUS.ERROR);
     }
   }
 

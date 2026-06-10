@@ -30,6 +30,9 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "supertest": "^6.3.3"
   },
+  "resolutions": {
+    "form-data": "^4.0.4"
+  },
   "scripts": {},
   "exports": {
     ".": {

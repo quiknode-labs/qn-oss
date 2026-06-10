@@ -115,6 +115,7 @@
     "webpack-merge": "^5.8.0"
   },
   "resolutions": {
-    "@babel/traverse": "^7.23.2"
+    "@babel/traverse": "^7.23.2",
+    "elliptic": "^6.6.1"
   }
 }

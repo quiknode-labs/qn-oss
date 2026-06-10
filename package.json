@@ -117,6 +117,7 @@
   "resolutions": {
     "@babel/traverse": "^7.23.2",
     "elliptic": "^6.6.1",
-    "form-data": "^4.0.4"
+    "form-data": "^4.0.4",
+    "shell-quote": "^1.8.4"
   }
 }
